@@ -1,0 +1,11 @@
+{
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+    "recommendations": [
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.vscodeintellicode-csharp",
+        "josefpihrt-vscode.roslynator",
+        "sonarsource.sonarlint-vscode",
+        "pflannery.vscode-versionlens",
+        "eamodio.gitlens"
+    ]
+}

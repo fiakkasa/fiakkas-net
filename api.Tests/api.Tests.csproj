@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="6.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="Snapshooter.Xunit" Version="0.14.1" />
+    <PackageReference Include="xunit" Version="2.8.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\api\api.csproj" />
+    <ProjectReference Include="..\api.Application\api.Application.csproj" />
+    <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
+    <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
+    <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
+    <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
+    <ProjectReference Include="..\api.Technologies\api.Technologies.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

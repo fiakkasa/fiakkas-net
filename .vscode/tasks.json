@@ -1,0 +1,30 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "run-api-tests",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "test",
+        "/p:CollectCoverage=true",
+        "/p:CoverletOutputFormat=cobertura",
+        "/p:CoverletOutput='./coverage.cobertura.xml"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/api/api.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
