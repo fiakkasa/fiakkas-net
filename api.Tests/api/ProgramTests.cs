@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using Snapshooter.Xunit;
 using System.Net;
+using System.Text.Json;
 
 namespace api.api.Tests;
 
@@ -12,12 +13,15 @@ public class ProgramTests
     {
         protected override IHost CreateHost(IHostBuilder builder)
         {
-            builder.ConfigureHostConfiguration(config =>
+            builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
+                config.Sources.Clear();
+
                 config.AddToConfigBuilder(
                     new()
                     {
-                        [Consts.DataFileSectionPath] = """
+                        [Consts.DataFileSectionPath] = JsonSerializer.Deserialize<object>(
+"""
 {
     "portfolioCategories": [
       {
@@ -66,7 +70,9 @@ public class ProgramTests
       }
     ]
   }
-""",
+"""
+                        )!,
+                        ["Logging:LogLevel:Default"] = "Information",
                         ["AllowedHosts"] = "*"
                     }
                 );
@@ -88,9 +94,9 @@ public class ProgramTests
         (await app.Server.Services.GetRequestExecutorAsync()).Schema.Print().MatchSnapshot();
 
         Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("index.html")).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("health")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync("graphql")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync("voyager")).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.HealthEndPoint)).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode);
     }
 
     [Fact]
@@ -103,8 +109,8 @@ public class ProgramTests
         (await app.Server.Services.GetRequestExecutorAsync()).Schema.Print().MatchSnapshot();
 
         Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("index.html")).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("health")).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("graphql")).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("voyager")).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.HealthEndPoint)).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode);
     }
 }
