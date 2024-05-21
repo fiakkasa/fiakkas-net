@@ -5,7 +5,7 @@ using Snapshooter.Xunit;
 using System.Net;
 using System.Text.Json;
 
-namespace api.api.Tests;
+namespace api.Tests;
 
 public class ProgramTests
 {
