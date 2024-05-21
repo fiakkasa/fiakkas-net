@@ -19,7 +19,9 @@ services.AddApiTechnologies(config, Consts.DataFileSectionPath);
 
 services.AddCors();
 
-services.AddApiGraphQL(isDev);
+services
+    .AddApiGraphQLServer(isDev)
+    .AddApiGraphQLEndpoints();
 
 services.AddApiHealth();
 

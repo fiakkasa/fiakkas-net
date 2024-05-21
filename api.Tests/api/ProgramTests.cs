@@ -1,7 +1,6 @@
 using HotChocolate.Execution;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
-using Snapshooter.Xunit;
 using System.Net;
 using System.Text.Json;
 
@@ -72,7 +71,7 @@ public class ProgramTests
   }
 """
                         )!,
-                        ["Logging:LogLevel:Default"] = "Information",
+                        ["Logging:LogLevel:Default"] = "Error",
                         ["AllowedHosts"] = "*"
                     }
                 );

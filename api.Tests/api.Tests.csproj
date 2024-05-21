@@ -37,8 +37,4 @@
     <ProjectReference Include="..\api.Technologies\api.Technologies.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>

@@ -11,7 +11,15 @@ namespace api.Extensions;
 
 public static class GraphQLExtensions
 {
-    public static IRequestExecutorBuilder AddApiGraphQL(this IServiceCollection services, bool isDev) =>
+    public static IRequestExecutorBuilder AddApiGraphQLEndpoints(this IRequestExecutorBuilder builder) =>
+        builder
+            .AddApiApplication()
+            .AddApiCustomers()
+            .AddApiPortfolio()
+            .AddApiTechnologies()
+            .AddApiGraphExtensions();
+
+    public static IRequestExecutorBuilder AddApiGraphQLServer(this IServiceCollection services, bool isDev) =>
         services
             .AddGraphQLServer()
             .InitializeOnStartup()
@@ -30,11 +38,6 @@ public static class GraphQLExtensions
                 IncludeTotalCount = Consts.GraphQLPagingIncludeTotalCount
             })
             .AddQueryType()
-            .AddApiApplication()
-            .AddApiCustomers()
-            .AddApiPortfolio()
-            .AddApiTechnologies()
-            .AddApiGraphExtensions()
             .TrimTypes();
 
     public static IEndpointRouteBuilder MapApiGraphQL(this IEndpointRouteBuilder app, bool isDev)

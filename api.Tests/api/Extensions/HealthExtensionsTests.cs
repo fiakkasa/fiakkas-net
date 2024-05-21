@@ -24,5 +24,6 @@ public class HealthExtensionsTests
         Assert.Equal(2, result.Length);
         Assert.Contains(Consts.ApiHealthName, result);
         Assert.Contains(Consts.GraphQLHealthName, result);
+        result.MatchSnapshot();
     }
 }
