@@ -1,10 +1,10 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.TestHost;
-using System.Net;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net;
 
 namespace api.Extensions.Tests;
 
@@ -38,10 +38,8 @@ public class CorsExtensionsTests
                 app.UseRouting();
                 app.UseApiCors();
                 app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapPost("/hello", () => "Hello!").RequireCors();
-                    endpoints.MapPut("/hello", () => "Hello!").RequireCors();
-                });
+                    endpoints.Map("/hello", () => "Hello!").RequireCors()
+                );
             });
 
         using var server = new TestServer(builder);

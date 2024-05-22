@@ -9,50 +9,53 @@ where TConfig : class
 {
     private static readonly Type _type = typeof(TEntity);
 
-    private T[] GetSet<T>() where T : IBaseData
+    private TEntity[] GetSet()
     {
-        var typeName = _type.FullName;
-
         if (!_type.IsInterface)
         {
-            logger.LogWarning("Type {Type} is not supported", typeName);
+            logger.LogWarning("Type {Type} is not supported", _type.Name);
 
             return [];
         }
 
-        if (ResolveSet<T>(dataSnapshot.Value) is T[] collection)
+        if (ResolveSet(dataSnapshot.Value) is TEntity[] collection)
             return collection;
 
-        logger.LogWarning("Type {Type} is not supported", typeName);
+        logger.LogWarning("Resolver for type {Type} could not materialize collection", _type.Name);
 
         return [];
     }
 
-    protected abstract T[]? ResolveSet<T>(TConfig data) where T : IBaseData;
+    protected abstract TEntity[]? ResolveSet(TConfig data);
 
     public IQueryable<TEntity> Get()
     {
         try
         {
-            return GetSet<TEntity>().AsQueryable();
+            return GetSet().AsQueryable();
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to get data for type {Type}", typeof(TEntity).FullName);
+            logger.LogError(ex, "Failed to get data for type {Type}", _type.Name);
 
             return Enumerable.Empty<TEntity>().AsQueryable();
         }
     }
 
-    public IQueryable<TMapped> Get<TMapped>(Func<TEntity, TMapped> mapper) where TMapped : TEntity
+    public IQueryable<TMapped> Get<TMapped>(Func<TEntity, TMapped> mapper)
     {
         try
         {
-            return GetSet<TEntity>().Select(x => mapper(x)).AsQueryable();
+            return GetSet().Select(x => mapper(x)).AsQueryable();
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to get data for type {Type}", typeof(TEntity).FullName);
+            logger.LogError(
+                ex,
+                "Failed to get data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
 
             return Enumerable.Empty<TMapped>().AsQueryable();
         }
@@ -61,13 +64,13 @@ where TConfig : class
     public async ValueTask<IReadOnlyDictionary<Guid, TMapped>> GetBatch<TMapped>(
         IReadOnlyList<Guid> keys,
         Func<TEntity, TMapped> mapper,
-        CancellationToken cancellationToken
-    ) where TMapped : TEntity
+        CancellationToken cancellationToken = default
+    ) where TMapped : IBaseId
     {
         try
         {
             return await Task.Run(() =>
-                GetSet<TEntity>()
+                GetSet()
                     .Where(x => keys.Contains(x.Id))
                     .Select(mapper)
                     .ToDictionary(x => x.Id),
@@ -76,7 +79,12 @@ where TConfig : class
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to get batch data for type {Type}", typeof(TEntity).FullName);
+            logger.LogError(
+                ex,
+                "Failed to get batch data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
 
             return new Dictionary<Guid, TMapped>();
         }
@@ -86,13 +94,13 @@ where TConfig : class
         IReadOnlyList<Guid> keys,
         Func<TEntity, Guid> keySelector,
         Func<TEntity, TMapped> mapper,
-        CancellationToken cancellationToken
-    ) where TMapped : TEntity
+        CancellationToken cancellationToken = default
+    )
     {
         try
         {
             return await Task.Run(() =>
-                GetSet<TEntity>()
+                GetSet()
                     .Where(x => keys.Contains(keySelector(x)))
                     .ToLookup(x => keySelector(x), x => mapper(x)),
                 cancellationToken
@@ -100,7 +108,12 @@ where TConfig : class
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to get grouped batch data for type {Type}", typeof(TEntity).FullName);
+            logger.LogError(
+                ex,
+                "Failed to get grouped batch data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
 
             return Enumerable.Empty<TEntity>().ToLookup(x => x.Id, x => default(TMapped)!);
         }

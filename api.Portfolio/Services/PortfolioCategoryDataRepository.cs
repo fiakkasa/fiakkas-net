@@ -6,9 +6,5 @@ namespace api.Portfolio.Services;
 public class PortfolioCategoryDataRepository(ILogger<PortfolioCategoryDataRepository> logger, IOptionsSnapshot<PortfolioDataConfig> dataSnapshot)
 : AbstractDataRepository<IPortfolioCategory, PortfolioDataConfig>(logger, dataSnapshot)
 {
-    protected override T[]? ResolveSet<T>(PortfolioDataConfig data) => data.PortfolioCategories switch
-    {
-        T[] result => result,
-        _ => null,
-    };
+    protected override IPortfolioCategory[]? ResolveSet(PortfolioDataConfig data) => data.PortfolioCategories;
 }

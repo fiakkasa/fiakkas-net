@@ -13,6 +13,7 @@ public static class Consts
     public const string ApiHealthName = "API";
     public const string GraphQLHealthName = "Graph";
 
+    public const int GraphQLMaxExecutionDepthRule = 8;
     public const int GraphQLPagingMaxPageSize = 1_000;
     public const int GraphQLPagingDefaultPageSize = 100;
     public const bool GraphQLPagingIncludeTotalCount = true;

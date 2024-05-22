@@ -6,9 +6,5 @@ namespace api.Technologies.Services;
 public class TechnologyDataRepository(ILogger<TechnologyDataRepository> logger, IOptionsSnapshot<TechnologyDataConfig> dataSnapshot)
 : AbstractDataRepository<ITechnology, TechnologyDataConfig>(logger, dataSnapshot)
 {
-    protected override T[]? ResolveSet<T>(TechnologyDataConfig data) => data.Technologies switch
-    {
-        T[] result => result,
-        _ => null,
-    };
+    protected override ITechnology[]? ResolveSet(TechnologyDataConfig data) => data.Technologies;
 }

@@ -23,6 +23,7 @@ public static class GraphQLExtensions
         services
             .AddGraphQLServer()
             .InitializeOnStartup()
+            .AddMaxExecutionDepthRule(Consts.GraphQLMaxExecutionDepthRule)
             .AllowIntrospection(isDev)
             .AddApolloTracing(isDev switch
             {

@@ -1,8 +1,7 @@
 namespace api.Shared.Interfaces;
 
-public interface IBaseData
+public interface IBaseData : IBaseId
 {
-    Guid Id { get; init; }
     DateTimeOffset CreatedAt { get; init; }
     DateTimeOffset? UpdatedAt { get; init; }
     long Version { get; init; }
