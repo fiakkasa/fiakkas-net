@@ -70,6 +70,8 @@ public class GraphTests
 }
 """);
 
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
         result.ToJson().MatchSnapshot();
     }
 }
