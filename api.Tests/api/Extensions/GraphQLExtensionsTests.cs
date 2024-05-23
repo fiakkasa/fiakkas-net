@@ -63,18 +63,18 @@ public class GraphQLExtensionsTests
         var queryResponse = await client.SendAsync(queryRequest);
         var queryResult = await queryResponse.Content.ReadFromJsonAsync<JsonDocument>();
 
-        Assert.NotEmpty(schema);
+        schema.Should().NotBeEmpty();
         schema.MatchSnapshot();
 
         // voyager
-        Assert.Equal(HttpStatusCode.OK, voyagerResponse.StatusCode);
+        voyagerResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         // banana cake pop
-        Assert.NotEqual(HttpStatusCode.NotFound, bananaCakePopResponse.StatusCode);
+        bananaCakePopResponse.StatusCode.Should().NotBe(HttpStatusCode.NotFound);
         // query
-        Assert.Equal(HttpStatusCode.OK, queryResponse.StatusCode);
-        Assert.NotNull(queryResult);
-        Assert.Equal("Hello", queryResult.RootElement.GetProperty("data").GetProperty("text").GetString());
-        Assert.NotEmpty(queryResult.RootElement.GetProperty("extensions").GetProperty("tracing").GetRawText());
+        queryResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        queryResult.Should().NotBeNull();
+        queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
+        queryResult.RootElement.GetProperty("extensions").GetProperty("tracing").GetRawText().Should().NotBeEmpty();
     }
     [Fact]
     public async Task AddGraphQL_In_Release_Mode()
@@ -110,17 +110,17 @@ public class GraphQLExtensionsTests
         var queryResponse = await client.SendAsync(queryRequest);
         var queryResult = await queryResponse.Content.ReadFromJsonAsync<JsonDocument>();
 
-        Assert.NotEmpty(schema);
+        schema.Should().NotBeEmpty();
         schema.MatchSnapshot();
 
         // voyager
-        Assert.Equal(HttpStatusCode.NotFound, voyagerResponse.StatusCode);
+        voyagerResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         // banana cake pop
-        Assert.Equal(HttpStatusCode.NotFound, bananaCakePopResponse.StatusCode);
+        bananaCakePopResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         // query
-        Assert.Equal(HttpStatusCode.OK, queryResponse.StatusCode);
-        Assert.NotNull(queryResult);
-        Assert.Equal("Hello", queryResult.RootElement.GetProperty("data").GetProperty("text").GetString());
-        Assert.False(queryResult.RootElement.TryGetProperty("extensions", out var _));
+        queryResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        queryResult.Should().NotBeNull();
+        queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
+        queryResult.RootElement.TryGetProperty("extensions", out var _).Should().BeFalse();
     }
 }

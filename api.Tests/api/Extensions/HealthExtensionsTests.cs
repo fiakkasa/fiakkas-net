@@ -21,9 +21,9 @@ public class HealthExtensionsTests
                 .Registrations.Select(x => x.Name)
                 .ToArray();
 
-        Assert.Equal(2, result.Length);
-        Assert.Contains(Consts.ApiHealthName, result);
-        Assert.Contains(Consts.GraphQLHealthName, result);
+        result.Should().HaveCount(2);
+        result.Should().Contain(Consts.ApiHealthName);
+        result.Should().Contain(Consts.GraphQLHealthName);
         result.MatchSnapshot();
     }
 }

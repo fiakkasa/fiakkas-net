@@ -1,9 +1,8 @@
 using api.Shared.Interfaces;
-using api.Shared.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace api.Shared.Tests.Services;
+namespace api.Shared.Services.Tests;
 
 public class AbstractDataRepositoryTests
 {
@@ -55,13 +54,15 @@ public class AbstractDataRepositoryTests
 
         var result = _sutWrongType.Get();
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _loggerWrongType.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -71,13 +72,15 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get();
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _logger.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -87,13 +90,15 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get();
 
-        Assert.Empty(result);
-        Assert.Contains(
-           _logger.ReceivedCalls(),
-           x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type}" })
-       );
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type}" })
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -101,10 +106,10 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new()]));
 
-        var result = _sut.Get().ToArray();
+        var result = _sut.Get();
 
-        Assert.NotEmpty(result);
-        Assert.Empty(_logger.ReceivedCalls());
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
     }
 
     [Fact]
@@ -114,13 +119,15 @@ public class AbstractDataRepositoryTests
 
         var result = _sutWrongType.Get(x => x.Id);
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _loggerWrongType.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -130,13 +137,15 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get(x => x.Id);
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _logger.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -146,13 +155,15 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get(x => x.Id);
 
-        Assert.Empty(result);
-        Assert.Contains(
-           _logger.ReceivedCalls(),
-           x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
                x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type} and mapped type {MappedType}" })
-       );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -160,10 +171,10 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new()]));
 
-        var result = _sut.Get(x => x.Id).ToArray();
+        var result = _sut.Get(x => x.Id);
 
-        Assert.NotEmpty(result);
-        Assert.Empty(_logger.ReceivedCalls());
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
     }
 
     [Fact]
@@ -173,13 +184,15 @@ public class AbstractDataRepositoryTests
 
         var result = await _sutWrongType.GetBatch([], x => x, CancellationToken.None);
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _loggerWrongType.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -189,13 +202,15 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetBatch([], x => x, CancellationToken.None);
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _logger.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -205,13 +220,15 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetBatch([], x => x, CancellationToken.None);
 
-        Assert.Empty(result);
-        Assert.Contains(
-           _logger.ReceivedCalls(),
-           x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+           .Where(x =>
                x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get batch data for type {Type} and mapped type {MappedType}" })
-       );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -222,8 +239,8 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetBatch([id], x => x, CancellationToken.None);
 
-        Assert.NotEmpty(result);
-        Assert.Empty(_logger.ReceivedCalls());
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
     }
 
     [Fact]
@@ -233,13 +250,15 @@ public class AbstractDataRepositoryTests
 
         var result = await _sutWrongType.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _loggerWrongType.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -249,13 +268,15 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
-        Assert.Empty(result);
-        Assert.Contains(
-            _logger.ReceivedCalls(),
-            x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
                 x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                 && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-        );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -265,13 +286,15 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
-        Assert.Empty(result);
-        Assert.Contains(
-           _logger.ReceivedCalls(),
-           x =>
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+           .Where(x =>
                x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}" })
-       );
+            )
+            .Should()
+            .HaveCount(1);
     }
 
     [Fact]
@@ -282,8 +305,8 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetGroupedBatch([id], x => x.Id, x => x, CancellationToken.None);
 
-        Assert.NotEmpty(result);
-        Assert.Empty(_logger.ReceivedCalls());
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
     }
 }
 

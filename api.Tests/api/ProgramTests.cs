@@ -92,10 +92,10 @@ public class ProgramTests
 
         (await app.Server.Services.GetRequestExecutorAsync()).Schema.Print().MatchSnapshot();
 
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("index.html")).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.HealthEndPoint)).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode);
+        (await client.GetAsync("index.html")).StatusCode.Should().Be(HttpStatusCode.OK);
+        (await client.GetAsync(Consts.HealthEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
+        (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode.Should().Be(HttpStatusCode.NotFound);
+        (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Fact]
@@ -107,9 +107,9 @@ public class ProgramTests
 
         (await app.Server.Services.GetRequestExecutorAsync()).Schema.Print().MatchSnapshot();
 
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("index.html")).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.HealthEndPoint)).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode);
-        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode);
+        (await client.GetAsync("index.html")).StatusCode.Should().Be(HttpStatusCode.OK);
+        (await client.GetAsync(Consts.HealthEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
+        (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
+        (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
