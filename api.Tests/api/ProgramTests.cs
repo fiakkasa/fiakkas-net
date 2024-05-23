@@ -90,12 +90,21 @@ public class ProgramTests
 
         var client = app.CreateClient();
 
-        (await app.Server.Services.GetRequestExecutorAsync()).Schema.Print().MatchSnapshot();
+        var executor = await app.Server.Services.GetRequestExecutorAsync();
+        var schema = executor.Schema.Print();
 
-        (await client.GetAsync("index.html")).StatusCode.Should().Be(HttpStatusCode.OK);
-        (await client.GetAsync(Consts.HealthEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
-        (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode.Should().Be(HttpStatusCode.NotFound);
-        (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode.Should().Be(HttpStatusCode.NotFound);
+        var indexResult = await client.GetAsync("index.html");
+        var healthResult = await client.GetAsync(Consts.HealthEndPoint);
+        var graphqlResult = await client.GetAsync(Consts.GraphQLEndPoint);
+        var graphqlVisualizerResult = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
+
+        schema.Should().NotBeEmpty();
+        schema.MatchSnapshot();
+
+        indexResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        healthResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        graphqlResult.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        graphqlVisualizerResult.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Fact]
@@ -105,11 +114,20 @@ public class ProgramTests
 
         var client = app.CreateClient();
 
-        (await app.Server.Services.GetRequestExecutorAsync()).Schema.Print().MatchSnapshot();
+        var executor = await app.Server.Services.GetRequestExecutorAsync();
+        var schema = executor.Schema.Print();
 
-        (await client.GetAsync("index.html")).StatusCode.Should().Be(HttpStatusCode.OK);
-        (await client.GetAsync(Consts.HealthEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
-        (await client.GetAsync(Consts.GraphQLEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
-        (await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint)).StatusCode.Should().Be(HttpStatusCode.OK);
+        var indexResult = await client.GetAsync("index.html");
+        var healthResult = await client.GetAsync(Consts.HealthEndPoint);
+        var graphqlResult = await client.GetAsync(Consts.GraphQLEndPoint);
+        var graphqlVisualizerResult = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
+
+        schema.Should().NotBeEmpty();
+        schema.MatchSnapshot();
+
+        indexResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        healthResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        graphqlResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        graphqlVisualizerResult.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }

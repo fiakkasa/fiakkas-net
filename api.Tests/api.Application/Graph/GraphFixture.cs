@@ -17,10 +17,8 @@ public class GraphFixture
         {
             _semaphore.Wait();
 
-            var systemInfoItem = new SystemInfoItem("Version", new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));
-            var healthCheckService = Substitute.For<HealthCheckService>();
-
-            healthCheckService
+            var service = Substitute.For<HealthCheckService>();
+            service
                 .CheckHealthAsync(Arg.Any<CancellationToken>())
                 .Returns(
                     new HealthReport(
@@ -31,8 +29,8 @@ public class GraphFixture
                 );
             _requestExecutor =
                 await new ServiceCollection()
-                    .AddSingleton(systemInfoItem)
-                    .AddSingleton(healthCheckService)
+                    .AddSingleton(new SystemInfoItem("Version", new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)))
+                    .AddSingleton(service)
                     .AddGraphQL()
                     .AddQueryType()
                     .AddApiApplication()

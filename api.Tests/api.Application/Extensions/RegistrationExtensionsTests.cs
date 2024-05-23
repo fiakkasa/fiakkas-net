@@ -22,15 +22,15 @@ public class RegistrationExtensionsTests
     [Fact]
     public void AddApiApplication_Service_Registration_Should_Add_SystemInfo_With_Version()
     {
-        var expectedResult = "1.1.1";
+        var value = "1.1.1";
         var result =
             new ServiceCollection()
-                .AddApiApplication(new(expectedResult))
+                .AddApiApplication(new(value))
                 .BuildServiceProvider()
                 .GetService<SystemInfoItem>();
 
         result.Should().NotBeNull();
-        result!.Version.Should().Be(expectedResult);
+        result!.Version.Should().Be(value);
     }
 
     [Fact]

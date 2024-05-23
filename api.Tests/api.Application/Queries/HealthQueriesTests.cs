@@ -7,9 +7,8 @@ public class HealthQueriesTests
     [Fact]
     public async Task GetHealth_Should_Return_Result()
     {
-        var healthCheckService = Substitute.For<HealthCheckService>();
-
-        healthCheckService
+        var service = Substitute.For<HealthCheckService>();
+        service
             .CheckHealthAsync(Arg.Any<CancellationToken>())
             .Returns(
                 new HealthReport(
@@ -20,9 +19,8 @@ public class HealthQueriesTests
             );
         var qut = new HealthQueries();
 
-        var result = await qut.GetHealth(healthCheckService, CancellationToken.None);
+        var result = await qut.GetHealth(service, CancellationToken.None);
 
-        result.Should().NotBeNull();
         result.Status.Should().Be(HealthStatus.Healthy);
         result.MatchSnapshot();
     }

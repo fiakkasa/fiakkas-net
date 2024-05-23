@@ -12,7 +12,6 @@ public class SystemQueriesQueriesTests
 
         var result = qut.GetSystemStatus(item);
 
-        result.Should().NotBeNull();
         result.Version.Should().Be(item.Version);
         result.StartupTime.Should().Be(item.StartupTime);
         result.UpTime.Should().BeGreaterThan(TimeSpan.Zero);

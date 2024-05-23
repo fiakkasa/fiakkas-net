@@ -44,7 +44,7 @@ public class CorsExtensionsTests
 
         using var server = new TestServer(builder);
         var client = server.CreateClient();
-        var corsService = server.Services.GetService<ICorsService>();
+        var service = server.Services.GetService<ICorsService>();
 
         var results = await Task.WhenAll(
             client.SendAsync(GetRequestMessage(HttpMethod.Options)),
@@ -52,7 +52,7 @@ public class CorsExtensionsTests
             client.SendAsync(GetRequestMessage(HttpMethod.Put))
         );
 
-        corsService.Should().NotBeNull();
+        service.Should().NotBeNull();
         results.Should().AllSatisfy(x =>
         {
             x.StatusCode.Should().Be(HttpStatusCode.NoContent);

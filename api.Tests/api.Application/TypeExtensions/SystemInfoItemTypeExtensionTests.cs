@@ -7,9 +7,8 @@ public class SystemInfoItemTypeExtensionTests
     [Fact]
     public async Task GetHealth_Should_Return_Health_Data()
     {
-        var healthCheckService = Substitute.For<HealthCheckService>();
-
-        healthCheckService
+        var service = Substitute.For<HealthCheckService>();
+        service
             .CheckHealthAsync(Arg.Any<CancellationToken>())
             .Returns(
                 new HealthReport(
@@ -20,9 +19,8 @@ public class SystemInfoItemTypeExtensionTests
             );
         var teut = new SystemInfoItemTypeExtension();
 
-        var result = await teut.GetHealth(healthCheckService, CancellationToken.None);
+        var result = await teut.GetHealth(service, CancellationToken.None);
 
-        result.Should().NotBeNull();
         result.Status.Should().Be(HealthStatus.Healthy);
         result.MatchSnapshot();
     }
