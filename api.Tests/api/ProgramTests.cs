@@ -8,7 +8,7 @@ namespace api.Tests;
 
 public class ProgramTests
 {
-    internal class WAF(string environment) : WebApplicationFactory<Program>
+    internal class Waf(string environment) : WebApplicationFactory<Program>
     {
         protected override IHost CreateHost(IHostBuilder builder)
         {
@@ -84,9 +84,9 @@ public class ProgramTests
     }
 
     [Fact]
-    public async Task Program_Runs_In_Release_Mode()
+    public async Task Program_Should_Run_In_Release_Mode()
     {
-        using var app = new WAF("Release");
+        using var app = new Waf("Release");
 
         var client = app.CreateClient();
 
@@ -99,9 +99,9 @@ public class ProgramTests
     }
 
     [Fact]
-    public async Task Program_Runs_In_Development_Mode()
+    public async Task Program_Should_Run_In_Development_Mode()
     {
-        using var app = new WAF("Development");
+        using var app = new Waf("Development");
 
         var client = app.CreateClient();
 

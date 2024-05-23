@@ -4,6 +4,7 @@ using api.Customers.Extensions;
 using api.Extensions;
 using api.Portfolio.Extensions;
 using api.Technologies.Extensions;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -12,7 +13,7 @@ var isDev = builder.Environment.IsDevelopment();
 
 config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
-services.AddApiApplication(typeof(Program).Assembly);
+services.AddApiApplication(typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
 services.AddApiPortfolio(config, Consts.DataFileSectionPath);
 services.AddApiTechnologies(config, Consts.DataFileSectionPath);

@@ -1,0 +1,45 @@
+﻿schema {
+  query: Query
+}
+
+type HealthReportItem {
+  description: String
+  duration: TimeSpan!
+  status: HealthStatus!
+  tags: [String!]
+}
+
+type HealthReportSummary {
+  status: HealthStatus!
+  totalDuration: TimeSpan!
+  entries: [KeyValuePairOfStringAndHealthReportItem!]
+}
+
+type KeyValuePairOfStringAndHealthReportItem {
+  key: String!
+  value: HealthReportItem!
+}
+
+type Query {
+  systemStatus: SystemInfoItem!
+  health: HealthReportSummary!
+}
+
+type SystemInfoItem {
+  version: String!
+  startupTime: DateTime!
+  upTime: TimeSpan!
+  health: HealthReportSummary!
+}
+
+enum HealthStatus {
+  UNHEALTHY
+  DEGRADED
+  HEALTHY
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+"The `TimeSpan` scalar represents an ISO-8601 compliant duration type."
+scalar TimeSpan

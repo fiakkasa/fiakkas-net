@@ -48,7 +48,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void Get_On_Non_Interface_Returns_Empty_Collection()
+    public void Get_On_Non_Interface_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -66,7 +66,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void Get_On_Null_Returns_Empty_Collection()
+    public void Get_On_Null_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -84,7 +84,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void Get_On_Exception_Returns_Empty_Collection()
+    public void Get_On_Exception_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
 
@@ -102,7 +102,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void Get_Returns_Collection()
+    public void Get_Should_Return_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new()]));
 
@@ -113,7 +113,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void GetMapped_On_Non_Interface_Returns_Empty_Collection()
+    public void GetMapped_On_Non_Interface_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -131,7 +131,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void GetMapped_On_Null_Returns_Empty_Collection()
+    public void GetMapped_On_Null_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -149,7 +149,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void GetMapped_On_Exception_Returns_Empty_Collection()
+    public void GetMapped_On_Exception_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
 
@@ -167,7 +167,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public void GetMapped_Returns_Collection()
+    public void GetMapped_Should_Return_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new()]));
 
@@ -178,7 +178,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetBatch_On_Non_Interface_Returns_Empty_Collection()
+    public async Task GetBatch_On_Non_Interface_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -196,7 +196,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetBatch_On_Null_Returns_Empty_Collection()
+    public async Task GetBatch_On_Null_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -214,7 +214,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetBatch_On_Exception_Returns_Empty_Collection()
+    public async Task GetBatch_On_Exception_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
 
@@ -232,7 +232,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetBatch_Returns_Collection()
+    public async Task GetBatch_Should_Return_Collection()
     {
         var id = Guid.NewGuid();
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
@@ -244,7 +244,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetGroupedBatch_On_Non_Interface_Returns_Empty_Collection()
+    public async Task GetGroupedBatch_On_Non_Interface_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -262,7 +262,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetGroupedBatch_On_Null_Returns_Empty_Collection()
+    public async Task GetGroupedBatch_On_Null_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
@@ -280,7 +280,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetGroupedBatch_On_Exception_Returns_Empty_Collection()
+    public async Task GetGroupedBatch_On_Exception_Should_Return_Empty_Collection()
     {
         _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
 
@@ -298,7 +298,7 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
-    public async Task GetGroupedBatch_Returns_Collection()
+    public async Task GetGroupedBatch_Should_Return_Collection()
     {
         var id = Guid.NewGuid();
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));

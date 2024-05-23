@@ -9,10 +9,10 @@ namespace api.Application.Extensions;
 
 public static class RegistrationExtensions
 {
-    public static IServiceCollection AddApiApplication(this IServiceCollection services, Assembly assembly) =>
+    public static IServiceCollection AddApiApplication(this IServiceCollection services, AssemblyInformationalVersionAttribute? versionInfo = default) =>
         services.AddSingleton(
             new SystemInfoItem(
-                assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? string.Empty,
+                versionInfo?.InformationalVersion ?? string.Empty,
                 DateTimeOffset.Now
             )
         );

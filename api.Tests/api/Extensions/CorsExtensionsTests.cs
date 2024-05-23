@@ -25,7 +25,7 @@ public class CorsExtensionsTests
     }
 
     [Fact]
-    public async Task Cors_Is_Registered_And_Applied()
+    public async Task UseApiCors_Should_Register_And_Enable_Cors()
     {
         var builder = new WebHostBuilder()
             .ConfigureServices(services =>

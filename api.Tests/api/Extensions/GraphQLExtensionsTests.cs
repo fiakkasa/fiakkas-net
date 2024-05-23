@@ -30,7 +30,7 @@ public class GraphQLExtensionsTests
     }
 
     [Fact]
-    public async Task AddGraphQL_In_Dev_Mode()
+    public async Task AddApiGraphQLServer_And_MapApiGraphQL_In_Dev_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
         var isDev = true;
         var builder = new WebHostBuilder()
@@ -77,7 +77,7 @@ public class GraphQLExtensionsTests
         queryResult.RootElement.GetProperty("extensions").GetProperty("tracing").GetRawText().Should().NotBeEmpty();
     }
     [Fact]
-    public async Task AddGraphQL_In_Release_Mode()
+    public async Task AddApiGraphQLServer_And_MapApiGraphQL_In_Release_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
         var isDev = false;
         var builder = new WebHostBuilder()
