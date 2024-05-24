@@ -4,7 +4,7 @@ using api.Portfolio.Models;
 
 namespace api.GraphExtensions.DataLoaders;
 
-public class PortfolioItemByCustomerIdGroupDataLoaderTests
+public class PortfolioItemByTechnologyIdGroupDataLoaderTests
 {
     [Fact]
     public async Task LoadBatchAsync_Should_Return_Data_When_Matches_Found()
@@ -24,7 +24,10 @@ public class PortfolioItemByCustomerIdGroupDataLoaderTests
             }
         ]);
 
-        var sut = new PortfolioItemByCustomerIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new PortfolioItemByTechnologyIdGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default
+        );
 
         var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
 
@@ -37,7 +40,10 @@ public class PortfolioItemByCustomerIdGroupDataLoaderTests
     {
         var dataRepository = new MockDataRepository<IPortfolioItem>();
 
-        var sut = new PortfolioItemByCustomerIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new PortfolioItemByTechnologyIdGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default
+        );
 
         var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
 

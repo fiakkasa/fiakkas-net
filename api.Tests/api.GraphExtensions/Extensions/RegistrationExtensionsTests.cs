@@ -1,4 +1,5 @@
 using api.Customers.Models;
+using api.GraphExtensions.TestingShared;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
 using api.Technologies.Models;
@@ -10,28 +11,6 @@ namespace api.GraphExtensions.Extensions.Tests;
 
 public class RegistrationExtensionsTests
 {
-    public class MockDataRepository<T> : IDataRepository<T> where T : IBaseId
-    {
-        public IQueryable<T> Get() => throw new NotImplementedException();
-
-        public IQueryable<TMapped> Get<TMapped>(Func<T, TMapped> mapper)
-            => throw new NotImplementedException();
-        
-        public ValueTask<IReadOnlyDictionary<Guid, TMapped>> GetBatch<TMapped>(
-            IReadOnlyList<Guid> keys,
-            Func<T, TMapped> mapper,
-            CancellationToken cancellationToken = default
-        ) where TMapped : IBaseId
-        => throw new NotImplementedException();
-
-        public ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
-            IReadOnlyList<Guid> keys, 
-            Func<T, Guid> keySelector, 
-            Func<T, TMapped> mapper, 
-            CancellationToken cancellationToken = default
-        ) => throw new NotImplementedException();
-    }
-
     [ExtendObjectType(OperationType.Query)]
     public class TestQueries
     {
