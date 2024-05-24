@@ -4,7 +4,7 @@
 
 The main goal is to have a well defined contracts based implementation with each project under the solution contributing their own assets to the overall solution API.
 
-The solution is loosely based on the Vertical Slice architecture.
+The solution structure is inspired by the Vertical Slice architecture.
 
 Solution structure:
 
