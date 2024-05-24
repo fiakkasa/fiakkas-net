@@ -5,7 +5,7 @@ namespace api.Application.Queries;
 public class SystemQueriesQueriesTests
 {
     [Fact]
-    public void GetSystemStatus_Should_Return_Result()
+    public void GetSystemStatus_Should_Return_Data()
     {
         var item = new SystemInfoItem("Version", DateTimeOffset.Now.AddMinutes(-1));
         var qut = new SystemQueries();

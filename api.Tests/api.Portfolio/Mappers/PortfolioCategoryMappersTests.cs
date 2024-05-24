@@ -16,7 +16,7 @@ public class PortfolioCategoryMappersTests
     }
 
     [Fact]
-    public void Map_Should_Return_PortfolioItem()
+    public void Map_Should_Return_Data()
     {
         var item = new TestPortfolioCategory
         {

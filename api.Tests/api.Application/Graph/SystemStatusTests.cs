@@ -5,7 +5,7 @@ namespace api.Application.Tests;
 public class SystemStatusTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task SystemStatus_Should_Return_Results()
+    public async Task SystemStatus_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 

@@ -7,7 +7,7 @@ namespace api.Portfolio.Queries;
 public class PortfolioCategoryQueriesTests
 {
     [Fact]
-    public void GetPortfolioItems_Should_Return_Result()
+    public void GetPortfolioItems_Should_Return_Data()
     {
         var item = new PortfolioCategory
         {

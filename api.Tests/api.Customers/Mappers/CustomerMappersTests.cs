@@ -16,7 +16,7 @@ public class CustomerMappersTests
     }
 
     [Fact]
-    public void Map_Should_Return_Customer()
+    public void Map_Should_Return_Data()
     {
         var item = new TestCustomer
         {

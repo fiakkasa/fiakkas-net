@@ -5,7 +5,7 @@ namespace api.Application.Queries;
 public class HealthQueriesTests
 {
     [Fact]
-    public async Task GetHealth_Should_Return_Result()
+    public async Task GetHealth_Should_Return_Data()
     {
         var service = Substitute.For<HealthCheckService>();
         service

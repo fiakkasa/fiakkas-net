@@ -5,6 +5,6 @@ namespace api.Customers.Models;
 [ExcludeFromCodeCoverage]
 public record Customer : BaseData, ICustomer
 {
-    public required string Title { get; init; }
+    public string Title { get; init; } = string.Empty;
     public Uri? Href { get; init; }
 }

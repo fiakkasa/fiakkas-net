@@ -5,14 +5,17 @@ namespace api.Portfolio.Tests;
 public class PortfolioCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task PortfolioCategories_Should_Return_Results()
+    public async Task PortfolioCategories_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
 """
 {
-  portfolioCategories(where: { version: { eq: 1 } }) {
+  portfolioCategories(
+    where: { version: { eq: 1 } }
+    order: { createdAt: ASC }
+  ) {
     items {
       createdAt
       href
@@ -20,7 +23,10 @@ public class PortfolioCategoriesTests(GraphFixture fixture) : IClassFixture<Grap
       title
       updatedAt
       version
-      portfolioItems {
+      portfolioItems(
+        where: { version: { eq: 1 } }
+        order: { createdAt: ASC }
+      ) {
         pageInfo {
           hasNextPage
           hasPreviousPage

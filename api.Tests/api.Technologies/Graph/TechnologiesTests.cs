@@ -5,14 +5,17 @@ namespace api.Technologies.Tests;
 public class TechnologiesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task Technologies_Should_Return_Results()
+    public async Task Technologies_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
 """
 {
-  technologies(where: { version: { eq: 1 } }) {
+  technologies(
+    where: { version: { eq: 1 } }
+    order: { createdAt: ASC }
+  ) {
     items {
       createdAt
       href

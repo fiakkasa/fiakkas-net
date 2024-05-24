@@ -5,7 +5,7 @@ namespace api.Application.TypeExtensions;
 public class SystemInfoItemTypeExtensionTests
 {
     [Fact]
-    public async Task GetHealth_Should_Return_Health_Data()
+    public async Task GetHealth_Should_Return_Data()
     {
         var service = Substitute.For<HealthCheckService>();
         service

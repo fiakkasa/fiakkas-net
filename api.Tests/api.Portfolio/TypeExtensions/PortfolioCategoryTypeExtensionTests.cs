@@ -40,7 +40,7 @@ public class PortfolioCategoryTypeExtensionTests
         var teut = new PortfolioCategoryTypeExtension();
 
         var result = await teut.GetPortfolioItems(
-            new PortfolioCategory { Id = Guid.Empty, Title = string.Empty },
+            new PortfolioCategory { Id = Guid.Empty },
             dataLoader,
             CancellationToken.None
         );

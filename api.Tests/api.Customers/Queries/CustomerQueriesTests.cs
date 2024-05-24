@@ -7,7 +7,7 @@ namespace api.Customers.Queries;
 public class CustomerQueriesTests
 {
     [Fact]
-    public void GetCustomers_Should_Return_Result()
+    public void GetCustomers_Should_Return_Data()
     {
         var item = new Customer
         {

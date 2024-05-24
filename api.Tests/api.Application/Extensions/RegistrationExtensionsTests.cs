@@ -7,7 +7,7 @@ namespace api.Application.Extensions.Tests;
 public class RegistrationExtensionsTests
 {
     [Fact]
-    public void AddApiApplication_Service_Registration_Should_Add_SystemInfo_Without_Version()
+    public void AddApiApplication_Service_Registration_Should_Add_SystemInfo_With_Empty_Version_When_Version_Does_Not_Resolve()
     {
         var result =
             new ServiceCollection()

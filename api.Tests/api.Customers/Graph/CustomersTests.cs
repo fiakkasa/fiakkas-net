@@ -5,14 +5,17 @@ namespace api.Customers.Tests;
 public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task Customers_Should_Return_Results()
+    public async Task Customers_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
 """
 {
-  customers(where: { version: { eq: 1 } }) {
+  customers(
+    where: { version: { eq: 1 } }
+    order: { createdAt: ASC }
+  ) {
     items {
       createdAt
       href

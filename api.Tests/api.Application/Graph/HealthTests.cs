@@ -5,7 +5,7 @@ namespace api.Application.Tests;
 public class HealthTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task Health_Should_Return_Results()
+    public async Task Health_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 

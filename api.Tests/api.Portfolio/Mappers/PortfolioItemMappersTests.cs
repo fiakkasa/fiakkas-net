@@ -14,14 +14,14 @@ public class PortfolioItemMappersTests
         public long Year { get; init; }
         public Guid CategoryId { get; init; }
         public long Ordinal { get; init; }
-        public required string Title { get; init; }
+        public string Title { get; init; } = string.Empty;
         public Uri? Href { get; init; }
         public Guid[] TechnologyIds { get; init; } = [];
         public Guid CustomerId { get; init; }
     }
 
     [Fact]
-    public void Map_Should_Return_PortfolioItem()
+    public void Map_Should_Return_Data()
     {
         var item = new TestPortfolioItem
         {

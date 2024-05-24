@@ -7,7 +7,7 @@ namespace api.Technologies.Queries;
 public class TechnologyQueriesTests
 {
     [Fact]
-    public void GetTechnologies_Should_Return_Result()
+    public void GetTechnologies_Should_Return_Data()
     {
         var item = new Technology
         {

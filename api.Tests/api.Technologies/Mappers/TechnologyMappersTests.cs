@@ -16,7 +16,7 @@ public class TechnologyMappersTests
     }
 
     [Fact]
-    public void Map_Should_Return_Technology()
+    public void Map_Should_Return_Data()
     {
         var item = new TestTechnology
         {
