@@ -128,7 +128,7 @@ type Technology {
   version: Long!
   portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
   customers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): CustomersCollectionSegment
-  portfolioItems(skip: Int take: Int where: IPortfolioItemFilterInput order: [IPortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
 }
 
 input CustomerFilterInput {
@@ -164,27 +164,6 @@ input DateTimeOperationFilterInput {
   nlt: DateTime
   lte: DateTime
   nlte: DateTime
-}
-
-input IPortfolioItemFilterInput {
-  and: [IPortfolioItemFilterInput!]
-  or: [IPortfolioItemFilterInput!]
-  year: LongOperationFilterInput
-  categoryId: UuidOperationFilterInput
-  ordinal: LongOperationFilterInput
-  title: StringOperationFilterInput
-  href: UrlOperationFilterInput
-  technologyIds: ListUuidOperationFilterInput
-  customerId: UuidOperationFilterInput
-}
-
-input IPortfolioItemSortInput {
-  year: SortEnumType
-  categoryId: SortEnumType
-  ordinal: SortEnumType
-  title: SortEnumType
-  href: UriSortInput
-  customerId: SortEnumType
 }
 
 input ListUuidOperationFilterInput {

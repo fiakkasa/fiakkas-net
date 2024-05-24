@@ -28,7 +28,7 @@ public class TechnologyTypeExtension
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<IPortfolioItem[]> GetPortfolioItems(
+    public async ValueTask<PortfolioItem[]> GetPortfolioItems(
         [Parent] ITechnology parent,
         [Service] PortfolioItemByTechnologyIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
