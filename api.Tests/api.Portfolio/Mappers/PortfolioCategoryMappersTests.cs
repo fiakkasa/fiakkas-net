@@ -1,0 +1,37 @@
+using api.Portfolio.Interfaces;
+using api.Portfolio.Models;
+
+namespace api.Portfolio.Mappers;
+
+public class PortfolioCategoryMappersTests
+{
+    public record TestPortfolioCategory : IPortfolioCategory
+    {
+        public Guid Id { get; init; }
+        public DateTimeOffset CreatedAt { get; init; }
+        public DateTimeOffset? UpdatedAt { get; init; }
+        public long Version { get; init; }
+        public string Title { get; init; } = string.Empty;
+        public Uri? Href { get; init; }
+    }
+
+    [Fact]
+    public void Map_Should_Return_PortfolioItem()
+    {
+        var item = new TestPortfolioCategory
+        {
+            Id = Guid.Empty,
+            CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+            UpdatedAt = null,
+            Version = 1,
+            Title = "Title",
+            Href = new Uri("/test", UriKind.Relative)
+        };
+
+        var result = item.Map();
+
+        result.Should().BeOfType<PortfolioCategory>();
+        result.Should().BeEquivalentTo(item);
+        result.MatchSnapshot();
+    }
+}

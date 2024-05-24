@@ -24,5 +24,4 @@ public class SystemInfoItemTypeExtensionTests
         result.Status.Should().Be(HealthStatus.Healthy);
         result.MatchSnapshot();
     }
-
 }

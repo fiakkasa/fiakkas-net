@@ -37,8 +37,6 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.MapHealthChecks(Consts.HealthEndPoint);
 
-app.UseHttpsRedirection();
-
 app.UseApiCors();
 
 app.MapApiGraphQL(isDev);

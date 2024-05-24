@@ -4,7 +4,7 @@ namespace api.Shared.Services;
 
 public abstract class AbstractDataRepository<TEntity, TConfig>(ILogger logger, IOptionsSnapshot<TConfig> dataSnapshot)
 : IDataRepository<TEntity>
-where TEntity : IBaseData
+where TEntity : IBaseId
 where TConfig : class
 {
     private static readonly Type _type = typeof(TEntity);

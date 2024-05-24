@@ -1,0 +1,30 @@
+﻿{
+  "data": {
+    "portfolioItems": {
+      "items": [
+        {
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "href": "/test",
+          "id": "00000000-0000-0000-0000-000000000000",
+          "ordinal": 0,
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
+          "year": 0,
+          "category": {
+            "createdAt": "2024-01-01T00:00:00.000Z",
+            "href": "/test",
+            "id": "00000000-0000-0000-0000-000000000000",
+            "title": "Title",
+            "updatedAt": null,
+            "version": 1
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "hasPreviousPage": false
+      }
+    }
+  }
+}

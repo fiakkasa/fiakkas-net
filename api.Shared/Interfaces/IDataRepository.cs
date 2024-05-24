@@ -1,6 +1,6 @@
 namespace api.Shared.Interfaces;
 
-public interface IDataRepository<TEntity> where TEntity : IBaseData
+public interface IDataRepository<TEntity> where TEntity : IBaseId
 {
     IQueryable<TEntity> Get();
     IQueryable<TMapped> Get<TMapped>(Func<TEntity, TMapped> mapper);

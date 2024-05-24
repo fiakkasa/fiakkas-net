@@ -6,14 +6,11 @@ namespace api.Shared.Services.Tests;
 
 public class AbstractDataRepositoryTests
 {
-    public interface ITestEntity : IBaseData { }
+    public interface ITestEntity : IBaseId { }
 
     public record TestEntity : ITestEntity
     {
         public Guid Id { get; init; }
-        public DateTimeOffset CreatedAt { get; init; }
-        public DateTimeOffset? UpdatedAt { get; init; }
-        public long Version { get; init; }
     }
 
     public record TestConfig(TestEntity[]? Collection = default);
@@ -21,9 +18,7 @@ public class AbstractDataRepositoryTests
     public class TestDataRepositoryWrongType(ILogger<TestDataRepositoryWrongType> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
     : AbstractDataRepository<TestEntity, TestConfig>(logger, dataSnapshot)
     {
-        public virtual TestEntity[]? Collection { get; set; }
-
-        protected override TestEntity[]? ResolveSet(TestConfig data) => Collection;
+        protected override TestEntity[]? ResolveSet(TestConfig data) => data.Collection;
     }
 
     public class TestDataRepository(ILogger<TestDataRepository> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
@@ -52,7 +47,7 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
-        var result = _sutWrongType.Get();
+        var result = _sutWrongType.Get().ToArray();
 
         result.Should().BeEmpty();
         _loggerWrongType
@@ -63,6 +58,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -70,7 +66,7 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
-        var result = _sut.Get();
+        var result = _sut.Get().ToArray();
 
         result.Should().BeEmpty();
         _logger
@@ -81,6 +77,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -88,7 +85,7 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
 
-        var result = _sut.Get();
+        var result = _sut.Get().ToArray();
 
         result.Should().BeEmpty();
         _logger
@@ -99,17 +96,19 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
     public void Get_Should_Return_Collection()
     {
-        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new()]));
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = Guid.Empty }]));
 
-        var result = _sut.Get();
+        var result = _sut.Get().ToArray();
 
         result.Should().NotBeEmpty();
         _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -117,7 +116,7 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
-        var result = _sutWrongType.Get(x => x.Id);
+        var result = _sutWrongType.Get(x => x.Id).ToArray();
 
         result.Should().BeEmpty();
         _loggerWrongType
@@ -128,6 +127,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -135,7 +135,7 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
 
-        var result = _sut.Get(x => x.Id);
+        var result = _sut.Get(x => x.Id).ToArray();
 
         result.Should().BeEmpty();
         _logger
@@ -146,6 +146,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -153,7 +154,7 @@ public class AbstractDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
 
-        var result = _sut.Get(x => x.Id);
+        var result = _sut.Get(x => x.Id).ToArray();
 
         result.Should().BeEmpty();
         _logger
@@ -164,17 +165,19 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
     public void GetMapped_Should_Return_Collection()
     {
-        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new()]));
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = Guid.Empty }]));
 
-        var result = _sut.Get(x => x.Id);
+        var result = _sut.Get(x => x.Id).ToArray();
 
         result.Should().NotBeEmpty();
         _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -193,6 +196,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -211,6 +215,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -229,18 +234,20 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
     public async Task GetBatch_Should_Return_Collection()
     {
-        var id = Guid.NewGuid();
+        var id = Guid.Empty;
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
 
         var result = await _sut.GetBatch([id], x => x, CancellationToken.None);
 
         result.Should().NotBeEmpty();
         _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -259,6 +266,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -277,6 +285,7 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
@@ -295,18 +304,20 @@ public class AbstractDataRepositoryTests
             )
             .Should()
             .HaveCount(1);
+        result.MatchSnapshot();
     }
 
     [Fact]
     public async Task GetGroupedBatch_Should_Return_Collection()
     {
-        var id = Guid.NewGuid();
+        var id = Guid.Empty;
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
 
         var result = await _sut.GetGroupedBatch([id], x => x.Id, x => x, CancellationToken.None);
 
         result.Should().NotBeEmpty();
         _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
     }
 }
 

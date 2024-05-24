@@ -13,7 +13,7 @@ public static class RegistrationExtensions
     public static IServiceCollection AddApiTechnologies(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
     {
         services
-            .AddOptions<TechnologyDataConfig>()
+            .AddOptions<TechnologiesDataConfig>()
             .Bind(config.GetSection(sectionPath));
 
         services.AddScoped<IDataRepository<ITechnology>, TechnologyDataRepository>();

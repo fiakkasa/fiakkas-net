@@ -7,7 +7,7 @@ namespace api.Customers.Services;
 public class CustomerDataRepositoryTests
 {
     [Fact]
-    public void ResolveSet_Should_Return_Customers()
+    public void ResolveSet_Should_Return_Data()
     {
         var item = new CustomerEntity
         {

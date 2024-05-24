@@ -5,11 +5,11 @@ namespace api.Portfolio.Models;
 [ExcludeFromCodeCoverage]
 public record PortfolioItem : BaseData, IPortfolioItem
 {
-    public long Year { get; set; }
-    public Guid CategoryId { get; set; }
-    public long Ordinal { get; set; }
-    public required string Title { get; set; }
-    public Uri? Href { get; set; }
-    public Guid[] TechnologyIds { get; set; } = [];
-    public Guid CustomerId { get; set; }
+    public long Year { get; init; }
+    public Guid CategoryId { get; init; }
+    public long Ordinal { get; init; }
+    public required string Title { get; init; }
+    public Uri? Href { get; init; }
+    public Guid[] TechnologyIds { get; init; } = [];
+    public Guid CustomerId { get; init; }
 }
