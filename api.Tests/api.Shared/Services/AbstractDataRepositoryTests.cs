@@ -102,7 +102,7 @@ public class AbstractDataRepositoryTests
     [Fact]
     public void Get_Should_Return_Collection()
     {
-        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = Guid.Empty }]));
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109") }]));
 
         var result = _sut.Get().ToArray();
 
@@ -171,7 +171,7 @@ public class AbstractDataRepositoryTests
     [Fact]
     public void GetMapped_Should_Return_Collection()
     {
-        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = Guid.Empty }]));
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109") }]));
 
         var result = _sut.Get(x => x.Id).ToArray();
 
@@ -240,7 +240,7 @@ public class AbstractDataRepositoryTests
     [Fact]
     public async Task GetBatch_Should_Return_Collection()
     {
-        var id = Guid.Empty;
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
 
         var result = await _sut.GetBatch([id], x => x, CancellationToken.None);
@@ -310,7 +310,7 @@ public class AbstractDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatch_Should_Return_Collection()
     {
-        var id = Guid.Empty;
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
 
         var result = await _sut.GetGroupedBatch([id], x => x.Id, x => x, CancellationToken.None);

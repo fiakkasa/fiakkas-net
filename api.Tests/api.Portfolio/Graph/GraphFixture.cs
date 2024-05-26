@@ -18,75 +18,38 @@ public class GraphFixture
         {
             _semaphore.Wait();
 
-            var portfolioItems = new[]
-            {
+            var portfolioItemDataRepository = new MockDataRepository<IPortfolioItem>([
                 new PortfolioItem
                 {
-                    Id = Guid.Empty,
-                    CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                     UpdatedAt = null,
                     Version = 1,
+                    Year = 2024,
+                    CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                    Ordinal = 1,
                     Title = "Title",
                     Href = new Uri("/test", UriKind.Relative),
-                    TechnologyIds = [Guid.Empty],
-                    CustomerId = Guid.Empty
+                    TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                    CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
                 }
-            };
-            var portfolioItemDataRepository = Substitute.For<IDataRepository<IPortfolioItem>>();
-            portfolioItemDataRepository
-                .Get(Arg.Any<Func<IPortfolioItem, PortfolioItem>>())
-                .Returns(portfolioItems.AsQueryable());
-            portfolioItemDataRepository
-                .GetBatch(
-                    Arg.Any<IReadOnlyList<Guid>>(),
-                    Arg.Any<Func<IPortfolioItem, PortfolioItem>>(),
-                    Arg.Any<CancellationToken>()
-                )
-                .Returns(portfolioItems.ToDictionary(x => x.Id));
-            portfolioItemDataRepository
-                .GetGroupedBatch(
-                    Arg.Any<IReadOnlyList<Guid>>(),
-                    Arg.Any<Func<IPortfolioItem, Guid>>(),
-                    Arg.Any<Func<IPortfolioItem, PortfolioItem>>(),
-                    Arg.Any<CancellationToken>()
-                )
-                .Returns(portfolioItems.ToLookup(x => x.Id));
-
-            var portfolioCategories = new[]
-            {
+            ]);
+            var portfolioCategoryDataRepository = new MockDataRepository<IPortfolioCategory>(
+            [
                 new PortfolioCategory
                 {
-                    Id = Guid.Empty,
-                    CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                     UpdatedAt = null,
                     Version = 1,
                     Title = "Title",
                     Href = new Uri("/test", UriKind.Relative)
                 }
-            };
-            var portfolioCategoryDataRepository = Substitute.For<IDataRepository<IPortfolioCategory>>();
-            portfolioCategoryDataRepository
-                .Get(Arg.Any<Func<IPortfolioCategory, PortfolioCategory>>())
-                .Returns(portfolioCategories.AsQueryable());
-            portfolioCategoryDataRepository
-                .GetBatch(
-                    Arg.Any<IReadOnlyList<Guid>>(),
-                    Arg.Any<Func<IPortfolioCategory, PortfolioCategory>>(),
-                    Arg.Any<CancellationToken>()
-                )
-                .Returns(portfolioCategories.ToDictionary(x => x.Id));
-            portfolioCategoryDataRepository
-                .GetGroupedBatch(
-                    Arg.Any<IReadOnlyList<Guid>>(),
-                    Arg.Any<Func<IPortfolioCategory, Guid>>(),
-                    Arg.Any<Func<IPortfolioCategory, PortfolioCategory>>(),
-                    Arg.Any<CancellationToken>()
-                )
-                .Returns(portfolioCategories.ToLookup(x => x.Id));
+            ]);
             _requestExecutor =
                 await new ServiceCollection()
-                    .AddSingleton(portfolioItemDataRepository)
-                    .AddSingleton(portfolioCategoryDataRepository)
+                    .AddSingleton<IDataRepository<IPortfolioItem>>(portfolioItemDataRepository)
+                    .AddSingleton<IDataRepository<IPortfolioCategory>>(portfolioCategoryDataRepository)
                     .AddGraphQL()
                     .AddQueryType()
                     .AddFiltering()

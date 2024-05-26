@@ -5,7 +5,7 @@ namespace api.Customers.Mappers;
 
 public class CustomerMappersTests
 {
-    public record TestCustomer : ICustomer
+    public record CustomerMockEntity : ICustomer
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }
@@ -18,9 +18,9 @@ public class CustomerMappersTests
     [Fact]
     public void Map_Should_Return_Data()
     {
-        var item = new TestCustomer
+        var item = new CustomerMockEntity
         {
-            Id = Guid.Empty,
+            Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

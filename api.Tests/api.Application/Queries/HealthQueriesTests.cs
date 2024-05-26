@@ -17,9 +17,9 @@ public class HealthQueriesTests
                     totalDuration: TimeSpan.FromSeconds(10)
                 )
             );
-        var qut = new HealthQueries();
+        var sut = new HealthQueries();
 
-        var result = await qut.GetHealth(service, CancellationToken.None);
+        var result = await sut.GetHealth(service, CancellationToken.None);
 
         result.Status.Should().Be(HealthStatus.Healthy);
         result.MatchSnapshot();

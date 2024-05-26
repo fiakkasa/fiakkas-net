@@ -18,24 +18,22 @@ public class GraphFixture
         {
             _semaphore.Wait();
 
-            var service = Substitute.For<IDataRepository<ITechnology>>();
-            service
-                .Get(Arg.Any<Func<ITechnology, Technology>>())
-                .Returns(new[]
+            var dataRepository = new MockDataRepository<ITechnology>(
+            [
+                new Technology
                 {
-                    new Technology
-                    {
-                        Id = Guid.Empty,
-                        CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
-                        UpdatedAt = null,
-                        Version = 1,
-                        Title = "Title",
-                        Href = new Uri("/test", UriKind.Relative)
-                    }
-                }.AsQueryable());
+                    Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Title = "Title",
+                    Href = new Uri("/test", UriKind.Relative)
+                }
+            ]);
+
             _requestExecutor =
                 await new ServiceCollection()
-                    .AddSingleton(service)
+                    .AddSingleton<IDataRepository<ITechnology>>(dataRepository)
                     .AddGraphQL()
                     .AddQueryType()
                     .AddFiltering()

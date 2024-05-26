@@ -1,6 +1,5 @@
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;
-using api.GraphExtensions.TestingShared;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Technologies.Interfaces;
@@ -17,8 +16,8 @@ public class CustomerTypeExtensionTests
         [
             new PortfolioCategory
             {
-                Id = Guid.Empty,
-                CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
@@ -29,14 +28,17 @@ public class CustomerTypeExtensionTests
         [
             new PortfolioItem
             {
-                Id = Guid.Empty,
-                CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
+                Year = 2024,
+                CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Ordinal = 1,
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [Guid.Empty],
-                CustomerId = Guid.Empty
+                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
         var dataLoader = new PortfolioCategoryByCustomerIdGroupDataLoader(
@@ -44,10 +46,10 @@ public class CustomerTypeExtensionTests
             portfolioDataRepository,
             AutoBatchScheduler.Default
         );
-        var teut = new CustomerTypeExtension();
+        var sut = new CustomerTypeExtension();
 
-        var result = await teut.GetPortfolioCategories(
-            new Customer { Id = Guid.Empty },
+        var result = await sut.GetPortfolioCategories(
+            new Customer { Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );
@@ -63,8 +65,8 @@ public class CustomerTypeExtensionTests
         [
             new Technology
             {
-                Id = Guid.Empty,
-                CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
@@ -75,14 +77,17 @@ public class CustomerTypeExtensionTests
         [
             new PortfolioItem
             {
-                Id = Guid.Empty,
-                CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
+                Year = 2024,
+                CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Ordinal = 1,
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [Guid.Empty],
-                CustomerId = Guid.Empty
+                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
         var dataLoader = new TechnologyByCustomerIdGroupDataLoader(
@@ -90,10 +95,10 @@ public class CustomerTypeExtensionTests
             portfolioDataRepository,
             AutoBatchScheduler.Default
         );
-        var teut = new CustomerTypeExtension();
+        var sut = new CustomerTypeExtension();
 
-        var result = await teut.GetTechnologies(
-            new Customer { Id = Guid.Empty },
+        var result = await sut.GetTechnologies(
+            new Customer { Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );
@@ -109,24 +114,27 @@ public class CustomerTypeExtensionTests
         [
             new PortfolioItem
             {
-                Id = Guid.Empty,
-                CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
+                Year = 2024,
+                CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Ordinal = 1,
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [Guid.Empty],
-                CustomerId = Guid.Empty
+                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
         var dataLoader = new PortfolioItemByCustomerIdGroupDataLoader(
             dataRepository,
             AutoBatchScheduler.Default
         );
-        var teut = new CustomerTypeExtension();
+        var sut = new CustomerTypeExtension();
 
-        var result = await teut.GetPortfolioItems(
-            new Customer { Id = Guid.Empty },
+        var result = await sut.GetPortfolioItems(
+            new Customer { Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );

@@ -1,4 +1,3 @@
-using api.GraphExtensions.TestingShared;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 
@@ -13,7 +12,7 @@ public class PortfolioCategoryByTechnologyIdGroupDataLoaderTests
         [
             new PortfolioCategory
             {
-                Id = Guid.Empty,
+                Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -25,24 +24,26 @@ public class PortfolioCategoryByTechnologyIdGroupDataLoaderTests
         [
             new PortfolioItem
             {
-                Id = Guid.Empty,
+                Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
+                Year = 2024,
+                CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Ordinal = 1,
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [Guid.Empty],
-                CustomerId = Guid.Empty
+                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
-
         var sut = new PortfolioCategoryByTechnologyIdGroupDataLoader(
             portfolioCategoryDataRepository,
             portfolioItemDataRepository,
             AutoBatchScheduler.Default
         );
 
-        var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
+        var result = await sut.LoadAsync([new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();
@@ -60,7 +61,7 @@ public class PortfolioCategoryByTechnologyIdGroupDataLoaderTests
             AutoBatchScheduler.Default
         );
 
-        var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
+        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();

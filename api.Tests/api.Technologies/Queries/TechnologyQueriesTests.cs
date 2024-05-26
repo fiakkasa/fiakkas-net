@@ -1,4 +1,3 @@
-using api.Shared.Interfaces;
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
 
@@ -11,20 +10,18 @@ public class TechnologyQueriesTests
     {
         var item = new Technology
         {
-            Id = Guid.Empty,
+            Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
             Title = "Title",
             Href = new Uri("/test", UriKind.Relative)
         };
-        var service = Substitute.For<IDataRepository<ITechnology>>();
-        service
-            .Get(Arg.Any<Func<ITechnology, Technology>>())
-            .Returns(new[] { item }.AsQueryable());
-        var qut = new TechnologyQueries();
+        var dataRepository = new MockDataRepository<ITechnology>([item]);
 
-        var result = qut.GetTechnologies(service);
+        var sut = new TechnologyQueries();
+
+        var result = sut.GetTechnologies(dataRepository);
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<Technology>>();

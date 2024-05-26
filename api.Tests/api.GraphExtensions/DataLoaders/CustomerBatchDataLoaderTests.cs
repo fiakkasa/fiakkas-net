@@ -1,6 +1,5 @@
 using api.Customers.Interfaces;
 using api.Customers.Models;
-using api.GraphExtensions.TestingShared;
 
 namespace api.GraphExtensions.DataLoaders;
 
@@ -13,7 +12,7 @@ public class CustomerBatchDataLoaderTests
         [
             new Customer
             {
-                Id = Guid.Empty,
+                Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -21,10 +20,9 @@ public class CustomerBatchDataLoaderTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-
         var sut = new CustomerBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
+        var result = await sut.LoadAsync([new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();
@@ -37,7 +35,7 @@ public class CustomerBatchDataLoaderTests
 
         var sut = new CustomerBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
+        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();

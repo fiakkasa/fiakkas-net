@@ -1,7 +1,6 @@
 using api.Portfolio.DataLoaders;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
-using api.Shared.Interfaces;
 
 namespace api.Portfolio.TypeExtensions;
 
@@ -10,37 +9,31 @@ public class PortfolioCategoryTypeExtensionTests
     [Fact]
     public async Task GetPortfolioItems_Should_Return_Data()
     {
-        var items = new[]
-        {
+        var dataRepository = new MockDataRepository<IPortfolioItem>(
+        [
             new PortfolioItem
             {
-                Id = Guid.Empty,
-                CreatedAt = new (2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
+                Year = 2024,
+                CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Ordinal = 1,
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [Guid.Empty],
-                CustomerId = Guid.Empty
+                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
-        };
-        var dataRepository = Substitute.For<IDataRepository<IPortfolioItem>>();
-        dataRepository
-            .GetGroupedBatch(
-                Arg.Any<IReadOnlyList<Guid>>(),
-                Arg.Any<Func<IPortfolioItem, Guid>>(),
-                Arg.Any<Func<IPortfolioItem, PortfolioItem>>(),
-                Arg.Any<CancellationToken>()
-            )
-            .Returns(items.ToLookup(x => x.Id));
+        ]);
         var dataLoader = new PortfolioItemByPortfolioCategoryIdGroupDataLoader(
             dataRepository,
             AutoBatchScheduler.Default
         );
-        var teut = new PortfolioCategoryTypeExtension();
+        var sut = new PortfolioCategoryTypeExtension();
 
-        var result = await teut.GetPortfolioItems(
-            new PortfolioCategory { Id = Guid.Empty },
+        var result = await sut.GetPortfolioItems(
+            new PortfolioCategory { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );

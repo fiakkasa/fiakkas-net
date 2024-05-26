@@ -1,4 +1,3 @@
-using api.GraphExtensions.TestingShared;
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
 
@@ -13,7 +12,7 @@ public class TechnologyBatchDataLoaderTests
         [
             new Technology
             {
-                Id = Guid.Empty,
+                Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -21,10 +20,9 @@ public class TechnologyBatchDataLoaderTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-
         var sut = new TechnologyBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
+        var result = await sut.LoadAsync([new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();
@@ -37,7 +35,7 @@ public class TechnologyBatchDataLoaderTests
 
         var sut = new TechnologyBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([Guid.Empty], CancellationToken.None);
+        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();

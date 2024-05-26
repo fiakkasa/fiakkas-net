@@ -1,6 +1,5 @@
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
-using api.Shared.Interfaces;
 
 namespace api.Portfolio.Queries;
 
@@ -11,20 +10,17 @@ public class PortfolioCategoryQueriesTests
     {
         var item = new PortfolioCategory
         {
-            Id = Guid.Empty,
+            Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
             Title = "Title",
             Href = new Uri("/test", UriKind.Relative)
         };
-        var service = Substitute.For<IDataRepository<IPortfolioCategory>>();
-        service
-            .Get(Arg.Any<Func<IPortfolioCategory, PortfolioCategory>>())
-            .Returns(new[] { item }.AsQueryable());
-        var qut = new PortfolioCategoryQueries();
+        var service = new MockDataRepository<IPortfolioCategory>([item]);
+        var sut = new PortfolioCategoryQueries();
 
-        var result = qut.GetPortfolioCategories(service);
+        var result = sut.GetPortfolioCategories(service);
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<PortfolioCategory>>();

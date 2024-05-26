@@ -17,9 +17,9 @@ public class SystemInfoItemTypeExtensionTests
                     totalDuration: TimeSpan.FromSeconds(10)
                 )
             );
-        var teut = new SystemInfoItemTypeExtension();
+        var sut = new SystemInfoItemTypeExtension();
 
-        var result = await teut.GetHealth(service, CancellationToken.None);
+        var result = await sut.GetHealth(service, CancellationToken.None);
 
         result.Status.Should().Be(HealthStatus.Healthy);
         result.MatchSnapshot();

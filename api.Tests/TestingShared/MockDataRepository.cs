@@ -1,6 +1,6 @@
 using api.Shared.Interfaces;
 
-namespace api.GraphExtensions.TestingShared;
+namespace api.Tests.TestingShared;
 
 public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<T> where T : IBaseId
 {

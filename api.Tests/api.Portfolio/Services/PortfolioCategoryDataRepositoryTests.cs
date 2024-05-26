@@ -11,7 +11,7 @@ public class PortfolioCategoryDataRepositoryTests
     {
         var item = new PortfolioCategoryEntity
         {
-            Id = Guid.Empty,
+            Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

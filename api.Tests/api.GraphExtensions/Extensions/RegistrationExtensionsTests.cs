@@ -1,5 +1,4 @@
 using api.Customers.Models;
-using api.GraphExtensions.TestingShared;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
 using api.Technologies.Models;

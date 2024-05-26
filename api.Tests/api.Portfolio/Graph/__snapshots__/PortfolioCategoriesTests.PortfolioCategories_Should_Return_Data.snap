@@ -5,7 +5,7 @@
         {
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
@@ -18,12 +18,12 @@
               {
                 "createdAt": "2024-01-01T00:00:00.000Z",
                 "href": "/test",
-                "id": "00000000-0000-0000-0000-000000000000",
-                "ordinal": 0,
+                "id": "28e483e4-6961-4b25-88a9-d1d0a5161109",
+                "ordinal": 1,
                 "title": "Title",
                 "updatedAt": null,
                 "version": 1,
-                "year": 0
+                "year": 2024
               }
             ]
           }

@@ -5,7 +5,7 @@ namespace api.Portfolio.Mappers;
 
 public class PortfolioItemMappersTests
 {
-    public record TestPortfolioItem : IPortfolioItem
+    public record PortfolioItemMockEntity : IPortfolioItem
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }
@@ -23,19 +23,19 @@ public class PortfolioItemMappersTests
     [Fact]
     public void Map_Should_Return_Data()
     {
-        var item = new TestPortfolioItem
+        var item = new PortfolioItemMockEntity
         {
-            Id = Guid.Empty,
+            Id = new Guid("28e483e4-6961-4b25-88a9-d1d0a5161109"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
             Year = 2024,
-            CategoryId = Guid.Empty,
+            CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
             Ordinal = 1,
             Title = "Title",
             Href = new Uri("/test", UriKind.Relative),
-            TechnologyIds = [Guid.Empty],
-            CustomerId = Guid.Empty
+            TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+            CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
         };
 
         var result = item.Map();
