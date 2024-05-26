@@ -1,0 +1,15 @@
+namespace api.Tests;
+
+public class SchemaTests(GraphFixture fixture) : IClassFixture<GraphFixture>
+{
+    [Fact]
+    public async Task Schema_Should_Resolve()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = executor.Schema.Print();
+
+        result.Should().NotBeEmpty();
+        result.MatchSnapshot();
+    }
+}

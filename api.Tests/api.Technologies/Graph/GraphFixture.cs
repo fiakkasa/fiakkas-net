@@ -30,7 +30,6 @@ public class GraphFixture
                     Href = new Uri("/test", UriKind.Relative)
                 }
             ]);
-
             _requestExecutor =
                 await new ServiceCollection()
                     .AddSingleton<IDataRepository<ITechnology>>(dataRepository)
