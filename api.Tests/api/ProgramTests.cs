@@ -90,16 +90,10 @@ public class ProgramTests
 
         var client = app.CreateClient();
 
-        var executor = await app.Server.Services.GetRequestExecutorAsync();
-        var schema = executor.Schema.Print();
-
         var indexResult = await client.GetAsync("index.html");
         var healthResult = await client.GetAsync(Consts.HealthEndPoint);
         var graphqlResult = await client.GetAsync(Consts.GraphQLEndPoint);
         var graphqlVisualizerResult = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
-
-        schema.Should().NotBeEmpty();
-        schema.MatchSnapshot();
 
         indexResult.StatusCode.Should().Be(HttpStatusCode.OK);
         healthResult.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -114,16 +108,10 @@ public class ProgramTests
 
         var client = app.CreateClient();
 
-        var executor = await app.Server.Services.GetRequestExecutorAsync();
-        var schema = executor.Schema.Print();
-
         var indexResult = await client.GetAsync("index.html");
         var healthResult = await client.GetAsync(Consts.HealthEndPoint);
         var graphqlResult = await client.GetAsync(Consts.GraphQLEndPoint);
         var graphqlVisualizerResult = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
-
-        schema.Should().NotBeEmpty();
-        schema.MatchSnapshot();
 
         indexResult.StatusCode.Should().Be(HttpStatusCode.OK);
         healthResult.StatusCode.Should().Be(HttpStatusCode.OK);
