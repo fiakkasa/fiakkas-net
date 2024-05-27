@@ -11,19 +11,29 @@ public class CustomerByTechnologyIdGroupDataLoader(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
-        await Task.Run(() =>
-            portfolioDataRepository.Get()
-                .Select(item => item.TechnologyIds.Select(techId => new { item.CustomerId, techId }))
-                .SelectMany(x => x)
-                .Distinct()
-                .Where(x => keys.Contains(x.techId))
-                .Join(
-                    customerDataRepository.Get(),
-                    x => x.CustomerId,
-                    item => item.Id,
-                    (x, item) => new { x.techId, item }
-                )
-                .ToLookup(x => x.techId, x => x.item.Map()),
+        await Task.Run(
+            () =>
+            {
+                var collection =
+                    portfolioDataRepository.Get()
+                        .Where(x => x.TechnologyIds.Any(techId => keys.Contains(techId)))
+                        .SelectMany(item => item.TechnologyIds.Select(techId => new { item.CustomerId, techId }))
+                        .ToHashSet();
+                var ids = collection.Select(x => x.CustomerId).ToHashSet();
+                var items =
+                    customerDataRepository.Get()
+                        .Where(x => ids.Contains(x.Id))
+                        .ToHashSet();
+
+                return collection
+                    .Join(
+                        items,
+                        x => x.CustomerId,
+                        item => item.Id,
+                        (x, item) => new { x.techId, item }
+                    )
+                    .ToLookup(x => x.techId, x => x.item.Map());
+            },
             cancellationToken
         );
 }

@@ -11,18 +11,29 @@ public class PortfolioCategoryByCustomerIdGroupDataLoader(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
-        await Task.Run(() =>
-            portfolioDataRepository.Get()
-                .Where(x => keys.Contains(x.CustomerId))
-                .Select(x => new { x.CategoryId, x.CustomerId })
-                .Distinct()
-                .Join(
-                    portfolioCategoryDataRepository.Get(),
-                    x => x.CategoryId,
-                    item => item.Id,
-                    (x, item) => new { x.CustomerId, item }
-                )
-                .ToLookup(x => x.CustomerId, x => x.item.Map()),
+        await Task.Run(
+            () =>
+            {
+                var collection =
+                    portfolioDataRepository.Get()
+                        .Where(x => keys.Contains(x.CustomerId))
+                        .Select(x => new { x.CategoryId, x.CustomerId })
+                        .ToHashSet();
+                var ids = collection.Select(x => x.CategoryId).ToHashSet();
+                var items =
+                    portfolioCategoryDataRepository.Get()
+                        .Where(x => ids.Contains(x.Id))
+                        .ToHashSet();
+
+                return collection
+                    .Join(
+                        items,
+                        x => x.CategoryId,
+                        item => item.Id,
+                        (x, item) => new { x.CustomerId, item }
+                    )
+                    .ToLookup(x => x.CustomerId, x => x.item.Map());
+            },
             cancellationToken
         );
 }

@@ -12,9 +12,8 @@ public class PortfolioItemByTechnologyIdGroupDataLoader(
     ) =>
         await Task.Run(() =>
             dataRepository.Get()
-                .Select(item => item.TechnologyIds.Select(techId => new { item, techId }))
-                .SelectMany(x => x)
-                .Where(x => keys.Contains(x.techId))
+                .Where(x => x.TechnologyIds.Any(techId => keys.Contains(techId)))
+                .SelectMany(item => item.TechnologyIds.Select(techId => new { item, techId }))
                 .ToLookup(x => x.techId, x => x.item.Map()),
             cancellationToken
         );
