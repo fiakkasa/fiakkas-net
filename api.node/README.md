@@ -1,0 +1,36 @@
+# Running .NET within Node.JS
+
+## Overview
+
+The main goal is be able to run the .NET API through a Node proxy using an in process instantiation in environment where only Node is supported with limited access to the underlying infra.
+
+The solution was tested using Node v20.12.2 and .NET 8.
+
+## Publishing
+
+When the .NET API is published it should pack all the necessary bits so that it can be used in a standalone fashion at the designated environment of choice.
+
+Command: `dotnet publish --self-contained --os <os> --arch <architecture>`
+
+Example: `dotnet publish --self-contained --os linux --arch x64`
+
+## Configuration
+
+| Environmental Variable     | Description                                                      |
+| -------------------------- | ---------------------------------------------------------------- |
+| PORT                       | The node port; defaults to 3000                                  |
+| DOTNET_PROTOCOL            | The communication protocol for the .NET API; defaults to http    |
+| DOTNET_PORT                | The .NET API port; defaults to 5000                              |
+| DOTNET_API_FOLDER_PATH     | The path where the publish folder resides; defaults to ./publish |
+| DOTNET_API_EXECUTABLE_NAME | The .NET api executable name; defaults to api                    |
+
+## Starting the Node Proxy and the .NET API
+
+For the first ensure that the node modules are available, `npm i`.
+
+To run consider using either `node index.js` or `npm start`.
+
+## References
+
+- https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish
+- https://learn.microsoft.com/en-us/dotnet/core/rid-catalog
