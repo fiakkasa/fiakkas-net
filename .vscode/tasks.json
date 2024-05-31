@@ -15,6 +15,18 @@
       "problemMatcher": "$msCompile"
     },
     {
+      "label": "publish-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/api/api.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+    {
       "label": "build-api",
       "command": "dotnet",
       "type": "process",

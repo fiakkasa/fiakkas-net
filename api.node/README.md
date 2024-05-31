@@ -26,9 +26,20 @@ Example: `dotnet publish --self-contained --os linux --arch x64`
 
 ## Starting the Node Proxy and the .NET API
 
-For the first ensure that the node modules are available, `npm i`.
+### Installation
 
-To run consider using either `node index.js` or `npm start`.
+The Node runtime can be found at https://nodejs.org/en
+
+Visual Studio Code can be found at https://code.visualstudio.com
+
+Before running ensure that the node modules are installed, `npm i`.
+
+### Running the API
+
+- VS Code: use the included profile
+- cli:
+  - publish the api: `dotnet publish ../api/api.csproj`
+  - run: `node index.js` or `npm start`.
 
 ## References
 

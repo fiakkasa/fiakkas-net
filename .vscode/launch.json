@@ -3,6 +3,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "api.node Launch",
+      "program": "${workspaceFolder}/api.node/index.js",
+      "request": "launch",
+      "preLaunchTask": "publish-api",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "env": {
+        "PORT": "3000",
+        "DOTNET_PROTOCOL": "http",
+        "DOTNET_PORT": "5069",
+        "DOTNET_API_FOLDER_PATH": "${workspaceFolder}/api/bin/Release/net8.0/publish",
+        "DOTNET_API_EXECUTABLE_NAME": "api"
+      }
+    },
+    {
       "name": "api Launch",
       "type": "coreclr",
       "request": "launch",
