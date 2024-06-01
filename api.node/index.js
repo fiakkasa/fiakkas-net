@@ -82,10 +82,12 @@ const { checkPort } = require('get-port-please');
     changeOrigin: true,
     logger: console,
     pathRewrite: {
-      '^/api': '/',
+      '^/api': '/'
     },
   });
 
+  app.set('strict routing', true);
+  app.get('/api', (req, res) => res.redirect(301, '/api/'));
   app.use(apiProxy);
 
   console.log('Starting the Proxy server..');
