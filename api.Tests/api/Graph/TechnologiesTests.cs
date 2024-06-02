@@ -40,7 +40,6 @@ query {
         totalCount
         items {
           createdAt
-          href
           id
           title
           updatedAt

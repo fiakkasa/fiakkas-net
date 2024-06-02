@@ -29,7 +29,6 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         totalCount
         items {
           createdAt
-          href
           id
           title
           updatedAt

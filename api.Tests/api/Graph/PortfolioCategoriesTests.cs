@@ -16,7 +16,6 @@ public class PortfolioCategoriesTests(GraphFixture fixture) : IClassFixture<Grap
     totalCount
     items {
       createdAt
-      href
       id
       title
       updatedAt

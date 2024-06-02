@@ -40,7 +40,6 @@ type PortfolioCategoriesCollectionSegment {
 
 type PortfolioCategory {
   title: String!
-  href: URL
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
@@ -160,7 +159,6 @@ input PortfolioCategoryFilterInput {
   and: [PortfolioCategoryFilterInput!]
   or: [PortfolioCategoryFilterInput!]
   title: StringOperationFilterInput
-  href: UrlOperationFilterInput
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
   updatedAt: DateTimeOperationFilterInput
@@ -169,7 +167,6 @@ input PortfolioCategoryFilterInput {
 
 input PortfolioCategorySortInput {
   title: SortEnumType
-  href: UriSortInput
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType

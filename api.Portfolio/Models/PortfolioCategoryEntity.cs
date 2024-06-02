@@ -6,5 +6,4 @@ namespace api.Portfolio.Models;
 public record PortfolioCategoryEntity : BaseData, IPortfolioCategory
 {
     public string Title { get; init; } = string.Empty;
-    public Uri? Href { get; init; }
 }

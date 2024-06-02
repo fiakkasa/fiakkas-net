@@ -26,7 +26,6 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
       year
       category {
         createdAt
-        href
         id
         title
         updatedAt

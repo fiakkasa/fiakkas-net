@@ -12,7 +12,6 @@ public static class PortfolioCategoryMappers
             CreatedAt = x.CreatedAt,
             UpdatedAt = x.UpdatedAt,
             Version = x.Version,
-            Title = x.Title,
-            Href = x.Href
+            Title = x.Title
         };
 }

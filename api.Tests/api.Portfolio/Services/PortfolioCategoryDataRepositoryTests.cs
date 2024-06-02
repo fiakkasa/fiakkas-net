@@ -15,8 +15,7 @@ public class PortfolioCategoryDataRepositoryTests
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
-            Title = "Title",
-            Href = new Uri("/test", UriKind.Relative)
+            Title = "Title"
         };
         var configData = new PortfolioDataConfig
         {

@@ -12,7 +12,6 @@ public class PortfolioCategoryMappersTests
         public DateTimeOffset? UpdatedAt { get; init; }
         public long Version { get; init; }
         public string Title { get; init; } = string.Empty;
-        public Uri? Href { get; init; }
     }
 
     [Fact]
@@ -24,8 +23,7 @@ public class PortfolioCategoryMappersTests
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
-            Title = "Title",
-            Href = new Uri("/test", UriKind.Relative)
+            Title = "Title"
         };
 
         var result = item.Map();
