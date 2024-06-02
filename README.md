@@ -12,7 +12,7 @@ Solution structure:
 - api.Shared: Shared assets
 - api.GraphExtensions: Extends the GraphQL API surface
 - api.Tests: Tests!
-- api.NodeProxy: A proxy wrapper in node.js
+- api.NodeProxy: A proxy wrapper in node.js [📝](./api.NodeProxy/README.md)
 - api.`<Feature>`: GraphQL enabled data domains
 
 All projects are structured and arranged by technical concerns.
