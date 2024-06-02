@@ -17,9 +17,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1" />
     <PackageReference Include="GraphHealthChecks" Version="2.0.1" />
     <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="7.7.1" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.4" />
-    <PackageReference Include="HotChocolate.Data" Version="13.9.4" />
-    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.5" />
   </ItemGroup>
 
   <ItemGroup>

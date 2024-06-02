@@ -15,17 +15,19 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "publish-api",
+      "label": "publish-api-debug",
       "command": "dotnet",
       "type": "process",
       "args": [
         "publish",
+        "-c",
+        "Debug",
         "${workspaceFolder}/api/api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
-    }
+    },
     {
       "label": "build-api",
       "command": "dotnet",

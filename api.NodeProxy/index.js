@@ -92,7 +92,7 @@ const { checkPort } = require('get-port-please');
 
   console.log('Starting the Proxy server..');
 
-  app.listen(port, (err, stdout, stderr) => {
+  app.listen(port, (err) => {
     if (err) {
       console.error(`Error starting proxy server on port: ${port} with message: ${err}`);
       return;

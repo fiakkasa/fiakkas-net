@@ -1,5 +1,5 @@
 {
-  "name": "api.node",
+  "name": "api.NodeProxy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
