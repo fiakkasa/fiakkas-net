@@ -11,6 +11,11 @@
         "<node_internals>/**"
       ],
       "type": "node",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Proxy server started on port:\\s+([0-9]+)",
+        "uriFormat": "http://localhost:%s"
+      },
       "env": {
         "PORT": "3000",
         "DOTNET_PROTOCOL": "http",
