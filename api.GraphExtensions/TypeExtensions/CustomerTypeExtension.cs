@@ -8,19 +8,9 @@ public class CustomerTypeExtension
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<PortfolioCategory[]> GetPortfolioCategories(
+    public async ValueTask<Category[]> GetPortfolioCategories(
         [Parent] ICustomer parent,
         [Service] PortfolioCategoryByCustomerIdGroupDataLoader dataLoader,
-        CancellationToken cancellationToken
-    ) =>
-        await dataLoader.LoadAsync(parent.Id, cancellationToken);
-
-    [UseOffsetPaging]
-    [UseFiltering]
-    [UseSorting]
-    public async ValueTask<Technology[]> GetTechnologies(
-        [Parent] ICustomer parent,
-        [Service] TechnologyByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
     ) =>
         await dataLoader.LoadAsync(parent.Id, cancellationToken);
@@ -31,6 +21,16 @@ public class CustomerTypeExtension
     public async ValueTask<PortfolioItem[]> GetPortfolioItems(
         [Parent] ICustomer parent,
         [Service] PortfolioItemByCustomerIdGroupDataLoader dataLoader,
+        CancellationToken cancellationToken
+    ) =>
+        await dataLoader.LoadAsync(parent.Id, cancellationToken);
+
+    [UseOffsetPaging]
+    [UseFiltering]
+    [UseSorting]
+    public async ValueTask<Technology[]> GetPortfolioTechnologies(
+        [Parent] ICustomer parent,
+        [Service] TechnologyByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
     ) =>
         await dataLoader.LoadAsync(parent.Id, cancellationToken);

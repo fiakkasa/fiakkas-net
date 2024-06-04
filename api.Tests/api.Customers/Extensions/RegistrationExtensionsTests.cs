@@ -22,10 +22,10 @@ public class RegistrationExtensionsTests
                 .AddApiCustomers(config)
                 .BuildServiceProvider();
 
-        var service = serviceProvider.GetService<IDataRepository<ICustomer>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<ICustomer>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<CustomersDataConfig>>();
 
-        service.Should().NotBeNull();
+        dataRepository.Should().NotBeNull();
         options.Should().NotBeNull();
     }
 

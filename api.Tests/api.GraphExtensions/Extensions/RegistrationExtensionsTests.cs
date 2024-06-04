@@ -1,3 +1,4 @@
+using api.Categories.Models;
 using api.Customers.Models;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
@@ -15,7 +16,7 @@ public class RegistrationExtensionsTests
     {
         public IEnumerable<Customer> Customers => [];
         public IEnumerable<PortfolioItem> PortfolioItems => [];
-        public IEnumerable<PortfolioCategory> PortfolioCategories => [];
+        public IEnumerable<Category> PortfolioCategories => [];
         public IEnumerable<Technology> Technologies => [];
     }
 

@@ -22,10 +22,10 @@ public class RegistrationExtensionsTests
                 .AddApiTechnologies(config)
                 .BuildServiceProvider();
 
-        var service = serviceProvider.GetService<IDataRepository<ITechnology>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<ITechnology>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<TechnologiesDataConfig>>();
 
-        service.Should().NotBeNull();
+        dataRepository.Should().NotBeNull();
         options.Should().NotBeNull();
     }
 

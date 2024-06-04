@@ -1,3 +1,6 @@
+global using api.Categories.Interfaces;
+global using api.Categories.Mappers;
+global using api.Categories.Models;
 global using api.Customers.Interfaces;
 global using api.Customers.Mappers;
 global using api.Customers.Models;

@@ -10,25 +10,9 @@ type CollectionSegmentInfo {
   hasPreviousPage: Boolean!
 }
 
-"A segment of a collection."
-type PortfolioCategoriesCollectionSegment {
-  "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [PortfolioCategory!]
-}
-
-type PortfolioCategory {
-  title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
-}
-
 type PortfolioItem {
   year: Long!
+  categoryId: UUID!
   ordinal: Long!
   title: String!
   href: URL
@@ -38,7 +22,6 @@ type PortfolioItem {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  category: PortfolioCategory
 }
 
 "A segment of a collection."
@@ -50,7 +33,6 @@ type PortfolioItemsCollectionSegment {
 }
 
 type Query {
-  portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
   portfolioItems(skip: Int take: Int order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsCollectionSegment
 }
 
@@ -89,24 +71,6 @@ input LongOperationFilterInput {
   nlt: Long
   lte: Long
   nlte: Long
-}
-
-input PortfolioCategoryFilterInput {
-  and: [PortfolioCategoryFilterInput!]
-  or: [PortfolioCategoryFilterInput!]
-  title: StringOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-}
-
-input PortfolioCategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
 }
 
 input PortfolioItemFilterInput {
