@@ -1,13 +1,13 @@
 namespace api.GraphExtensions.DataLoaders;
 
 public class PortfolioCategoryByTechnologyIdGroupDataLoader(
-    IDataRepository<IPortfolioCategory> portfolioCategoryDataRepository,
+    IDataRepository<ICategory> portfolioCategoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GroupedDataLoader<Guid, PortfolioCategory>(batchScheduler, options)
+) : GroupedDataLoader<Guid, Category>(batchScheduler, options)
 {
-    protected override async Task<ILookup<Guid, PortfolioCategory>> LoadGroupedBatchAsync(
+    protected override async Task<ILookup<Guid, Category>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>

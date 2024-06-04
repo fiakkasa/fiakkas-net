@@ -5,7 +5,13 @@ namespace api.GraphExtensions.TypeExtensions;
 [ExtendObjectType<IPortfolioItem>]
 public class PortfolioItemTypeExtension
 {
-    [BindMember(nameof(IPortfolioItem.CustomerId))]
+    public async ValueTask<Category?> GetCategory(
+        [Parent] IPortfolioItem parent,
+        [Service] CategoryBatchDataLoader dataLoader,
+        CancellationToken cancellationToken
+    ) =>
+        await dataLoader.LoadAsync(parent.CategoryId, cancellationToken);
+
     public async ValueTask<Customer?> GetCustomer(
         [Parent] IPortfolioItem parent,
         [Service] CustomerBatchDataLoader dataLoader,
@@ -13,7 +19,6 @@ public class PortfolioItemTypeExtension
     ) =>
         await dataLoader.LoadAsync(parent.CustomerId, cancellationToken);
 
-    [BindMember(nameof(IPortfolioItem.TechnologyIds))]
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]

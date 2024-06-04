@@ -10,23 +10,6 @@
           "title": "Title",
           "updatedAt": null,
           "version": 1,
-          "customers": {
-            "totalCount": 1,
-            "items": [
-              {
-                "createdAt": "2024-01-01T00:00:00.000Z",
-                "href": "/test",
-                "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
-                "title": "Title",
-                "updatedAt": null,
-                "version": 1
-              }
-            ],
-            "pageInfo": {
-              "hasNextPage": false,
-              "hasPreviousPage": false
-            }
-          },
           "portfolioCategories": {
             "totalCount": 1,
             "items": [
@@ -37,24 +20,33 @@
                 "updatedAt": null,
                 "version": 1
               }
-            ],
-            "pageInfo": {
-              "hasNextPage": false,
-              "hasPreviousPage": false
-            }
+            ]
+          },
+          "portfolioCustomers": {
+            "totalCount": 1,
+            "items": [
+              {
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
           },
           "portfolioItems": {
             "totalCount": 1,
-            "pageInfo": {
-              "hasNextPage": false,
-              "hasPreviousPage": false
-            },
             "items": [
               {
+                "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+                "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
                 "createdAt": "2024-01-01T00:00:00.000Z",
                 "href": "/test",
                 "id": "28e483e4-6961-4b25-88a9-d1d0a5161109",
                 "ordinal": 1,
+                "technologyIds": [
+                  "48e483e4-6961-4b25-88a9-d1d0a5161109"
+                ],
                 "technologiesSummary": "Title",
                 "title": "Title",
                 "updatedAt": null,
@@ -64,11 +56,7 @@
             ]
           }
         }
-      ],
-      "pageInfo": {
-        "hasNextPage": false,
-        "hasPreviousPage": false
-      }
+      ]
     }
   }
 }

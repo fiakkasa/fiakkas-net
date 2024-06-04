@@ -11,8 +11,8 @@ public class TechnologiesTests(GraphFixture fixture) : IClassFixture<GraphFixtur
 
         var result = await executor.ExecuteAsync(
 """
-query {
-  technologies(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+{
+  technologies(order: { createdAt: ASC }) {
     totalCount
     items {
       createdAt
@@ -21,22 +21,7 @@ query {
       title
       updatedAt
       version
-      customers(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
-        totalCount
-        items {
-          createdAt
-          href
-          id
-          title
-          updatedAt
-          version
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-      }
-      portfolioCategories(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+      portfolioCategories(order: { createdAt: ASC }) {
         totalCount
         items {
           createdAt
@@ -45,22 +30,27 @@ query {
           updatedAt
           version
         }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
+      }
+      portfolioCustomers(order: { createdAt: ASC }) {
+        totalCount
+        items {
+          createdAt
+          id
+          title
+          updatedAt
+          version
         }
       }
-      portfolioItems(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+      portfolioItems(order: { createdAt: ASC }) {
         totalCount
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
         items {
+          categoryId
+          customerId
           createdAt
           href
           id
           ordinal
+          technologyIds
           technologiesSummary
           title
           updatedAt
@@ -68,10 +58,6 @@ query {
           year
         }
       }
-    }
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
     }
   }
 }

@@ -1,4 +1,6 @@
 using api.Application.Models;
+using api.Categories.Interfaces;
+using api.Categories.Models;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.Extensions;
@@ -52,9 +54,9 @@ public class GraphFixture
                     CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
                 }
             ]);
-            var portfolioCategoryDataRepository = new MockDataRepository<IPortfolioCategory>(
+            var categoryDataRepository = new MockDataRepository<ICategory>(
             [
-                new PortfolioCategory
+                new Category
                 {
                     Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                     CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
@@ -89,7 +91,7 @@ public class GraphFixture
                 await new ServiceCollection()
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)
                     .AddSingleton<IDataRepository<IPortfolioItem>>(portfolioItemDataRepository)
-                    .AddSingleton<IDataRepository<IPortfolioCategory>>(portfolioCategoryDataRepository)
+                    .AddSingleton<IDataRepository<ICategory>>(categoryDataRepository)
                     .AddSingleton<IDataRepository<ITechnology>>(technologyDataRepository)
                     .AddSingleton(new SystemInfoItem("Version", new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)))
                     .AddSingleton(healthCheckService)

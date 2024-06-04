@@ -2,6 +2,26 @@
   query: Query
 }
 
+"A segment of a collection."
+type CategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [Category!]
+  totalCount: Int!
+}
+
+type Category {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
+  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+  portfolioTechnologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): PortfolioTechnologiesCollectionSegment
+}
+
 "Information about the offset pagination."
 type CollectionSegmentInfo {
   "Indicates whether more items exist following the set defined by the clients arguments."
@@ -17,9 +37,9 @@ type Customer {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
-  technologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): TechnologiesCollectionSegment
+  portfolioCategories(skip: Int take: Int where: CategoryFilterInput order: [CategorySortInput!]): PortfolioCategoriesCollectionSegment
   portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+  portfolioTechnologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): PortfolioTechnologiesCollectionSegment
 }
 
 "A segment of a collection."
@@ -54,31 +74,32 @@ type PortfolioCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [PortfolioCategory!]
+  items: [Category!]
   totalCount: Int!
 }
 
-type PortfolioCategory {
-  title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
-  customers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): CustomersCollectionSegment
-  technologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): TechnologiesCollectionSegment
+"A segment of a collection."
+type PortfolioCustomersCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [Customer!]
+  totalCount: Int!
 }
 
 type PortfolioItem {
   year: Long!
+  categoryId: UUID!
   ordinal: Long!
   title: String!
   href: URL
+  technologyIds: [UUID!]!
+  customerId: UUID!
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  category: PortfolioCategory
+  category: Category
   customer: Customer
   technologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): TechnologiesCollectionSegment
   technologiesSummary: String!
@@ -93,11 +114,20 @@ type PortfolioItemsCollectionSegment {
   totalCount: Int!
 }
 
+"A segment of a collection."
+type PortfolioTechnologiesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [Technology!]
+  totalCount: Int!
+}
+
 type Query {
   systemStatus: SystemInfoItem!
   health: HealthReportSummary!
+  categories(skip: Int take: Int order: [CategorySortInput!] where: CategoryFilterInput): CategoriesCollectionSegment
   customers(skip: Int take: Int order: [CustomerSortInput!] where: CustomerFilterInput): CustomersCollectionSegment
-  portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
   portfolioItems(skip: Int take: Int order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsCollectionSegment
   technologies(skip: Int take: Int order: [TechnologySortInput!] where: TechnologyFilterInput): TechnologiesCollectionSegment
 }
@@ -125,9 +155,27 @@ type Technology {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
-  customers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): CustomersCollectionSegment
+  portfolioCategories(skip: Int take: Int where: CategoryFilterInput order: [CategorySortInput!]): PortfolioCategoriesCollectionSegment
+  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
   portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+}
+
+input CategoryFilterInput {
+  and: [CategoryFilterInput!]
+  or: [CategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input CategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input CustomerFilterInput {
@@ -185,24 +233,6 @@ input LongOperationFilterInput {
   nlt: Long
   lte: Long
   nlte: Long
-}
-
-input PortfolioCategoryFilterInput {
-  and: [PortfolioCategoryFilterInput!]
-  or: [PortfolioCategoryFilterInput!]
-  title: StringOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-}
-
-input PortfolioCategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
 }
 
 input PortfolioItemFilterInput {

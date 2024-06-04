@@ -12,12 +12,8 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var result = await executor.ExecuteAsync(
 """
 {
-  customers(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+  customers(order: { createdAt: ASC }) {
     totalCount
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-    }
     items {
       createdAt
       href
@@ -25,7 +21,7 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       title
       updatedAt
       version
-      portfolioCategories(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+      portfolioCategories(order: { createdAt: ASC }) {
         totalCount
         items {
           createdAt
@@ -34,30 +30,25 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           updatedAt
           version
         }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
       }
-      portfolioItems(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+      portfolioItems(order: { createdAt: ASC }) {
         totalCount
         items {
+          categoryId
           createdAt
+          customerId
           href
           id
           ordinal
+          technologyIds
           technologiesSummary
           title
           updatedAt
           version
           year
         }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
       }
-      technologies(order: { createdAt: ASC }, take: 1, where: { version: { eq: 1 } }) {
+      portfolioTechnologies(order: { createdAt: ASC }) {
         totalCount
         items {
           createdAt
@@ -66,10 +57,6 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           title
           updatedAt
           version
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
         }
       }
     }

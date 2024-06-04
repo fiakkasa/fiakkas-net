@@ -8,7 +8,7 @@ public class TechnologyTypeExtension
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<PortfolioCategory[]> GetPortfolioCategories(
+    public async ValueTask<Category[]> GetPortfolioCategories(
         [Parent] ITechnology parent,
         [Service] PortfolioCategoryByTechnologyIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
@@ -18,7 +18,7 @@ public class TechnologyTypeExtension
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<Customer[]> GetCustomers(
+    public async ValueTask<Customer[]> GetPortfolioCustomers(
         [Parent] ITechnology parent,
         [Service] CustomerByTechnologyIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken

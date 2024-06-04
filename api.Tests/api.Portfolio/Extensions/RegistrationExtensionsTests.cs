@@ -22,12 +22,10 @@ public class RegistrationExtensionsTests
                 .AddApiPortfolio(config)
                 .BuildServiceProvider();
 
-        var portfolioItemDataRepository = serviceProvider.GetService<IDataRepository<IPortfolioItem>>();
-        var portfolioCategoryDataRepository = serviceProvider.GetService<IDataRepository<IPortfolioCategory>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<IPortfolioItem>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<PortfolioDataConfig>>();
 
-        portfolioItemDataRepository.Should().NotBeNull();
-        portfolioCategoryDataRepository.Should().NotBeNull();
+        dataRepository.Should().NotBeNull();
         options.Should().NotBeNull();
     }
 
@@ -37,7 +35,6 @@ public class RegistrationExtensionsTests
         var result =
             await new ServiceCollection()
                 .AddSingleton(Substitute.For<IDataRepository<IPortfolioItem>>())
-                .AddSingleton(Substitute.For<IDataRepository<IPortfolioCategory>>())
                 .AddGraphQLServer()
                 .AddQueryType()
                 .AddSorting()

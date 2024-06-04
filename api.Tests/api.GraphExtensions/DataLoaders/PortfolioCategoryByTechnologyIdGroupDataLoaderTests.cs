@@ -1,3 +1,5 @@
+using api.Categories.Interfaces;
+using api.Categories.Models;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 
@@ -8,9 +10,9 @@ public class PortfolioCategoryByTechnologyIdGroupDataLoaderTests
     [Fact]
     public async Task LoadBatchAsync_Should_Return_Data_When_Matches_Found()
     {
-        var portfolioCategoryDataRepository = new MockDataRepository<IPortfolioCategory>(
+        var categoryDataRepository = new MockDataRepository<ICategory>(
         [
-            new PortfolioCategory
+            new Category
             {
                 Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
@@ -37,7 +39,7 @@ public class PortfolioCategoryByTechnologyIdGroupDataLoaderTests
             }
         ]);
         var sut = new PortfolioCategoryByTechnologyIdGroupDataLoader(
-            portfolioCategoryDataRepository,
+            categoryDataRepository,
             portfolioItemDataRepository,
             AutoBatchScheduler.Default
         );
@@ -51,11 +53,11 @@ public class PortfolioCategoryByTechnologyIdGroupDataLoaderTests
     [Fact]
     public async Task LoadGroupedBatchAsync_Should_Return_Empty_Collection_When_No_Matches_Found()
     {
-        var portfolioCategoryDataRepository = new MockDataRepository<IPortfolioCategory>();
+        var categoryDataRepository = new MockDataRepository<ICategory>();
         var portfolioItemDataRepository = new MockDataRepository<IPortfolioItem>();
 
         var sut = new PortfolioCategoryByTechnologyIdGroupDataLoader(
-            portfolioCategoryDataRepository,
+            categoryDataRepository,
             portfolioItemDataRepository,
             AutoBatchScheduler.Default
         );

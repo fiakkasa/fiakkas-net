@@ -1,4 +1,5 @@
 using api.Application.Extensions;
+using api.Categories.Extensions;
 using api.Customers.Extensions;
 using api.GraphExtensions.Extensions;
 using api.Portfolio.Extensions;
@@ -14,6 +15,7 @@ public static class GraphQLExtensions
     public static IRequestExecutorBuilder AddApiGraphQLEndpoints(this IRequestExecutorBuilder builder) =>
         builder
             .AddApiApplication()
+            .AddApiCategories()
             .AddApiCustomers()
             .AddApiPortfolio()
             .AddApiTechnologies()

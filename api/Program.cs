@@ -1,5 +1,6 @@
 using api;
 using api.Application.Extensions;
+using api.Categories.Extensions;
 using api.Customers.Extensions;
 using api.Extensions;
 using api.Portfolio.Extensions;
@@ -14,6 +15,7 @@ var isDev = builder.Environment.IsDevelopment();
 config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
 services.AddApiApplication(typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
+services.AddApiCategories(config, Consts.DataFileSectionPath);
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
 services.AddApiPortfolio(config, Consts.DataFileSectionPath);
 services.AddApiTechnologies(config, Consts.DataFileSectionPath);

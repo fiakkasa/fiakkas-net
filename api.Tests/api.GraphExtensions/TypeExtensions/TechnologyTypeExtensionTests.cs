@@ -1,3 +1,5 @@
+using api.Categories.Interfaces;
+using api.Categories.Models;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;
@@ -12,9 +14,9 @@ public class TechnologyTypeExtensionTests
     [Fact]
     public async Task GetPortfolioCategories_Should_Return_Data()
     {
-        var portfolioCategoryDataRepository = new MockDataRepository<IPortfolioCategory>(
+        var categoryDataRepository = new MockDataRepository<ICategory>(
         [
-            new PortfolioCategory
+            new Category
             {
                 Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
@@ -41,7 +43,7 @@ public class TechnologyTypeExtensionTests
             }
         ]);
         var dataLoader = new PortfolioCategoryByTechnologyIdGroupDataLoader(
-            portfolioCategoryDataRepository,
+            categoryDataRepository,
             portfolioDataRepository,
             AutoBatchScheduler.Default
         );
@@ -96,7 +98,7 @@ public class TechnologyTypeExtensionTests
         );
         var sut = new TechnologyTypeExtension();
 
-        var result = await sut.GetCustomers(
+        var result = await sut.GetPortfolioCustomers(
             new Technology { Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None

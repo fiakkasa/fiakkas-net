@@ -1,4 +1,3 @@
-using HotChocolate.Execution;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using System.Net;
@@ -22,7 +21,7 @@ public class ProgramTests
                         [Consts.DataFileSectionPath] = JsonSerializer.Deserialize<object>(
 """
 {
-    "portfolioCategories": [
+    "categories": [
       {
         "id": "45ccaebe-e434-465d-b8a5-c2badaa4132a",
         "createdAt": "2024-05-15T00:00:00.000Z",
