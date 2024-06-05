@@ -3,7 +3,7 @@ using api.GraphExtensions.DataLoaders;
 namespace api.GraphExtensions.TypeExtensions;
 
 [ExtendObjectType<ICustomer>]
-public class CustomerTypeExtension
+public sealed class CustomerTypeExtension
 {
     [UseOffsetPaging]
     [UseFiltering]

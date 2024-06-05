@@ -1,6 +1,6 @@
 namespace api.GraphExtensions.DataLoaders;
 
-public class PortfolioCategoryByTechnologyIdGroupDataLoader(
+public sealed class PortfolioCategoryByTechnologyIdGroupDataLoader(
     IDataRepository<ICategory> portfolioCategoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,

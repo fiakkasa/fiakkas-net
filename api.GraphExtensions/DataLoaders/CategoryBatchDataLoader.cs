@@ -1,6 +1,6 @@
 namespace api.GraphExtensions.DataLoaders;
 
-public class CategoryBatchDataLoader(
+public sealed class CategoryBatchDataLoader(
     IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null

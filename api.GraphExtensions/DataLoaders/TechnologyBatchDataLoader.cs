@@ -1,6 +1,6 @@
 namespace api.GraphExtensions.DataLoaders;
 
-public class TechnologyBatchDataLoader(
+public sealed class TechnologyBatchDataLoader(
     IDataRepository<ITechnology> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null

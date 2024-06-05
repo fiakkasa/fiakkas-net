@@ -3,7 +3,7 @@ using api.GraphExtensions.DataLoaders;
 namespace api.GraphExtensions.TypeExtensions;
 
 [ExtendObjectType<IPortfolioItem>]
-public class PortfolioItemTypeExtension
+public sealed class PortfolioItemTypeExtension
 {
     public async ValueTask<Category?> GetCategory(
         [Parent] IPortfolioItem parent,
