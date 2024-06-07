@@ -1,7 +1,7 @@
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
 
-namespace api.Technologies.Queries;
+namespace api.Technologies.Queries.Tests;
 
 public class TechnologyQueriesTests
 {

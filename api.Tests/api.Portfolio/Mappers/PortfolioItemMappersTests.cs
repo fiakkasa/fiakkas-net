@@ -1,7 +1,7 @@
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 
-namespace api.Portfolio.Mappers;
+namespace api.Portfolio.Mappers.Tests;
 
 public class PortfolioItemMappersTests
 {

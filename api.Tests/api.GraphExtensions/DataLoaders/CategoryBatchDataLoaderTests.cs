@@ -1,7 +1,7 @@
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.GraphExtensions.DataLoaders;
+namespace api.GraphExtensions.DataLoaders.Tests;
 
 public class CategoryBatchDataLoaderTests
 {

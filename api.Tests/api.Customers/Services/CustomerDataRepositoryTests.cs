@@ -2,7 +2,7 @@ using api.Customers.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace api.Customers.Services;
+namespace api.Customers.Services.Tests;
 
 public class CustomerDataRepositoryTests
 {

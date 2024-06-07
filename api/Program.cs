@@ -5,6 +5,7 @@ using api.Customers.Extensions;
 using api.Extensions;
 using api.Portfolio.Extensions;
 using api.Technologies.Extensions;
+using api.TextItems.Extensions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ services.AddApiCategories(config, Consts.DataFileSectionPath);
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
 services.AddApiPortfolio(config, Consts.DataFileSectionPath);
 services.AddApiTechnologies(config, Consts.DataFileSectionPath);
+services.AddApiTextItems(config, Consts.DataFileSectionPath);
 
 services.AddCors();
 

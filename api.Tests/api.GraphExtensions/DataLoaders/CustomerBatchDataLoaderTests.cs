@@ -1,7 +1,7 @@
 using api.Customers.Interfaces;
 using api.Customers.Models;
 
-namespace api.GraphExtensions.DataLoaders;
+namespace api.GraphExtensions.DataLoaders.Tests;
 
 public class CustomerBatchDataLoaderTests
 {

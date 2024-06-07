@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace api.Application.TypeExtensions;
+namespace api.Application.TypeExtensions.Tests;
 
 public class SystemInfoItemTypeExtensionTests
 {

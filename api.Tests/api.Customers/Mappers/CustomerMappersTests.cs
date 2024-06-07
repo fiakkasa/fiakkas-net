@@ -1,7 +1,7 @@
 using api.Customers.Interfaces;
 using api.Customers.Models;
 
-namespace api.Customers.Mappers;
+namespace api.Customers.Mappers.Tests;
 
 public class CustomerMappersTests
 {

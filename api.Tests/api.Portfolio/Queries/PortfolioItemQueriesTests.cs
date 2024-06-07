@@ -1,7 +1,7 @@
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 
-namespace api.Portfolio.Queries;
+namespace api.Portfolio.Queries.Tests;
 
 public class PortfolioItemQueriesTests
 {

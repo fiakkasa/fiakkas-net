@@ -2,7 +2,7 @@ using api.Technologies.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace api.Technologies.Services;
+namespace api.Technologies.Services.Tests;
 
 public class TechnologyDataRepositoryTests
 {

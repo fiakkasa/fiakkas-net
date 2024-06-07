@@ -9,6 +9,8 @@ using api.Portfolio.Models;
 using api.Shared.Interfaces;
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
+using api.TextItems.Interfaces;
+using api.TextItems.Models;
 using HotChocolate.Execution;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -65,6 +67,19 @@ public class GraphFixture
                     Title = "Title"
                 }
             ]);
+            var textItemDataRepository = new MockDataRepository<ITextItem>(
+            [
+                new TextItem
+                {
+                    Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Key = "Key",
+                    Title = "Title",
+                    Content = "Content"
+                }
+            ]);
             var technologyDataRepository = new MockDataRepository<ITechnology>(
             [
                 new Technology
@@ -92,6 +107,7 @@ public class GraphFixture
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)
                     .AddSingleton<IDataRepository<IPortfolioItem>>(portfolioItemDataRepository)
                     .AddSingleton<IDataRepository<ICategory>>(categoryDataRepository)
+                    .AddSingleton<IDataRepository<ITextItem>>(textItemDataRepository)
                     .AddSingleton<IDataRepository<ITechnology>>(technologyDataRepository)
                     .AddSingleton(new SystemInfoItem("Version", new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)))
                     .AddSingleton(healthCheckService)

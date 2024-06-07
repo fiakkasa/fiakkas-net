@@ -63,6 +63,17 @@
         ],
         "customerId": "9622e0b5-2597-4015-93cb-120f4783d06a"
       }
+    ],
+    "textItems": [
+      {
+        "id": "2f69e973-550b-4769-801a-e757807e6845",
+        "createdAt": "2024-06-07T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "key": "test",
+        "title": "Test",
+        "content": "Exercitation laborum ad occaecat ut adipisicing."
+      }
     ]
   }
 }
