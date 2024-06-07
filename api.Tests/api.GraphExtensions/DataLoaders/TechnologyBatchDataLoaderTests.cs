@@ -1,7 +1,7 @@
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
 
-namespace api.GraphExtensions.DataLoaders;
+namespace api.GraphExtensions.DataLoaders.Tests;
 
 public class TechnologyBatchDataLoaderTests
 {

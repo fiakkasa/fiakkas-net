@@ -3,7 +3,7 @@ using api.Portfolio.Models;
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
 
-namespace api.GraphExtensions.DataLoaders;
+namespace api.GraphExtensions.DataLoaders.Tests;
 
 public class TechnologyByPortfolioCategoryIdGroupDataLoaderTests
 {

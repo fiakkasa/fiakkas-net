@@ -3,7 +3,7 @@ using api.Customers.Models;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 
-namespace api.GraphExtensions.DataLoaders;
+namespace api.GraphExtensions.DataLoaders.Tests;
 
 public class CustomerByTechnologyIdGroupDataLoaderTests
 {

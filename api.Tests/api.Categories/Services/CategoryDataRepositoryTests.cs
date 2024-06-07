@@ -2,7 +2,7 @@ using api.Categories.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace api.Categories.Services;
+namespace api.Categories.Services.Tests;
 
 public class CategoryDataRepositoryTests
 {

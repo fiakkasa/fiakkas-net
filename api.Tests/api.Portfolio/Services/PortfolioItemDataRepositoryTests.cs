@@ -2,7 +2,7 @@ using api.Portfolio.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace api.Portfolio.Services;
+namespace api.Portfolio.Services.Tests;
 
 public class PortfolioItemDataRepositoryTests
 {

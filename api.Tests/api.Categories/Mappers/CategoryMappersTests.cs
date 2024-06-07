@@ -1,7 +1,7 @@
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.Categories.Mappers;
+namespace api.Categories.Mappers.Tests;
 
 public class CategoryMappersTests
 {

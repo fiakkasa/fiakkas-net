@@ -1,7 +1,7 @@
 using api.Customers.Interfaces;
 using api.Customers.Models;
 
-namespace api.Customers.Queries;
+namespace api.Customers.Queries.Tests;
 
 public class CustomerQueriesTests
 {

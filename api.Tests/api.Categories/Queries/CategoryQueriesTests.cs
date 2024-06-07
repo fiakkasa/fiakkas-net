@@ -1,7 +1,7 @@
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.Categories.Queries;
+namespace api.Categories.Queries.Tests;
 
 public class CategoryQueriesTests
 {

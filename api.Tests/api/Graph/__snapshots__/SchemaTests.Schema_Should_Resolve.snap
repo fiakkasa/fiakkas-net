@@ -130,6 +130,7 @@ type Query {
   customers(skip: Int take: Int order: [CustomerSortInput!] where: CustomerFilterInput): CustomersCollectionSegment
   portfolioItems(skip: Int take: Int order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsCollectionSegment
   technologies(skip: Int take: Int order: [TechnologySortInput!] where: TechnologyFilterInput): TechnologiesCollectionSegment
+  textItems(skip: Int take: Int order: [TextItemSortInput!] where: TextItemFilterInput): TextItemsCollectionSegment
 }
 
 type SystemInfoItem {
@@ -158,6 +159,25 @@ type Technology {
   portfolioCategories(skip: Int take: Int where: CategoryFilterInput order: [CategorySortInput!]): PortfolioCategoriesCollectionSegment
   portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
   portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+}
+
+type TextItem {
+  key: String!
+  title: String!
+  content: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A segment of a collection."
+type TextItemsCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [TextItem!]
+  totalCount: Int!
 }
 
 input CategoryFilterInput {
@@ -293,6 +313,28 @@ input TechnologyFilterInput {
 input TechnologySortInput {
   title: SortEnumType
   href: UriSortInput
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input TextItemFilterInput {
+  and: [TextItemFilterInput!]
+  or: [TextItemFilterInput!]
+  key: StringOperationFilterInput
+  title: StringOperationFilterInput
+  content: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input TextItemSortInput {
+  key: SortEnumType
+  title: SortEnumType
+  content: SortEnumType
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType

@@ -7,7 +7,7 @@ using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Technologies.Models;
 
-namespace api.GraphExtensions.TypeExtensions;
+namespace api.GraphExtensions.TypeExtensions.Tests;
 
 public class TechnologyTypeExtensionTests
 {

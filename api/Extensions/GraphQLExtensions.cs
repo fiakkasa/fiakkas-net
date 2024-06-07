@@ -4,6 +4,7 @@ using api.Customers.Extensions;
 using api.GraphExtensions.Extensions;
 using api.Portfolio.Extensions;
 using api.Technologies.Extensions;
+using api.TextItems.Extensions;
 using HotChocolate.AspNetCore;
 using HotChocolate.Execution.Configuration;
 using HotChocolate.Execution.Options;
@@ -19,6 +20,7 @@ public static class GraphQLExtensions
             .AddApiCustomers()
             .AddApiPortfolio()
             .AddApiTechnologies()
+            .AddApiTextItems()
             .AddApiGraphExtensions();
 
     public static IRequestExecutorBuilder AddApiGraphQLServer(this IServiceCollection services, bool isDev) =>

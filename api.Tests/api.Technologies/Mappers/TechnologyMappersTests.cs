@@ -1,7 +1,7 @@
 using api.Technologies.Interfaces;
 using api.Technologies.Models;
 
-namespace api.Technologies.Mappers;
+namespace api.Technologies.Mappers.Tests;
 
 public class TechnologyMappersTests
 {

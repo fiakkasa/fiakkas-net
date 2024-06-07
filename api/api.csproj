@@ -9,8 +9,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
-    <Version>1.2.0</Version>
-    <ContainerImageTags>1.2.0;latest</ContainerImageTags>
+    <Version>1.3.0</Version>
+    <ContainerImageTags>1.3.0;latest</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +25,7 @@
     <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
     <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
     <ProjectReference Include="..\api.Technologies\api.Technologies.csproj" />
+    <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
     <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
   </ItemGroup>
 
