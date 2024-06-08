@@ -57,6 +57,81 @@ To run the tests, and produce the coverage report run:
 
 `dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'; dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html`
 
+## Logging
+
+The solution is configured to use the ILogger abstraction with Serilog and most specifically the Console and File sinks.
+
+In addition a number of enrichers are present and enabled by default:
+
+- Serilog.Enrichers.ClientInfo
+- Serilog.Enrichers.Environment
+- Serilog.Enrichers.Process
+- Serilog.Enrichers.Thread
+
+```json
+{
+  "Serilog": {
+    "Using": ["Serilog.Sinks.Console", "Serilog.Sinks.File"],
+    "Enrich": [
+      "WithClientIp",
+      {
+        "Name": "WithRequestHeader",
+        "Args": {
+          "headerName": "User-Agent"
+        }
+      },
+      {
+        "Name": "WithRequestHeader",
+        "Args": {
+          "headerName": "Connection"
+        }
+      },
+      {
+        "Name": "WithRequestHeader",
+        "Args": {
+          "headerName": "Content-Length",
+          "propertyName": "RequestLength"
+        }
+      },
+      "WithCorrelationId",
+      "WithMachineName",
+      "WithEnvironmentUserName",
+      "WithEnvironmentName",
+      "WithProcessId",
+      "WithProcessName",
+      "WithThreadId",
+      "WithThreadName"
+    ],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "Properties": {
+      "Application": "FiakkasNetApi"
+    },
+    "WriteTo": [
+      {
+        "Name": "Console"
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "logs/api.log",
+          "shared": true,
+          "formatter": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact",
+          "fileSizeLimitBytes": 102400,
+          "rollOnFileSizeLimit": true,
+          "retainedFileCountLimit": 10
+        }
+      }
+    ]
+  }
+}
+```
+
 ## References
 
 - ASP.NET: https://dotnet.microsoft.com/en-us/apps/aspnet
@@ -65,3 +140,4 @@ To run the tests, and produce the coverage report run:
 - HotChocolate: https://chillicream.com/docs/hotchocolate
 - GraphQL: https://graphql.org
 - Vertical Slide Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
+- Serilog Configuration: https://github.com/serilog/serilog-settings-configuration
