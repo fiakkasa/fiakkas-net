@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using System.Text;
 using System.Text.Json;
 
 namespace api.Tests.TestingExtensions;
@@ -14,11 +15,11 @@ public static class ConfigExtensions
             )
             .Build();
 
-    public static T AddToConfigBuilder<T>(this T builder, Dictionary<string, object> config) where T : IConfigurationBuilder
+    public static T AddToConfigBuilder<T>(this T builder, string config) where T : IConfigurationBuilder
     {
         builder.AddJsonStream(
             new MemoryStream(
-                JsonSerializer.SerializeToUtf8Bytes(config)
+                Encoding.UTF8.GetBytes(config)
             )
         );
 

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using System.Net;
-using System.Text.Json;
 
 namespace api.Tests;
 
@@ -16,11 +15,61 @@ public class ProgramTests
                 config.Sources.Clear();
 
                 config.AddToConfigBuilder(
-                    new()
-                    {
-                        [Consts.DataFileSectionPath] = JsonSerializer.Deserialize<object>(
 """
 {
+  "Serilog": {
+    "Using": [
+      "Serilog.Sinks.Console"
+    ],
+    "Enrich": [
+      "WithClientIp",
+      {
+        "Name": "WithRequestHeader",
+        "Args": {
+          "headerName": "User-Agent"
+        }
+      },
+      {
+        "Name": "WithRequestHeader",
+        "Args": {
+          "headerName": "Connection"
+        }
+      },
+      {
+        "Name": "WithRequestHeader",
+        "Args": {
+          "headerName": "Content-Length",
+          "propertyName": "RequestLength"
+        }
+      },
+      "WithCorrelationId",
+      "WithMachineName",
+      "WithEnvironmentUserName",
+      "WithEnvironmentName",
+      "WithProcessId",
+      "WithProcessName",
+      "WithThreadId",
+      "WithThreadName"
+    ],
+    "MinimumLevel": {
+      // "Verbose", "Debug", "Information", "Warning", "Error", "Fatal"
+      "Default": "Fatal",
+      "Override": {
+        "Default": "Fatal",
+        "Microsoft.AspNetCore": "Fatal"
+      }
+    },
+    "Properties": {
+      "Application": "FiakkasNetApi"
+    },
+    "WriteTo": [
+      {
+        "Name": "Console"
+      }
+    ]
+  },
+  "AllowedHosts": "*",
+  "data": {
     "categories": [
       {
         "id": "45ccaebe-e434-465d-b8a5-c2badaa4132a",
@@ -42,6 +91,22 @@ public class ProgramTests
     ],
     "technologies": [
       {
+        "id": "0089603d-4574-4533-9515-9ddca3c6efd4",
+        "createdAt": "2024-05-15T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "title": "Angular",
+        "href": "https://angular.io"
+      },
+      {
+        "id": "480a46c6-5047-4ef6-b319-6378056a6191",
+        "createdAt": "2024-05-15T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "title": "ASP.NET (Modern)",
+        "href": "https://www.asp.net"
+      },
+      {
         "id": "f4fe386b-0623-4021-a61d-735e7b656ded",
         "createdAt": "2024-05-15T00:00:00.000Z",
         "updatedAt": null,
@@ -62,17 +127,27 @@ public class ProgramTests
         "title": "EPC Data Api",
         "href": null,
         "technologyIds": [
-          "0089603d-4574-4533-9515-9ddca3c6efd4"
+          "0089603d-4574-4533-9515-9ddca3c6efd4",
+          "480a46c6-5047-4ef6-b319-6378056a6191",
+          "f4fe386b-0623-4021-a61d-735e7b656ded"
         ],
         "customerId": "9622e0b5-2597-4015-93cb-120f4783d06a"
       }
+    ],
+    "textItems": [
+      {
+        "id": "2f69e973-550b-4769-801a-e757807e6845",
+        "createdAt": "2024-06-07T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "key": "test",
+        "title": "Test",
+        "content": "Exercitation laborum ad occaecat ut adipisicing."
+      }
     ]
   }
+}
 """
-                        )!,
-                        ["Logging:LogLevel:Default"] = "Error",
-                        ["AllowedHosts"] = "*"
-                    }
                 );
             });
 
