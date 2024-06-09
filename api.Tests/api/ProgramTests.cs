@@ -42,7 +42,13 @@ public class ProgramTests
           "propertyName": "RequestLength"
         }
       },
-      "WithCorrelationId",
+      {
+        "Name": "WithCorrelationId",
+        "Args": {
+          "headerName": "x-correlation-id",
+          "addValueIfHeaderAbsence": true
+        }
+      },
       "WithMachineName",
       "WithEnvironmentUserName",
       "WithEnvironmentName",
