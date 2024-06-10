@@ -52,7 +52,6 @@ type PortfolioCustomersCollectionSegment {
 type PortfolioItem {
   year: Long!
   categoryId: UUID!
-  ordinal: Long!
   title: String!
   href: URL
   technologyIds: [UUID!]!
@@ -190,7 +189,6 @@ input PortfolioItemFilterInput {
   or: [PortfolioItemFilterInput!]
   year: LongOperationFilterInput
   categoryId: UuidOperationFilterInput
-  ordinal: LongOperationFilterInput
   title: StringOperationFilterInput
   href: UrlOperationFilterInput
   technologyIds: ListUuidOperationFilterInput
@@ -204,7 +202,6 @@ input PortfolioItemFilterInput {
 input PortfolioItemSortInput {
   year: SortEnumType
   categoryId: SortEnumType
-  ordinal: SortEnumType
   title: SortEnumType
   href: UriSortInput
   customerId: SortEnumType

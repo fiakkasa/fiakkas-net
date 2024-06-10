@@ -32,7 +32,6 @@ public class TechnologyByCustomerIdGroupDataLoaderTests
                 Version = 1,
                 Year = 2024,
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
-                Ordinal = 1,
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
                 TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],

@@ -14,7 +14,6 @@ public static class PortfolioItemMappers
             Version = x.Version,
             Year = x.Year,
             CategoryId = x.CategoryId,
-            Ordinal = x.Ordinal,
             Title = x.Title,
             Href = x.Href,
             TechnologyIds = x.TechnologyIds,

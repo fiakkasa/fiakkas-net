@@ -20,7 +20,6 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
       createdAt
       href
       id
-      ordinal
       technologyIds
       technologiesSummary
       title
