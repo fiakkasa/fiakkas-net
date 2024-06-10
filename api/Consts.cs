@@ -17,6 +17,4 @@ public static class Consts
     public const int GraphQLPagingMaxPageSize = 1_000;
     public const int GraphQLPagingDefaultPageSize = 100;
     public const bool GraphQLPagingIncludeTotalCount = true;
-
-    public const string LogPropertyAppVersion = "AppVersion";
 }

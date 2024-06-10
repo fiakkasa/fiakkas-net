@@ -55,7 +55,8 @@ public class ProgramTests
       "WithProcessId",
       "WithProcessName",
       "WithThreadId",
-      "WithThreadName"
+      "WithThreadName",
+      "WithAssemblyInformationalVersion"
     ],
     "MinimumLevel": {
       // "Verbose", "Debug", "Information", "Warning", "Error", "Fatal"

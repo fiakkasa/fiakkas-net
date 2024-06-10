@@ -14,19 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var config = builder.Configuration;
 var isDev = builder.Environment.IsDevelopment();
-var versionAttribute = typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
 builder.Host.UseSerilog((context, configuration) =>
-    configuration
-        .Enrich.WithProperty(Consts.LogPropertyAppVersion, versionAttribute!.InformationalVersion)
-        .ReadFrom.Configuration(context.Configuration)
+    configuration.ReadFrom.Configuration(context.Configuration)
 );
 
 config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
 services.AddHttpContextAccessor();
 
-services.AddApiApplication(versionAttribute);
+services.AddApiApplication(typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
 services.AddApiCategories(config, Consts.DataFileSectionPath);
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
 services.AddApiLanguages(config, Consts.DataFileSectionPath);
