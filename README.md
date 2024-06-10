@@ -63,6 +63,7 @@ The solution is configured to use the ILogger abstraction with Serilog and most 
 
 In addition a number of enrichers are present and enabled by default:
 
+- Serilog.Enrichers.AssemblyName
 - Serilog.Enrichers.ClientInfo
 - Serilog.Enrichers.Environment
 - Serilog.Enrichers.Process
@@ -106,7 +107,8 @@ In addition a number of enrichers are present and enabled by default:
       "WithProcessId",
       "WithProcessName",
       "WithThreadId",
-      "WithThreadName"
+      "WithThreadName",
+      "WithAssemblyInformationalVersion"
     ],
     "MinimumLevel": {
       "Default": "Information",
@@ -147,11 +149,12 @@ In addition a number of enrichers are present and enabled by default:
 - GraphQL: https://graphql.org
 - Vertical Slide Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
+- Serilog.Enrichers.AssemblyName: https://github.com/TinyBlueRobots/Serilog.Enrichers.AssemblyName
 - Serilog.Enrichers.ClientInfo: https://github.com/serilog-contrib/serilog-enrichers-clientinfo
 - Serilog.Enrichers.Environment: https://github.com/serilog/serilog-enrichers-environment
 - Serilog.Enrichers.Process: https://github.com/serilog/serilog-enrichers-process
 - Serilog.Enrichers.Thread: https://github.com/serilog/serilog-enrichers-thread
 - Serilog.Formatting.Compact: https://github.com/serilog/serilog-formatting-compact
 - Serilog.Settings.Configuration: https://github.com/serilog/serilog-settings-configuration
-- Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
 - Serilog.Sinks.Console: https://github.com/serilog/serilog-sinks-console
+- Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
