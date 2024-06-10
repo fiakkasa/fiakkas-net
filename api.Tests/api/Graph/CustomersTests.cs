@@ -39,7 +39,6 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           customerId
           href
           id
-          ordinal
           technologyIds
           technologiesSummary
           title

@@ -1,0 +1,141 @@
+﻿schema {
+  query: Query
+}
+
+"Information about the offset pagination."
+type CollectionSegmentInfo {
+  "Indicates whether more items exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more items exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+}
+
+type Language {
+  proficiency: ProficiencyType!
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A segment of a collection."
+type LanguagesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [Language!]
+}
+
+type Query {
+  languages(skip: Int take: Int order: [LanguageSortInput!] where: LanguageFilterInput): LanguagesCollectionSegment
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input LanguageFilterInput {
+  and: [LanguageFilterInput!]
+  or: [LanguageFilterInput!]
+  proficiency: ProficiencyTypeOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input LanguageSortInput {
+  proficiency: SortEnumType
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input LongOperationFilterInput {
+  eq: Long
+  neq: Long
+  in: [Long]
+  nin: [Long]
+  gt: Long
+  ngt: Long
+  gte: Long
+  ngte: Long
+  lt: Long
+  nlt: Long
+  lte: Long
+  nlte: Long
+}
+
+input ProficiencyTypeOperationFilterInput {
+  eq: ProficiencyType
+  neq: ProficiencyType
+  in: [ProficiencyType!]
+  nin: [ProficiencyType!]
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+enum ProficiencyType {
+  NONE
+  ELEMENTARY
+  LIMITED_WORKING
+  PROFICIENT
+  FLUENT
+  NATIVE
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

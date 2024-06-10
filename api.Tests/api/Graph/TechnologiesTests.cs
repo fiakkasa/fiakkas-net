@@ -49,7 +49,6 @@ public class TechnologiesTests(GraphFixture fixture) : IClassFixture<GraphFixtur
           createdAt
           href
           id
-          ordinal
           technologyIds
           technologiesSummary
           title
