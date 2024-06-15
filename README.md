@@ -148,6 +148,7 @@ In addition a number of enrichers are present and enabled by default:
 - HotChocolate: https://chillicream.com/docs/hotchocolate
 - GraphQL: https://graphql.org
 - Vertical Slide Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
+- Serilog Enrichment: https://github.com/serilog/serilog/wiki/Enrichment
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
 - Serilog.Enrichers.AssemblyName: https://github.com/TinyBlueRobots/Serilog.Enrichers.AssemblyName
 - Serilog.Enrichers.ClientInfo: https://github.com/serilog-contrib/serilog-enrichers-clientinfo

@@ -160,6 +160,19 @@ public class ProgramTests
         "title": "English",
         "proficiency": "Native"
       }
+    ],
+    "contactItems": [
+      {
+        "id": "ebf224a8-7ff3-47b9-882b-dd41ec7f5a05",
+        "createdAt": "2024-06-15T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "key": "email",
+        "icon": "envelope",
+        "title": "Email",
+        "content": "user@email.com",
+        "href": "mailto:user@email.com"
+      }
     ]
   }
 }

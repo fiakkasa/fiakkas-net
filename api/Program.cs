@@ -1,6 +1,7 @@
 using api;
 using api.Application.Extensions;
 using api.Categories.Extensions;
+using api.ContactItems.Extensions;
 using api.Customers.Extensions;
 using api.Extensions;
 using api.Languages.Extensions;
@@ -25,6 +26,7 @@ services.AddHttpContextAccessor();
 
 services.AddApiApplication(typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
 services.AddApiCategories(config, Consts.DataFileSectionPath);
+services.AddApiContactItems(config, Consts.DataFileSectionPath);
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
 services.AddApiLanguages(config, Consts.DataFileSectionPath);
 services.AddApiPortfolio(config, Consts.DataFileSectionPath);
