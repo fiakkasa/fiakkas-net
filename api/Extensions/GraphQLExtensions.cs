@@ -1,5 +1,6 @@
 using api.Application.Extensions;
 using api.Categories.Extensions;
+using api.ContactItems.Extensions;
 using api.Customers.Extensions;
 using api.GraphExtensions.Extensions;
 using api.Languages.Extensions;
@@ -18,6 +19,7 @@ public static class GraphQLExtensions
         builder
             .AddApiApplication()
             .AddApiCategories()
+            .AddApiContactItems()
             .AddApiCustomers()
             .AddApiLanguages()
             .AddApiPortfolio()

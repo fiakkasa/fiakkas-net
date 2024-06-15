@@ -30,6 +30,27 @@ type CollectionSegmentInfo {
   hasPreviousPage: Boolean!
 }
 
+type ContactItem {
+  key: String!
+  icon: String
+  title: String!
+  content: String!
+  href: URL
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A segment of a collection."
+type ContactItemsCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [ContactItem!]
+  totalCount: Int!
+}
+
 type Customer {
   title: String!
   href: URL
@@ -144,6 +165,7 @@ type Query {
   systemStatus: SystemInfoItem!
   health: HealthReportSummary!
   categories(skip: Int take: Int order: [CategorySortInput!] where: CategoryFilterInput): CategoriesCollectionSegment
+  contactItems(skip: Int take: Int order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsCollectionSegment
   customers(skip: Int take: Int order: [CustomerSortInput!] where: CustomerFilterInput): CustomersCollectionSegment
   languages(skip: Int take: Int order: [LanguageSortInput!] where: LanguageFilterInput): LanguagesCollectionSegment
   portfolioItems(skip: Int take: Int order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsCollectionSegment
@@ -210,6 +232,32 @@ input CategoryFilterInput {
 
 input CategorySortInput {
   title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input ContactItemFilterInput {
+  and: [ContactItemFilterInput!]
+  or: [ContactItemFilterInput!]
+  key: StringOperationFilterInput
+  icon: StringOperationFilterInput
+  title: StringOperationFilterInput
+  content: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input ContactItemSortInput {
+  key: SortEnumType
+  icon: SortEnumType
+  title: SortEnumType
+  content: SortEnumType
+  href: UriSortInput
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType

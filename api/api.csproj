@@ -9,8 +9,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
-    <Version>1.5.2</Version>
-    <ContainerImageTags>1.5.2;latest</ContainerImageTags>
+    <Version>1.6.0</Version>
+    <ContainerImageTags>1.6.0;latest</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,8 +22,8 @@
     <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.0.3" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.0" />
-    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
-    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\api.Application\api.Application.csproj" />
+    <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj" />
     <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
     <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
     <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
