@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\api.Achievements\api.Achievements.csproj" />
     <ProjectReference Include="..\api.Application\api.Application.csproj" />
     <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj" />
     <ProjectReference Include="..\api.Customers\api.Customers.csproj" />

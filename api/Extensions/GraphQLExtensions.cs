@@ -1,3 +1,4 @@
+using api.Achievements.Extensions;
 using api.Application.Extensions;
 using api.Categories.Extensions;
 using api.ContactItems.Extensions;
@@ -17,6 +18,7 @@ public static class GraphQLExtensions
 {
     public static IRequestExecutorBuilder AddApiGraphQLEndpoints(this IRequestExecutorBuilder builder) =>
         builder
+            .AddApiAchievements()
             .AddApiApplication()
             .AddApiCategories()
             .AddApiContactItems()

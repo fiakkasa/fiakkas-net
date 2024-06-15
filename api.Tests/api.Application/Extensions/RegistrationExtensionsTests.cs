@@ -6,12 +6,14 @@ namespace api.Application.Extensions.Tests;
 
 public class RegistrationExtensionsTests
 {
+    private static readonly DateTimeOffset _start = DateTimeOffset.Now;
+
     [Fact]
     public void AddApiApplication_Service_Registration_Should_Add_SystemInfo_With_Empty_Version_When_Version_Does_Not_Resolve()
     {
         var result =
             new ServiceCollection()
-                .AddApiApplication()
+                .AddApiApplication(_start)
                 .BuildServiceProvider()
                 .GetService<SystemInfoItem>();
 
@@ -25,7 +27,7 @@ public class RegistrationExtensionsTests
         var value = "1.1.1";
         var result =
             new ServiceCollection()
-                .AddApiApplication(new(value))
+                .AddApiApplication(_start, new(value))
                 .BuildServiceProvider()
                 .GetService<SystemInfoItem>();
 

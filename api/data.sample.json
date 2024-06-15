@@ -96,6 +96,18 @@
         "content": "user@email.com",
         "href": "mailto:user@email.com"
       }
+    ],
+    "achievements": [
+      {
+        "id": "d4605b0c-58bc-49ac-bcfd-10a24a203add",
+        "createdAt": "2024-06-15T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "content": "Some great achievement!",
+        "years": [
+          2024
+        ]
+      }
     ]
   }
 }

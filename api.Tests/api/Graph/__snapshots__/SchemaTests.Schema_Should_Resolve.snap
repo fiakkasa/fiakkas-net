@@ -2,6 +2,25 @@
   query: Query
 }
 
+type Achievement {
+  content: String!
+  years: [Int!]!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  yearsSummary: String!
+}
+
+"A segment of a collection."
+type AchievementsCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [Achievement!]
+  totalCount: Int!
+}
+
 "A segment of a collection."
 type CategoriesCollectionSegment {
   "Information to aid in pagination."
@@ -162,6 +181,7 @@ type PortfolioTechnologiesCollectionSegment {
 }
 
 type Query {
+  achievements(skip: Int take: Int order: [AchievementSortInput!] where: AchievementFilterInput): AchievementsCollectionSegment
   systemStatus: SystemInfoItem!
   health: HealthReportSummary!
   categories(skip: Int take: Int order: [CategorySortInput!] where: CategoryFilterInput): CategoriesCollectionSegment
@@ -218,6 +238,25 @@ type TextItemsCollectionSegment {
   "A flattened list of the items."
   items: [TextItem!]
   totalCount: Int!
+}
+
+input AchievementFilterInput {
+  and: [AchievementFilterInput!]
+  or: [AchievementFilterInput!]
+  content: StringOperationFilterInput
+  years: ListIntOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input AchievementSortInput {
+  content: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input CategoryFilterInput {
@@ -299,6 +338,21 @@ input DateTimeOperationFilterInput {
   nlte: DateTime
 }
 
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
 input LanguageFilterInput {
   and: [LanguageFilterInput!]
   or: [LanguageFilterInput!]
@@ -317,6 +371,13 @@ input LanguageSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
+}
+
+input ListIntOperationFilterInput {
+  all: IntOperationFilterInput
+  none: IntOperationFilterInput
+  some: IntOperationFilterInput
+  any: Boolean
 }
 
 input ListUuidOperationFilterInput {
