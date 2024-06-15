@@ -1,45 +1,45 @@
-using api.ContactItems.Interfaces;
-using api.ContactItems.Models;
+using api.Achievements.Interfaces;
+using api.Achievements.Models;
 using api.Shared.Interfaces;
 using HotChocolate.Execution;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace api.ContactItems.Extensions.Tests;
+namespace api.Achievements.Extensions.Tests;
 
 public class RegistrationExtensionsTests
 {
     [Fact]
-    public void AddApiContactItems_Service_Registration_Should_Add_Options_And_Services()
+    public void AddApiAchievements_Service_Registration_Should_Add_Options_And_Services()
     {
         var config = new Dictionary<string, object>
         {
-            ["data"] = new ContactItemsDataConfig()
+            ["data"] = new AchievementsDataConfig()
         }.GetConfigRoot();
         var serviceProvider =
             new ServiceCollection()
                 .AddLogging()
-                .AddApiContactItems(config)
+                .AddApiAchievements(config)
                 .BuildServiceProvider();
 
-        var dataRepository = serviceProvider.GetService<IDataRepository<IContactItem>>();
-        var options = serviceProvider.GetService<IOptionsSnapshot<ContactItemsDataConfig>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<IAchievement>>();
+        var options = serviceProvider.GetService<IOptionsSnapshot<AchievementsDataConfig>>();
 
         dataRepository.Should().NotBeNull();
         options.Should().NotBeNull();
     }
 
     [Fact]
-    public async Task AddApiContactItems_GraphQL_Registration_Should_Add_GraphQL_Assets()
+    public async Task AddApiAchievements_GraphQL_Registration_Should_Add_GraphQL_Assets()
     {
         var result =
             await new ServiceCollection()
-                .AddSingleton(Substitute.For<IDataRepository<IContactItem>>())
+                .AddSingleton(Substitute.For<IDataRepository<IAchievement>>())
                 .AddGraphQLServer()
                 .AddQueryType()
                 .AddSorting()
                 .AddFiltering()
-                .AddApiContactItems()
+                .AddApiAchievements()
                 .BuildSchemaAsync();
 
         var schema = result.Print();

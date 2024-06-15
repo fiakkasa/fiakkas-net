@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Languages", "api.Langua
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.ContactItems", "api.ContactItems\api.ContactItems.csproj", "{F93C7D1C-0E6A-472F-99F4-333D061979C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Achievements", "api.Achievements\api.Achievements.csproj", "{8234F083-B0A5-456A-8655-FF41F896A0B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{F93C7D1C-0E6A-472F-99F4-333D061979C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F93C7D1C-0E6A-472F-99F4-333D061979C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F93C7D1C-0E6A-472F-99F4-333D061979C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8234F083-B0A5-456A-8655-FF41F896A0B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8234F083-B0A5-456A-8655-FF41F896A0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8234F083-B0A5-456A-8655-FF41F896A0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8234F083-B0A5-456A-8655-FF41F896A0B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

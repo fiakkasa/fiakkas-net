@@ -1,3 +1,5 @@
+using api.Achievements.Interfaces;
+using api.Achievements.Models;
 using api.Application.Models;
 using api.Categories.Interfaces;
 using api.Categories.Models;
@@ -33,6 +35,18 @@ public class GraphFixture
         {
             _semaphore.Wait();
 
+            var achievementsDataRepository = new MockDataRepository<IAchievement>(
+            [
+                new Achievement
+                {
+                    Id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Content = "Content",
+                    Years = [2024]
+                }
+            ]);
             var categoryDataRepository = new MockDataRepository<ICategory>(
             [
                 new Category
@@ -122,7 +136,7 @@ public class GraphFixture
                     Title = "Title",
                     Content = "Content"
                 }
-            ]);  
+            ]);
             var healthCheckService = Substitute.For<HealthCheckService>();
             healthCheckService
                 .CheckHealthAsync(Arg.Any<CancellationToken>())
@@ -135,6 +149,7 @@ public class GraphFixture
                 );
             _requestExecutor =
                 await new ServiceCollection()
+                    .AddSingleton<IDataRepository<IAchievement>>(achievementsDataRepository)
                     .AddSingleton<IDataRepository<ICategory>>(categoryDataRepository)
                     .AddSingleton<IDataRepository<IContactItem>>(contactItemsDataRepository)
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)

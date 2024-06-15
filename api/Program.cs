@@ -1,4 +1,5 @@
 using api;
+using api.Achievements.Extensions;
 using api.Application.Extensions;
 using api.Categories.Extensions;
 using api.ContactItems.Extensions;
@@ -11,6 +12,7 @@ using api.TextItems.Extensions;
 using Serilog;
 using System.Reflection;
 
+var start = DateTimeOffset.Now;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var config = builder.Configuration;
@@ -24,7 +26,8 @@ config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
 services.AddHttpContextAccessor();
 
-services.AddApiApplication(typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
+services.AddApiAchievements(config, Consts.DataFileSectionPath);
+services.AddApiApplication(start, typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
 services.AddApiCategories(config, Consts.DataFileSectionPath);
 services.AddApiContactItems(config, Consts.DataFileSectionPath);
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
