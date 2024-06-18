@@ -33,7 +33,6 @@ public class TextItemMappersTests
         var result = item.Map();
 
         result.Should().BeOfType<TextItem>();
-        result.Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

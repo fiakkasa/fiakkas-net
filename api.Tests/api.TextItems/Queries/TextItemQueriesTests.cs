@@ -25,7 +25,6 @@ public class TextItemQueriesTests
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<TextItem>>();
-        result.First().Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

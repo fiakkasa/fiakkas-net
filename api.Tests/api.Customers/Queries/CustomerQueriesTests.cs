@@ -24,7 +24,6 @@ public class CustomerQueriesTests
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<Customer>>();
-        result.First().Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

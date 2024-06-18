@@ -16,12 +16,19 @@ public static class RegistrationExtensions
             .AddOptions<CategoriesDataConfig>()
             .Bind(config.GetSection(sectionPath));
 
-        services.AddScoped<IDataRepository<ICategory>, CategoryDataRepository>();
+        services.AddScoped<IDataRepository<ICategoryEntity>, CategoryDataRepository>();
 
         return services;
     }
 
     public static IRequestExecutorBuilder AddApiCategories(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<CategoryQueries>();
+            .AddTypeExtension<CategoryQueries>()
+            .AddObjectType<Category>()
+            // .AddObjectType<InformationTechnologyCategory>()
+            // .AddObjectType<OtherCategory>()
+            .AddObjectType<PortfolioCategory>()
+            // .AddObjectType<ResumeCategory>()
+            .AddObjectType<SoftwareDevelopmentCategory>()
+            .AddObjectType<TechnologyCategory>();
 }

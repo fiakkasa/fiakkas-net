@@ -46,7 +46,31 @@ where TConfig : class
     {
         try
         {
-            return GetSet().Select(x => mapper(x)).AsQueryable();
+            return GetSet()
+                .Select(mapper)
+                .AsQueryable();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
+
+            return Enumerable.Empty<TMapped>().AsQueryable();
+        }
+    }
+
+    public IQueryable<TMapped> Get<TMapped>(Func<TEntity, bool> predicate, Func<TEntity, TMapped> mapper)
+    {
+        try
+        {
+            return GetSet()
+                .Where(predicate)
+                .Select(mapper)
+                .AsQueryable();
         }
         catch (Exception ex)
         {
@@ -72,8 +96,35 @@ where TConfig : class
             return await Task.Run(() =>
                 GetSet()
                     .Where(x => keys.Contains(x.Id))
-                    .Select(mapper)
-                    .ToDictionary(x => x.Id),
+                    .ToDictionary(x => x.Id, mapper),
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get batch data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
+
+            return new Dictionary<Guid, TMapped>();
+        }
+    }
+
+    public async ValueTask<IReadOnlyDictionary<Guid, TMapped>> GetBatch<TMapped>(
+        Func<TEntity, bool> predicate,
+        Func<TEntity, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    ) where TMapped : IBaseId
+    {
+        try
+        {
+            return await Task.Run(() =>
+                GetSet()
+                    .Where(predicate)
+                    .ToDictionary(x => x.Id, mapper),
                 cancellationToken
             );
         }
@@ -102,7 +153,36 @@ where TConfig : class
             return await Task.Run(() =>
                 GetSet()
                     .Where(x => keys.Contains(keySelector(x)))
-                    .ToLookup(x => keySelector(x), x => mapper(x)),
+                    .ToLookup(keySelector, mapper),
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get grouped batch data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
+
+            return Enumerable.Empty<TEntity>().ToLookup(x => x.Id, x => default(TMapped)!);
+        }
+    }
+
+    public async ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
+        Func<TEntity, bool> predicate,
+        Func<TEntity, Guid> keySelector,
+        Func<TEntity, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    )
+    {
+        try
+        {
+            return await Task.Run(() =>
+                GetSet()
+                    .Where(predicate)
+                    .ToLookup(keySelector, mapper),
                 cancellationToken
             );
         }

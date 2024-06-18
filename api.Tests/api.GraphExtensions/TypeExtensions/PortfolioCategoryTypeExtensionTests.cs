@@ -1,18 +1,18 @@
+using api.Categories.Enums;
+using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
-using api.Technologies.Interfaces;
-using api.Technologies.Models;
 
 namespace api.GraphExtensions.TypeExtensions.Tests;
 
 public class PortfolioCategoryTypeExtensionTests
 {
     [Fact]
-    public async Task GetPortfolioCustomers_Should_Return_Data()
+    public async Task GetCustomers_Should_Return_Data()
     {
         var customerDataRepository = new MockDataRepository<ICustomer>(
         [
@@ -38,7 +38,7 @@ public class PortfolioCategoryTypeExtensionTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
@@ -47,10 +47,10 @@ public class PortfolioCategoryTypeExtensionTests
             portfolioDataRepository,
             AutoBatchScheduler.Default
         );
-        var sut = new CategoryTypeExtension();
+        var sut = new PortfolioCategoryTypeExtension();
 
-        var result = await sut.GetPortfolioCustomers(
-            new Category { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
+        var result = await sut.GetCustomers(
+            new PortfolioCategory { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );
@@ -74,7 +74,7 @@ public class PortfolioCategoryTypeExtensionTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
@@ -82,10 +82,10 @@ public class PortfolioCategoryTypeExtensionTests
             dataRepository,
             AutoBatchScheduler.Default
         );
-        var sut = new CategoryTypeExtension();
+        var sut = new PortfolioCategoryTypeExtension();
 
         var result = await sut.GetPortfolioItems(
-            new Category { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
+            new PortfolioCategory { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );
@@ -95,13 +95,14 @@ public class PortfolioCategoryTypeExtensionTests
     }
 
     [Fact]
-    public async Task GetPortfolioTechnologies_Should_Return_Data()
+    public async Task GetTechnologyCategories_Should_Return_Data()
     {
-        var technologyDataRepository = new MockDataRepository<ITechnology>(
+        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
         [
-            new Technology
+            new CategoryEntity
             {
-                Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Kind = CategoryType.SoftwareDevelopment,
+                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -121,19 +122,19 @@ public class PortfolioCategoryTypeExtensionTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
-        var dataLoader = new TechnologyByPortfolioCategoryIdGroupDataLoader(
-            technologyDataRepository,
+        var dataLoader = new PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader(
+            categoryDataRepository,
             portfolioDataRepository,
             AutoBatchScheduler.Default
         );
-        var sut = new CategoryTypeExtension();
+        var sut = new PortfolioCategoryTypeExtension();
 
-        var result = await sut.GetPortfolioTechnologies(
-            new Category { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
+        var result = await sut.GetTechnologyCategories(
+            new PortfolioCategory { Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
         );

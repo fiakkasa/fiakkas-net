@@ -2,6 +2,23 @@
   query: Query
 }
 
+interface ICategory {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+}
+
+interface ITechnologyCategory {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+  href: URL
+}
+
 type Achievement {
   content: String!
   years: [Int!]!
@@ -26,19 +43,16 @@ type CategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [Category!]
+  items: [ICategory!]
   totalCount: Int!
 }
 
-type Category {
+type Category implements ICategory {
   title: String!
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
-  portfolioTechnologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): PortfolioTechnologiesCollectionSegment
 }
 
 "Information about the offset pagination."
@@ -77,9 +91,9 @@ type Customer {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCategories(skip: Int take: Int where: CategoryFilterInput order: [CategorySortInput!]): PortfolioCategoriesCollectionSegment
+  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
   portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
-  portfolioTechnologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): PortfolioTechnologiesCollectionSegment
+  portfolioTechnologyCategories(skip: Int take: Int where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): PortfolioTechnologyCategoriesCollectionSegment
 }
 
 "A segment of a collection."
@@ -132,8 +146,19 @@ type PortfolioCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [Category!]
+  items: [PortfolioCategory!]
   totalCount: Int!
+}
+
+type PortfolioCategory implements ICategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  customers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): CustomersCollectionSegment
+  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+  technologyCategories(skip: Int take: Int where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesCollectionSegment
 }
 
 "A segment of a collection."
@@ -156,9 +181,9 @@ type PortfolioItem {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  category: Category
+  category: PortfolioCategory
   customer: Customer
-  technologies(skip: Int take: Int where: TechnologyFilterInput order: [TechnologySortInput!]): TechnologiesCollectionSegment
+  technologyCategories(skip: Int take: Int where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesCollectionSegment
   technologiesSummary: String!
 }
 
@@ -172,11 +197,11 @@ type PortfolioItemsCollectionSegment {
 }
 
 "A segment of a collection."
-type PortfolioTechnologiesCollectionSegment {
+type PortfolioTechnologyCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [Technology!]
+  items: [ITechnologyCategory!]
   totalCount: Int!
 }
 
@@ -184,13 +209,36 @@ type Query {
   achievements(skip: Int take: Int order: [AchievementSortInput!] where: AchievementFilterInput): AchievementsCollectionSegment
   systemStatus: SystemInfoItem!
   health: HealthReportSummary!
-  categories(skip: Int take: Int order: [CategorySortInput!] where: CategoryFilterInput): CategoriesCollectionSegment
+  categories(skip: Int take: Int order: [ICategorySortInput!] where: ICategoryFilterInput): CategoriesCollectionSegment
+  portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
+  softwareDevelopmentCategories(skip: Int take: Int order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesCollectionSegment
+  technologyCategories(skip: Int take: Int order: [ITechnologyCategorySortInput!] where: ITechnologyCategoryFilterInput): TechnologyCategoriesCollectionSegment
   contactItems(skip: Int take: Int order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsCollectionSegment
   customers(skip: Int take: Int order: [CustomerSortInput!] where: CustomerFilterInput): CustomersCollectionSegment
   languages(skip: Int take: Int order: [LanguageSortInput!] where: LanguageFilterInput): LanguagesCollectionSegment
   portfolioItems(skip: Int take: Int order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsCollectionSegment
-  technologies(skip: Int take: Int order: [TechnologySortInput!] where: TechnologyFilterInput): TechnologiesCollectionSegment
   textItems(skip: Int take: Int order: [TextItemSortInput!] where: TextItemFilterInput): TextItemsCollectionSegment
+}
+
+"A segment of a collection."
+type SoftwareDevelopmentCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [SoftwareDevelopmentCategory!]
+  totalCount: Int!
+}
+
+type SoftwareDevelopmentCategory implements ICategory & ITechnologyCategory {
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
+  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
+  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
 }
 
 type SystemInfoItem {
@@ -201,22 +249,22 @@ type SystemInfoItem {
 }
 
 "A segment of a collection."
-type TechnologiesCollectionSegment {
+type TechnologyCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [Technology!]
+  items: [ITechnologyCategory!]
   totalCount: Int!
 }
 
-type Technology {
-  title: String!
+type TechnologyCategory implements ICategory & ITechnologyCategory {
   href: URL
+  title: String!
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCategories(skip: Int take: Int where: CategoryFilterInput order: [CategorySortInput!]): PortfolioCategoriesCollectionSegment
+  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
   portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
   portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
 }
@@ -253,24 +301,6 @@ input AchievementFilterInput {
 
 input AchievementSortInput {
   content: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
-}
-
-input CategoryFilterInput {
-  and: [CategoryFilterInput!]
-  or: [CategoryFilterInput!]
-  title: StringOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-}
-
-input CategorySortInput {
-  title: SortEnumType
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType
@@ -338,6 +368,44 @@ input DateTimeOperationFilterInput {
   nlte: DateTime
 }
 
+input ICategoryFilterInput {
+  and: [ICategoryFilterInput!]
+  or: [ICategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+}
+
+input ICategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+}
+
+input ITechnologyCategoryFilterInput {
+  and: [ITechnologyCategoryFilterInput!]
+  or: [ITechnologyCategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+}
+
+input ITechnologyCategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+  href: UriSortInput
+}
+
 input IntOperationFilterInput {
   eq: Int
   neq: Int
@@ -402,6 +470,24 @@ input LongOperationFilterInput {
   nlte: Long
 }
 
+input PortfolioCategoryFilterInput {
+  and: [PortfolioCategoryFilterInput!]
+  or: [PortfolioCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input PortfolioCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
 input PortfolioItemFilterInput {
   and: [PortfolioItemFilterInput!]
   or: [PortfolioItemFilterInput!]
@@ -436,6 +522,26 @@ input ProficiencyTypeOperationFilterInput {
   nin: [ProficiencyType!]
 }
 
+input SoftwareDevelopmentCategoryFilterInput {
+  and: [SoftwareDevelopmentCategoryFilterInput!]
+  or: [SoftwareDevelopmentCategoryFilterInput!]
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input SoftwareDevelopmentCategorySortInput {
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
 input StringOperationFilterInput {
   and: [StringOperationFilterInput!]
   or: [StringOperationFilterInput!]
@@ -449,26 +555,6 @@ input StringOperationFilterInput {
   nstartsWith: String
   endsWith: String
   nendsWith: String
-}
-
-input TechnologyFilterInput {
-  and: [TechnologyFilterInput!]
-  or: [TechnologyFilterInput!]
-  title: StringOperationFilterInput
-  href: UrlOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-}
-
-input TechnologySortInput {
-  title: SortEnumType
-  href: UriSortInput
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
 }
 
 input TextItemFilterInput {

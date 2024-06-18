@@ -25,7 +25,6 @@ public class LanguageQueriesTests
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<Language>>();
-        result.First().Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

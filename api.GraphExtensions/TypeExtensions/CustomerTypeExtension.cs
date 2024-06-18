@@ -2,14 +2,14 @@ using api.GraphExtensions.DataLoaders;
 
 namespace api.GraphExtensions.TypeExtensions;
 
-[ExtendObjectType<ICustomer>]
+[ExtendObjectType<Customer>]
 public sealed class CustomerTypeExtension
 {
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<Category[]> GetPortfolioCategories(
-        [Parent] ICustomer parent,
+    public async ValueTask<PortfolioCategory[]> GetPortfolioCategories(
+        [Parent] Customer parent,
         [Service] PortfolioCategoryByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
     ) =>
@@ -19,7 +19,7 @@ public sealed class CustomerTypeExtension
     [UseFiltering]
     [UseSorting]
     public async ValueTask<PortfolioItem[]> GetPortfolioItems(
-        [Parent] ICustomer parent,
+        [Parent] Customer parent,
         [Service] PortfolioItemByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
     ) =>
@@ -28,9 +28,9 @@ public sealed class CustomerTypeExtension
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<Technology[]> GetPortfolioTechnologies(
-        [Parent] ICustomer parent,
-        [Service] TechnologyByCustomerIdGroupDataLoader dataLoader,
+    public async ValueTask<ITechnologyCategory[]> GetPortfolioTechnologyCategories(
+        [Parent] Customer parent,
+        [Service] PortfolioTechnologyCategoryByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
     ) =>
         await dataLoader.LoadAsync(parent.Id, cancellationToken);

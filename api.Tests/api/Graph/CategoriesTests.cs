@@ -5,14 +5,14 @@ namespace api.Tests;
 public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task PortfolioCategories_Should_Return_Data()
+    public async Task Categories_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
 """
 {
-  categories(order: { createdAt: ASC }) {
+  categories {
     totalCount
     items {
       createdAt
@@ -20,7 +20,91 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       title
       updatedAt
       version
-      portfolioCustomers(order: { createdAt: ASC }) {
+      ... on Category {
+        createdAt
+        id
+        title
+        updatedAt
+        version
+      }
+      ... on PortfolioCategory {
+        createdAt
+        id
+        title
+        updatedAt
+        version
+        customers {
+          totalCount
+        }
+        portfolioItems {
+          totalCount
+        }
+        technologyCategories {
+          totalCount
+        }
+      }
+      ... on SoftwareDevelopmentCategory {
+        createdAt
+        href
+        id
+        title
+        updatedAt
+        version
+        portfolioCategories {
+          totalCount
+        }
+        portfolioCustomers {
+          totalCount
+        }
+        portfolioItems {
+          totalCount
+        }
+      }
+      ... on TechnologyCategory {
+        createdAt
+        href
+        id
+        title
+        updatedAt
+        version
+        portfolioCategories {
+          totalCount
+        }
+        portfolioCustomers {
+          totalCount
+        }
+        portfolioItems {
+          totalCount
+        }
+      }
+    }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task PortfolioCategories_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  portfolioCategories {
+    totalCount
+    items {
+      createdAt
+      id
+      title
+      updatedAt
+      version
+      customers {
         totalCount
         items {
           createdAt
@@ -31,7 +115,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           version
         }
       }
-      portfolioItems(order: { createdAt: ASC }) {
+      portfolioItems {
         totalCount
         items {
           categoryId
@@ -39,15 +123,15 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           customerId
           href
           id
-          technologyIds
           technologiesSummary
+          technologyIds
           title
           updatedAt
           version
           year
         }
       }
-      portfolioTechnologies(order: { createdAt: ASC }) {
+      technologyCategories {
         totalCount
         items {
           createdAt
@@ -56,6 +140,189 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           title
           updatedAt
           version
+        }
+      }
+    }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SoftwareDevelopmentCategories_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  softwareDevelopmentCategories {
+    totalCount
+    items {
+      createdAt
+      href
+      id
+      title
+      updatedAt
+      version
+      portfolioCategories {
+        totalCount
+        items {
+          createdAt
+          id
+          title
+          updatedAt
+          version
+        }
+      }
+      portfolioCustomers {
+        totalCount
+        items {
+          createdAt
+          href
+          id
+          title
+          updatedAt
+          version
+        }
+      }
+      portfolioItems {
+        totalCount
+        items {
+          categoryId
+          createdAt
+          customerId
+          href
+          id
+          technologiesSummary
+          technologyIds
+          title
+          updatedAt
+          version
+          year
+        }
+      }
+    }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TechnologyCategories_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  technologyCategories {
+    totalCount
+    items {
+      createdAt
+      href
+      id
+      title
+      updatedAt
+      version
+      ... on SoftwareDevelopmentCategory {
+        createdAt
+        href
+        id
+        title
+        updatedAt
+        version
+        portfolioCategories {
+          totalCount
+          items {
+            createdAt
+            id
+            title
+            updatedAt
+            version
+          }
+        }
+        portfolioCustomers {
+          totalCount
+          items {
+            createdAt
+            href
+            id
+            title
+            updatedAt
+            version
+          }
+        }
+        portfolioItems {
+          totalCount
+          items {
+            categoryId
+            createdAt
+            customerId
+            href
+            id
+            technologiesSummary
+            technologyIds
+            title
+            updatedAt
+            version
+            year
+          }
+        }
+      }
+      ... on TechnologyCategory {
+        createdAt
+        href
+        id
+        title
+        updatedAt
+        version
+        portfolioCategories {
+          totalCount
+          items {
+            createdAt
+            id
+            title
+            updatedAt
+            version
+          }
+        }
+        portfolioCustomers {
+          totalCount
+          items {
+            createdAt
+            href
+            id
+            title
+            updatedAt
+            version
+          }
+        }
+        portfolioItems {
+          totalCount
+          items {
+            categoryId
+            createdAt
+            customerId
+            href
+            id
+            technologiesSummary
+            technologyIds
+            title
+            updatedAt
+            version
+            year
+          }
         }
       }
     }

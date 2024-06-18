@@ -22,7 +22,7 @@ public class RegistrationExtensionsTests
                 .AddApiCategories(config)
                 .BuildServiceProvider();
 
-        var dataRepository = serviceProvider.GetService<IDataRepository<ICategory>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<ICategoryEntity>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<CategoriesDataConfig>>();
 
         dataRepository.Should().NotBeNull();
@@ -34,7 +34,7 @@ public class RegistrationExtensionsTests
     {
         var result =
             await new ServiceCollection()
-                .AddSingleton(Substitute.For<IDataRepository<ICategory>>())
+                .AddSingleton(Substitute.For<IDataRepository<ICategoryEntity>>())
                 .AddGraphQLServer()
                 .AddQueryType()
                 .AddSorting()

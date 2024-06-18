@@ -9,20 +9,20 @@ public static class RegistrationExtensions
 {
     public static IRequestExecutorBuilder AddApiGraphExtensions(this IRequestExecutorBuilder builder) =>
         builder
-            .AddDataLoader<CategoryBatchDataLoader>()
             .AddDataLoader<CustomerBatchDataLoader>()
             .AddDataLoader<CustomerByPortfolioCategoryIdGroupDataLoader>()
             .AddDataLoader<CustomerByTechnologyIdGroupDataLoader>()
+            .AddDataLoader<PortfolioCategoryBatchDataLoader>()
             .AddDataLoader<PortfolioCategoryByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioCategoryByTechnologyIdGroupDataLoader>()
             .AddDataLoader<PortfolioItemByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioItemByPortfolioCategoryIdGroupDataLoader>()
             .AddDataLoader<PortfolioItemByTechnologyIdGroupDataLoader>()
-            .AddDataLoader<TechnologyBatchDataLoader>()
-            .AddDataLoader<TechnologyByCustomerIdGroupDataLoader>()
-            .AddDataLoader<TechnologyByPortfolioCategoryIdGroupDataLoader>()
-            .AddTypeExtension<CategoryTypeExtension>()
+            .AddDataLoader<PortfolioTechnologyCategoryByCustomerIdGroupDataLoader>()
+            .AddDataLoader<PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader>()
+            .AddDataLoader<TechnologyCategoryBatchDataLoader>()
             .AddTypeExtension<CustomerTypeExtension>()
-            .AddTypeExtension<PortfolioItemTypeExtension>()
-            .AddTypeExtension<TechnologyTypeExtension>();
+            .AddTypeExtension<ITechnologyCategoryTypeExtension>()
+            .AddTypeExtension<PortfolioCategoryTypeExtension>()
+            .AddTypeExtension<PortfolioItemTypeExtension>();
 }

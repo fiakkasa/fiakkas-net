@@ -2,15 +2,32 @@
   query: Query
 }
 
+interface ICategory {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+}
+
+interface ITechnologyCategory {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+  href: URL
+}
+
 "A segment of a collection."
 type CategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [Category!]
+  items: [ICategory!]
 }
 
-type Category {
+type Category implements ICategory {
   title: String!
   id: UUID!
   createdAt: DateTime!
@@ -26,26 +43,61 @@ type CollectionSegmentInfo {
   hasPreviousPage: Boolean!
 }
 
+"A segment of a collection."
+type PortfolioCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [PortfolioCategory!]
+}
+
+type PortfolioCategory implements ICategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
 type Query {
-  categories(skip: Int take: Int order: [CategorySortInput!] where: CategoryFilterInput): CategoriesCollectionSegment
+  categories(skip: Int take: Int order: [ICategorySortInput!] where: ICategoryFilterInput): CategoriesCollectionSegment
+  portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
+  softwareDevelopmentCategories(skip: Int take: Int order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesCollectionSegment
+  technologyCategories(skip: Int take: Int order: [ITechnologyCategorySortInput!] where: ITechnologyCategoryFilterInput): TechnologyCategoriesCollectionSegment
 }
 
-input CategoryFilterInput {
-  and: [CategoryFilterInput!]
-  or: [CategoryFilterInput!]
-  title: StringOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
+"A segment of a collection."
+type SoftwareDevelopmentCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [SoftwareDevelopmentCategory!]
 }
 
-input CategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+type SoftwareDevelopmentCategory implements ICategory & ITechnologyCategory {
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A segment of a collection."
+type TechnologyCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [ITechnologyCategory!]
+}
+
+type TechnologyCategory implements ICategory & ITechnologyCategory {
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
 }
 
 input DateTimeOperationFilterInput {
@@ -63,6 +115,44 @@ input DateTimeOperationFilterInput {
   nlte: DateTime
 }
 
+input ICategoryFilterInput {
+  and: [ICategoryFilterInput!]
+  or: [ICategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+}
+
+input ICategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+}
+
+input ITechnologyCategoryFilterInput {
+  and: [ITechnologyCategoryFilterInput!]
+  or: [ITechnologyCategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+}
+
+input ITechnologyCategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+  href: UriSortInput
+}
+
 input LongOperationFilterInput {
   eq: Long
   neq: Long
@@ -78,6 +168,44 @@ input LongOperationFilterInput {
   nlte: Long
 }
 
+input PortfolioCategoryFilterInput {
+  and: [PortfolioCategoryFilterInput!]
+  or: [PortfolioCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input PortfolioCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input SoftwareDevelopmentCategoryFilterInput {
+  and: [SoftwareDevelopmentCategoryFilterInput!]
+  or: [SoftwareDevelopmentCategoryFilterInput!]
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input SoftwareDevelopmentCategorySortInput {
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
 input StringOperationFilterInput {
   and: [StringOperationFilterInput!]
   or: [StringOperationFilterInput!]
@@ -91,6 +219,45 @@ input StringOperationFilterInput {
   nstartsWith: String
   endsWith: String
   nendsWith: String
+}
+
+input UriSortInput {
+  absolutePath: SortEnumType
+  absoluteUri: SortEnumType
+  localPath: SortEnumType
+  authority: SortEnumType
+  hostNameType: SortEnumType
+  isDefaultPort: SortEnumType
+  isFile: SortEnumType
+  isLoopback: SortEnumType
+  pathAndQuery: SortEnumType
+  isUnc: SortEnumType
+  host: SortEnumType
+  port: SortEnumType
+  query: SortEnumType
+  fragment: SortEnumType
+  scheme: SortEnumType
+  originalString: SortEnumType
+  dnsSafeHost: SortEnumType
+  idnHost: SortEnumType
+  isAbsoluteUri: SortEnumType
+  userEscaped: SortEnumType
+  userInfo: SortEnumType
+}
+
+input UrlOperationFilterInput {
+  eq: URL
+  neq: URL
+  in: [URL]
+  nin: [URL]
+  gt: URL
+  ngt: URL
+  gte: URL
+  ngte: URL
+  lt: URL
+  nlt: URL
+  lte: URL
+  nlte: URL
 }
 
 input UuidOperationFilterInput {
@@ -118,5 +285,7 @@ scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time"
 
 "The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
 scalar Long
+
+scalar URL @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc3986")
 
 scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

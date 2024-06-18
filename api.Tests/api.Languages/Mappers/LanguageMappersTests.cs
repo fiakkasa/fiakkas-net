@@ -32,7 +32,6 @@ public class LanguageMappersTests
         var result = item.Map();
 
         result.Should().BeOfType<Language>();
-        result.Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

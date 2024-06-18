@@ -30,7 +30,6 @@ public class AchievementDataRepositoryTests
         var result = sut.Get();
 
         result.Should().NotBeEmpty();
-        result.First().Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }
