@@ -9,8 +9,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
-    <Version>1.7.0</Version>
-    <ContainerImageTags>1.7.0;latest</ContainerImageTags>
+    <Version>1.8.0</Version>
+    <ContainerImageTags>1.8.0;latest</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +38,6 @@
     <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
     <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
     <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-    <ProjectReference Include="..\api.Technologies\api.Technologies.csproj" />
     <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
   </ItemGroup>
 

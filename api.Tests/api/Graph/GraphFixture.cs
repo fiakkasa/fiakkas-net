@@ -1,6 +1,7 @@
 using api.Achievements.Interfaces;
 using api.Achievements.Models;
 using api.Application.Models;
+using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.ContactItems.Interfaces;
@@ -14,8 +15,6 @@ using api.Languages.Models;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
-using api.Technologies.Interfaces;
-using api.Technologies.Models;
 using api.TextItems.Interfaces;
 using api.TextItems.Models;
 using HotChocolate.Execution;
@@ -47,15 +46,35 @@ public class GraphFixture
                     Years = [2024]
                 }
             ]);
-            var categoryDataRepository = new MockDataRepository<ICategory>(
+            var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
             [
-                new Category
+                new CategoryEntity
                 {
+                    Kind = CategoryType.None,
+                    Id = new Guid("c9f5879d-4018-49a0-9b71-b479dd5de7ff"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Title = "Title"
+                },
+                new CategoryEntity
+                {
+                    Kind = CategoryType.Portfolio,
                     Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                     CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                     UpdatedAt = null,
                     Version = 1,
                     Title = "Title"
+                },
+                new CategoryEntity
+                {
+                    Kind = CategoryType.SoftwareDevelopment,
+                    Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Title = "Title",
+                    Href = new Uri("/test", UriKind.Relative)
                 }
             ]);
             var contactItemsDataRepository = new MockDataRepository<IContactItem>(
@@ -108,20 +127,8 @@ public class GraphFixture
                     CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                     Title = "Title",
                     Href = new Uri("/test", UriKind.Relative),
-                    TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                    TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                     CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
-                }
-            ]);
-            var technologyDataRepository = new MockDataRepository<ITechnology>(
-            [
-                new Technology
-                {
-                    Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
-                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
-                    UpdatedAt = null,
-                    Version = 1,
-                    Title = "Title",
-                    Href = new Uri("/test", UriKind.Relative)
                 }
             ]);
             var textItemDataRepository = new MockDataRepository<ITextItem>(
@@ -150,12 +157,11 @@ public class GraphFixture
             _requestExecutor =
                 await new ServiceCollection()
                     .AddSingleton<IDataRepository<IAchievement>>(achievementsDataRepository)
-                    .AddSingleton<IDataRepository<ICategory>>(categoryDataRepository)
+                    .AddSingleton<IDataRepository<ICategoryEntity>>(categoryDataRepository)
                     .AddSingleton<IDataRepository<IContactItem>>(contactItemsDataRepository)
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)
                     .AddSingleton<IDataRepository<ILanguage>>(languageDataRepository)
                     .AddSingleton<IDataRepository<IPortfolioItem>>(portfolioItemDataRepository)
-                    .AddSingleton<IDataRepository<ITechnology>>(technologyDataRepository)
                     .AddSingleton<IDataRepository<ITextItem>>(textItemDataRepository)
                     .AddSingleton(new SystemInfoItem("Version", new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)))
                     .AddSingleton(healthCheckService)

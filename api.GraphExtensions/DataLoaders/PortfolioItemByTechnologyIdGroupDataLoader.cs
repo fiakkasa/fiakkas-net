@@ -11,7 +11,8 @@ public sealed class PortfolioItemByTechnologyIdGroupDataLoader(
         CancellationToken cancellationToken
     ) =>
         await Task.Run(() =>
-            dataRepository.Get()
+            dataRepository
+                .Get()
                 .Where(x => x.TechnologyIds.Any(techId => keys.Contains(techId)))
                 .SelectMany(item => item.TechnologyIds.Select(techId => new { item, techId }))
                 .ToLookup(x => x.techId, x => x.item.Map()),

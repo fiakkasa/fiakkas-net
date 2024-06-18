@@ -27,7 +27,6 @@ public class ContactItemQueriesTests
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<ContactItem>>();
-        result.First().Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

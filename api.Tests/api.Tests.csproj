@@ -36,7 +36,6 @@
     <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
     <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
     <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-    <ProjectReference Include="..\api.Technologies\api.Technologies.csproj" />
     <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
     <ProjectReference Include="..\api\api.csproj" />
   </ItemGroup>

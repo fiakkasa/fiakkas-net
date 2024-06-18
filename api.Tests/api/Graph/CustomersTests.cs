@@ -12,7 +12,7 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var result = await executor.ExecuteAsync(
 """
 {
-  customers(order: { createdAt: ASC }) {
+  customers {
     totalCount
     items {
       createdAt
@@ -21,7 +21,7 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       title
       updatedAt
       version
-      portfolioCategories(order: { createdAt: ASC }) {
+      portfolioCategories {
         totalCount
         items {
           createdAt
@@ -31,7 +31,7 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           version
         }
       }
-      portfolioItems(order: { createdAt: ASC }) {
+      portfolioItems {
         totalCount
         items {
           categoryId
@@ -39,15 +39,15 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           customerId
           href
           id
-          technologyIds
           technologiesSummary
+          technologyIds
           title
           updatedAt
           version
           year
         }
       }
-      portfolioTechnologies(order: { createdAt: ASC }) {
+      portfolioTechnologyCategories {
         totalCount
         items {
           createdAt

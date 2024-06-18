@@ -15,13 +15,15 @@ public sealed class CustomerByPortfolioCategoryIdGroupDataLoader(
             () =>
             {
                 var collection =
-                    portfolioDataRepository.Get()
+                    portfolioDataRepository
+                        .Get()
                         .Where(x => keys.Contains(x.CategoryId))
                         .Select(x => new { x.CustomerId, x.CategoryId })
                         .ToHashSet();
                 var ids = collection.Select(x => x.CustomerId).ToHashSet();
                 var items =
-                    customerDataRepository.Get()
+                    customerDataRepository
+                        .Get()
                         .Where(x => ids.Contains(x.Id))
                         .ToHashSet();
 

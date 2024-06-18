@@ -2,11 +2,21 @@
   "data": {
     "categories": [
       {
+        "kind": "Portfolio",
         "id": "45ccaebe-e434-465d-b8a5-c2badaa4132a",
         "createdAt": "2024-05-15T00:00:00.000Z",
         "updatedAt": null,
         "version": 0,
         "title": "Category"
+      },
+      {
+        "kind": "SoftwareDevelopment",
+        "id": "f4fe386b-0623-4021-a61d-735e7b656ded",
+        "createdAt": "2024-05-15T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "title": "C#",
+        "href": "https://learn.microsoft.com/en-us/dotnet/csharp/"
       }
     ],
     "customers": [
@@ -17,32 +27,6 @@
         "version": 0,
         "title": "Customer",
         "href": "https://www.customer.com"
-      }
-    ],
-    "technologies": [
-      {
-        "id": "0089603d-4574-4533-9515-9ddca3c6efd4",
-        "createdAt": "2024-05-15T00:00:00.000Z",
-        "updatedAt": null,
-        "version": 0,
-        "title": "Angular",
-        "href": "https://angular.io"
-      },
-      {
-        "id": "480a46c6-5047-4ef6-b319-6378056a6191",
-        "createdAt": "2024-05-15T00:00:00.000Z",
-        "updatedAt": null,
-        "version": 0,
-        "title": "ASP.NET (Modern)",
-        "href": "https://www.asp.net"
-      },
-      {
-        "id": "f4fe386b-0623-4021-a61d-735e7b656ded",
-        "createdAt": "2024-05-15T00:00:00.000Z",
-        "updatedAt": null,
-        "version": 0,
-        "title": "C#",
-        "href": "https://learn.microsoft.com/en-us/dotnet/csharp/"
       }
     ],
     "portfolioItems": [
@@ -56,8 +40,6 @@
         "title": "Data Api",
         "href": null,
         "technologyIds": [
-          "0089603d-4574-4533-9515-9ddca3c6efd4",
-          "480a46c6-5047-4ef6-b319-6378056a6191",
           "f4fe386b-0623-4021-a61d-735e7b656ded"
         ],
         "customerId": "9622e0b5-2597-4015-93cb-120f4783d06a"

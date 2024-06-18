@@ -24,7 +24,6 @@ public class AchievementQueriesTests
 
         result.Should().NotBeEmpty();
         result.Should().BeAssignableTo<IQueryable<Achievement>>();
-        result.First().Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

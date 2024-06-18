@@ -1,6 +1,10 @@
 namespace api.Categories.Interfaces;
 
-public interface ICategory : IBaseData
+public interface ICategory : ICategoryBase
 {
-    string Title { get; init; }
+    new Guid Id { get; init; }
+    new DateTimeOffset CreatedAt { get; init; }
+    new DateTimeOffset? UpdatedAt { get; init; }
+    new long Version { get; init; }
+    new string Title { get; init; }
 }

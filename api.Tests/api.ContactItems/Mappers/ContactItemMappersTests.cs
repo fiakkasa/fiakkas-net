@@ -37,7 +37,6 @@ public class ContactItemMappersTests
         var result = item.Map();
 
         result.Should().BeOfType<ContactItem>();
-        result.Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

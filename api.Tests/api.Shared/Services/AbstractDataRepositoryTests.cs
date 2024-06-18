@@ -181,6 +181,76 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
+    public void GetPredicateMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = _sutWrongType.Get(x => true, x => x.Id).ToArray();
+
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public void GetPredicateMapped_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = _sut.Get(x => true, x => x.Id).ToArray();
+
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public void GetPredicateMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = _sut.Get(x => true, x => x.Id).ToArray();
+
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
+               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type} and mapped type {MappedType}" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public void GetPredicateMapped_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = _sut.Get(x => x.Id == id, x => x.Id).ToArray();
+
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task GetBatch_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
@@ -251,6 +321,76 @@ public class AbstractDataRepositoryTests
     }
 
     [Fact]
+    public async Task GetBatchPredicate_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.GetBatch(x => true, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicate_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.GetBatch(x => true, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicate_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.GetBatch(x => true, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+           .Where(x =>
+               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get batch data for type {Type} and mapped type {MappedType}" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicate_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.GetBatch(x => x.Id == id, x => x, CancellationToken.None);
+
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task GetGroupedBatch_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
         _optionsSnapshot.Value.Returns(x => new TestConfig());
@@ -314,6 +454,76 @@ public class AbstractDataRepositoryTests
         _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
 
         var result = await _sut.GetGroupedBatch([id], x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().NotBeEmpty();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetGroupedBatchPredicate_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.GetGroupedBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetGroupedBatchPredicate_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.GetGroupedBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+            .Where(x =>
+                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetGroupedBatchPredicate_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.GetGroupedBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _logger
+            .ReceivedCalls()
+           .Where(x =>
+               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
+               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}" })
+            )
+            .Should()
+            .HaveCount(1);
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetGroupedBatchPredicate_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.GetGroupedBatch(x => x.Id == id, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().NotBeEmpty();
         _logger.ReceivedCalls().Should().BeEmpty();

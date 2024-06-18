@@ -34,7 +34,7 @@ public class CustomerByTechnologyIdGroupDataLoaderTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
@@ -44,7 +44,7 @@ public class CustomerByTechnologyIdGroupDataLoaderTests
             AutoBatchScheduler.Default
         );
 
-        var result = await sut.LoadAsync([new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
+        var result = await sut.LoadAsync([new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")], CancellationToken.None);
 
         result.Should().NotBeEmpty();
         result.MatchSnapshot();

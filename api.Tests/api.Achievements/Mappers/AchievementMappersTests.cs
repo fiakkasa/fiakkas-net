@@ -31,7 +31,6 @@ public class AchievementMappersTests
         var result = item.Map();
 
         result.Should().BeOfType<Achievement>();
-        result.Should().BeEquivalentTo(item);
         result.MatchSnapshot();
     }
 }

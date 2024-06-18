@@ -1,11 +1,10 @@
+using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
-using api.Technologies.Interfaces;
-using api.Technologies.Models;
 
 namespace api.GraphExtensions.TypeExtensions.Tests;
 
@@ -14,10 +13,11 @@ public class CustomerTypeExtensionTests
     [Fact]
     public async Task GetPortfolioCategories_Should_Return_Data()
     {
-        var categoryDataRepository = new MockDataRepository<ICategory>(
+        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
         [
-            new Category
+            new CategoryEntity
             {
+                Kind = CategoryType.Portfolio,
                 Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
@@ -37,7 +37,7 @@ public class CustomerTypeExtensionTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
@@ -59,13 +59,14 @@ public class CustomerTypeExtensionTests
     }
 
     [Fact]
-    public async Task GetTechnologies_Should_Return_Data()
+    public async Task GetPortfolioTechnologyCategories_Should_Return_Data()
     {
-        var technologyDataRepository = new MockDataRepository<ITechnology>(
+        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
         [
-            new Technology
+            new CategoryEntity
             {
-                Id = new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Kind = CategoryType.SoftwareDevelopment,
+                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -85,18 +86,18 @@ public class CustomerTypeExtensionTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
-        var dataLoader = new TechnologyByCustomerIdGroupDataLoader(
-            technologyDataRepository,
+        var dataLoader = new PortfolioTechnologyCategoryByCustomerIdGroupDataLoader(
+            categoryDataRepository,
             portfolioDataRepository,
             AutoBatchScheduler.Default
         );
         var sut = new CustomerTypeExtension();
 
-        var result = await sut.GetPortfolioTechnologies(
+        var result = await sut.GetPortfolioTechnologyCategories(
             new Customer { Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109") },
             dataLoader,
             CancellationToken.None
@@ -121,7 +122,7 @@ public class CustomerTypeExtensionTests
                 CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 Title = "Title",
                 Href = new Uri("/test", UriKind.Relative),
-                TechnologyIds = [new Guid("48e483e4-6961-4b25-88a9-d1d0a5161109")],
+                TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
                 CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);

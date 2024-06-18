@@ -1,8 +1,8 @@
+using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.Customers.Models;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
-using api.Technologies.Models;
 using HotChocolate.Execution;
 using HotChocolate.Language;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +11,23 @@ namespace api.GraphExtensions.Extensions.Tests;
 
 public class RegistrationExtensionsTests
 {
+    public record MockTechnologyCategory : ITechnologyCategory
+    {
+        public Guid Id { get; init; }
+        public DateTimeOffset CreatedAt { get; init; }
+        public DateTimeOffset? UpdatedAt { get; init; }
+        public long Version { get; init; }
+        public string Title { get; init; } = string.Empty;
+        public Uri? Href { get; init; }
+    }
+
     [ExtendObjectType(OperationType.Query)]
     public class TestQueries
     {
         public IEnumerable<Customer> Customers => [];
+        public IEnumerable<ITechnologyCategory> TechnologyCategories => [];
+        public IEnumerable<PortfolioCategory> PortfolioCategories => [];
         public IEnumerable<PortfolioItem> PortfolioItems => [];
-        public IEnumerable<Category> PortfolioCategories => [];
-        public IEnumerable<Technology> Technologies => [];
     }
 
     [Fact]
@@ -31,6 +41,7 @@ public class RegistrationExtensionsTests
                 .AddSorting()
                 .AddFiltering()
                 .AddTypeExtension<TestQueries>()
+                .AddObjectType<MockTechnologyCategory>()
                 .AddApiGraphExtensions()
                 .BuildSchemaAsync();
 

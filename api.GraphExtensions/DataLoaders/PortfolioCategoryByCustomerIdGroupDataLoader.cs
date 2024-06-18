@@ -1,13 +1,13 @@
 namespace api.GraphExtensions.DataLoaders;
 
 public sealed class PortfolioCategoryByCustomerIdGroupDataLoader(
-    IDataRepository<ICategory> portfolioCategoryDataRepository,
+    IDataRepository<ICategoryEntity> categoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GroupedDataLoader<Guid, Category>(batchScheduler, options)
+) : GroupedDataLoader<Guid, PortfolioCategory>(batchScheduler, options)
 {
-    protected override async Task<ILookup<Guid, Category>> LoadGroupedBatchAsync(
+    protected override async Task<ILookup<Guid, PortfolioCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
@@ -15,14 +15,15 @@ public sealed class PortfolioCategoryByCustomerIdGroupDataLoader(
             () =>
             {
                 var collection =
-                    portfolioDataRepository.Get()
+                    portfolioDataRepository
+                        .Get()
                         .Where(x => keys.Contains(x.CustomerId))
                         .Select(x => new { x.CategoryId, x.CustomerId })
                         .ToHashSet();
-                var ids = collection.Select(x => x.CategoryId).ToHashSet();
                 var items =
-                    portfolioCategoryDataRepository.Get()
-                        .Where(x => ids.Contains(x.Id))
+                    categoryDataRepository
+                        .Get()
+                        .Where(CategoryEntityUtils.IsPortfolioCategory)
                         .ToHashSet();
 
                 return collection
@@ -32,7 +33,7 @@ public sealed class PortfolioCategoryByCustomerIdGroupDataLoader(
                         item => item.Id,
                         (x, item) => new { x.CustomerId, item }
                     )
-                    .ToLookup(x => x.CustomerId, x => x.item.Map());
+                    .ToLookup(x => x.CustomerId, x => x.item.MapGenericCategory<PortfolioCategory>());
             },
             cancellationToken
         );

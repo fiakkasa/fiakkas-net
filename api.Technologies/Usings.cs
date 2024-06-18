@@ -1,9 +1,0 @@
-global using api.Shared.Interfaces;
-global using api.Shared.Models;
-global using api.Shared.Services;
-global using HotChocolate;
-global using HotChocolate.Data;
-global using HotChocolate.Types;
-global using Microsoft.Extensions.Logging;
-global using Microsoft.Extensions.Options;
-global using System.Diagnostics.CodeAnalysis;
