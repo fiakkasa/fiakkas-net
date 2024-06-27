@@ -51,11 +51,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -70,11 +71,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -89,11 +91,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get data for type {Type}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -120,11 +123,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -139,11 +143,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -158,11 +163,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type} and mapped type {MappedType}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get data for type {Type} and mapped type {MappedType}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -189,11 +195,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -208,11 +215,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -227,11 +235,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get data for type {Type} and mapped type {MappedType}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get data for type {Type} and mapped type {MappedType}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -259,11 +268,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -278,11 +288,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -297,11 +308,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-           .Where(x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get batch data for type {Type} and mapped type {MappedType}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -329,11 +341,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -348,11 +361,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -367,11 +381,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-           .Where(x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get batch data for type {Type} and mapped type {MappedType}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -399,11 +414,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -418,11 +434,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -437,11 +454,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-           .Where(x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -469,11 +487,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _loggerWrongType
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Type {Type} is not supported" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -488,11 +507,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-            .Where(x =>
-                x.GetOriginalArguments() is [LogLevel.Warning, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-                && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Resolver for type {Type} could not materialize collection" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();
@@ -507,11 +527,12 @@ public class AbstractDataRepositoryTests
 
         result.Should().BeEmpty();
         _logger
-            .ReceivedCalls()
-           .Where(x =>
-               x.GetOriginalArguments() is [LogLevel.Error, _, IEnumerable<KeyValuePair<string, object>> items, ..]
-               && items.Any(y => y is { Key: "{OriginalFormat}", Value: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}" })
-            )
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}"
+            })
             .Should()
             .HaveCount(1);
         result.MatchSnapshot();

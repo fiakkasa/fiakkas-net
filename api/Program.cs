@@ -8,7 +8,6 @@ using api.Extensions;
 using api.Languages.Extensions;
 using api.Portfolio.Extensions;
 using api.TextItems.Extensions;
-using Serilog;
 using System.Reflection;
 
 var start = DateTimeOffset.Now;
@@ -17,9 +16,7 @@ var services = builder.Services;
 var config = builder.Configuration;
 var isDev = builder.Environment.IsDevelopment();
 
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration)
-);
+builder.Host.AddApiLoggingProvider();
 
 config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
@@ -36,9 +33,7 @@ services.AddApiTextItems(config, Consts.DataFileSectionPath);
 
 services.AddCors();
 
-services
-    .AddApiGraphQLServer(isDev)
-    .AddApiGraphQLEndpoints();
+services.AddApiGraphQL(isDev);
 
 services.AddApiHealth();
 
@@ -54,7 +49,7 @@ app.UseStaticFiles();
 app.MapHealthChecks(Consts.HealthEndPoint);
 
 // note: add serilog after "noisy" middleware
-app.UseSerilogRequestLogging();
+app.UseApiLoggingProvider();
 
 app.UseApiCors();
 

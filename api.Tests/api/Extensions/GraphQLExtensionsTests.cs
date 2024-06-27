@@ -30,6 +30,21 @@ public class GraphQLExtensionsTests
     }
 
     [Fact]
+    public async Task AddApiGraphQL_Should_Register_The_GraphQL_Server_And_Graph_Endpoints()
+    {
+        var requestExecutor =
+            await new ServiceCollection()
+                .AddApiGraphQL(isDev: false)
+                .BuildServiceProvider()
+                .GetRequestExecutorAsync();
+
+        var schema = requestExecutor.Schema.Print();
+
+        schema.Should().NotBeEmpty();
+        schema.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task AddApiGraphQLServer_And_MapApiGraphQL_In_Dev_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
         var isDev = true;
