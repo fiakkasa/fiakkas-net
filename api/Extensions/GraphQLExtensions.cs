@@ -15,6 +15,15 @@ namespace api.Extensions;
 
 public static class GraphQLExtensions
 {
+    public static IServiceCollection AddApiGraphQL(this IServiceCollection services, bool isDev = false)
+    {
+        services
+            .AddApiGraphQLServer(isDev)
+            .AddApiGraphQLEndpoints();
+
+        return services;
+    }
+
     public static IRequestExecutorBuilder AddApiGraphQLEndpoints(this IRequestExecutorBuilder builder) =>
         builder
             .AddApiAchievements()

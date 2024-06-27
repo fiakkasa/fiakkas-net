@@ -165,9 +165,9 @@ public class GraphFixture
                     .AddSingleton<IDataRepository<ITextItem>>(textItemDataRepository)
                     .AddSingleton(new SystemInfoItem("Version", new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)))
                     .AddSingleton(healthCheckService)
-                    .AddApiGraphQLServer(isDev: false)
-                    .AddApiGraphQLEndpoints()
-                    .BuildRequestExecutorAsync();
+                    .AddApiGraphQL(isDev: false)
+                    .BuildServiceProvider()
+                    .GetRequestExecutorAsync();
 
             _semaphore.Release();
         }
