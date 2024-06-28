@@ -14,6 +14,21 @@ public static class LogsExtensions
                         LogLevel logLevel,
                         _,
                         IEnumerable<KeyValuePair<string, object?>> arguments,
+                        Exception exception,
+                        ..
+                    ] =>
+                        new TestingLogMessage(
+                            LogLevel: logLevel,
+                            OriginalMessage: arguments.First(x => x.Key == "{OriginalFormat}").Value?.ToString(),
+                            Arguments: arguments.ToArray(),
+                            ExceptionType: exception.GetType().Name,
+                            ExceptionMessage: exception.Message,
+                            ExceptionSource: exception.Source
+                        ),
+                    [
+                        LogLevel logLevel,
+                        _,
+                        IEnumerable<KeyValuePair<string, object?>> arguments,
                         ..
                     ] =>
                         new TestingLogMessage(
