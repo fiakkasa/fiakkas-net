@@ -10,5 +10,5 @@ public sealed class SystemInfoItemTypeExtension
         [Service] HealthCheckService healthCheckService,
         CancellationToken cancellationToken
     ) =>
-        (await healthCheckService.CheckHealthAsync(cancellationToken)).Adapt<HealthReportSummary>();
+        await healthCheckService.CheckHealthAsync(cancellationToken);
 }
