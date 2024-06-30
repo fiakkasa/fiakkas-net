@@ -12,14 +12,14 @@ public class RegistrationExtensionsTests
     [Fact]
     public void AddApiContactItems_Service_Registration_Should_Add_Options_And_Services()
     {
-        var config = new Dictionary<string, object>
+        var configuration = new Dictionary<string, object>
         {
             ["data"] = new ContactItemsDataConfig()
-        }.GetConfigRoot();
+        }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
                 .AddLogging()
-                .AddApiContactItems(config)
+                .AddApiContactItems(configuration)
                 .BuildServiceProvider();
 
         var dataRepository = serviceProvider.GetService<IDataRepository<IContactItem>>();

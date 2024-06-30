@@ -6,7 +6,7 @@ namespace api.Tests.TestingExtensions;
 
 public static class ConfigExtensions
 {
-    public static IConfigurationRoot GetConfigRoot(this Dictionary<string, object> config) =>
+    public static IConfiguration ToConfiguration(this Dictionary<string, object> config) =>
         new ConfigurationBuilder()
             .AddJsonStream(
                 new MemoryStream(
@@ -15,7 +15,27 @@ public static class ConfigExtensions
             )
             .Build();
 
-    public static T AddToConfigBuilder<T>(this T builder, string config) where T : IConfigurationBuilder
+    public static IConfiguration ToConfiguration(this string config) =>
+        new ConfigurationBuilder()
+            .AddJsonStream(
+                new MemoryStream(
+                    Encoding.UTF8.GetBytes(config)
+                )
+            )
+            .Build();
+
+    public static T AddToConfigurationBuilder<T>(this T builder, Dictionary<string, object> config) where T : IConfigurationBuilder
+    {
+        builder.AddJsonStream(
+            new MemoryStream(
+                JsonSerializer.SerializeToUtf8Bytes(config)
+            )
+        );
+
+        return builder;
+    }
+
+    public static T AddToConfigurationBuilder<T>(this T builder, string config) where T : IConfigurationBuilder
     {
         builder.AddJsonStream(
             new MemoryStream(
