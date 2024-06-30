@@ -12,14 +12,14 @@ public class RegistrationExtensionsTests
     [Fact]
     public void AddApiCustomers_Service_Registration_Should_Add_Options_And_Services()
     {
-        var config = new Dictionary<string, object>
+        var configuration = new Dictionary<string, object>
         {
             ["data"] = new CustomersDataConfig()
-        }.GetConfigRoot();
+        }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
                 .AddLogging()
-                .AddApiCustomers(config)
+                .AddApiCustomers(configuration)
                 .BuildServiceProvider();
 
         var dataRepository = serviceProvider.GetService<IDataRepository<ICustomer>>();

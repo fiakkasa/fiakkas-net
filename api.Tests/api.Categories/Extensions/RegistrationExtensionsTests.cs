@@ -12,14 +12,14 @@ public class RegistrationExtensionsTests
     [Fact]
     public void AddApiCategories_Service_Registration_Should_Add_Options_And_Services()
     {
-        var config = new Dictionary<string, object>
+        var configuration = new Dictionary<string, object>
         {
             ["data"] = new CategoriesDataConfig()
-        }.GetConfigRoot();
+        }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
                 .AddLogging()
-                .AddApiCategories(config)
+                .AddApiCategories(configuration)
                 .BuildServiceProvider();
 
         var dataRepository = serviceProvider.GetService<IDataRepository<ICategoryEntity>>();

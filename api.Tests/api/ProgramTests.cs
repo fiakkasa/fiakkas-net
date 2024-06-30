@@ -14,7 +14,7 @@ public class ProgramTests
             {
                 config.Sources.Clear();
 
-                config.AddToConfigBuilder(
+                config.AddToConfigurationBuilder(
 """
 {
   "Serilog": {

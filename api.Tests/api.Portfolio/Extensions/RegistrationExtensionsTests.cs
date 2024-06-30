@@ -12,14 +12,14 @@ public class RegistrationExtensionsTests
     [Fact]
     public void AddApiPortfolio_Service_Registration_Should_Add_Options_And_Services()
     {
-        var config = new Dictionary<string, object>
+        var configuration = new Dictionary<string, object>
         {
             ["data"] = new PortfolioDataConfig()
-        }.GetConfigRoot();
+        }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
                 .AddLogging()
-                .AddApiPortfolio(config)
+                .AddApiPortfolio(configuration)
                 .BuildServiceProvider();
 
         var dataRepository = serviceProvider.GetService<IDataRepository<IPortfolioItem>>();
