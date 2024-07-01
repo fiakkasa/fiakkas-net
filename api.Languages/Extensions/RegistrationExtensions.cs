@@ -2,9 +2,6 @@ using api.Languages.Interfaces;
 using api.Languages.Models;
 using api.Languages.Queries;
 using api.Languages.Services;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.Languages.Extensions;
 

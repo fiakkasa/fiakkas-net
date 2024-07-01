@@ -2,9 +2,6 @@ using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
 using api.ContactItems.Queries;
 using api.ContactItems.Services;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.ContactItems.Extensions;
 

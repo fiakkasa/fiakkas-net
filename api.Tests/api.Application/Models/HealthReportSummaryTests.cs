@@ -12,10 +12,10 @@ public class HealthReportSummaryTests
             new Dictionary<string, HealthReportEntry>
             {
                 ["Key"] = new HealthReportEntry(
-                    HealthStatus.Healthy, 
-                    default, 
-                    duration, 
-                    default, 
+                    HealthStatus.Healthy,
+                    default,
+                    duration,
+                    default,
                     default
                 )
             },

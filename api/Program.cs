@@ -8,7 +8,6 @@ using api.Extensions;
 using api.Languages.Extensions;
 using api.Portfolio.Extensions;
 using api.TextItems.Extensions;
-using System.Reflection;
 
 var start = DateTimeOffset.Now;
 var builder = WebApplication.CreateBuilder(args);

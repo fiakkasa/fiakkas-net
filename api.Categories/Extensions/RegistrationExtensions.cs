@@ -2,9 +2,6 @@ using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.Categories.Queries;
 using api.Categories.Services;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.Categories.Extensions;
 

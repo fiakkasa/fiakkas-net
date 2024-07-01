@@ -12,4 +12,6 @@ global using api.Shared.Interfaces;
 global using GreenDonut;
 global using HotChocolate;
 global using HotChocolate.Data;
+global using HotChocolate.Execution.Configuration;
 global using HotChocolate.Types;
+global using Microsoft.Extensions.DependencyInjection;

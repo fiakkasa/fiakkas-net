@@ -3,9 +3,6 @@ using api.Achievements.Models;
 using api.Achievements.Queries;
 using api.Achievements.Services;
 using api.Achievements.TypeExtensions;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.Achievements.Extensions;
 

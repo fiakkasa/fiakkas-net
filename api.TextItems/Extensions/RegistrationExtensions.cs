@@ -2,9 +2,6 @@ using api.TextItems.Interfaces;
 using api.TextItems.Models;
 using api.TextItems.Queries;
 using api.TextItems.Services;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.TextItems.Extensions;
 

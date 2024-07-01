@@ -7,9 +7,6 @@ using api.GraphExtensions.Extensions;
 using api.Languages.Extensions;
 using api.Portfolio.Extensions;
 using api.TextItems.Extensions;
-using HotChocolate.AspNetCore;
-using HotChocolate.Execution.Configuration;
-using HotChocolate.Execution.Options;
 
 namespace api.Extensions;
 
