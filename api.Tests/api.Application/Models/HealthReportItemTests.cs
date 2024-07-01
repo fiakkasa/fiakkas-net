@@ -9,10 +9,10 @@ public class HealthReportItemTests
     {
         var duration = TimeSpan.FromSeconds(1);
         var healthReportEntry = new HealthReportEntry(
-            HealthStatus.Healthy, 
-            "description", 
-            duration, 
-            new Exception("Splash!"), 
+            HealthStatus.Healthy,
+            "description",
+            duration,
+            new Exception("Splash!"),
             new Dictionary<string, object>(),
             ["tag"]
         );

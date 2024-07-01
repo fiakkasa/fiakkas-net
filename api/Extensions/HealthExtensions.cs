@@ -1,6 +1,3 @@
-using GraphHealthChecks;
-using HealthChecks.ApplicationStatus.DependencyInjection;
-
 namespace api.Extensions;
 
 public static class HealthExtensions

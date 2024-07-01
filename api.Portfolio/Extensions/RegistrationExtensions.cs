@@ -2,9 +2,6 @@ using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Portfolio.Queries;
 using api.Portfolio.Services;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.Portfolio.Extensions;
 

@@ -1,7 +1,5 @@
 using api.GraphExtensions.DataLoaders;
 using api.GraphExtensions.TypeExtensions;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.GraphExtensions.Extensions;
 
