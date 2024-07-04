@@ -9,15 +9,15 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
-    <Version>1.8.5</Version>
-    <ContainerImageTags>1.8.5;latest</ContainerImageTags>
+    <Version>1.8.6</Version>
+    <ContainerImageTags>1.8.6;latest</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1" />
     <PackageReference Include="GraphHealthChecks" Version="2.0.1" />
     <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="7.7.1" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.6" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.0.3" />
