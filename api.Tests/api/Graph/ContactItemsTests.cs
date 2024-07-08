@@ -15,8 +15,8 @@ public class ContactItemsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
   contactItems {
     totalCount
     items {
-      content
       createdAt
+      description
       href
       icon
       id

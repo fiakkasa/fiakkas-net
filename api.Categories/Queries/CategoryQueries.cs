@@ -23,14 +23,14 @@ public sealed class CategoryQueries
             CategoryMappers.MapGenericCategory<PortfolioCategory>
         );
 
-    // [UseOffsetPaging]
-    // [UseSorting]
-    // [UseFiltering]
-    // public IQueryable<ResumeCategory> GetResumeCategories([Service] IDataRepository<ICategoryEntity> repository) =>
-    //     repository.Get(
-    //         CategoryEntityUtils.IsResumeCategory, 
-    //         CategoryMappers.MapGenericCategory<ResumeCategory>
-    //     );
+    [UseOffsetPaging]
+    [UseSorting]
+    [UseFiltering]
+    public IQueryable<ResumeCategory> GetResumeCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+        repository.Get(
+            CategoryEntityUtils.IsResumeCategory,
+            CategoryMappers.MapGenericCategory<ResumeCategory>
+        );
 
     [UseOffsetPaging]
     [UseSorting]
@@ -58,13 +58,4 @@ public sealed class CategoryQueries
             CategoryEntityUtils.IsTechnologyCategory,
             CategoryMappers.MapTechnologyCategories
         );
-
-    // [UseOffsetPaging]
-    // [UseSorting]
-    // [UseFiltering]
-    // public IQueryable<OtherCategory> GetOtherCategories([Service] IDataRepository<ICategoryEntity> repository) =>
-    //     repository.Get(
-    //         CategoryEntityUtils.IsIOtherCategory, 
-    //         CategoryMappers.MapGenericCategory<OtherCategory>
-    //     );
 }

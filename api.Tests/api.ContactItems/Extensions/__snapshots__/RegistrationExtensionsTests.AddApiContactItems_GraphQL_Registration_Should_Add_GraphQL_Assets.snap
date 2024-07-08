@@ -14,7 +14,7 @@ type ContactItem {
   key: String!
   icon: String
   title: String!
-  content: String!
+  description: String!
   href: URL
   id: UUID!
   createdAt: DateTime!
@@ -40,7 +40,7 @@ input ContactItemFilterInput {
   key: StringOperationFilterInput
   icon: StringOperationFilterInput
   title: StringOperationFilterInput
-  content: StringOperationFilterInput
+  description: StringOperationFilterInput
   href: UrlOperationFilterInput
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
@@ -52,7 +52,7 @@ input ContactItemSortInput {
   key: SortEnumType
   icon: SortEnumType
   title: SortEnumType
-  content: SortEnumType
+  description: SortEnumType
   href: UriSortInput
   id: SortEnumType
   createdAt: SortEnumType

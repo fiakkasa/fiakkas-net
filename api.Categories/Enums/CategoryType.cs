@@ -4,8 +4,7 @@ public enum CategoryType
 {
     None = 0,
     Portfolio = 1,
-    // Resume = 2,
+    Resume = 2,
     SoftwareDevelopment = 3,
-    // InformationTechnology = 4,
-    // Other = 5
+    // InformationTechnology = 4
 }

@@ -17,7 +17,7 @@ public class ContactItemQueriesTests
             Key = "Key",
             Icon = "Icon",
             Title = "Title",
-            Content = "Content",
+            Description = "Content",
             Href = new Uri("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<IContactItem>([item]);

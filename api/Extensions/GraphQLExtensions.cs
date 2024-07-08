@@ -3,6 +3,7 @@ using api.Application.Extensions;
 using api.Categories.Extensions;
 using api.ContactItems.Extensions;
 using api.Customers.Extensions;
+using api.EducationItems.Extensions;
 using api.GraphExtensions.Extensions;
 using api.Languages.Extensions;
 using api.Portfolio.Extensions;
@@ -28,6 +29,7 @@ public static class GraphQLExtensions
             .AddApiCategories()
             .AddApiContactItems()
             .AddApiCustomers()
+            .AddApiEducationItems()
             .AddApiLanguages()
             .AddApiPortfolio()
             .AddApiTextItems()

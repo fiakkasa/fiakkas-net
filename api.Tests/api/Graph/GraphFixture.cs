@@ -8,6 +8,8 @@ using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
 using api.Customers.Interfaces;
 using api.Customers.Models;
+using api.EducationItems.Interfaces;
+using api.EducationItems.Models;
 using api.Extensions;
 using api.Languages.Enums;
 using api.Languages.Interfaces;
@@ -68,6 +70,15 @@ public class GraphFixture
                 },
                 new CategoryEntity
                 {
+                    Kind = CategoryType.Resume,
+                    Id = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Title = "Title"
+                },
+                new CategoryEntity
+                {
                     Kind = CategoryType.SoftwareDevelopment,
                     Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                     CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
@@ -88,7 +99,7 @@ public class GraphFixture
                     Key = "Key",
                     Icon = "Icon",
                     Title = "Title",
-                    Content = "Content",
+                    Description = "Content",
                     Href = new Uri("/test", UriKind.Relative)
                 }
             ]);
@@ -102,6 +113,27 @@ public class GraphFixture
                     Version = 1,
                     Title = "Title",
                     Href = new Uri("/test", UriKind.Relative)
+                }
+            ]);
+            var educationItemsDataRepository = new MockDataRepository<IEducationItem<EducationTimePeriod>>(
+            [
+                new EducationItem
+                {
+                    Id = new Guid("38898c62-161e-40f2-8a9f-39bf1ff46224"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    CategoryId = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                    TimePeriod = new()
+                    {
+                        Start = new DateOnly(2024, 1, 1),
+                        End = null
+                    },
+                    Title = "Title",
+                    Href = new Uri("/test", UriKind.Relative),
+                    Location = "Location",
+                    Description = "Description",
+                    Subjects = ["Subject"]
                 }
             ]);
             var languageDataRepository = new MockDataRepository<ILanguage>(
@@ -160,6 +192,7 @@ public class GraphFixture
                     .AddSingleton<IDataRepository<ICategoryEntity>>(categoryDataRepository)
                     .AddSingleton<IDataRepository<IContactItem>>(contactItemsDataRepository)
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)
+                    .AddSingleton<IDataRepository<IEducationItem<EducationTimePeriod>>>(educationItemsDataRepository)
                     .AddSingleton<IDataRepository<ILanguage>>(languageDataRepository)
                     .AddSingleton<IDataRepository<IPortfolioItem>>(portfolioItemDataRepository)
                     .AddSingleton<IDataRepository<ITextItem>>(textItemDataRepository)

@@ -40,10 +40,9 @@ public static class CategoryMappers
         x switch
         {
             { Kind: CategoryType.Portfolio } => x.MapGenericCategory<PortfolioCategory>(),
-            // { Kind: CategoryType.Resume } => x.MapGenericCategory<ResumeCategory>(),
+            { Kind: CategoryType.Resume } => x.MapGenericCategory<ResumeCategory>(),
             { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
             // { Kind: CategoryType.InformationTechnology } =>  x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
-            // { Kind: CategoryType.Other } => x.MapGenericCategory<OtherCategory>(),
             _ => x.MapGenericCategory<Category>()
         };
 }

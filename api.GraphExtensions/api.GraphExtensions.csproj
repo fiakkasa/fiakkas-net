@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\api.Categories\api.Categories.csproj" />
     <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
+    <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj" />
     <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
     <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
   </ItemGroup>

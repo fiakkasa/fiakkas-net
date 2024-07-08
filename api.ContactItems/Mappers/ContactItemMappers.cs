@@ -15,7 +15,7 @@ public static class ContactItemMappers
             Key = x.Key,
             Icon = x.Icon,
             Title = x.Title,
-            Content = x.Content,
+            Description = x.Description,
             Href = x.Href
         };
 }
