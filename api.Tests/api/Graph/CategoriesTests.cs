@@ -15,6 +15,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
   categories {
     totalCount
     items {
+      __typename
       createdAt
       id
       title
@@ -27,6 +28,32 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         updatedAt
         version
       }
+      ... on ResumeCategory {
+        createdAt
+        id
+        title
+        updatedAt
+        version
+        educationItems {
+          totalCount
+          items {
+            categoryId
+            timePeriod {
+              start
+              end
+            }
+            title
+            href
+            location
+            description
+            subjects
+            id
+            createdAt
+            updatedAt
+            version
+          }
+        }
+      }
       ... on PortfolioCategory {
         createdAt
         id
@@ -35,12 +62,41 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         version
         customers {
           totalCount
+          items {
+            createdAt
+            href
+            id
+            title
+            updatedAt
+            version
+          }
         }
         portfolioItems {
           totalCount
+          items {
+            categoryId
+            createdAt
+            customerId
+            href
+            id
+            technologiesSummary
+            technologyIds
+            title
+            updatedAt
+            version
+            year
+          }
         }
         technologyCategories {
           totalCount
+          items {
+            createdAt
+            href
+            id
+            title
+            updatedAt
+            version
+          }
         }
       }
       ... on SoftwareDevelopmentCategory {
@@ -52,12 +108,40 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         version
         portfolioCategories {
           totalCount
+          items {
+            createdAt
+            id
+            title
+            updatedAt
+            version
+          }
         }
         portfolioCustomers {
           totalCount
+          items {
+            createdAt
+            href
+            id
+            title
+            updatedAt
+            version
+          }
         }
         portfolioItems {
           totalCount
+          items {
+            categoryId
+            createdAt
+            customerId
+            href
+            id
+            technologiesSummary
+            technologyIds
+            title
+            updatedAt
+            version
+            year
+          }
         }
       }
       ... on TechnologyCategory {
@@ -69,17 +153,46 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         version
         portfolioCategories {
           totalCount
+          items {
+            createdAt
+            id
+            title
+            updatedAt
+            version
+          }
         }
         portfolioCustomers {
           totalCount
+          items {
+            createdAt
+            href
+            id
+            title
+            updatedAt
+            version
+          }
         }
         portfolioItems {
           totalCount
+          items {
+            categoryId
+            createdAt
+            customerId
+            href
+            id
+            technologiesSummary
+            technologyIds
+            title
+            updatedAt
+            version
+            year
+          }
         }
       }
     }
   }
 }
+
 """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;

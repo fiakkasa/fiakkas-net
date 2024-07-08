@@ -1,0 +1,39 @@
+﻿{
+  "data": {
+    "resumeCategories": {
+      "totalCount": 1,
+      "items": [
+        {
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
+          "educationItems": {
+            "totalCount": 1,
+            "items": [
+              {
+                "categoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+                "timePeriod": {
+                  "start": "2024-01-01",
+                  "end": null
+                },
+                "title": "",
+                "href": "/test",
+                "location": "Location",
+                "description": "Description",
+                "subjects": [
+                  "Subject"
+                ],
+                "id": "38898c62-161e-40f2-8a9f-39bf1ff46224",
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

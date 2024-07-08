@@ -1,9 +1,10 @@
 ﻿{
   "data": {
     "categories": {
-      "totalCount": 3,
+      "totalCount": 4,
       "items": [
         {
+          "__typename": "Category",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "id": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
           "title": "Title",
@@ -11,22 +12,92 @@
           "version": 1
         },
         {
+          "__typename": "PortfolioCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
           "customers": {
-            "totalCount": 1
+            "totalCount": 1,
+            "items": [
+              {
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "href": "/test",
+                "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
           },
           "portfolioItems": {
-            "totalCount": 1
+            "totalCount": 1,
+            "items": [
+              {
+                "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+                "href": "/test",
+                "id": "28e483e4-6961-4b25-88a9-d1d0a5161109",
+                "technologiesSummary": "Title",
+                "technologyIds": [
+                  "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
+                ],
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1,
+                "year": 2024
+              }
+            ]
           },
           "technologyCategories": {
-            "totalCount": 1
+            "totalCount": 1,
+            "items": [
+              {
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "href": "/test",
+                "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
           }
         },
         {
+          "__typename": "ResumeCategory",
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
+          "educationItems": {
+            "totalCount": 1,
+            "items": [
+              {
+                "categoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+                "timePeriod": {
+                  "start": "2024-01-01",
+                  "end": null
+                },
+                "title": "",
+                "href": "/test",
+                "location": "Location",
+                "description": "Description",
+                "subjects": [
+                  "Subject"
+                ],
+                "id": "38898c62-161e-40f2-8a9f-39bf1ff46224",
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
+          }
+        },
+        {
+          "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
           "title": "Title",
@@ -34,13 +105,49 @@
           "version": 1,
           "href": "/test",
           "portfolioCategories": {
-            "totalCount": 1
+            "totalCount": 1,
+            "items": [
+              {
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
           },
           "portfolioCustomers": {
-            "totalCount": 1
+            "totalCount": 1,
+            "items": [
+              {
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "href": "/test",
+                "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1
+              }
+            ]
           },
           "portfolioItems": {
-            "totalCount": 1
+            "totalCount": 1,
+            "items": [
+              {
+                "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+                "createdAt": "2024-01-01T00:00:00.000Z",
+                "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+                "href": "/test",
+                "id": "28e483e4-6961-4b25-88a9-d1d0a5161109",
+                "technologiesSummary": "Title",
+                "technologyIds": [
+                  "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
+                ],
+                "title": "Title",
+                "updatedAt": null,
+                "version": 1,
+                "year": 2024
+              }
+            ]
           }
         }
       ]

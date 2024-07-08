@@ -67,7 +67,7 @@ type ContactItem {
   key: String!
   icon: String
   title: String!
-  content: String!
+  description: String!
   href: URL
   id: UUID!
   createdAt: DateTime!
@@ -103,6 +103,35 @@ type CustomersCollectionSegment {
   "A flattened list of the items."
   items: [Customer!]
   totalCount: Int!
+}
+
+type EducationItem {
+  categoryId: UUID!
+  timePeriod: EducationTimePeriod!
+  title: String!
+  href: URL
+  location: String!
+  description: String!
+  subjects: [String!]!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  category: ResumeCategory
+}
+
+"A segment of a collection."
+type EducationItemsCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [EducationItem!]
+  totalCount: Int!
+}
+
+type EducationTimePeriod {
+  start: Date!
+  end: Date
 }
 
 type HealthReportItem {
@@ -211,13 +240,33 @@ type Query {
   health: HealthReportSummary!
   categories(skip: Int take: Int order: [ICategorySortInput!] where: ICategoryFilterInput): CategoriesCollectionSegment
   portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
+  resumeCategories(skip: Int take: Int order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesCollectionSegment
   softwareDevelopmentCategories(skip: Int take: Int order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesCollectionSegment
   technologyCategories(skip: Int take: Int order: [ITechnologyCategorySortInput!] where: ITechnologyCategoryFilterInput): TechnologyCategoriesCollectionSegment
   contactItems(skip: Int take: Int order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsCollectionSegment
   customers(skip: Int take: Int order: [CustomerSortInput!] where: CustomerFilterInput): CustomersCollectionSegment
+  educationItems(skip: Int take: Int order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsCollectionSegment
   languages(skip: Int take: Int order: [LanguageSortInput!] where: LanguageFilterInput): LanguagesCollectionSegment
   portfolioItems(skip: Int take: Int order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsCollectionSegment
   textItems(skip: Int take: Int order: [TextItemSortInput!] where: TextItemFilterInput): TextItemsCollectionSegment
+}
+
+"A segment of a collection."
+type ResumeCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [ResumeCategory!]
+  totalCount: Int!
+}
+
+type ResumeCategory implements ICategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  educationItems(skip: Int take: Int where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsCollectionSegment
 }
 
 "A segment of a collection."
@@ -313,7 +362,7 @@ input ContactItemFilterInput {
   key: StringOperationFilterInput
   icon: StringOperationFilterInput
   title: StringOperationFilterInput
-  content: StringOperationFilterInput
+  description: StringOperationFilterInput
   href: UrlOperationFilterInput
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
@@ -325,7 +374,7 @@ input ContactItemSortInput {
   key: SortEnumType
   icon: SortEnumType
   title: SortEnumType
-  content: SortEnumType
+  description: SortEnumType
   href: UriSortInput
   id: SortEnumType
   createdAt: SortEnumType
@@ -353,6 +402,21 @@ input CustomerSortInput {
   version: SortEnumType
 }
 
+input DateOperationFilterInput {
+  eq: Date
+  neq: Date
+  in: [Date]
+  nin: [Date]
+  gt: Date
+  ngt: Date
+  gte: Date
+  ngte: Date
+  lt: Date
+  nlt: Date
+  lte: Date
+  nlte: Date
+}
+
 input DateTimeOperationFilterInput {
   eq: DateTime
   neq: DateTime
@@ -366,6 +430,47 @@ input DateTimeOperationFilterInput {
   nlt: DateTime
   lte: DateTime
   nlte: DateTime
+}
+
+input EducationItemFilterInput {
+  and: [EducationItemFilterInput!]
+  or: [EducationItemFilterInput!]
+  categoryId: UuidOperationFilterInput
+  timePeriod: EducationTimePeriodFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  location: StringOperationFilterInput
+  description: StringOperationFilterInput
+  subjects: ListStringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input EducationItemSortInput {
+  categoryId: SortEnumType
+  timePeriod: EducationTimePeriodSortInput
+  title: SortEnumType
+  href: UriSortInput
+  location: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input EducationTimePeriodFilterInput {
+  and: [EducationTimePeriodFilterInput!]
+  or: [EducationTimePeriodFilterInput!]
+  start: DateOperationFilterInput
+  end: DateOperationFilterInput
+}
+
+input EducationTimePeriodSortInput {
+  start: SortEnumType
+  end: SortEnumType
 }
 
 input ICategoryFilterInput {
@@ -448,6 +553,13 @@ input ListIntOperationFilterInput {
   any: Boolean
 }
 
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
+}
+
 input ListUuidOperationFilterInput {
   all: UuidOperationFilterInput
   none: UuidOperationFilterInput
@@ -520,6 +632,24 @@ input ProficiencyTypeOperationFilterInput {
   neq: ProficiencyType
   in: [ProficiencyType!]
   nin: [ProficiencyType!]
+}
+
+input ResumeCategoryFilterInput {
+  and: [ResumeCategoryFilterInput!]
+  or: [ResumeCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input ResumeCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input SoftwareDevelopmentCategoryFilterInput {
@@ -652,6 +782,9 @@ enum SortEnumType {
   ASC
   DESC
 }
+
+"The `Date` scalar represents an ISO-8601 compliant date type."
+scalar Date
 
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")

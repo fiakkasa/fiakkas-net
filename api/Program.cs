@@ -4,6 +4,7 @@ using api.Application.Extensions;
 using api.Categories.Extensions;
 using api.ContactItems.Extensions;
 using api.Customers.Extensions;
+using api.EducationItems.Extensions;
 using api.Extensions;
 using api.Languages.Extensions;
 using api.Portfolio.Extensions;
@@ -26,6 +27,7 @@ services.AddApiApplication(start, typeof(Program).Assembly.GetCustomAttribute<As
 services.AddApiCategories(config, Consts.DataFileSectionPath);
 services.AddApiContactItems(config, Consts.DataFileSectionPath);
 services.AddApiCustomers(config, Consts.DataFileSectionPath);
+services.AddApiEducationItems(config, Consts.DataFileSectionPath);
 services.AddApiLanguages(config, Consts.DataFileSectionPath);
 services.AddApiPortfolio(config, Consts.DataFileSectionPath);
 services.AddApiTextItems(config, Consts.DataFileSectionPath);

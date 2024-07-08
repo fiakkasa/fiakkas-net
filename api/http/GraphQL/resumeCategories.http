@@ -1,0 +1,6 @@
+POST /graphql HTTP/1.1
+Host: localhost:5069
+Content-Type: application/json
+Content-Length: 515
+
+{"query":"{\n  resumeCategories {\n    totalCount\n    items {\n      createdAt\n      id\n      title\n      updatedAt\n      version\n      educationItems {\n        totalCount\n        items {\n          categoryId\n          timePeriod {\n            start\n            end\n          }\n          title\n          href\n          location\n          description\n          subjects\n          id\n          createdAt\n          updatedAt\n          version\n        }\n      }\n    }\n  }\n}\n","variables":{}}

@@ -1,4 +1,4 @@
-// namespace api.Categories.Models;
+namespace api.Categories.Models;
 
-// [ExcludeFromCodeCoverage]
-// public record ResumeCategory : Category { }
+[ExcludeFromCodeCoverage]
+public record ResumeCategory : Category { }

@@ -14,7 +14,7 @@ public class ContactItemMappersTests
         public string Key { get; init; } = string.Empty;
         public string? Icon { get; init; }
         public string Title { get; init; } = string.Empty;
-        public string Content { get; init; } = string.Empty;
+        public string Description { get; init; } = string.Empty;
         public Uri? Href { get; init; }
     }
 
@@ -30,7 +30,7 @@ public class ContactItemMappersTests
             Key = "Key",
             Icon = "Icon",
             Title = "Title",
-            Content = "Content",
+            Description = "Content",
             Href = new Uri("/test", UriKind.Relative)
         };
 

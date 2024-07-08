@@ -1,6 +1,6 @@
 POST /graphql HTTP/1.1
 Host: localhost:5069
 Content-Type: application/json
-Content-Length: 212
+Content-Length: 216
 
-{"query":"{\n  contactItems {\n    totalCount\n    items {\n      content\n      createdAt\n      href\n      icon\n      id\n      key\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}
+{"query":"{\n  contactItems {\n    totalCount\n    items {\n      createdAt\n      description\n      href\n      icon\n      id\n      key\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}

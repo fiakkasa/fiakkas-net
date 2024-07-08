@@ -17,6 +17,15 @@
         "version": 0,
         "title": "C#",
         "href": "https://learn.microsoft.com/en-us/dotnet/csharp/"
+      },
+      {
+        "kind": "Resume",
+        "id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+        "createdAt": "2024-05-15T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "title": "Software Development",
+        "href": null
       }
     ],
     "customers": [
@@ -88,6 +97,27 @@
         "content": "Some great achievement!",
         "years": [
           2024
+        ]
+      }
+    ],
+    "educationItems": [
+      {
+        "id": "38898c62-161e-40f2-8a9f-39bf1ff46224",
+        "createdAt": "2024-07-08T00:00:00.000Z",
+        "updatedAt": null,
+        "version": 0,
+        "categoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+        "timePeriod": {
+          "start": "2000-01-01",
+          "end": "2004-06-01"
+        },
+        "title": "Example University",
+        "href": null,
+        "location": "Dallas Texas, USA",
+        "description": "Bachelors of Computer Science",
+        "subjects": [
+          "Programming",
+          "Database Design"
         ]
       }
     ]

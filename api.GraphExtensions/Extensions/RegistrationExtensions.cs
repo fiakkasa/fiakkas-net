@@ -10,6 +10,7 @@ public static class RegistrationExtensions
             .AddDataLoader<CustomerBatchDataLoader>()
             .AddDataLoader<CustomerByPortfolioCategoryIdGroupDataLoader>()
             .AddDataLoader<CustomerByTechnologyIdGroupDataLoader>()
+            .AddDataLoader<EducationItemByResumeCategoryIdGroupDataLoader>()
             .AddDataLoader<PortfolioCategoryBatchDataLoader>()
             .AddDataLoader<PortfolioCategoryByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioCategoryByTechnologyIdGroupDataLoader>()
@@ -18,9 +19,12 @@ public static class RegistrationExtensions
             .AddDataLoader<PortfolioItemByTechnologyIdGroupDataLoader>()
             .AddDataLoader<PortfolioTechnologyCategoryByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader>()
+            .AddDataLoader<ResumeCategoryBatchDataLoader>()
             .AddDataLoader<TechnologyCategoryBatchDataLoader>()
             .AddTypeExtension<CustomerTypeExtension>()
+            .AddTypeExtension<EducationItemTypeExtension>()
             .AddTypeExtension<ITechnologyCategoryTypeExtension>()
             .AddTypeExtension<PortfolioCategoryTypeExtension>()
+            .AddTypeExtension<ResumeCategoryTypeExtension>()
             .AddTypeExtension<PortfolioItemTypeExtension>();
 }

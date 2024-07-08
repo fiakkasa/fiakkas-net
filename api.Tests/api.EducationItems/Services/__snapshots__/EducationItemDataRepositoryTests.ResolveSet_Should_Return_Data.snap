@@ -1,0 +1,20 @@
+﻿[
+  {
+    "CategoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+    "TimePeriod": {
+      "Start": "2024-01-01",
+      "End": null
+    },
+    "Title": "Title",
+    "Href": "/test",
+    "Location": "Location",
+    "Description": "Description",
+    "Subjects": [
+      "Subject"
+    ],
+    "Id": "38898c62-161e-40f2-8a9f-39bf1ff46224",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  }
+]

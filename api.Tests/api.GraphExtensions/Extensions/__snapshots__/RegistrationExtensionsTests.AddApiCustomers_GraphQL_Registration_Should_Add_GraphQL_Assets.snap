@@ -39,6 +39,34 @@ type CustomersCollectionSegment {
   items: [Customer!]
 }
 
+type EducationItem {
+  categoryId: UUID!
+  timePeriod: EducationTimePeriod!
+  title: String!
+  href: URL
+  location: String!
+  description: String!
+  subjects: [String!]!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  category: ResumeCategory
+}
+
+"A segment of a collection."
+type EducationItemsCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [EducationItem!]
+}
+
+type EducationTimePeriod {
+  start: Date!
+  end: Date
+}
+
 type MockTechnologyCategory implements ITechnologyCategory {
   id: UUID!
   createdAt: DateTime!
@@ -118,6 +146,15 @@ type Query {
   portfolioItems: [PortfolioItem!]!
 }
 
+type ResumeCategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  educationItems(skip: Int take: Int where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsCollectionSegment
+}
+
 "A segment of a collection."
 type TechnologyCategoriesCollectionSegment {
   "Information to aid in pagination."
@@ -146,6 +183,21 @@ input CustomerSortInput {
   version: SortEnumType
 }
 
+input DateOperationFilterInput {
+  eq: Date
+  neq: Date
+  in: [Date]
+  nin: [Date]
+  gt: Date
+  ngt: Date
+  gte: Date
+  ngte: Date
+  lt: Date
+  nlt: Date
+  lte: Date
+  nlte: Date
+}
+
 input DateTimeOperationFilterInput {
   eq: DateTime
   neq: DateTime
@@ -159,6 +211,47 @@ input DateTimeOperationFilterInput {
   nlt: DateTime
   lte: DateTime
   nlte: DateTime
+}
+
+input EducationItemFilterInput {
+  and: [EducationItemFilterInput!]
+  or: [EducationItemFilterInput!]
+  categoryId: UuidOperationFilterInput
+  timePeriod: EducationTimePeriodFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  location: StringOperationFilterInput
+  description: StringOperationFilterInput
+  subjects: ListStringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input EducationItemSortInput {
+  categoryId: SortEnumType
+  timePeriod: EducationTimePeriodSortInput
+  title: SortEnumType
+  href: UriSortInput
+  location: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input EducationTimePeriodFilterInput {
+  and: [EducationTimePeriodFilterInput!]
+  or: [EducationTimePeriodFilterInput!]
+  start: DateOperationFilterInput
+  end: DateOperationFilterInput
+}
+
+input EducationTimePeriodSortInput {
+  start: SortEnumType
+  end: SortEnumType
 }
 
 input ITechnologyCategoryFilterInput {
@@ -179,6 +272,13 @@ input ITechnologyCategorySortInput {
   version: SortEnumType
   title: SortEnumType
   href: UriSortInput
+}
+
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
 }
 
 input ListUuidOperationFilterInput {
@@ -321,6 +421,9 @@ enum SortEnumType {
   ASC
   DESC
 }
+
+"The `Date` scalar represents an ISO-8601 compliant date type."
+scalar Date
 
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")

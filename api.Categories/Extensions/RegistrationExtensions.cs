@@ -23,9 +23,8 @@ public static class RegistrationExtensions
             .AddTypeExtension<CategoryQueries>()
             .AddObjectType<Category>()
             // .AddObjectType<InformationTechnologyCategory>()
-            // .AddObjectType<OtherCategory>()
             .AddObjectType<PortfolioCategory>()
-            // .AddObjectType<ResumeCategory>()
+            .AddObjectType<ResumeCategory>()
             .AddObjectType<SoftwareDevelopmentCategory>()
             .AddObjectType<TechnologyCategory>();
 }

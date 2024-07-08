@@ -4,8 +4,8 @@
       "totalCount": 1,
       "items": [
         {
-          "content": "Content",
           "createdAt": "2024-01-01T00:00:00.000Z",
+          "description": "Content",
           "href": "/test",
           "icon": "Icon",
           "id": "ebf224a8-7ff3-47b9-882b-dd41ec7f5a05",

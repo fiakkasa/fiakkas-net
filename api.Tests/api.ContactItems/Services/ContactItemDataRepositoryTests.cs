@@ -18,7 +18,7 @@ public class ContactItemDataRepositoryTests
             Key = "Key",
             Icon = "Icon",
             Title = "Title",
-            Content = "Content",
+            Description = "Content",
             Href = new Uri("/test", UriKind.Relative)
         };
         var configData = new ContactItemsDataConfig
