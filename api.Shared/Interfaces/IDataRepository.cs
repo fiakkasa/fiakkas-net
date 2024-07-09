@@ -18,6 +18,15 @@ public interface IDataRepository<TEntity> where TEntity : IBaseId
         CancellationToken cancellationToken = default
     ) where TMapped : IBaseId;
 
+    ValueTask<IReadOnlyDictionary<TKey, TMapped>> GetBatch<TMapped, TKey>(
+        Func<TEntity, bool> predicate,
+        Func<TEntity, TKey> keySelector,
+        Func<TEntity, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    )
+    where TMapped : IBaseId
+    where TKey : notnull;
+
     ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
         IReadOnlyList<Guid> keys,
         Func<TEntity, Guid> keySelector,
@@ -25,10 +34,10 @@ public interface IDataRepository<TEntity> where TEntity : IBaseId
         CancellationToken cancellationToken = default
     );
 
-    ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
+    ValueTask<ILookup<TKey, TMapped>> GetGroupedBatch<TMapped, TKey>(
         Func<TEntity, bool> predicate,
-        Func<TEntity, Guid> keySelector,
+        Func<TEntity, TKey> keySelector,
         Func<TEntity, TMapped> mapper,
         CancellationToken cancellationToken = default
-    );
+    ) where TKey : notnull;
 }

@@ -26,7 +26,7 @@ public class PortfolioItemQueriesTests
 
         var result = sut.GetPortfolioItems(service);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<PortfolioItem>>();
         result.MatchSnapshot();
     }

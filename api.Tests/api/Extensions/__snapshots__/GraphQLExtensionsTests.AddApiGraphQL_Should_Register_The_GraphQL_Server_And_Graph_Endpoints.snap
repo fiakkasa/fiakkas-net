@@ -39,6 +39,15 @@ type AchievementsCollectionSegment {
 }
 
 "A segment of a collection."
+type AssociatedCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [ICategory!]
+  totalCount: Int!
+}
+
+"A segment of a collection."
 type CategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
@@ -147,6 +156,27 @@ type HealthReportSummary {
   entries: [KeyValuePairOfStringAndHealthReportItem!]
 }
 
+"A segment of a collection."
+type InformationTechnologyCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [InformationTechnologyCategory!]
+  totalCount: Int!
+}
+
+type InformationTechnologyCategory implements ICategory & ITechnologyCategory {
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
+  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
+  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+}
+
 type KeyValuePairOfStringAndHealthReportItem {
   key: String!
   value: HealthReportItem!
@@ -168,6 +198,23 @@ type LanguagesCollectionSegment {
   "A flattened list of the items."
   items: [Language!]
   totalCount: Int!
+}
+
+"A segment of a collection."
+type OtherCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [OtherCategory!]
+  totalCount: Int!
+}
+
+type OtherCategory implements ICategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
 }
 
 "A segment of a collection."
@@ -242,7 +289,9 @@ type Query {
   portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
   resumeCategories(skip: Int take: Int order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesCollectionSegment
   softwareDevelopmentCategories(skip: Int take: Int order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesCollectionSegment
+  informationTechnologyCategories(skip: Int take: Int order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesCollectionSegment
   technologyCategories(skip: Int take: Int order: [ITechnologyCategorySortInput!] where: ITechnologyCategoryFilterInput): TechnologyCategoriesCollectionSegment
+  otherCategories(skip: Int take: Int order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesCollectionSegment
   contactItems(skip: Int take: Int order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsCollectionSegment
   customers(skip: Int take: Int order: [CustomerSortInput!] where: CustomerFilterInput): CustomersCollectionSegment
   educationItems(skip: Int take: Int order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsCollectionSegment
@@ -261,11 +310,13 @@ type ResumeCategoriesCollectionSegment {
 }
 
 type ResumeCategory implements ICategory {
+  associatedCategoryTypes: [CategoryType!]!
   title: String!
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
+  associatedCategories(skip: Int take: Int where: ICategoryFilterInput order: [ICategorySortInput!]): AssociatedCategoriesCollectionSegment
   educationItems(skip: Int take: Int where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsCollectionSegment
 }
 
@@ -354,6 +405,13 @@ input AchievementSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
+}
+
+input CategoryTypeOperationFilterInput {
+  eq: CategoryType
+  neq: CategoryType
+  in: [CategoryType!]
+  nin: [CategoryType!]
 }
 
 input ContactItemFilterInput {
@@ -511,6 +569,26 @@ input ITechnologyCategorySortInput {
   href: UriSortInput
 }
 
+input InformationTechnologyCategoryFilterInput {
+  and: [InformationTechnologyCategoryFilterInput!]
+  or: [InformationTechnologyCategoryFilterInput!]
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input InformationTechnologyCategorySortInput {
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
 input IntOperationFilterInput {
   eq: Int
   neq: Int
@@ -544,6 +622,13 @@ input LanguageSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
+}
+
+input ListCategoryTypeOperationFilterInput {
+  all: CategoryTypeOperationFilterInput
+  none: CategoryTypeOperationFilterInput
+  some: CategoryTypeOperationFilterInput
+  any: Boolean
 }
 
 input ListIntOperationFilterInput {
@@ -580,6 +665,24 @@ input LongOperationFilterInput {
   nlt: Long
   lte: Long
   nlte: Long
+}
+
+input OtherCategoryFilterInput {
+  and: [OtherCategoryFilterInput!]
+  or: [OtherCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input OtherCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input PortfolioCategoryFilterInput {
@@ -637,6 +740,7 @@ input ProficiencyTypeOperationFilterInput {
 input ResumeCategoryFilterInput {
   and: [ResumeCategoryFilterInput!]
   or: [ResumeCategoryFilterInput!]
+  associatedCategoryTypes: ListCategoryTypeOperationFilterInput
   title: StringOperationFilterInput
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
@@ -761,6 +865,15 @@ input UuidOperationFilterInput {
   nlt: UUID
   lte: UUID
   nlte: UUID
+}
+
+enum CategoryType {
+  NONE
+  PORTFOLIO
+  RESUME
+  SOFTWARE_DEVELOPMENT
+  INFORMATION_TECHNOLOGY
+  OTHER
 }
 
 enum HealthStatus {

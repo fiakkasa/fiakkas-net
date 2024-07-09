@@ -25,7 +25,7 @@ public class ContactItemQueriesTests
 
         var result = sut.GetContactItems(dataRepository);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<ContactItem>>();
         result.MatchSnapshot();
     }

@@ -8,7 +8,7 @@ namespace api.GraphExtensions.DataLoaders.Tests;
 public class CustomerByTechnologyIdGroupDataLoaderTests
 {
     [Fact]
-    public async Task LoadBatchAsync_Should_Return_Data_When_Matches_Found()
+    public async Task LoadAsync_Should_Return_Data_When_Matches_Found()
     {
         var customerDataRepository = new MockDataRepository<ICustomer>(
         [
@@ -46,12 +46,13 @@ public class CustomerByTechnologyIdGroupDataLoaderTests
 
         var result = await sut.LoadAsync([new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")], CancellationToken.None);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
+        result[0].Should().ContainSingle();
         result.MatchSnapshot();
     }
 
     [Fact]
-    public async Task LoadGroupedBatchAsync_Should_Return_Empty_Collection_When_No_Matches_Found()
+    public async Task LoadAsync_Should_Return_Collection_With_Single_Null_Item_When_No_Matches_Found()
     {
         var customerDataRepository = new MockDataRepository<ICustomer>();
         var portfolioItemDataRepository = new MockDataRepository<IPortfolioItem>();
@@ -64,7 +65,8 @@ public class CustomerByTechnologyIdGroupDataLoaderTests
 
         var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
+        result[0].Should().BeEmpty();
         result.MatchSnapshot();
     }
 }

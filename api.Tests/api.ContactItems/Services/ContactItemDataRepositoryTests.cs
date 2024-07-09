@@ -32,7 +32,7 @@ public class ContactItemDataRepositoryTests
 
         var result = sut.Get();
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 }

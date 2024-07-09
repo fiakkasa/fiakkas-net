@@ -55,7 +55,7 @@ public class PortfolioCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -90,7 +90,7 @@ public class PortfolioCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -139,7 +139,7 @@ public class PortfolioCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 }

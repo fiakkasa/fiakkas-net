@@ -6,4 +6,5 @@ public interface ICategoryEntity : ICategoryBase
 {
     CategoryType Kind { get; init; }
     Uri? Href { get; init; }
+    CategoryType[] AssociatedCategoryTypes { get; init; }
 }

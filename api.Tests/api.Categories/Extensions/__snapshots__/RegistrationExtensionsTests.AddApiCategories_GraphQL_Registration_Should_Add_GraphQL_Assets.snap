@@ -20,6 +20,14 @@ interface ITechnologyCategory {
 }
 
 "A segment of a collection."
+type AssociatedCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [ICategory!]
+}
+
+"A segment of a collection."
 type CategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
@@ -44,6 +52,39 @@ type CollectionSegmentInfo {
 }
 
 "A segment of a collection."
+type InformationTechnologyCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [InformationTechnologyCategory!]
+}
+
+type InformationTechnologyCategory implements ICategory & ITechnologyCategory {
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A segment of a collection."
+type OtherCategoriesCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [OtherCategory!]
+}
+
+type OtherCategory implements ICategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A segment of a collection."
 type PortfolioCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
@@ -64,7 +105,9 @@ type Query {
   portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
   resumeCategories(skip: Int take: Int order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesCollectionSegment
   softwareDevelopmentCategories(skip: Int take: Int order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesCollectionSegment
+  informationTechnologyCategories(skip: Int take: Int order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesCollectionSegment
   technologyCategories(skip: Int take: Int order: [ITechnologyCategorySortInput!] where: ITechnologyCategoryFilterInput): TechnologyCategoriesCollectionSegment
+  otherCategories(skip: Int take: Int order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesCollectionSegment
 }
 
 "A segment of a collection."
@@ -76,11 +119,13 @@ type ResumeCategoriesCollectionSegment {
 }
 
 type ResumeCategory implements ICategory {
+  associatedCategoryTypes: [CategoryType!]!
   title: String!
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
+  associatedCategories(skip: Int take: Int where: ICategoryFilterInput order: [ICategorySortInput!]): AssociatedCategoriesCollectionSegment
 }
 
 "A segment of a collection."
@@ -115,6 +160,13 @@ type TechnologyCategory implements ICategory & ITechnologyCategory {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
+}
+
+input CategoryTypeOperationFilterInput {
+  eq: CategoryType
+  neq: CategoryType
+  in: [CategoryType!]
+  nin: [CategoryType!]
 }
 
 input DateTimeOperationFilterInput {
@@ -170,6 +222,33 @@ input ITechnologyCategorySortInput {
   href: UriSortInput
 }
 
+input InformationTechnologyCategoryFilterInput {
+  and: [InformationTechnologyCategoryFilterInput!]
+  or: [InformationTechnologyCategoryFilterInput!]
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input InformationTechnologyCategorySortInput {
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input ListCategoryTypeOperationFilterInput {
+  all: CategoryTypeOperationFilterInput
+  none: CategoryTypeOperationFilterInput
+  some: CategoryTypeOperationFilterInput
+  any: Boolean
+}
+
 input LongOperationFilterInput {
   eq: Long
   neq: Long
@@ -183,6 +262,24 @@ input LongOperationFilterInput {
   nlt: Long
   lte: Long
   nlte: Long
+}
+
+input OtherCategoryFilterInput {
+  and: [OtherCategoryFilterInput!]
+  or: [OtherCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input OtherCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input PortfolioCategoryFilterInput {
@@ -206,6 +303,7 @@ input PortfolioCategorySortInput {
 input ResumeCategoryFilterInput {
   and: [ResumeCategoryFilterInput!]
   or: [ResumeCategoryFilterInput!]
+  associatedCategoryTypes: ListCategoryTypeOperationFilterInput
   title: StringOperationFilterInput
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
@@ -308,6 +406,15 @@ input UuidOperationFilterInput {
   nlt: UUID
   lte: UUID
   nlte: UUID
+}
+
+enum CategoryType {
+  NONE
+  PORTFOLIO
+  RESUME
+  SOFTWARE_DEVELOPMENT
+  INFORMATION_TECHNOLOGY
+  OTHER
 }
 
 enum SortEnumType {

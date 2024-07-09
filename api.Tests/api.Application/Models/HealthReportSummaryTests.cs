@@ -27,7 +27,7 @@ public class HealthReportSummaryTests
         result.Status.Should().Be(healthReport.Status);
         result.TotalDuration.Should().Be(healthReport.TotalDuration);
         result.Entries.Should().NotBeNull();
-        result.Entries.Should().HaveCount(1);
+        result.Entries.Should().ContainSingle();
         result.Entries.Should().ContainKey("Key");
         result.Entries!["Key"].Status.Should().Be(healthReport.Entries["Key"].Status);
         result.Entries!["Key"].Duration.Should().Be(healthReport.Entries["Key"].Duration);

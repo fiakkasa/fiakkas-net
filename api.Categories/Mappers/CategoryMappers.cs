@@ -16,6 +16,17 @@ public static class CategoryMappers
             Title = x.Title
         };
 
+    public static ResumeCategory MapResumeCategory(this ICategoryEntity x) =>
+        new()
+        {
+            Id = x.Id,
+            CreatedAt = x.CreatedAt,
+            UpdatedAt = x.UpdatedAt,
+            Version = x.Version,
+            Title = x.Title,
+            AssociatedCategoryTypes = x.AssociatedCategoryTypes
+        };
+
     public static T MapGenericTechnologyCategory<T>(this ICategoryEntity x) where T : class, ITechnologyCategory, new() =>
         new()
         {
@@ -32,7 +43,7 @@ public static class CategoryMappers
         {
 
             { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
-            // { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
+            { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
             _ => x.MapGenericTechnologyCategory<TechnologyCategory>()
         };
 
@@ -40,9 +51,10 @@ public static class CategoryMappers
         x switch
         {
             { Kind: CategoryType.Portfolio } => x.MapGenericCategory<PortfolioCategory>(),
-            { Kind: CategoryType.Resume } => x.MapGenericCategory<ResumeCategory>(),
+            { Kind: CategoryType.Resume } => x.MapResumeCategory(),
+            { Kind: CategoryType.Other } => x.MapGenericCategory<OtherCategory>(),
             { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
-            // { Kind: CategoryType.InformationTechnology } =>  x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
+            { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
             _ => x.MapGenericCategory<Category>()
         };
 }

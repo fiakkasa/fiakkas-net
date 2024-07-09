@@ -6,5 +6,6 @@ public enum CategoryType
     Portfolio = 1,
     Resume = 2,
     SoftwareDevelopment = 3,
-    // InformationTechnology = 4
+    InformationTechnology = 4,
+    Other = 5
 }

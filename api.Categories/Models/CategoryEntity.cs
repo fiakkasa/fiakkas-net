@@ -11,4 +11,6 @@ public record CategoryEntity : BaseData, ICategoryEntity
     public string Title { get; init; } = string.Empty;
 
     public Uri? Href { get; init; }
+
+    public CategoryType[] AssociatedCategoryTypes { get; init; } = [];
 }

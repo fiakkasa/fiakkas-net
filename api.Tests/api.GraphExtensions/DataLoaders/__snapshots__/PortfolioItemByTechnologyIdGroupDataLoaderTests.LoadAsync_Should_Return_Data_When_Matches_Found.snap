@@ -13,6 +13,20 @@
       "CreatedAt": "2024-01-01T00:00:00+00:00",
       "UpdatedAt": null,
       "Version": 1
+    },
+    {
+      "Year": 2024,
+      "CategoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+      "Title": "Title",
+      "Href": "/test",
+      "TechnologyIds": [
+        "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
+      ],
+      "CustomerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+      "Id": "29e483e4-6961-4b25-88a9-d1d0a5161109",
+      "CreatedAt": "2024-01-01T00:00:00+00:00",
+      "UpdatedAt": null,
+      "Version": 1
     }
   ]
 ]

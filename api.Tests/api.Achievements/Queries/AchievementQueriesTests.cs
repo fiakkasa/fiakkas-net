@@ -22,7 +22,7 @@ public class AchievementQueriesTests
 
         var result = sut.GetAchievements(dataRepository);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<Achievement>>();
         result.MatchSnapshot();
     }

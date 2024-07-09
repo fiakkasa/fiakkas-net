@@ -14,10 +14,13 @@ public static class CategoryEntityUtils
     public static bool IsSoftwareDevelopmentCategory(ICategoryEntity item) =>
         item.Kind == CategoryType.SoftwareDevelopment;
 
-    // public static bool IsInformationTechnologyCategory(ICategoryEntity item) =>
-    //     item.Kind == CategoryType.InformationTechnology;
+    public static bool IsInformationTechnologyCategory(ICategoryEntity item) =>
+        item.Kind == CategoryType.InformationTechnology;
 
     public static bool IsTechnologyCategory(ICategoryEntity item) =>
-        IsSoftwareDevelopmentCategory(item);
-    // || IsInformationTechnologyCategory(item);
+        IsSoftwareDevelopmentCategory(item)
+        || IsInformationTechnologyCategory(item);
+
+    public static bool IsOtherCategory(ICategoryEntity item) =>
+        item.Kind == CategoryType.Other;
 }

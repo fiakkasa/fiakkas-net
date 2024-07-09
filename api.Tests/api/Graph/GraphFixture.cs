@@ -75,7 +75,8 @@ public class GraphFixture
                     CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                     UpdatedAt = null,
                     Version = 1,
-                    Title = "Title"
+                    Title = "Title",
+                    AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment]
                 },
                 new CategoryEntity
                 {
@@ -86,6 +87,25 @@ public class GraphFixture
                     Version = 1,
                     Title = "Title",
                     Href = new Uri("/test", UriKind.Relative)
+                },
+                new CategoryEntity
+                {
+                    Kind = CategoryType.InformationTechnology,
+                    Id = new Guid("6cc43e9a-312b-4923-b890-e966b8168eee"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Title = "Title",
+                    Href = new Uri("/test", UriKind.Relative)
+                },
+                new CategoryEntity
+                {
+                    Kind = CategoryType.Other,
+                    Id = new Guid("9fd91f8a-2a44-4520-a5b1-8aa1c3c29133"),
+                    CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                    UpdatedAt = null,
+                    Version = 1,
+                    Title = "Title"
                 }
             ]);
             var contactItemsDataRepository = new MockDataRepository<IContactItem>(

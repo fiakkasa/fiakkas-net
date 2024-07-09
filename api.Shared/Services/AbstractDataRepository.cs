@@ -141,6 +141,37 @@ where TConfig : class
         }
     }
 
+    public async ValueTask<IReadOnlyDictionary<TKey, TMapped>> GetBatch<TMapped, TKey>(
+        Func<TEntity, bool> predicate,
+        Func<TEntity, TKey> keySelector,
+        Func<TEntity, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    )
+    where TMapped : IBaseId
+    where TKey : notnull
+    {
+        try
+        {
+            return await Task.Run(() =>
+                GetSet()
+                    .Where(predicate)
+                    .ToDictionary(x => keySelector(x), mapper),
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get batch data for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
+
+            return new Dictionary<TKey, TMapped>();
+        }
+    }
+
     public async ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
         IReadOnlyList<Guid> keys,
         Func<TEntity, Guid> keySelector,
@@ -170,12 +201,12 @@ where TConfig : class
         }
     }
 
-    public async ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
+    public async ValueTask<ILookup<TKey, TMapped>> GetGroupedBatch<TMapped, TKey>(
         Func<TEntity, bool> predicate,
-        Func<TEntity, Guid> keySelector,
+        Func<TEntity, TKey> keySelector,
         Func<TEntity, TMapped> mapper,
         CancellationToken cancellationToken = default
-    )
+    ) where TKey : notnull
     {
         try
         {
@@ -195,7 +226,7 @@ where TConfig : class
                 typeof(TMapped).Name
             );
 
-            return Enumerable.Empty<TEntity>().ToLookup(x => x.Id, x => default(TMapped)!);
+            return Enumerable.Empty<TEntity>().ToLookup(x => default(TKey)!, x => default(TMapped)!);
         }
     }
 }

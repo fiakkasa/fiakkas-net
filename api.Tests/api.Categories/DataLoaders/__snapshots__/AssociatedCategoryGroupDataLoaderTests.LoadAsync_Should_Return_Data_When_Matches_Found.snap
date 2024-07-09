@@ -1,0 +1,20 @@
+﻿[
+  [
+    {
+      "Href": "/test",
+      "Title": "Title",
+      "Id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+      "CreatedAt": "2024-01-01T00:00:00+00:00",
+      "UpdatedAt": null,
+      "Version": 1
+    },
+    {
+      "Href": "/test",
+      "Title": "Title",
+      "Id": "cb832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+      "CreatedAt": "2024-01-01T00:00:00+00:00",
+      "UpdatedAt": null,
+      "Version": 1
+    }
+  ]
+]

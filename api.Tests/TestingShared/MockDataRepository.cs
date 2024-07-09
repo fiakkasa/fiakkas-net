@@ -44,6 +44,21 @@ public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<
                 .ToDictionary(x => x.Id, mapper)
         );
 
+    public async ValueTask<IReadOnlyDictionary<TKey, TMapped>> GetBatch<TMapped, TKey>(
+        Func<T, bool> predicate,
+        Func<T, TKey> keySelector,
+        Func<T, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    )
+    where TMapped : IBaseId
+    where TKey : notnull
+    =>
+        await ValueTask.FromResult(
+            _collection
+                .Where(predicate)
+                .ToDictionary(x => keySelector(x), mapper)
+        );
+
     public ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
         IReadOnlyList<Guid> keys,
         Func<T, Guid> keySelector,
@@ -56,12 +71,13 @@ public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<
                 .ToLookup(keySelector, mapper)
         );
 
-    public ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
+    public ValueTask<ILookup<TKey, TMapped>> GetGroupedBatch<TMapped, TKey>(
         Func<T, bool> predicate,
-        Func<T, Guid> keySelector,
+        Func<T, TKey> keySelector,
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
-    ) =>
+    ) where TKey : notnull
+     =>
         ValueTask.FromResult(
             _collection
                 .Where(predicate)

@@ -58,7 +58,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -78,7 +78,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -98,7 +98,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get data for type {Type}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -109,7 +109,7 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get().ToArray();
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
@@ -130,7 +130,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -150,7 +150,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -170,7 +170,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get data for type {Type} and mapped type {MappedType}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -181,7 +181,7 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get(x => x.Id).ToArray();
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
@@ -202,7 +202,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -222,7 +222,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -242,7 +242,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get data for type {Type} and mapped type {MappedType}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -254,7 +254,7 @@ public class AbstractDataRepositoryTests
 
         var result = _sut.Get(x => x.Id == id, x => x.Id).ToArray();
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
@@ -275,7 +275,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -295,7 +295,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -315,7 +315,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -327,7 +327,7 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetBatch([id], x => x, CancellationToken.None);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
@@ -348,7 +348,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -368,7 +368,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -388,7 +388,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -400,7 +400,80 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetBatch(x => x.Id == id, x => x, CancellationToken.None);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicateKeySelector_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.GetBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _loggerWrongType
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
+            .Should()
+            .ContainSingle();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicateKeySelector_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.GetBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
+            .Should()
+            .ContainSingle();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicateKeySelector_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.GetBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().BeEmpty();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
+            })
+            .Should()
+            .ContainSingle();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetBatchPredicateKeySelector_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.GetBatch(x => x.Id == id, x => x.Id, x => x, CancellationToken.None);
+
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
@@ -421,7 +494,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -441,7 +514,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -461,7 +534,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -473,7 +546,7 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetGroupedBatch([id], x => x.Id, x => x, CancellationToken.None);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
@@ -494,7 +567,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Type {Type} is not supported"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -514,7 +587,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Resolver for type {Type} could not materialize collection"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -534,7 +607,7 @@ public class AbstractDataRepositoryTests
                 OriginalMessage: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}"
             })
             .Should()
-            .HaveCount(1);
+            .ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -546,7 +619,7 @@ public class AbstractDataRepositoryTests
 
         var result = await _sut.GetGroupedBatch(x => x.Id == id, x => x.Id, x => x, CancellationToken.None);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }
