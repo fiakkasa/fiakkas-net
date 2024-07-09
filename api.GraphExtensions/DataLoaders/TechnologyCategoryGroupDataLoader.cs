@@ -1,19 +1,20 @@
 namespace api.GraphExtensions.DataLoaders;
 
-public sealed class TechnologyCategoryBatchDataLoader(
+public sealed class TechnologyCategoryGroupDataLoader(
     IDataRepository<ICategoryEntity> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : BatchDataLoader<Guid, ITechnologyCategory>(batchScheduler, options)
+) : GroupedDataLoader<Guid, ITechnologyCategory>(batchScheduler, options)
 {
-    protected override async Task<IReadOnlyDictionary<Guid, ITechnologyCategory>> LoadBatchAsync(
+    protected override async Task<ILookup<Guid, ITechnologyCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
-        await dataRepository.GetBatch(
+        await dataRepository.GetGroupedBatch(
             x =>
                 CategoryEntityUtils.IsTechnologyCategory(x)
                 && keys.Contains(x.Id),
+            x => x.Id,
             CategoryMappers.MapTechnologyCategories,
             cancellationToken
         );

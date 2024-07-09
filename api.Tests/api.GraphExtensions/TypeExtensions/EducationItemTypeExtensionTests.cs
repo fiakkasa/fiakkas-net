@@ -20,7 +20,8 @@ public class EducationItemTypeExtensionTests
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
-                Title = "Title"
+                Title = "Title",
+                AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment]
             }
         ]);
         var dataLoader = new ResumeCategoryBatchDataLoader(

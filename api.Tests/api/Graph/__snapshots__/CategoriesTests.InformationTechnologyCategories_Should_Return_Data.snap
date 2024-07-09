@@ -1,0 +1,29 @@
+﻿{
+  "data": {
+    "informationTechnologyCategories": {
+      "totalCount": 1,
+      "items": [
+        {
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "href": "/test",
+          "id": "6cc43e9a-312b-4923-b890-e966b8168eee",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
+          "portfolioCategories": {
+            "totalCount": 0,
+            "items": []
+          },
+          "portfolioCustomers": {
+            "totalCount": 0,
+            "items": []
+          },
+          "portfolioItems": {
+            "totalCount": 0,
+            "items": []
+          }
+        }
+      ]
+    }
+  }
+}

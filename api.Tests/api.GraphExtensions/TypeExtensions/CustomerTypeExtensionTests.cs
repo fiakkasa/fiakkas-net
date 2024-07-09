@@ -54,7 +54,7 @@ public class CustomerTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -103,7 +103,7 @@ public class CustomerTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -138,7 +138,7 @@ public class CustomerTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 }

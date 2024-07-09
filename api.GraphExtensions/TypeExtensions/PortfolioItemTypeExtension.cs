@@ -22,20 +22,27 @@ public sealed class PortfolioItemTypeExtension
     [UseOffsetPaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<IReadOnlyList<ITechnologyCategory>> GetTechnologyCategories(
+    public async ValueTask<IEnumerable<ITechnologyCategory>> GetTechnologyCategories(
         [Parent] PortfolioItem parent,
-        [Service] TechnologyCategoryBatchDataLoader dataLoader,
+        [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken
-    ) =>
-        await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken);
+    )
+    {
+        var result = await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken);
+
+        return result.SelectMany(x => x);
+    }
 
     public async ValueTask<string> GetTechnologiesSummary(
         [Parent] PortfolioItem parent,
-        [Service] TechnologyCategoryBatchDataLoader dataLoader,
+        [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken
     ) =>
         string.Join(
             ", ",
-            (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken)).OfType<ITechnologyCategory>().Select(x => x.Title)
+            (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
+                .SelectMany(x => x)
+                .OfType<ITechnologyCategory>()
+                .Select(x => x.Title)
         );
 }

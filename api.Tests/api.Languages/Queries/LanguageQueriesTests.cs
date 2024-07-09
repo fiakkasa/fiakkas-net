@@ -23,7 +23,7 @@ public class LanguageQueriesTests
 
         var result = sut.GetLanguages(dataRepository);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<Language>>();
         result.MatchSnapshot();
     }

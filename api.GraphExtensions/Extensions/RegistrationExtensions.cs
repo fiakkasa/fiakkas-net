@@ -20,7 +20,7 @@ public static class RegistrationExtensions
             .AddDataLoader<PortfolioTechnologyCategoryByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader>()
             .AddDataLoader<ResumeCategoryBatchDataLoader>()
-            .AddDataLoader<TechnologyCategoryBatchDataLoader>()
+            .AddDataLoader<TechnologyCategoryGroupDataLoader>()
             .AddTypeExtension<CustomerTypeExtension>()
             .AddTypeExtension<EducationItemTypeExtension>()
             .AddTypeExtension<ITechnologyCategoryTypeExtension>()

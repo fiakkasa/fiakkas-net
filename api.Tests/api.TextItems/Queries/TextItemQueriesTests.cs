@@ -23,7 +23,7 @@ public class TextItemQueriesTests
 
         var result = sut.GetTextItems(dataRepository);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<TextItem>>();
         result.MatchSnapshot();
     }

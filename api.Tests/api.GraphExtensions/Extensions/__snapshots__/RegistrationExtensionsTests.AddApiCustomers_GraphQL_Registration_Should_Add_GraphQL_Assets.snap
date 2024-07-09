@@ -147,6 +147,7 @@ type Query {
 }
 
 type ResumeCategory {
+  associatedCategoryTypes: [CategoryType!]!
   title: String!
   id: UUID!
   createdAt: DateTime!
@@ -415,6 +416,15 @@ input UuidOperationFilterInput {
   nlt: UUID
   lte: UUID
   nlte: UUID
+}
+
+enum CategoryType {
+  NONE
+  PORTFOLIO
+  RESUME
+  SOFTWARE_DEVELOPMENT
+  INFORMATION_TECHNOLOGY
+  OTHER
 }
 
 enum SortEnumType {

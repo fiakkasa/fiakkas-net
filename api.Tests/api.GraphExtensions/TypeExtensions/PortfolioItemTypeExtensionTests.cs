@@ -88,7 +88,7 @@ public class PortfolioItemTypeExtensionTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-        var dataLoader = new TechnologyCategoryBatchDataLoader(
+        var dataLoader = new TechnologyCategoryGroupDataLoader(
             dataRepository,
             AutoBatchScheduler.Default
         );
@@ -100,7 +100,7 @@ public class PortfolioItemTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.MatchSnapshot();
     }
 
@@ -120,7 +120,7 @@ public class PortfolioItemTypeExtensionTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-        var dataLoader = new TechnologyCategoryBatchDataLoader(
+        var dataLoader = new TechnologyCategoryGroupDataLoader(
             dataRepository,
             AutoBatchScheduler.Default
         );

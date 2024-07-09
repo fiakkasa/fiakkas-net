@@ -102,7 +102,9 @@ public class ProgramTests
         "updatedAt": null,
         "version": 0,
         "title": "Software Development",
-        "href": null
+        "associatedCategoryTypes": [
+          "SoftwareDevelopment"
+        ]
       }
     ],
     "customers": [

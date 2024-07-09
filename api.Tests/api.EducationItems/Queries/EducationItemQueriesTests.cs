@@ -31,7 +31,7 @@ public class EducationItemQueriesTests
 
         var result = sut.GetEducationItems(dataRepository);
 
-        result.Should().NotBeEmpty();
+        result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<EducationItem>>();
         result.MatchSnapshot();
     }

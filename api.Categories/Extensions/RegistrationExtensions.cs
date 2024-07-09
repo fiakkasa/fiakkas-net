@@ -1,7 +1,9 @@
+using api.Categories.DataLoaders;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.Categories.Queries;
 using api.Categories.Services;
+using api.Categories.TypeExtensions;
 
 namespace api.Categories.Extensions;
 
@@ -20,11 +22,14 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiCategories(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<CategoryQueries>()
+            .AddDataLoader<AssociatedCategoryGroupDataLoader>()
             .AddObjectType<Category>()
-            // .AddObjectType<InformationTechnologyCategory>()
+            .AddObjectType<InformationTechnologyCategory>()
+            .AddObjectType<OtherCategory>()
             .AddObjectType<PortfolioCategory>()
             .AddObjectType<ResumeCategory>()
             .AddObjectType<SoftwareDevelopmentCategory>()
-            .AddObjectType<TechnologyCategory>();
+            .AddObjectType<TechnologyCategory>()
+            .AddTypeExtension<CategoryQueries>()
+            .AddTypeExtension<ResumeCategoryTypeExtension>();
 }

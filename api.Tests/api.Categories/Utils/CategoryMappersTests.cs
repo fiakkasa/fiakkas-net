@@ -14,6 +14,7 @@ public class CategoryEntityUtilsTests
         public long Version { get; init; }
         public string Title { get; init; } = string.Empty;
         public Uri? Href { get; init; }
+        public CategoryType[] AssociatedCategoryTypes { get; init; } = [];
     }
 
     [Theory]
@@ -63,7 +64,7 @@ public class CategoryEntityUtilsTests
 
     [Theory]
     [InlineData(CategoryType.SoftwareDevelopment, true)]
-    // [InlineData(CategoryType.InformationTechnology, true)]
+    [InlineData(CategoryType.InformationTechnology, true)]
     [InlineData(CategoryType.None, false)]
     public void IsTechnologyCategory_Should_Return_True_When_Matched(CategoryType kind, bool expected)
     {
@@ -73,6 +74,21 @@ public class CategoryEntityUtilsTests
         };
 
         var result = CategoryEntityUtils.IsTechnologyCategory(item);
+
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(CategoryType.Other, true)]
+    [InlineData(CategoryType.None, false)]
+    public void IsOtherCategory_Should_Return_True_When_Matched(CategoryType kind, bool expected)
+    {
+        var item = new CategoryMockEntity
+        {
+            Kind = kind
+        };
+
+        var result = CategoryEntityUtils.IsOtherCategory(item);
 
         result.Should().Be(expected);
     }
