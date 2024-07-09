@@ -437,12 +437,21 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
   technologyCategories {
     totalCount
     items {
+      __typename
       createdAt
       href
       id
       title
       updatedAt
       version
+      ... on InformationTechnologyCategory {
+        createdAt
+        href
+        id
+        title
+        updatedAt
+        version
+      }
       ... on SoftwareDevelopmentCategory {
         createdAt
         href
@@ -450,43 +459,6 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         title
         updatedAt
         version
-        portfolioCategories {
-          totalCount
-          items {
-            createdAt
-            id
-            title
-            updatedAt
-            version
-          }
-        }
-        portfolioCustomers {
-          totalCount
-          items {
-            createdAt
-            href
-            id
-            title
-            updatedAt
-            version
-          }
-        }
-        portfolioItems {
-          totalCount
-          items {
-            categoryId
-            createdAt
-            customerId
-            href
-            id
-            technologiesSummary
-            technologyIds
-            title
-            updatedAt
-            version
-            year
-          }
-        }
       }
       ... on TechnologyCategory {
         createdAt
@@ -495,43 +467,6 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         title
         updatedAt
         version
-        portfolioCategories {
-          totalCount
-          items {
-            createdAt
-            id
-            title
-            updatedAt
-            version
-          }
-        }
-        portfolioCustomers {
-          totalCount
-          items {
-            createdAt
-            href
-            id
-            title
-            updatedAt
-            version
-          }
-        }
-        portfolioItems {
-          totalCount
-          items {
-            categoryId
-            createdAt
-            customerId
-            href
-            id
-            technologiesSummary
-            technologyIds
-            title
-            updatedAt
-            version
-            year
-          }
-        }
       }
     }
   }

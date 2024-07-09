@@ -4,59 +4,16 @@
       "totalCount": 2,
       "items": [
         {
+          "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
           "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
           "title": "Title",
           "updatedAt": null,
-          "version": 1,
-          "portfolioCategories": {
-            "totalCount": 1,
-            "items": [
-              {
-                "createdAt": "2024-01-01T00:00:00.000Z",
-                "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
-                "title": "Title",
-                "updatedAt": null,
-                "version": 1
-              }
-            ]
-          },
-          "portfolioCustomers": {
-            "totalCount": 1,
-            "items": [
-              {
-                "createdAt": "2024-01-01T00:00:00.000Z",
-                "href": "/test",
-                "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
-                "title": "Title",
-                "updatedAt": null,
-                "version": 1
-              }
-            ]
-          },
-          "portfolioItems": {
-            "totalCount": 1,
-            "items": [
-              {
-                "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
-                "createdAt": "2024-01-01T00:00:00.000Z",
-                "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
-                "href": "/test",
-                "id": "28e483e4-6961-4b25-88a9-d1d0a5161109",
-                "technologiesSummary": "Title",
-                "technologyIds": [
-                  "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
-                ],
-                "title": "Title",
-                "updatedAt": null,
-                "version": 1,
-                "year": 2024
-              }
-            ]
-          }
+          "version": 1
         },
         {
+          "__typename": "InformationTechnologyCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
           "id": "6cc43e9a-312b-4923-b890-e966b8168eee",
