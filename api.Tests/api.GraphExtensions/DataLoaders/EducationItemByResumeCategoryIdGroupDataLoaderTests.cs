@@ -8,7 +8,7 @@ public class EducationItemByResumeCategoryIdGroupDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Data_When_Matches_Found()
     {
-        var dataRepository = new MockDataRepository<IEducationItem<EducationTimePeriod>>(
+        var dataRepository = new MockDataRepository<IEducationItem>(
         [
             new EducationItem
             {
@@ -59,7 +59,7 @@ public class EducationItemByResumeCategoryIdGroupDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Collection_With_Single_Empty_Collection_When_No_Matches_Found()
     {
-        var dataRepository = new MockDataRepository<IEducationItem<EducationTimePeriod>>([]);
+        var dataRepository = new MockDataRepository<IEducationItem>([]);
 
         var sut = new EducationItemByResumeCategoryIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
 

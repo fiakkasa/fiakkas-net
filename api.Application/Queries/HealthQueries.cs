@@ -2,7 +2,7 @@ using api.Application.Models;
 
 namespace api.Application.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class HealthQueries
 {
     public async ValueTask<HealthReportSummary> GetHealth(

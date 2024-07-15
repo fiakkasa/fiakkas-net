@@ -1,18 +1,19 @@
 using api.EducationItems.Interfaces;
 using api.EducationItems.Models;
+using api.Shared.Models;
 
 namespace api.EducationItems.Mappers.Tests;
 
 public class EducationItemMappersTests
 {
-    public record EducationItemMockEntity : IEducationItem<EducationTimePeriod>
+    public record EducationItemMockEntity : IEducationItem
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }
         public DateTimeOffset? UpdatedAt { get; init; }
         public long Version { get; init; }
         public Guid CategoryId { get; init; }
-        public EducationTimePeriod TimePeriod { get; init; } = new();
+        public TimePeriod TimePeriod { get; init; } = new();
         public string Title { get; init; } = string.Empty;
         public Uri? Href { get; init; }
         public string Location { get; init; } = string.Empty;

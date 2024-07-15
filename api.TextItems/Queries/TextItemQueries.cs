@@ -4,7 +4,7 @@ using api.TextItems.Models;
 
 namespace api.TextItems.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class TextItemQueries
 {
     [UseOffsetPaging]

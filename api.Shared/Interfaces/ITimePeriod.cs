@@ -1,6 +1,6 @@
-namespace api.EducationItems.Interfaces;
+namespace api.Shared.Interfaces;
 
-public interface IEducationTimePeriod
+public interface ITimePeriod
 {
     public DateOnly Start { get; init; }
     public DateOnly? End { get; init; }

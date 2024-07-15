@@ -4,7 +4,7 @@ using api.Customers.Models;
 
 namespace api.Customers.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class CustomerQueries
 {
     [UseOffsetPaging]

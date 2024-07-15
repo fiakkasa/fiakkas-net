@@ -22,7 +22,7 @@ public class RegistrationExtensionsTests
                 .AddApiEducationItems(configuration)
                 .BuildServiceProvider();
 
-        var dataRepository = serviceProvider.GetService<IDataRepository<IEducationItem<EducationTimePeriod>>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<IEducationItem>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<EducationItemsDataConfig>>();
 
         dataRepository.Should().NotBeNull();
@@ -34,7 +34,7 @@ public class RegistrationExtensionsTests
     {
         var result =
             await new ServiceCollection()
-                .AddSingleton(Substitute.For<IDataRepository<IEducationItem<EducationTimePeriod>>>())
+                .AddSingleton(Substitute.For<IDataRepository<IEducationItem>>())
                 .AddGraphQLServer()
                 .AddQueryType()
                 .AddSorting()

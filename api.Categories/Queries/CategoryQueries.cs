@@ -5,7 +5,7 @@ using api.Categories.Utils;
 
 namespace api.Categories.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class CategoryQueries
 {
     [UseOffsetPaging]

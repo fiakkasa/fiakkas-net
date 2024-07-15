@@ -5,7 +5,7 @@ namespace api.EducationItems.Mappers;
 
 public static class EducationItemMappers
 {
-    public static EducationItem Map(this IEducationItem<EducationTimePeriod> x) =>
+    public static EducationItem Map(this IEducationItem x) =>
         new()
         {
             Id = x.Id,

@@ -4,7 +4,7 @@ using api.Portfolio.Models;
 
 namespace api.Portfolio.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class PortfolioItemQueries
 {
     [UseOffsetPaging]
