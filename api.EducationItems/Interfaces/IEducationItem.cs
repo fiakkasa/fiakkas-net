@@ -1,7 +1,7 @@
 namespace api.EducationItems.Interfaces;
 
 public interface IEducationItem<TTimePeriod> : IBaseData
-    where TTimePeriod : class, IEducationTimePeriod, new()
+    where TTimePeriod : class, ITimePeriod, new()
 {
     Guid CategoryId { get; init; }
     TTimePeriod TimePeriod { get; init; }
@@ -11,3 +11,5 @@ public interface IEducationItem<TTimePeriod> : IBaseData
     string Description { get; init; }
     string[] Subjects { get; init; }
 }
+
+public interface IEducationItem : IEducationItem<TimePeriod> { }

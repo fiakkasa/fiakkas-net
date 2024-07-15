@@ -116,7 +116,7 @@ type CustomersCollectionSegment {
 
 type EducationItem {
   categoryId: UUID!
-  timePeriod: EducationTimePeriod!
+  timePeriod: TimePeriod!
   title: String!
   href: URL
   location: String!
@@ -136,11 +136,6 @@ type EducationItemsCollectionSegment {
   "A flattened list of the items."
   items: [EducationItem!]
   totalCount: Int!
-}
-
-type EducationTimePeriod {
-  start: Date!
-  end: Date
 }
 
 type HealthReportItem {
@@ -388,6 +383,11 @@ type TextItemsCollectionSegment {
   totalCount: Int!
 }
 
+type TimePeriod {
+  start: Date!
+  end: Date
+}
+
 input AchievementFilterInput {
   and: [AchievementFilterInput!]
   or: [AchievementFilterInput!]
@@ -494,7 +494,7 @@ input EducationItemFilterInput {
   and: [EducationItemFilterInput!]
   or: [EducationItemFilterInput!]
   categoryId: UuidOperationFilterInput
-  timePeriod: EducationTimePeriodFilterInput
+  timePeriod: TimePeriodFilterInput
   title: StringOperationFilterInput
   href: UrlOperationFilterInput
   location: StringOperationFilterInput
@@ -508,7 +508,7 @@ input EducationItemFilterInput {
 
 input EducationItemSortInput {
   categoryId: SortEnumType
-  timePeriod: EducationTimePeriodSortInput
+  timePeriod: TimePeriodSortInput
   title: SortEnumType
   href: UriSortInput
   location: SortEnumType
@@ -517,18 +517,6 @@ input EducationItemSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
-}
-
-input EducationTimePeriodFilterInput {
-  and: [EducationTimePeriodFilterInput!]
-  or: [EducationTimePeriodFilterInput!]
-  start: DateOperationFilterInput
-  end: DateOperationFilterInput
-}
-
-input EducationTimePeriodSortInput {
-  start: SortEnumType
-  end: SortEnumType
 }
 
 input ICategoryFilterInput {
@@ -811,6 +799,18 @@ input TextItemSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
+}
+
+input TimePeriodFilterInput {
+  and: [TimePeriodFilterInput!]
+  or: [TimePeriodFilterInput!]
+  start: DateOperationFilterInput
+  end: DateOperationFilterInput
+}
+
+input TimePeriodSortInput {
+  start: SortEnumType
+  end: SortEnumType
 }
 
 input UriSortInput {

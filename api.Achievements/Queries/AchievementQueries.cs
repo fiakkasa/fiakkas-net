@@ -4,7 +4,7 @@ using api.Achievements.Models;
 
 namespace api.Achievements.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class AchievementQueries
 {
     [UseOffsetPaging]

@@ -26,7 +26,7 @@ public class EducationItemQueriesTests
             Description = "Description",
             Subjects = ["Subject"]
         };
-        var dataRepository = new MockDataRepository<IEducationItem<EducationTimePeriod>>([item]);
+        var dataRepository = new MockDataRepository<IEducationItem>([item]);
         var sut = new EducationItemQueries();
 
         var result = sut.GetEducationItems(dataRepository);

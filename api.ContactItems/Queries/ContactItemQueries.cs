@@ -4,7 +4,7 @@ using api.ContactItems.Models;
 
 namespace api.ContactItems.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class ContactItemQueries
 {
     [UseOffsetPaging]

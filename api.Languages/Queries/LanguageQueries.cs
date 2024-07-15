@@ -4,7 +4,7 @@ using api.Languages.Models;
 
 namespace api.Languages.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class LanguageQueries
 {
     [UseOffsetPaging]

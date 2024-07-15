@@ -9,8 +9,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
-    <Version>1.10.0</Version>
-    <ContainerImageTags>1.10.0;latest</ContainerImageTags>
+    <Version>1.11.0</Version>
+    <ContainerImageTags>1.11.0;latest</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +25,7 @@
     <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
   </ItemGroup>

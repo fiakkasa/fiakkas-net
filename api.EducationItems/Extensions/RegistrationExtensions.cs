@@ -13,7 +13,7 @@ public static class RegistrationExtensions
             .AddOptions<EducationItemsDataConfig>()
             .Bind(config.GetSection(sectionPath));
 
-        services.AddScoped<IDataRepository<IEducationItem<EducationTimePeriod>>, EducationItemDataRepository>();
+        services.AddScoped<IDataRepository<IEducationItem>, EducationItemDataRepository>();
 
         return services;
     }

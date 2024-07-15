@@ -6,6 +6,8 @@
         "josefpihrt-vscode.roslynator",
         "sonarsource.sonarlint-vscode",
         "pflannery.vscode-versionlens",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "GraphQL.vscode-graphql",
+        "humao.rest-client"
     ]
 }

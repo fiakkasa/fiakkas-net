@@ -4,12 +4,12 @@ using api.EducationItems.Models;
 
 namespace api.EducationItems.Queries;
 
-[ExtendObjectType(OperationTypeNames.Query)]
+[QueryType]
 public sealed class EducationItemQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<EducationItem> GetEducationItems([Service] IDataRepository<IEducationItem<EducationTimePeriod>> repository) =>
+    public IQueryable<EducationItem> GetEducationItems([Service] IDataRepository<IEducationItem> repository) =>
         repository.Get(EducationItemMappers.Map);
 }

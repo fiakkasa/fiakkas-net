@@ -1,7 +1,7 @@
 namespace api.GraphExtensions.DataLoaders;
 
 public sealed class EducationItemByResumeCategoryIdGroupDataLoader(
-    IDataRepository<IEducationItem<EducationTimePeriod>> dataRepository,
+    IDataRepository<IEducationItem> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
 ) : GroupedDataLoader<Guid, EducationItem>(batchScheduler, options)

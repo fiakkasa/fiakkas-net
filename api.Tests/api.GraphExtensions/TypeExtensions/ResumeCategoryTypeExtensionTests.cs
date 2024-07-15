@@ -10,7 +10,7 @@ public class ResumeCategoryTypeExtensionTests
     [Fact]
     public async Task GetCustomers_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<IEducationItem<EducationTimePeriod>>(
+        var dataRepository = new MockDataRepository<IEducationItem>(
         [
             new EducationItem
             {

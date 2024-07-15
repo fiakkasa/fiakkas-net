@@ -1,6 +1,5 @@
 using HotChocolate.Data;
 using HotChocolate.Execution;
-using HotChocolate.Language;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +15,7 @@ public class GraphQLExtensionsTests
 {
     public record Message(string Text);
 
-    [ExtendObjectType(OperationType.Query)]
+    [QueryType]
     public class TestQueries
     {
         private static readonly Message[] _messages = [new("hello"), new("world")];

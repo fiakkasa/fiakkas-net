@@ -4,7 +4,6 @@ using api.Customers.Models;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
 using HotChocolate.Execution;
-using HotChocolate.Language;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace api.GraphExtensions.Extensions.Tests;
@@ -21,7 +20,7 @@ public class RegistrationExtensionsTests
         public Uri? Href { get; init; }
     }
 
-    [ExtendObjectType(OperationType.Query)]
+    [QueryType]
     public class TestQueries
     {
         public IEnumerable<Customer> Customers => [];

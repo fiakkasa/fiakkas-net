@@ -12,7 +12,7 @@ type CollectionSegmentInfo {
 
 type EducationItem {
   categoryId: UUID!
-  timePeriod: EducationTimePeriod!
+  timePeriod: TimePeriod!
   title: String!
   href: URL
   location: String!
@@ -32,13 +32,13 @@ type EducationItemsCollectionSegment {
   items: [EducationItem!]
 }
 
-type EducationTimePeriod {
-  start: Date!
-  end: Date
-}
-
 type Query {
   educationItems(skip: Int take: Int order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsCollectionSegment
+}
+
+type TimePeriod {
+  start: Date!
+  end: Date
 }
 
 input DateOperationFilterInput {
@@ -75,7 +75,7 @@ input EducationItemFilterInput {
   and: [EducationItemFilterInput!]
   or: [EducationItemFilterInput!]
   categoryId: UuidOperationFilterInput
-  timePeriod: EducationTimePeriodFilterInput
+  timePeriod: TimePeriodFilterInput
   title: StringOperationFilterInput
   href: UrlOperationFilterInput
   location: StringOperationFilterInput
@@ -89,7 +89,7 @@ input EducationItemFilterInput {
 
 input EducationItemSortInput {
   categoryId: SortEnumType
-  timePeriod: EducationTimePeriodSortInput
+  timePeriod: TimePeriodSortInput
   title: SortEnumType
   href: UriSortInput
   location: SortEnumType
@@ -98,18 +98,6 @@ input EducationItemSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
-}
-
-input EducationTimePeriodFilterInput {
-  and: [EducationTimePeriodFilterInput!]
-  or: [EducationTimePeriodFilterInput!]
-  start: DateOperationFilterInput
-  end: DateOperationFilterInput
-}
-
-input EducationTimePeriodSortInput {
-  start: SortEnumType
-  end: SortEnumType
 }
 
 input ListStringOperationFilterInput {
@@ -147,6 +135,18 @@ input StringOperationFilterInput {
   nstartsWith: String
   endsWith: String
   nendsWith: String
+}
+
+input TimePeriodFilterInput {
+  and: [TimePeriodFilterInput!]
+  or: [TimePeriodFilterInput!]
+  start: DateOperationFilterInput
+  end: DateOperationFilterInput
+}
+
+input TimePeriodSortInput {
+  start: SortEnumType
+  end: SortEnumType
 }
 
 input UriSortInput {

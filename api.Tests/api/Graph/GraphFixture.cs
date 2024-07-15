@@ -135,7 +135,7 @@ public class GraphFixture
                     Href = new Uri("/test", UriKind.Relative)
                 }
             ]);
-            var educationItemsDataRepository = new MockDataRepository<IEducationItem<EducationTimePeriod>>(
+            var educationItemsDataRepository = new MockDataRepository<IEducationItem>(
             [
                 new EducationItem
                 {
@@ -212,7 +212,7 @@ public class GraphFixture
                     .AddSingleton<IDataRepository<ICategoryEntity>>(categoryDataRepository)
                     .AddSingleton<IDataRepository<IContactItem>>(contactItemsDataRepository)
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)
-                    .AddSingleton<IDataRepository<IEducationItem<EducationTimePeriod>>>(educationItemsDataRepository)
+                    .AddSingleton<IDataRepository<IEducationItem>>(educationItemsDataRepository)
                     .AddSingleton<IDataRepository<ILanguage>>(languageDataRepository)
                     .AddSingleton<IDataRepository<IPortfolioItem>>(portfolioItemDataRepository)
                     .AddSingleton<IDataRepository<ITextItem>>(textItemDataRepository)
