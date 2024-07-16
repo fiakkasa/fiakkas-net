@@ -21,13 +21,6 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       title
       updatedAt
       version
-      ... on Category {
-        createdAt
-        id
-        title
-        updatedAt
-        version
-      }
       ... on InformationTechnologyCategory {
         createdAt
         href
@@ -75,6 +68,9 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         title
         updatedAt
         version
+        associatedCategories {
+          totalCount
+        }
         educationItems {
           totalCount
         }
@@ -96,7 +92,14 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
           totalCount
         }
       }
-      ... on TechnologyCategory {
+      ... on UnknownCategory {
+        createdAt
+        id
+        title
+        updatedAt
+        version
+      }
+      ... on UnknownTechnologyCategory {
         createdAt
         href
         id
@@ -460,7 +463,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         updatedAt
         version
       }
-      ... on TechnologyCategory {
+      ... on UnknownTechnologyCategory {
         createdAt
         href
         id

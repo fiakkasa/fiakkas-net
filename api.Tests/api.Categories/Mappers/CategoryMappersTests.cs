@@ -98,7 +98,7 @@ public class CategoryMappersTests
     }
 
     [Fact]
-    public void MapTechnologyCategories_Should_Map_To_TechnologyCategory_And_Return_Data_When_Kind_Is_Not_Resolved()
+    public void MapTechnologyCategories_Should_Map_To_UnknownTechnologyCategory_And_Return_Data_When_Kind_Is_Not_Resolved()
     {
         var item = new CategoryMockEntity
         {
@@ -112,7 +112,7 @@ public class CategoryMappersTests
 
         var result = item.MapTechnologyCategories();
 
-        result.Should().BeOfType<TechnologyCategory>();
+        result.Should().BeOfType<UnknownTechnologyCategory>();
         result.MatchSnapshot();
     }
 
@@ -217,7 +217,7 @@ public class CategoryMappersTests
 
 
     [Fact]
-    public void Map_Should_Map_To_Category_And_Return_Data_When_Kind_Is_Not_Resolved()
+    public void Map_Should_Map_To_UnknownCategory_And_Return_Data_When_Kind_Is_Not_Resolved()
     {
         var item = new CategoryMockEntity
         {
@@ -231,7 +231,7 @@ public class CategoryMappersTests
 
         var result = item.Map();
 
-        result.Should().BeOfType<Category>();
+        result.Should().BeOfType<UnknownCategory>();
         result.MatchSnapshot();
     }
 }

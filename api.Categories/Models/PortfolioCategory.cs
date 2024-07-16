@@ -1,4 +1,4 @@
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record PortfolioCategory : Category { }
+public record PortfolioCategory : CategoryBase { }

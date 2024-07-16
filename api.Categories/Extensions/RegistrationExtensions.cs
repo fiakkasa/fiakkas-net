@@ -23,13 +23,13 @@ public static class RegistrationExtensions
     public static IRequestExecutorBuilder AddApiCategories(this IRequestExecutorBuilder builder) =>
         builder
             .AddDataLoader<AssociatedCategoryGroupDataLoader>()
-            .AddObjectType<Category>()
             .AddObjectType<InformationTechnologyCategory>()
             .AddObjectType<OtherCategory>()
             .AddObjectType<PortfolioCategory>()
             .AddObjectType<ResumeCategory>()
             .AddObjectType<SoftwareDevelopmentCategory>()
-            .AddObjectType<TechnologyCategory>()
+            .AddObjectType<UnknownCategory>()
+            .AddObjectType<UnknownTechnologyCategory>()
             .AddTypeExtension<CategoryQueries>()
             .AddTypeExtension<ResumeCategoryTypeExtension>();
 }

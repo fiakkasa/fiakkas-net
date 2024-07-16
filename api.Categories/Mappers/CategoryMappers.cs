@@ -44,7 +44,7 @@ public static class CategoryMappers
 
             { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
             { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
-            _ => x.MapGenericTechnologyCategory<TechnologyCategory>()
+            _ => x.MapGenericTechnologyCategory<UnknownTechnologyCategory>()
         };
 
     public static ICategory Map(this ICategoryEntity x) =>
@@ -55,6 +55,6 @@ public static class CategoryMappers
             { Kind: CategoryType.Other } => x.MapGenericCategory<OtherCategory>(),
             { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
             { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
-            _ => x.MapGenericCategory<Category>()
+            _ => x.MapGenericCategory<UnknownCategory>()
         };
 }
