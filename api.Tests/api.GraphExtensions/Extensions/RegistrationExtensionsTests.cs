@@ -21,12 +21,12 @@ public class RegistrationExtensionsTests
     }
 
     [QueryType]
-    public class TestQueries
+    public static class TestQueries
     {
-        public IEnumerable<Customer> Customers => [];
-        public IEnumerable<ITechnologyCategory> TechnologyCategories => [];
-        public IEnumerable<PortfolioCategory> PortfolioCategories => [];
-        public IEnumerable<PortfolioItem> PortfolioItems => [];
+        public static IEnumerable<Customer> Customers => [];
+        public static IEnumerable<ITechnologyCategory> TechnologyCategories => [];
+        public static IEnumerable<PortfolioCategory> PortfolioCategories => [];
+        public static IEnumerable<PortfolioItem> PortfolioItems => [];
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class RegistrationExtensionsTests
                 .AddQueryType()
                 .AddSorting()
                 .AddFiltering()
-                .AddTypeExtension<TestQueries>()
+                .AddTypeExtension(typeof(TestQueries))
                 .AddObjectType<MockTechnologyCategory>()
                 .AddApiGraphExtensions()
                 .BuildSchemaAsync();

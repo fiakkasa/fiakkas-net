@@ -5,11 +5,11 @@ using api.EducationItems.Models;
 namespace api.EducationItems.Queries;
 
 [QueryType]
-public sealed class EducationItemQueries
+public static class EducationItemQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<EducationItem> GetEducationItems([Service] IDataRepository<IEducationItem> repository) =>
+    public static IQueryable<EducationItem> GetEducationItems([Service] IDataRepository<IEducationItem> repository) =>
         repository.Get(EducationItemMappers.Map);
 }

@@ -20,5 +20,5 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiLanguages(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<LanguageQueries>();
+            .AddTypeExtension(typeof(LanguageQueries));
 }

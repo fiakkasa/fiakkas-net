@@ -20,5 +20,5 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiContactItems(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<ContactItemQueries>();
+            .AddTypeExtension(typeof(ContactItemQueries));
 }

@@ -20,7 +20,7 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiApplication(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<SystemQueries>()
-            .AddTypeExtension<HealthQueries>()
+            .AddTypeExtension(typeof(SystemQueries))
+            .AddTypeExtension(typeof(HealthQueries))
             .AddTypeExtension<SystemInfoItemTypeExtension>();
 }

@@ -54,6 +54,8 @@ public static class GraphQLExtensions
                 DefaultPageSize = Consts.GraphQLPagingDefaultPageSize,
                 IncludeTotalCount = Consts.GraphQLPagingIncludeTotalCount
             })
+            .ModifyOptions(options => options.StripLeadingIFromInterface = true)
+            .ModifyRequestOptions(options => options.IncludeExceptionDetails = isDev)
             .AddQueryType()
             .TrimTypes();
 

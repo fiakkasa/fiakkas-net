@@ -9,8 +9,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
-    <Version>1.11.0</Version>
-    <ContainerImageTags>1.11.0;latest</ContainerImageTags>
+    <Version>1.12.0</Version>
+    <ContainerImageTags>1.12.0;latest</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>

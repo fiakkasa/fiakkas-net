@@ -1,4 +1,4 @@
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record SoftwareDevelopmentCategory : TechnologyCategory { }
+public record SoftwareDevelopmentCategory : TechnologyCategoryBase { }

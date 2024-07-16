@@ -5,11 +5,11 @@ using api.Languages.Models;
 namespace api.Languages.Queries;
 
 [QueryType]
-public sealed class LanguageQueries
+public static class LanguageQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<Language> GetLanguages([Service] IDataRepository<ILanguage> repository) =>
+    public static IQueryable<Language> GetLanguages([Service] IDataRepository<ILanguage> repository) =>
         repository.Get(LanguageMappers.Map);
 }

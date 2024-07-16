@@ -35,14 +35,6 @@ type CategoriesCollectionSegment {
   items: [ICategory!]
 }
 
-type Category implements ICategory {
-  title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-}
-
 "Information about the offset pagination."
 type CollectionSegmentInfo {
   "Indicates whether more items exist following the set defined by the clients arguments."
@@ -153,7 +145,15 @@ type TechnologyCategoriesCollectionSegment {
   items: [ITechnologyCategory!]
 }
 
-type TechnologyCategory implements ICategory & ITechnologyCategory {
+type UnknownCategory implements ICategory {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+type UnknownTechnologyCategory implements ICategory & ITechnologyCategory {
   href: URL
   title: String!
   id: UUID!

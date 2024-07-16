@@ -40,4 +40,3 @@ public class SystemStatusTests(GraphFixture fixture) : IClassFixture<GraphFixtur
         result.ToJson().MatchSnapshot();
     }
 }
-

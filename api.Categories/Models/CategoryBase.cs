@@ -3,7 +3,7 @@ using api.Categories.Interfaces;
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record Category : BaseData, ICategory
+public abstract record CategoryBase : BaseData, ICategory
 {
     public string Title { get; init; } = string.Empty;
 }

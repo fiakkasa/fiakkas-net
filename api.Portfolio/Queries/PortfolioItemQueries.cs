@@ -5,11 +5,11 @@ using api.Portfolio.Models;
 namespace api.Portfolio.Queries;
 
 [QueryType]
-public sealed class PortfolioItemQueries
+public static class PortfolioItemQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<PortfolioItem> GetPortfolioItems([Service] IDataRepository<IPortfolioItem> repository) =>
+    public static IQueryable<PortfolioItem> GetPortfolioItems([Service] IDataRepository<IPortfolioItem> repository) =>
         repository.Get(PortfolioItemMappers.Map);
 }

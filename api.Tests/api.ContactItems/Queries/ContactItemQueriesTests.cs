@@ -21,9 +21,8 @@ public class ContactItemQueriesTests
             Href = new Uri("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<IContactItem>([item]);
-        var sut = new ContactItemQueries();
 
-        var result = sut.GetContactItems(dataRepository);
+        var result = ContactItemQueries.GetContactItems(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<ContactItem>>();

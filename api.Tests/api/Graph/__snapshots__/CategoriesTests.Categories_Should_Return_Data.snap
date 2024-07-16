@@ -4,7 +4,7 @@
       "totalCount": 6,
       "items": [
         {
-          "__typename": "Category",
+          "__typename": "UnknownCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "id": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
           "title": "Title",
@@ -38,6 +38,9 @@
           "associatedCategoryTypes": [
             "SOFTWARE_DEVELOPMENT"
           ],
+          "associatedCategories": {
+            "totalCount": 1
+          },
           "educationItems": {
             "totalCount": 1
           }

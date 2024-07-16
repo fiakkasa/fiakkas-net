@@ -11,16 +11,13 @@
           "updatedAt": null,
           "version": 1,
           "portfolioCategories": {
-            "totalCount": 0,
-            "items": []
+            "totalCount": 0
           },
           "portfolioCustomers": {
-            "totalCount": 0,
-            "items": []
+            "totalCount": 0
           },
           "portfolioItems": {
-            "totalCount": 0,
-            "items": []
+            "totalCount": 0
           }
         }
       ]

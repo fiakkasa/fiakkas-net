@@ -6,18 +6,18 @@ using api.Categories.Utils;
 namespace api.Categories.Queries;
 
 [QueryType]
-public sealed class CategoryQueries
+public static class CategoryQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<ICategory> GetCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<ICategory> GetCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(CategoryMappers.Map);
 
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<PortfolioCategory> GetPortfolioCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<PortfolioCategory> GetPortfolioCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(
             CategoryEntityUtils.IsPortfolioCategory,
             CategoryMappers.MapGenericCategory<PortfolioCategory>
@@ -26,7 +26,7 @@ public sealed class CategoryQueries
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<ResumeCategory> GetResumeCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<ResumeCategory> GetResumeCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(
             CategoryEntityUtils.IsResumeCategory,
             CategoryMappers.MapResumeCategory
@@ -35,7 +35,7 @@ public sealed class CategoryQueries
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<SoftwareDevelopmentCategory> GetSoftwareDevelopmentCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<SoftwareDevelopmentCategory> GetSoftwareDevelopmentCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(
             CategoryEntityUtils.IsSoftwareDevelopmentCategory,
             CategoryMappers.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>
@@ -44,7 +44,7 @@ public sealed class CategoryQueries
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<InformationTechnologyCategory> GetInformationTechnologyCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<InformationTechnologyCategory> GetInformationTechnologyCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(
             CategoryEntityUtils.IsInformationTechnologyCategory,
             CategoryMappers.MapGenericTechnologyCategory<InformationTechnologyCategory>
@@ -53,7 +53,7 @@ public sealed class CategoryQueries
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<ITechnologyCategory> GetTechnologyCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<ITechnologyCategory> GetTechnologyCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(
             CategoryEntityUtils.IsTechnologyCategory,
             CategoryMappers.MapTechnologyCategories
@@ -62,7 +62,7 @@ public sealed class CategoryQueries
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<OtherCategory> GetOtherCategories([Service] IDataRepository<ICategoryEntity> repository) =>
+    public static IQueryable<OtherCategory> GetOtherCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(
             CategoryEntityUtils.IsOtherCategory,
             CategoryMappers.MapGenericCategory<OtherCategory>

@@ -17,6 +17,13 @@
           "updatedAt": null,
           "version": 1,
           "year": 2024,
+          "category": {
+            "createdAt": "2024-01-01T00:00:00.000Z",
+            "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+            "title": "Title",
+            "updatedAt": null,
+            "version": 1
+          },
           "customer": {
             "createdAt": "2024-01-01T00:00:00.000Z",
             "href": "/test",
@@ -26,24 +33,7 @@
             "version": 1
           },
           "technologyCategories": {
-            "totalCount": 1,
-            "items": [
-              {
-                "createdAt": "2024-01-01T00:00:00.000Z",
-                "href": "/test",
-                "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
-                "title": "Title",
-                "updatedAt": null,
-                "version": 1
-              }
-            ]
-          },
-          "category": {
-            "createdAt": "2024-01-01T00:00:00.000Z",
-            "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
-            "title": "Title",
-            "updatedAt": null,
-            "version": 1
+            "totalCount": 1
           }
         }
       ]

@@ -2,7 +2,7 @@
   query: Query
 }
 
-interface ICategory {
+interface Category {
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
@@ -10,7 +10,7 @@ interface ICategory {
   title: String!
 }
 
-interface ITechnologyCategory {
+interface TechnologyCategory {
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
@@ -43,7 +43,7 @@ type AssociatedCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [ICategory!]
+  items: [Category!]
   totalCount: Int!
 }
 
@@ -52,16 +52,8 @@ type CategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [ICategory!]
+  items: [Category!]
   totalCount: Int!
-}
-
-type Category implements ICategory {
-  title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
 }
 
 "Information about the offset pagination."
@@ -160,7 +152,7 @@ type InformationTechnologyCategoriesCollectionSegment {
   totalCount: Int!
 }
 
-type InformationTechnologyCategory implements ICategory & ITechnologyCategory {
+type InformationTechnologyCategory implements Category & TechnologyCategory {
   href: URL
   title: String!
   id: UUID!
@@ -204,7 +196,7 @@ type OtherCategoriesCollectionSegment {
   totalCount: Int!
 }
 
-type OtherCategory implements ICategory {
+type OtherCategory implements Category {
   title: String!
   id: UUID!
   createdAt: DateTime!
@@ -221,7 +213,7 @@ type PortfolioCategoriesCollectionSegment {
   totalCount: Int!
 }
 
-type PortfolioCategory implements ICategory {
+type PortfolioCategory implements Category {
   title: String!
   id: UUID!
   createdAt: DateTime!
@@ -272,7 +264,7 @@ type PortfolioTechnologyCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [ITechnologyCategory!]
+  items: [TechnologyCategory!]
   totalCount: Int!
 }
 
@@ -304,7 +296,7 @@ type ResumeCategoriesCollectionSegment {
   totalCount: Int!
 }
 
-type ResumeCategory implements ICategory {
+type ResumeCategory implements Category {
   associatedCategoryTypes: [CategoryType!]!
   title: String!
   id: UUID!
@@ -324,7 +316,7 @@ type SoftwareDevelopmentCategoriesCollectionSegment {
   totalCount: Int!
 }
 
-type SoftwareDevelopmentCategory implements ICategory & ITechnologyCategory {
+type SoftwareDevelopmentCategory implements Category & TechnologyCategory {
   href: URL
   title: String!
   id: UUID!
@@ -348,20 +340,8 @@ type TechnologyCategoriesCollectionSegment {
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   "A flattened list of the items."
-  items: [ITechnologyCategory!]
+  items: [TechnologyCategory!]
   totalCount: Int!
-}
-
-type TechnologyCategory implements ICategory & ITechnologyCategory {
-  href: URL
-  title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
-  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
 }
 
 type TextItem {
@@ -386,6 +366,26 @@ type TextItemsCollectionSegment {
 type TimePeriod {
   start: Date!
   end: Date
+}
+
+type UnknownCategory implements Category {
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+type UnknownTechnologyCategory implements Category & TechnologyCategory {
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
+  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
+  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
 }
 
 input AchievementFilterInput {

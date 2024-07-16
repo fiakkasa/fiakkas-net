@@ -26,6 +26,13 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
       updatedAt
       version
       year
+      category {
+        createdAt
+        id
+        title
+        updatedAt
+        version
+      }
       customer {
         createdAt
         href
@@ -36,21 +43,6 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
       }
       technologyCategories {
         totalCount
-        items {
-          createdAt
-          href
-          id
-          title
-          updatedAt
-          version
-        }
-      }
-      category {
-        createdAt
-        id
-        title
-        updatedAt
-        version
       }
     }
   }

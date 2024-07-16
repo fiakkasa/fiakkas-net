@@ -3,7 +3,7 @@ using api.Application.Models;
 namespace api.Application.Queries;
 
 [QueryType]
-public sealed class SystemQueries
+public static class SystemQueries
 {
-    public SystemInfoItem GetSystemStatus([Service] SystemInfoItem systemInfoItem) => systemInfoItem;
+    public static SystemInfoItem GetSystemStatus([Service] SystemInfoItem systemInfoItem) => systemInfoItem;
 }

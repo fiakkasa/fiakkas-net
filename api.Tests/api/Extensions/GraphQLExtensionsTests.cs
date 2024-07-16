@@ -16,16 +16,16 @@ public class GraphQLExtensionsTests
     public record Message(string Text);
 
     [QueryType]
-    public class TestQueries
+    public static class TestQueries
     {
         private static readonly Message[] _messages = [new("hello"), new("world")];
 
         [UseOffsetPaging]
         [UseSorting]
         [UseFiltering]
-        public IEnumerable<Message> GetMessages() => _messages;
+        public static IEnumerable<Message> GetMessages() => _messages;
 
-        public string Text => "Hello";
+        public static string Text => "Hello";
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class GraphQLExtensionsTests
                 services
                     .AddRouting()
                     .AddApiGraphQLServer(isDev)
-                    .AddTypeExtension<TestQueries>()
+                    .AddTypeExtension(typeof(TestQueries))
             )
            .Configure(app =>
                 app
@@ -99,7 +99,7 @@ public class GraphQLExtensionsTests
                 services
                     .AddRouting()
                     .AddApiGraphQLServer(isDev)
-                    .AddTypeExtension<TestQueries>()
+                    .AddTypeExtension(typeof(TestQueries))
             )
            .Configure(app =>
                 app

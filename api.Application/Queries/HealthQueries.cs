@@ -3,9 +3,9 @@ using api.Application.Models;
 namespace api.Application.Queries;
 
 [QueryType]
-public sealed class HealthQueries
+public static class HealthQueries
 {
-    public async ValueTask<HealthReportSummary> GetHealth(
+    public static async ValueTask<HealthReportSummary> GetHealth(
         [Service] HealthCheckService healthCheckService,
         CancellationToken cancellationToken
     ) =>

@@ -2,40 +2,33 @@ using HotChocolate.Execution;
 
 namespace api.Tests;
 
-public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
+public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
     [Fact]
-    public async Task EducationItems_Should_Return_Data()
+    public async Task InformationTechnologyCategories_Should_Return_Data()
     {
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
 """
 {
-  educationItems {
+  informationTechnologyCategories {
     totalCount
     items {
-      categoryId
       createdAt
-      description
       href
       id
-      location
-      subjects
       title
       updatedAt
       version
-      timePeriod {
-        end
-        start
+      portfolioCategories {
+        totalCount
       }
-      category {
-        associatedCategoryTypes
-        createdAt
-        id
-        title
-        updatedAt
-        version
+      portfolioCustomers {
+        totalCount
+      }
+      portfolioItems {
+        totalCount
       }
     }
   }

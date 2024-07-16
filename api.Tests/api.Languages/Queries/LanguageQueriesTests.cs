@@ -19,9 +19,8 @@ public class LanguageQueriesTests
             Title = "Title"
         };
         var dataRepository = new MockDataRepository<ILanguage>([item]);
-        var sut = new LanguageQueries();
 
-        var result = sut.GetLanguages(dataRepository);
+        var result = LanguageQueries.GetLanguages(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<Language>>();
