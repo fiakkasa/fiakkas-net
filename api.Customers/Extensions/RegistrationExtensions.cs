@@ -19,5 +19,6 @@ public static class RegistrationExtensions
     }
 
     public static IRequestExecutorBuilder AddApiCustomers(this IRequestExecutorBuilder builder) =>
-        builder.AddTypeExtension<CustomerQueries>();
+        builder
+            .AddTypeExtension(typeof(CustomerQueries));
 }

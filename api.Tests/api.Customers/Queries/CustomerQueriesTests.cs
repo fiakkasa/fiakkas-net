@@ -18,9 +18,8 @@ public class CustomerQueriesTests
             Href = new Uri("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<ICustomer>([item]);
-        var sut = new CustomerQueries();
 
-        var result = sut.GetCustomers(dataRepository);
+        var result = CustomerQueries.GetCustomers(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<Customer>>();

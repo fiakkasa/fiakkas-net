@@ -70,9 +70,8 @@ public class CategoryQueriesTests
             }
         };
         var dataRepository = new MockDataRepository<ICategoryEntity>(collection);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetCategories(dataRepository);
+        var result = CategoryQueries.GetCategories(dataRepository);
 
         result.Should().HaveCount(collection.Length);
         result.Should().BeAssignableTo<IQueryable<ICategory>>();
@@ -103,9 +102,8 @@ public class CategoryQueriesTests
                 Title = "Title"
             }
         ]);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetPortfolioCategories(dataRepository);
+        var result = CategoryQueries.GetPortfolioCategories(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<PortfolioCategory>>();
@@ -137,9 +135,8 @@ public class CategoryQueriesTests
                 AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment]
             }
         ]);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetResumeCategories(dataRepository);
+        var result = CategoryQueries.GetResumeCategories(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<ResumeCategory>>();
@@ -171,9 +168,8 @@ public class CategoryQueriesTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetSoftwareDevelopmentCategories(dataRepository);
+        var result = CategoryQueries.GetSoftwareDevelopmentCategories(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<SoftwareDevelopmentCategory>>();
@@ -205,9 +201,8 @@ public class CategoryQueriesTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetInformationTechnologyCategories(dataRepository);
+        var result = CategoryQueries.GetInformationTechnologyCategories(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<InformationTechnologyCategory>>();
@@ -249,9 +244,8 @@ public class CategoryQueriesTests
                 Href = new Uri("/test", UriKind.Relative)
             }
         ]);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetTechnologyCategories(dataRepository);
+        var result = CategoryQueries.GetTechnologyCategories(dataRepository);
 
         result.Should().HaveCount(2);
         result.Should().BeAssignableTo<IQueryable<ITechnologyCategory>>();
@@ -282,9 +276,8 @@ public class CategoryQueriesTests
                 Title = "Title"
             }
         ]);
-        var sut = new CategoryQueries();
 
-        var result = sut.GetOtherCategories(dataRepository);
+        var result = CategoryQueries.GetOtherCategories(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<OtherCategory>>();

@@ -22,9 +22,8 @@ public class PortfolioItemQueriesTests
             CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109")
         };
         var service = new MockDataRepository<IPortfolioItem>([item]);
-        var sut = new PortfolioItemQueries();
 
-        var result = sut.GetPortfolioItems(service);
+        var result = PortfolioItemQueries.GetPortfolioItems(service);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<PortfolioItem>>();

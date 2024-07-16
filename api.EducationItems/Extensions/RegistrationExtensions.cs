@@ -20,5 +20,5 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiEducationItems(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<EducationItemQueries>();
+            .AddTypeExtension(typeof(EducationItemQueries));
 }

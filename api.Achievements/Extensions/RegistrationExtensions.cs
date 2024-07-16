@@ -21,6 +21,6 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiAchievements(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<AchievementQueries>()
+            .AddTypeExtension(typeof(AchievementQueries))
             .AddTypeExtension<AchievementTypeExtension>();
 }

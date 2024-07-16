@@ -8,9 +8,8 @@ public class SystemQueriesQueriesTests
     public void GetSystemStatus_Should_Return_Data()
     {
         var item = new SystemInfoItem("Version", DateTimeOffset.Now.AddMinutes(-1));
-        var sut = new SystemQueries();
 
-        var result = sut.GetSystemStatus(item);
+        var result = SystemQueries.GetSystemStatus(item);
 
         result.Version.Should().Be(item.Version);
         result.StartupTime.Should().Be(item.StartupTime);

@@ -5,11 +5,11 @@ using api.TextItems.Models;
 namespace api.TextItems.Queries;
 
 [QueryType]
-public sealed class TextItemQueries
+public static class TextItemQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<TextItem> GetTextItems([Service] IDataRepository<ITextItem> repository) =>
+    public static IQueryable<TextItem> GetTextItems([Service] IDataRepository<ITextItem> repository) =>
         repository.Get(TextItemMappers.Map);
 }

@@ -20,5 +20,5 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiTextItems(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<TextItemQueries>();
+            .AddTypeExtension(typeof(TextItemQueries));
 }

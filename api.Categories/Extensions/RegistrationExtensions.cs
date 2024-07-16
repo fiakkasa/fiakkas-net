@@ -30,6 +30,6 @@ public static class RegistrationExtensions
             .AddObjectType<SoftwareDevelopmentCategory>()
             .AddObjectType<UnknownCategory>()
             .AddObjectType<UnknownTechnologyCategory>()
-            .AddTypeExtension<CategoryQueries>()
+            .AddTypeExtension(typeof(CategoryQueries))
             .AddTypeExtension<ResumeCategoryTypeExtension>();
 }

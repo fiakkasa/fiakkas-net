@@ -27,9 +27,8 @@ public class EducationItemQueriesTests
             Subjects = ["Subject"]
         };
         var dataRepository = new MockDataRepository<IEducationItem>([item]);
-        var sut = new EducationItemQueries();
 
-        var result = sut.GetEducationItems(dataRepository);
+        var result = EducationItemQueries.GetEducationItems(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<EducationItem>>();

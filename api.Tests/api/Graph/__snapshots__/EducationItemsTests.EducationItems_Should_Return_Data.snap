@@ -5,22 +5,23 @@
       "items": [
         {
           "categoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
-          "timePeriod": {
-            "start": "2024-01-01",
-            "end": null
-          },
-          "title": "",
-          "href": "/test",
-          "location": "Location",
+          "createdAt": "2024-01-01T00:00:00.000Z",
           "description": "Description",
+          "href": "/test",
+          "id": "38898c62-161e-40f2-8a9f-39bf1ff46224",
+          "location": "Location",
           "subjects": [
             "Subject"
           ],
-          "id": "38898c62-161e-40f2-8a9f-39bf1ff46224",
-          "createdAt": "2024-01-01T00:00:00.000Z",
+          "title": "",
           "updatedAt": null,
           "version": 1,
+          "timePeriod": {
+            "end": null,
+            "start": "2024-01-01"
+          },
           "category": {
+            "associatedCategoryTypes": [],
             "createdAt": "2024-01-01T00:00:00.000Z",
             "id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
             "title": "Title",

@@ -1,22 +1,22 @@
 ﻿{
   "data": {
-    "customers": {
+    "softwareDevelopmentCategories": {
       "totalCount": 1,
       "items": [
         {
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+          "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
           "portfolioCategories": {
             "totalCount": 1
           },
-          "portfolioItems": {
+          "portfolioCustomers": {
             "totalCount": 1
           },
-          "portfolioTechnologyCategories": {
+          "portfolioItems": {
             "totalCount": 1
           }
         }

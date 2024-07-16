@@ -47,15 +47,19 @@ Consider using the `data.sample.json` file as a starting point.
 
 ## Testing
 
-The `api.Tests` is using the XUnit framework to test the various aspects of the solution.
+The each test project, ex `api.Tests`, is using the XUnit framework to test the various aspects of the code.
 
-To run the tests navigate to the `api.Tests` directory.
+All the related tooling is installed under the root folder of the solution.
 
 Before running the tests for the first time, ensure that you run the `dotnet tool restore` command.
 
-To run the tests, and produce the coverage report run:
+To run the tests, merge the produced coverage assets, and produce a coverage report run:
 
-`dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'; dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html`
+```bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'; 
+dotnet coverage merge ./api.Tests/coverage.cobertura.xml -o coverage.cobertura.xml -f xml;
+dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html;
+```
 
 ## Logging
 

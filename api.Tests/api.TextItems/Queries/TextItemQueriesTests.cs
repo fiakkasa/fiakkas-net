@@ -19,9 +19,8 @@ public class TextItemQueriesTests
             Content = "Content"
         };
         var dataRepository = new MockDataRepository<ITextItem>([item]);
-        var sut = new TextItemQueries();
 
-        var result = sut.GetTextItems(dataRepository);
+        var result = TextItemQueries.GetTextItems(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<TextItem>>();

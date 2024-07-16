@@ -23,40 +23,12 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       version
       portfolioCategories {
         totalCount
-        items {
-          createdAt
-          id
-          title
-          updatedAt
-          version
-        }
       }
       portfolioItems {
         totalCount
-        items {
-          categoryId
-          createdAt
-          customerId
-          href
-          id
-          technologiesSummary
-          technologyIds
-          title
-          updatedAt
-          version
-          year
-        }
       }
       portfolioTechnologyCategories {
         totalCount
-        items {
-          createdAt
-          href
-          id
-          title
-          updatedAt
-          version
-        }
       }
     }
   }

@@ -5,11 +5,11 @@ using api.Achievements.Models;
 namespace api.Achievements.Queries;
 
 [QueryType]
-public sealed class AchievementQueries
+public static class AchievementQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<Achievement> GetAchievements([Service] IDataRepository<IAchievement> repository) =>
+    public static IQueryable<Achievement> GetAchievements([Service] IDataRepository<IAchievement> repository) =>
         repository.Get(AchievementMappers.Map);
 }

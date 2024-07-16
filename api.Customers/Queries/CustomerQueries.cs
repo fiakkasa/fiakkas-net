@@ -5,11 +5,11 @@ using api.Customers.Models;
 namespace api.Customers.Queries;
 
 [QueryType]
-public sealed class CustomerQueries
+public static class CustomerQueries
 {
     [UseOffsetPaging]
     [UseSorting]
     [UseFiltering]
-    public IQueryable<Customer> GetCustomers([Service] IDataRepository<ICustomer> repository) =>
+    public static IQueryable<Customer> GetCustomers([Service] IDataRepository<ICustomer> repository) =>
         repository.Get(CustomerMappers.Map);
 }

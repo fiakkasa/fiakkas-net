@@ -1,6 +1,6 @@
 POST /graphql HTTP/1.1
 Host: localhost:5069
 Content-Type: application/json
-Content-Length: 298
+Content-Length: 296
 
-{"query":"{\n  systemStatus {\n    startupTime\n    upTime\n    version\n    health {\n      status\n      totalDuration\n      entries {\n        key\n        value {\n          description\n          duration\n          status\n          tags\n        }\n      }\n    }\n  }\n}\n","variables":{}}
+{"query":"{\n  systemStatus {\n    startupTime\n    upTime\n    version\n    health {\n      status\n      totalDuration\n      entries {\n        key\n        value {\n          description\n          duration\n          status\n          tags\n        }\n      }\n    }\n  }\n}","variables":{}}

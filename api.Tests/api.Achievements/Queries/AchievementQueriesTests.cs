@@ -18,9 +18,8 @@ public class AchievementQueriesTests
             Years = [2024]
         };
         var dataRepository = new MockDataRepository<IAchievement>([item]);
-        var sut = new AchievementQueries();
 
-        var result = sut.GetAchievements(dataRepository);
+        var result = AchievementQueries.GetAchievements(dataRepository);
 
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<Achievement>>();

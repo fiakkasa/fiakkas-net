@@ -20,5 +20,5 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiPortfolio(this IRequestExecutorBuilder builder) =>
         builder
-            .AddTypeExtension<PortfolioItemQueries>();
+            .AddTypeExtension(typeof(PortfolioItemQueries));
 }
