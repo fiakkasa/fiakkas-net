@@ -29,17 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\api.Application\api.Application.csproj" />
-    <ProjectReference Include="..\api.Categories\api.Categories.csproj" />
-    <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj" />
-    <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
-    <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj" />
-    <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
-    <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
-    <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-    <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
-    <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
-    <ProjectReference Include="..\api\api.csproj" />
+    <ProjectReference Include="..\api.Achievements\api.Achievements.csproj" />
   </ItemGroup>
 
 </Project>

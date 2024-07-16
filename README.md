@@ -53,17 +53,25 @@ All the related tooling is installed under the root folder of the solution.
 
 Before running the tests for the first time, ensure that you run the `dotnet tool restore` command.
 
-To run the tests, merge the produced coverage assets, and produce a coverage report run:
+To run all tests, merge the produced coverage assets, and produce a coverage report run:
 
 ```bash
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'
 mkdir CoverageResults
 mv ./api.Tests/coverage.cobertura.xml ./CoverageResults/api.coverage.cobertura.xml
+mv ./api.Achievements.Tests/coverage.cobertura.xml ./CoverageResults/api.achievements.coverage.cobertura.xml
 mv ./api.Tests.Shared/coverage.cobertura.xml ./CoverageResults/api.Tests.Shared.coverage.cobertura.xml
 dotnet coverage merge -o ./coverage.cobertura.xml -f xml ./CoverageResults/*.xml
 dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 rm -rd ./CoverageResults
 rm ./coverage.cobertura.xml
+```
+
+To run tests for a specific project, enter the *.Tests counterpart and run:
+
+```bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'
+dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
 ## Logging

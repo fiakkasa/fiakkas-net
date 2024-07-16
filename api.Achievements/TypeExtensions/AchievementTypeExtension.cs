@@ -1,9 +1,9 @@
-using api.Achievements.Interfaces;
+using api.Achievements.Models;
 
 namespace api.Achievements.TypeExtensions;
 
-[ExtendObjectType<IAchievement>]
+[ExtendObjectType<Achievement>]
 public sealed class AchievementTypeExtension
 {
-    public string GetYearsSummary([Parent] IAchievement parent) => string.Join(", ", parent.Years);
+    public string GetYearsSummary([Parent] Achievement parent) => string.Join(", ", parent.Years);
 }
