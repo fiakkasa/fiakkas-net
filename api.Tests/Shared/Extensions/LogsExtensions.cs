@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Logging;
+using api.Tests.Shared.Models;
 
-namespace api.Tests.TestingExtensions;
+namespace api.Tests.Shared.Extensions;
 
 public static class LogsExtensions
 {

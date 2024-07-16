@@ -1,6 +1,4 @@
-using Microsoft.Extensions.Logging;
-
-namespace api.Tests.TestingModels;
+namespace api.Tests.Shared.Models;
 
 public record TestingLogMessage(
     LogLevel LogLevel,

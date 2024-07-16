@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-
 namespace api.Application.Models.Tests;
 
 public class HealthReportSummaryTests

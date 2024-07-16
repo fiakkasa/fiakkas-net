@@ -4,7 +4,6 @@ using api.Customers.Models;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
 using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.GraphExtensions.Extensions.Tests;
 

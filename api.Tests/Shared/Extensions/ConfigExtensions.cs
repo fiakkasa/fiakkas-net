@@ -1,8 +1,4 @@
-using Microsoft.Extensions.Configuration;
-using System.Text;
-using System.Text.Json;
-
-namespace api.Tests.TestingExtensions;
+namespace api.Tests.Shared.Extensions;
 
 public static class ConfigExtensions
 {

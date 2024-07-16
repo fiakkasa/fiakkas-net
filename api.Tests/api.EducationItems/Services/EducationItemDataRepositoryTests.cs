@@ -1,6 +1,4 @@
 using api.EducationItems.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace api.EducationItems.Services.Tests;
 

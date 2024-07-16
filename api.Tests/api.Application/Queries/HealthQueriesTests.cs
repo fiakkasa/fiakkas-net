@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-
 namespace api.Application.Queries.Tests;
 
 public class HealthQueriesTests

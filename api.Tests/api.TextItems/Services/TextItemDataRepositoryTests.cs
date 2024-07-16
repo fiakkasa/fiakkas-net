@@ -1,6 +1,4 @@
 using api.TextItems.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace api.TextItems.Services.Tests;
 

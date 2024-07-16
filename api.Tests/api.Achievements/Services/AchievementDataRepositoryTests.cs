@@ -1,6 +1,4 @@
 using api.Achievements.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace api.Achievements.Services.Tests;
 

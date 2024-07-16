@@ -1,6 +1,4 @@
 using api.ContactItems.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace api.ContactItems.Services.Tests;
 

@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Hosting;
-using System.Net;
-
 namespace api.Tests;
 
 public class ProgramTests

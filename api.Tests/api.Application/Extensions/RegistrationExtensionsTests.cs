@@ -1,6 +1,5 @@
 using api.Application.Models;
 using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace api.Application.Extensions.Tests;
 

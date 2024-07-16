@@ -2,8 +2,6 @@ using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Shared.Interfaces;
 using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace api.Portfolio.Extensions.Tests;
 

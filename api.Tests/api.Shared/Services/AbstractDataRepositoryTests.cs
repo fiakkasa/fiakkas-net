@@ -1,6 +1,4 @@
 using api.Shared.Interfaces;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace api.Shared.Services.Tests;
 

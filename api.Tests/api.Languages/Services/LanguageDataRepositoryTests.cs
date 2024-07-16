@@ -1,7 +1,5 @@
 using api.Languages.Enums;
 using api.Languages.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace api.Languages.Services.Tests;
 

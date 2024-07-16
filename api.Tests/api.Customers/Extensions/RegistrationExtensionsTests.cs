@@ -2,8 +2,6 @@ using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.Shared.Interfaces;
 using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace api.Customers.Extensions.Tests;
 
