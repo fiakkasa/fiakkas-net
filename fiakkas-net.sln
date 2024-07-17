@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Customers.Tests", "api.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.EducationItems.Tests", "api.EducationItems.Tests\api.EducationItems.Tests.csproj", "{3A95DE9B-7B49-4CBF-8143-13CB2DA1E34C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.GraphExtensions.Tests", "api.GraphExtensions.Tests\api.GraphExtensions.Tests.csproj", "{7A2D501B-9ACF-4E34-BC9A-DDC8B027D415}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{3A95DE9B-7B49-4CBF-8143-13CB2DA1E34C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A95DE9B-7B49-4CBF-8143-13CB2DA1E34C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A95DE9B-7B49-4CBF-8143-13CB2DA1E34C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A2D501B-9ACF-4E34-BC9A-DDC8B027D415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2D501B-9ACF-4E34-BC9A-DDC8B027D415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2D501B-9ACF-4E34-BC9A-DDC8B027D415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2D501B-9ACF-4E34-BC9A-DDC8B027D415}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
