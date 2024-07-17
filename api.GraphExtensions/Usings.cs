@@ -11,7 +11,7 @@ global using api.EducationItems.Models;
 global using api.Portfolio.Interfaces;
 global using api.Portfolio.Mappers;
 global using api.Portfolio.Models;
-global using api.Shared.Interfaces;
+global using api.Shared.Types.Interfaces;
 global using GreenDonut;
 global using HotChocolate;
 global using HotChocolate.Data;

@@ -1,4 +1,4 @@
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 
 namespace api.Tests.Shared.Services;
 

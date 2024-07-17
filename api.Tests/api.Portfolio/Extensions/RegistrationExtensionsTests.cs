@@ -1,6 +1,6 @@
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
 namespace api.Portfolio.Extensions.Tests;

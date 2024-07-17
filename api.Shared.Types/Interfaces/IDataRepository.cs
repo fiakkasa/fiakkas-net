@@ -1,4 +1,4 @@
-namespace api.Shared.Interfaces;
+namespace api.Shared.Types.Interfaces;
 
 public interface IDataRepository<TEntity> where TEntity : IBaseId
 {

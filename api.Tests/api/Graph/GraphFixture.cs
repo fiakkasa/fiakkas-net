@@ -16,7 +16,7 @@ using api.Languages.Interfaces;
 using api.Languages.Models;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using api.TextItems.Interfaces;
 using api.TextItems.Models;
 using HotChocolate.Execution;

@@ -1,6 +1,6 @@
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 
-namespace api.Shared.Models;
+namespace api.Shared.Types.Models;
 
 [ExcludeFromCodeCoverage]
 public record TimePeriod : ITimePeriod

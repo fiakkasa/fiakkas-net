@@ -1,6 +1,6 @@
 using api.Languages.Interfaces;
 using api.Languages.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
 namespace api.Languages.Extensions.Tests;

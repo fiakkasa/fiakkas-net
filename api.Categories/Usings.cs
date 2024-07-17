@@ -1,6 +1,6 @@
 global using api.Shared.Extensions;
-global using api.Shared.Interfaces;
-global using api.Shared.Models;
+global using api.Shared.Types.Interfaces;
+global using api.Shared.Types.Models;
 global using api.Shared.Services;
 global using GreenDonut;
 global using HotChocolate;

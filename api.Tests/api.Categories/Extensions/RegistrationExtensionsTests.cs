@@ -1,6 +1,6 @@
 using api.Categories.Interfaces;
 using api.Categories.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
 namespace api.Categories.Extensions.Tests;

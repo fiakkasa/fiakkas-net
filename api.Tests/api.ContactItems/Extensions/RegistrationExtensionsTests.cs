@@ -1,6 +1,6 @@
 using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
 namespace api.ContactItems.Extensions.Tests;

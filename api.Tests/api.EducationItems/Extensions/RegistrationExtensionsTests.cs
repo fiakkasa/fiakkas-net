@@ -1,6 +1,6 @@
 using api.EducationItems.Interfaces;
 using api.EducationItems.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
 namespace api.EducationItems.Extensions.Tests;

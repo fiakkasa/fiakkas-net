@@ -1,4 +1,4 @@
-namespace api.Shared.Interfaces;
+namespace api.Shared.Types.Interfaces;
 
 public interface IBaseId
 {

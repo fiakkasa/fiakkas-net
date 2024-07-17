@@ -1,6 +1,6 @@
 using api.EducationItems.Interfaces;
 using api.EducationItems.Models;
-using api.Shared.Models;
+using api.Shared.Types.Models;
 
 namespace api.EducationItems.Mappers.Tests;
 

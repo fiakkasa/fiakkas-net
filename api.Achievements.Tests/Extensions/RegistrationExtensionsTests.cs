@@ -1,6 +1,6 @@
 using api.Achievements.Interfaces;
 using api.Achievements.Models;
-using api.Shared.Interfaces;
+using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
 namespace api.Achievements.Extensions.Tests;
