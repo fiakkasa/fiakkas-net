@@ -1,3 +1,5 @@
+namespace api.Testing.Shared;
+
 #pragma warning disable
 [ExcludeFromCodeCoverage]
 public static class Program

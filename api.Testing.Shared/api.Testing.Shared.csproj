@@ -9,7 +9,7 @@
     <IsTestProject>false</IsTestProject>
 
     <GenerateProgramFile>false</GenerateProgramFile>
-    <StartupObject>Program</StartupObject>
+    <StartupObject>api.Testing.Shared.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
