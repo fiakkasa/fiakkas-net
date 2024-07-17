@@ -12,6 +12,7 @@ Solution structure:
 - api.Shared: Shared assets
 - api.GraphExtensions: Extends the GraphQL API surface
 - api.Tests: Tests!
+- api.`<Feature>`.Tests: Tests!
 - api.NodeProxy: A proxy wrapper in node.js [📝](./api.NodeProxy/README.md)
 - api.`<Feature>`: GraphQL enabled data domains
 
@@ -47,18 +48,26 @@ Consider using the `data.sample.json` file as a starting point.
 
 ## Testing
 
-The each test project, ex `api.Tests`, is using the XUnit framework to test the various aspects of the code.
+Each test project, ex `api.Tests`, is using the XUnit framework to test the various aspects of the code.
 
 All the related tooling is installed under the root folder of the solution.
 
 Before running the tests for the first time, ensure that you run the `dotnet tool restore` command.
 
-To run the tests, merge the produced coverage assets, and produce a coverage report run:
+To run all tests, merge the produced coverage assets, and produce a coverage report run:
 
 ```bash
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'; 
-dotnet coverage merge ./api.Tests/coverage.cobertura.xml -o coverage.cobertura.xml -f xml;
-dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html;
+rm -rd ./CoverageResults
+rm -rd ./TestResults
+dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" -m:1
+dotnet reportgenerator -reports:./CoverageResults/coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
+```
+
+To run tests for a specific project, enter the *.Tests counterpart and run:
+
+```bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'
+dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
 ## Logging
@@ -146,12 +155,12 @@ In addition a number of enrichers are present and enabled by default:
 
 ## References
 
-- ASP.NET: https://dotnet.microsoft.com/en-us/apps/aspnet
 - .NET SDK: https://dotnet.microsoft.com/en-us/download/visual-studio-sdks
-- VS Code: https://code.visualstudio.com
-- HotChocolate: https://chillicream.com/docs/hotchocolate
+- ASP.NET: https://dotnet.microsoft.com/en-us/apps/aspnet
+- Coverlet (MSBuild): https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
 - GraphQL: https://graphql.org
-- Vertical Slide Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
+- HotChocolate: https://chillicream.com/docs/hotchocolate
+- Report Generator: https://reportgenerator.io
 - Serilog Enrichment: https://github.com/serilog/serilog/wiki/Enrichment
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
 - Serilog.Enrichers.AssemblyName: https://github.com/TinyBlueRobots/Serilog.Enrichers.AssemblyName
@@ -163,3 +172,5 @@ In addition a number of enrichers are present and enabled by default:
 - Serilog.Settings.Configuration: https://github.com/serilog/serilog-settings-configuration
 - Serilog.Sinks.Console: https://github.com/serilog/serilog-sinks-console
 - Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
+- Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
+- VS Code: https://code.visualstudio.com

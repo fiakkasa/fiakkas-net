@@ -8,13 +8,6 @@
         "reportgenerator"
       ],
       "rollForward": false
-    },
-    "dotnet-coverage": {
-      "version": "17.11.3",
-      "commands": [
-        "dotnet-coverage"
-      ],
-      "rollForward": false
     }
   }
 }

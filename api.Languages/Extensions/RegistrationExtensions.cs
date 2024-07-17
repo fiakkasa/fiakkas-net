@@ -9,9 +9,7 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiLanguages(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
     {
-        services
-            .AddOptions<LanguagesDataConfig>()
-            .Bind(config.GetSection(sectionPath));
+        services.AddBoundOptions<LanguagesDataConfig>(config, sectionPath);
 
         services.AddScoped<IDataRepository<ILanguage>, LanguageDataRepository>();
 

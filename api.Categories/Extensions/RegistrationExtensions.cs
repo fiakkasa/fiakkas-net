@@ -11,9 +11,7 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiCategories(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
     {
-        services
-            .AddOptions<CategoriesDataConfig>()
-            .Bind(config.GetSection(sectionPath));
+        services.AddBoundOptions<CategoriesDataConfig>(config, sectionPath);
 
         services.AddScoped<IDataRepository<ICategoryEntity>, CategoryDataRepository>();
 

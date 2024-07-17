@@ -10,9 +10,7 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiAchievements(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
     {
-        services
-            .AddOptions<AchievementsDataConfig>()
-            .Bind(config.GetSection(sectionPath));
+        services.AddBoundOptions<AchievementsDataConfig>(config, sectionPath);
 
         services.AddScoped<IDataRepository<IAchievement>, AchievementDataRepository>();
 
