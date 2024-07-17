@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\api.Testing.Shared\api.Testing.Shared.csproj" />
-    <ProjectReference Include="..\api\api.csproj" />
+    <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
   </ItemGroup>
 
 </Project>
