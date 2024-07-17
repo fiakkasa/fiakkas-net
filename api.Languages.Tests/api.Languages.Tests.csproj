@@ -18,11 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-    <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
     <ProjectReference Include="..\api.Testing.Shared\api.Testing.Shared.csproj" />
-    <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
-    <ProjectReference Include="..\api\api.csproj" />
+    <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
   </ItemGroup>
 
 </Project>
