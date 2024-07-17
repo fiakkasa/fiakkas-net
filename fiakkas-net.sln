@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Shared.Tests", "api.Sha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Shared.Types", "api.Shared.Types\api.Shared.Types.csproj", "{9DD98FF5-0AAF-4C7C-9033-5773B5AE6B9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Testing.Shared", "api.Testing.Shared\api.Testing.Shared.csproj", "{1F62251C-8169-4B6B-9B37-BE875F9D5E20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{9DD98FF5-0AAF-4C7C-9033-5773B5AE6B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD98FF5-0AAF-4C7C-9033-5773B5AE6B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD98FF5-0AAF-4C7C-9033-5773B5AE6B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F62251C-8169-4B6B-9B37-BE875F9D5E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F62251C-8169-4B6B-9B37-BE875F9D5E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F62251C-8169-4B6B-9B37-BE875F9D5E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F62251C-8169-4B6B-9B37-BE875F9D5E20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

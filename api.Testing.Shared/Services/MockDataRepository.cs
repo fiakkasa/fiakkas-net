@@ -1,7 +1,8 @@
 using api.Shared.Types.Interfaces;
 
-namespace api.Tests.Shared.Services;
+namespace api.Testing.Shared.Services;
 
+[ExcludeFromCodeCoverage]
 public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<T> where T : IBaseId
 {
     private readonly T[] _collection = collection ?? [];

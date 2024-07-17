@@ -58,6 +58,7 @@ To run all tests, merge the produced coverage assets, and produce a coverage rep
 
 ```bash
 rm -rd ./CoverageResults
+rm -rd ./TestResults
 dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" -m:1
 dotnet reportgenerator -reports:./CoverageResults/coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```

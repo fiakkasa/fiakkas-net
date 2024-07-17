@@ -1,5 +1,6 @@
-namespace api.Tests.Shared.Models;
+namespace api.Testing.Shared.Models;
 
+[ExcludeFromCodeCoverage]
 public record TestingLogMessage(
     LogLevel LogLevel,
     string? OriginalMessage,

@@ -1,10 +1,8 @@
-global using api.Tests.Shared.Extensions;
+global using api.Testing.Shared.Extensions;
 global using FluentAssertions;
-global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using NSubstitute;
 global using Snapshooter.Xunit;
-global using System.Text.Json;
 global using Xunit;

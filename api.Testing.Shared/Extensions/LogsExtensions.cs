@@ -1,7 +1,8 @@
-using api.Tests.Shared.Models;
+using api.Testing.Shared.Models;
 
-namespace api.Tests.Shared.Extensions;
+namespace api.Testing.Shared.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class LogsExtensions
 {
     public static IEnumerable<TestingLogMessage> GetLogsResultsCollection<T>(this ILogger<T> logger) =>
@@ -40,4 +41,10 @@ public static class LogsExtensions
                 }
             )
             .OfType<TestingLogMessage>();
+
+    public static TestingLogMessage[] GetLogsResults<T>(this ILogger<T> logger) =>
+        logger.GetLogsResultsCollection().ToArray();
+
+    public static TestingLogMessage[] GetLogsResults<T>(this ILogger<T> logger, LogLevel targetLogLevel) =>
+        logger.GetLogsResultsCollection().Where(x => x.LogLevel == targetLogLevel).ToArray();
 }
