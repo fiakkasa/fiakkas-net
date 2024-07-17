@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
         string? sectionPath = default
     ) where T : class, new()
     {
-        var resolvedSectionPath = sectionPath switch
+        var resolvedSectionPath = sectionPath?.Trim() switch
         {
             { Length: > 0 } path => path,
             _ => typeof(T).Name
