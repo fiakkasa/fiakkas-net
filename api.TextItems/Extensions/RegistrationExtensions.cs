@@ -9,9 +9,7 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiTextItems(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
     {
-        services
-            .AddOptions<TextItemsDataConfig>()
-            .Bind(config.GetSection(sectionPath));
+        services.AddBoundOptions<TextItemsDataConfig>(config, sectionPath);
 
         services.AddScoped<IDataRepository<ITextItem>, TextItemDataRepository>();
 

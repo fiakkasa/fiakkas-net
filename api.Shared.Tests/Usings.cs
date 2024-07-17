@@ -1,5 +1,4 @@
 global using api.Tests.Shared.Extensions;
-global using api.Tests.Shared.Services;
 global using FluentAssertions;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;

@@ -9,9 +9,7 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiCustomers(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
     {
-        services
-            .AddOptions<CustomersDataConfig>()
-            .Bind(config.GetSection(sectionPath));
+        services.AddBoundOptions<CustomersDataConfig>(config, sectionPath);
 
         services.AddScoped<IDataRepository<ICustomer>, CustomerDataRepository>();
 

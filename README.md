@@ -12,6 +12,7 @@ Solution structure:
 - api.Shared: Shared assets
 - api.GraphExtensions: Extends the GraphQL API surface
 - api.Tests: Tests!
+- api.`<Feature>`.Tests: Tests!
 - api.NodeProxy: A proxy wrapper in node.js [📝](./api.NodeProxy/README.md)
 - api.`<Feature>`: GraphQL enabled data domains
 
@@ -56,15 +57,9 @@ Before running the tests for the first time, ensure that you run the `dotnet too
 To run all tests, merge the produced coverage assets, and produce a coverage report run:
 
 ```bash
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'
-mkdir CoverageResults
-mv ./api.Tests/coverage.cobertura.xml ./CoverageResults/api.coverage.cobertura.xml
-mv ./api.Achievements.Tests/coverage.cobertura.xml ./CoverageResults/api.achievements.coverage.cobertura.xml
-mv ./api.Tests.Shared/coverage.cobertura.xml ./CoverageResults/api.Tests.Shared.coverage.cobertura.xml
-dotnet coverage merge -o ./coverage.cobertura.xml -f xml ./CoverageResults/*.xml
-dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 rm -rd ./CoverageResults
-rm ./coverage.cobertura.xml
+dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" -m:1
+dotnet reportgenerator -reports:./CoverageResults/coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
 To run tests for a specific project, enter the *.Tests counterpart and run:
@@ -162,7 +157,6 @@ In addition a number of enrichers are present and enabled by default:
 - .NET SDK: https://dotnet.microsoft.com/en-us/download/visual-studio-sdks
 - ASP.NET: https://dotnet.microsoft.com/en-us/apps/aspnet
 - Coverlet (MSBuild): https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
-- Dotnet Coverage: https://learn.microsoft.com/en-us/dotnet/core/additional-tools/dotnet-coverage
 - GraphQL: https://graphql.org
 - HotChocolate: https://chillicream.com/docs/hotchocolate
 - Report Generator: https://reportgenerator.io

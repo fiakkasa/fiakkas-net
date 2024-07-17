@@ -1,3 +1,4 @@
+global using api.Shared.Extensions;
 global using api.Shared.Interfaces;
 global using api.Shared.Models;
 global using api.Shared.Services;
