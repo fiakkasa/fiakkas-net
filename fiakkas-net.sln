@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.GraphExtensions.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Languages.Tests", "api.Languages.Tests\api.Languages.Tests.csproj", "{936E4ABB-CC14-454A-B5CA-B7E606A462F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Portfolio.Tests", "api.Portfolio.Tests\api.Portfolio.Tests.csproj", "{91DC3D5C-D318-4CF9-B483-7316C814C37A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{936E4ABB-CC14-454A-B5CA-B7E606A462F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{936E4ABB-CC14-454A-B5CA-B7E606A462F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{936E4ABB-CC14-454A-B5CA-B7E606A462F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DC3D5C-D318-4CF9-B483-7316C814C37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DC3D5C-D318-4CF9-B483-7316C814C37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DC3D5C-D318-4CF9-B483-7316C814C37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DC3D5C-D318-4CF9-B483-7316C814C37A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
