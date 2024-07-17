@@ -1,7 +1,7 @@
 global using api.Shared.Extensions;
+global using api.Shared.Services;
 global using api.Shared.Types.Interfaces;
 global using api.Shared.Types.Models;
-global using api.Shared.Services;
 global using HotChocolate;
 global using HotChocolate.Data;
 global using HotChocolate.Execution.Configuration;

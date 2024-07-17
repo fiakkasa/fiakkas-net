@@ -20,7 +20,7 @@ public class ExtensionsTests
             }
         }
         .ToConfiguration();
-        
+
         var serviceProvider = new ServiceCollection()
             .AddBoundOptions<MockConfig>(config, sectionPath)
             .Services
@@ -43,7 +43,7 @@ public class ExtensionsTests
             }
         }
         .ToConfiguration();
-        
+
         var serviceProvider = new ServiceCollection()
             .AddBoundOptions<MockConfig>(config)
             .Services
@@ -69,7 +69,7 @@ public class ExtensionsTests
             }
         }
         .ToConfiguration();
-        
+
         var serviceProvider = new ServiceCollection()
             .AddBoundOptions<MockConfig>(config, sectionPath)
             .Services
