@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Application.Tests", "ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.Categories.Tests", "api.Categories.Tests\api.Categories.Tests.csproj", "{F6C00097-6286-4062-8423-DDD635CE9680}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.ContactItems.Tests", "api.ContactItems.Tests\api.ContactItems.Tests.csproj", "{6A4F153C-1446-4528-BBB3-4B77CF7B1939}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{F6C00097-6286-4062-8423-DDD635CE9680}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6C00097-6286-4062-8423-DDD635CE9680}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6C00097-6286-4062-8423-DDD635CE9680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4F153C-1446-4528-BBB3-4B77CF7B1939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4F153C-1446-4528-BBB3-4B77CF7B1939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4F153C-1446-4528-BBB3-4B77CF7B1939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4F153C-1446-4528-BBB3-4B77CF7B1939}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
