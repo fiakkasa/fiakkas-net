@@ -56,4 +56,4 @@ app.UseApiCors();
 
 app.MapApiGraphQL(isDev);
 
-app.Run();
+app.RunWithGraphQLCommands(args);
