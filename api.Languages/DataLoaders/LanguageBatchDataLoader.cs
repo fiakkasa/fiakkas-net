@@ -9,7 +9,7 @@ public sealed class LanguageBatchDataLoader(
     IDataRepository<ILanguage> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ILanguage, Language>(
+) : AbstractGenericBatchDataLoaderById<ILanguage, Language>(
     dataRepository,
     LanguageMappers.Map,
     batchScheduler,

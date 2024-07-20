@@ -1,4 +1,4 @@
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record OtherCategory : CategoryBase { }
+public record OtherCategory : AbstractCategory { }

@@ -9,7 +9,7 @@ public sealed class UnknownCategoryBatchDataLoader(
     IDataRepository<ICategoryEntity> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ICategoryEntity, UnknownCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategoryEntity, UnknownCategory>(
     dataRepository,
     CategoryMappers.MapGenericCategory<UnknownCategory>,
     batchScheduler,

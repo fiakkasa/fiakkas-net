@@ -9,7 +9,7 @@ public sealed class TextItemBatchDataLoader(
     IDataRepository<ITextItem> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ITextItem, TextItem>(
+) : AbstractGenericBatchDataLoaderById<ITextItem, TextItem>(
     dataRepository,
     TextItemMappers.Map,
     batchScheduler,

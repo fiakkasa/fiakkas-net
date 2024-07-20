@@ -9,7 +9,7 @@ public sealed class OtherCategoryBatchDataLoader(
     IDataRepository<ICategoryEntity> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ICategoryEntity, OtherCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategoryEntity, OtherCategory>(
     dataRepository,
     CategoryMappers.MapGenericCategory<OtherCategory>,
     batchScheduler,

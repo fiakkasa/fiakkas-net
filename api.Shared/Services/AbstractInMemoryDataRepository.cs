@@ -2,7 +2,7 @@ using api.Shared.Types.Interfaces;
 
 namespace api.Shared.Services;
 
-public abstract class InMemoryAbstractDataRepository<TEntity, TConfig>(
+public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
     ILogger logger,
     IOptionsSnapshot<TConfig> dataSnapshot
 )

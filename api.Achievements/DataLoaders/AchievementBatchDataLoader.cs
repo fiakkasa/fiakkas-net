@@ -9,7 +9,7 @@ public sealed class AchievementBatchDataLoader(
     IDataRepository<IAchievement> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<IAchievement, Achievement>(
+) : AbstractGenericBatchDataLoaderById<IAchievement, Achievement>(
     dataRepository,
     AchievementMappers.Map,
     batchScheduler,

@@ -10,7 +10,7 @@ public sealed class ResumeCategoryBatchDataLoader(
     IDataRepository<ICategoryEntity> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ICategoryEntity, ResumeCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategoryEntity, ResumeCategory>(
     dataRepository,
     CategoryMappers.MapResumeCategory,
     batchScheduler,

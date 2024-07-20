@@ -3,7 +3,7 @@ using api.Shared.Types.Interfaces;
 namespace api.Shared.Types.Models;
 
 [ExcludeFromCodeCoverage]
-public abstract record BaseData : IBaseData
+public abstract record AbstractBaseData : IBaseData
 {
     public Guid Id { get; init; }
     public DateTimeOffset CreatedAt { get; init; }

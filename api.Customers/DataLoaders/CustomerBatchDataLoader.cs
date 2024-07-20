@@ -9,7 +9,7 @@ public sealed class CustomerBatchDataLoader(
     IDataRepository<ICustomer> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ICustomer, Customer>(
+) : AbstractGenericBatchDataLoaderById<ICustomer, Customer>(
     dataRepository,
     CustomerMappers.Map,
     batchScheduler,

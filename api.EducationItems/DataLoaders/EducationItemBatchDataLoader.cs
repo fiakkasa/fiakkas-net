@@ -9,7 +9,7 @@ public sealed class EducationItemBatchDataLoader(
     IDataRepository<IEducationItem> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<IEducationItem, EducationItem>(
+) : AbstractGenericBatchDataLoaderById<IEducationItem, EducationItem>(
     dataRepository,
     EducationItemMappers.Map,
     batchScheduler,

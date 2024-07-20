@@ -2,7 +2,7 @@ using api.Shared.Types.Interfaces;
 
 namespace api.Shared.DataLoaders;
 
-public abstract class GenericBatchDataLoaderById<TEntity, TMapped> : BatchDataLoader<Guid, TMapped>
+public abstract class AbstractGenericBatchDataLoaderById<TEntity, TMapped> : BatchDataLoader<Guid, TMapped>
 where TEntity : IBaseId
 where TMapped : IBaseId
 {
@@ -10,7 +10,7 @@ where TMapped : IBaseId
     private readonly Func<TEntity, TMapped> _mapper;
     private readonly Func<TEntity, IReadOnlyList<Guid>, bool>? _predicate;
 
-    protected GenericBatchDataLoaderById(
+    protected AbstractGenericBatchDataLoaderById(
         IDataRepository<TEntity> dataRepository,
         Func<TEntity, TMapped> mapper,
         IBatchScheduler batchScheduler,

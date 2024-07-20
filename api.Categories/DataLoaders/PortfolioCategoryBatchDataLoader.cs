@@ -9,7 +9,7 @@ public sealed class PortfolioCategoryBatchDataLoader(
     IDataRepository<ICategoryEntity> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ICategoryEntity, PortfolioCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategoryEntity, PortfolioCategory>(
     dataRepository,
     CategoryMappers.MapGenericCategory<PortfolioCategory>,
     batchScheduler,

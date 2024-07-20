@@ -83,7 +83,6 @@ type MockTechnologyCategory implements ITechnologyCategory {
   version: Long!
   title: String!
   href: URL
-  internalId: UUID!
   portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
   portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
   portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection

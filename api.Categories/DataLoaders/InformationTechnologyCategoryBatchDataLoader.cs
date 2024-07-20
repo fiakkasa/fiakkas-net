@@ -9,7 +9,7 @@ public sealed class InformationTechnologyCategoryBatchDataLoader(
     IDataRepository<ICategoryEntity> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<ICategoryEntity, InformationTechnologyCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategoryEntity, InformationTechnologyCategory>(
     dataRepository,
     CategoryMappers.MapGenericTechnologyCategory<InformationTechnologyCategory>,
     batchScheduler,

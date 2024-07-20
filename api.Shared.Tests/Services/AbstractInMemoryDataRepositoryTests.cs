@@ -2,7 +2,7 @@ using api.Shared.Types.Interfaces;
 
 namespace api.Shared.Services.Tests;
 
-public class InMemoryAbstractDataRepositoryTests
+public class AbstractInMemoryDataRepositoryTests
 {
     public interface ITestEntity : IBaseId { }
 
@@ -14,13 +14,13 @@ public class InMemoryAbstractDataRepositoryTests
     public record TestConfig(TestEntity[]? Collection = default);
 
     public class TestDataRepositoryWrongType(ILogger<TestDataRepositoryWrongType> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
-    : InMemoryAbstractDataRepository<TestEntity, TestConfig>(logger, dataSnapshot)
+    : AbstractInMemoryDataRepository<TestEntity, TestConfig>(logger, dataSnapshot)
     {
         protected override TestEntity[]? ResolveSet(TestConfig data) => data.Collection;
     }
 
     public class TestDataRepository(ILogger<TestDataRepository> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
-    : InMemoryAbstractDataRepository<ITestEntity, TestConfig>(logger, dataSnapshot)
+    : AbstractInMemoryDataRepository<ITestEntity, TestConfig>(logger, dataSnapshot)
     {
         protected override ITestEntity[]? ResolveSet(TestConfig data) => data.Collection;
     }
@@ -31,7 +31,7 @@ public class InMemoryAbstractDataRepositoryTests
     private readonly TestDataRepository _sut;
     private readonly TestDataRepositoryWrongType _sutWrongType;
 
-    public InMemoryAbstractDataRepositoryTests()
+    public AbstractInMemoryDataRepositoryTests()
     {
         _logger = Substitute.For<ILogger<TestDataRepository>>();
         _loggerWrongType = Substitute.For<ILogger<TestDataRepositoryWrongType>>();

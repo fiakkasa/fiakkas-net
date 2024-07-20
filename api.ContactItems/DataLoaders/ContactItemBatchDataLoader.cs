@@ -9,7 +9,7 @@ public sealed class ContactItemBatchDataLoader(
     IDataRepository<IContactItem> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GenericBatchDataLoaderById<IContactItem, ContactItem>(
+) : AbstractGenericBatchDataLoaderById<IContactItem, ContactItem>(
     dataRepository,
     ContactItemMappers.Map,
     batchScheduler,

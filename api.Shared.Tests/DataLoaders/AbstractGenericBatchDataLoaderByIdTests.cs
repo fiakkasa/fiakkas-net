@@ -4,7 +4,7 @@ using GreenDonut;
 
 namespace api.Shared.DataLoaders.Tests;
 
-public class GenericBatchDataLoaderByIdTests
+public class AbstractGenericBatchDataLoaderByIdTests
 {
     public interface IMockItem : IBaseId
     {
@@ -27,7 +27,7 @@ public class GenericBatchDataLoaderByIdTests
         IDataRepository<IMockItem> dataRepository,
         IBatchScheduler batchScheduler,
         DataLoaderOptions? options = null
-    ) : GenericBatchDataLoaderById<IMockItem, MockItem>(
+    ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
         dataRepository,
         x => new MockItem { Id = x.Id, Text = x.Text },
         batchScheduler,
@@ -39,7 +39,7 @@ public class GenericBatchDataLoaderByIdTests
         IDataRepository<IMockItem> dataRepository,
         IBatchScheduler batchScheduler,
         DataLoaderOptions? options = null
-    ) : GenericBatchDataLoaderById<IMockItem, MockItem>(
+    ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
         dataRepository,
         x => new MockItem { Id = x.Id, Text = x.Text },
         batchScheduler,
