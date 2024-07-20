@@ -3,4 +3,4 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 165
 
-{"query":"{\n  otherCategories {\n    totalCount\n    items {\n      createdAt\n      id\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}
+{"query":"{\n  otherCategories {\n    totalCount\n    nodes {\n      createdAt\n      id\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}

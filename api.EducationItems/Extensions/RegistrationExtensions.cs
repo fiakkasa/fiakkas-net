@@ -1,3 +1,4 @@
+using api.EducationItems.DataLoaders;
 using api.EducationItems.Interfaces;
 using api.EducationItems.Models;
 using api.EducationItems.Queries;
@@ -18,5 +19,6 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiEducationItems(this IRequestExecutorBuilder builder) =>
         builder
+            .AddDataLoader<EducationItemBatchDataLoader>()
             .AddTypeExtension(typeof(EducationItemQueries));
 }

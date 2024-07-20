@@ -14,10 +14,11 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
 {
   resumeCategories {
     totalCount
-    items {
+    nodes {
       associatedCategoryTypes
       createdAt
       id
+      internalId
       title
       updatedAt
       version

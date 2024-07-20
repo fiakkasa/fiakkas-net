@@ -14,7 +14,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
   categories {
     totalCount
-    items {
+    nodes {
       __typename
       createdAt
       id
@@ -25,6 +25,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version
@@ -41,6 +42,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       ... on OtherCategory {
         createdAt
         id
+        internalId
         title
         updatedAt
         version
@@ -48,6 +50,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       ... on PortfolioCategory {
         createdAt
         id
+        internalId
         title
         updatedAt
         version
@@ -65,6 +68,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         associatedCategoryTypes
         createdAt
         id
+        internalId
         title
         updatedAt
         version
@@ -79,6 +83,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version
@@ -95,6 +100,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       ... on UnknownCategory {
         createdAt
         id
+        internalId
         title
         updatedAt
         version
@@ -103,6 +109,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version

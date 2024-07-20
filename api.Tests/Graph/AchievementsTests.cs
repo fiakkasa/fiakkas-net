@@ -14,15 +14,43 @@ public class AchievementsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
 {
   achievements {
     totalCount
-    items {
+    nodes {
       content
       createdAt
       id
+      internalId
       updatedAt
       version
       years
       yearsSummary
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task AchievementById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  achievementById(id: "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk") {
+    content
+    createdAt
+    id
+    internalId
+    updatedAt
+    version
+    years
+    yearsSummary
   }
 }
 """);

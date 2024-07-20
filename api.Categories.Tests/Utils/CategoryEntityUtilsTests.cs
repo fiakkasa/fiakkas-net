@@ -92,4 +92,19 @@ public class CategoryEntityUtilsTests
 
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData(CategoryType.None, true)]
+    [InlineData(CategoryType.SoftwareDevelopment, false)]
+    public void IsUnknownCategory_Should_Return_True_When_Matched(CategoryType kind, bool expected)
+    {
+        var item = new CategoryMockEntity
+        {
+            Kind = kind
+        };
+
+        var result = CategoryEntityUtils.IsUnknownCategory(item);
+
+        result.Should().Be(expected);
+    }
 }

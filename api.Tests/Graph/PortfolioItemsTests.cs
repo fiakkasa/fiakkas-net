@@ -14,12 +14,13 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
 {
   portfolioItems {
     totalCount
-    items {
+    nodes {
       categoryId
       createdAt
       customerId
       href
       id
+      internalId
       technologiesSummary
       technologyIds
       title
@@ -45,6 +46,37 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
         totalCount
       }
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task PortfolioItemById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  portfolioItemById(id: "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=") {
+    categoryId
+    createdAt
+    customerId
+    href
+    id
+    internalId
+    technologiesSummary
+    technologyIds
+    title
+    updatedAt
+    version
+    year
   }
 }
 """);

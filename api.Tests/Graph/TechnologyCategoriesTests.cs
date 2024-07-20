@@ -14,7 +14,7 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
 {
   technologyCategories {
     totalCount
-    items {
+    nodes {
       __typename
       createdAt
       href
@@ -26,6 +26,7 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version
@@ -34,6 +35,7 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version
@@ -42,6 +44,7 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version

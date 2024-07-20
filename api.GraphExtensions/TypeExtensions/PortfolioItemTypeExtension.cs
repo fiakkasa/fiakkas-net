@@ -19,7 +19,7 @@ public sealed class PortfolioItemTypeExtension
     ) =>
         await dataLoader.LoadAsync(parent.CustomerId, cancellationToken);
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
     public async ValueTask<IEnumerable<ITechnologyCategory>> GetTechnologyCategories(

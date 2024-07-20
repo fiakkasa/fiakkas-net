@@ -2,11 +2,12 @@
   "data": {
     "textItems": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "content": "Content",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "48e483e4-6961-4b25-88a9-d1d0a5161109",
+          "id": "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
+          "internalId": "48e483e4-6961-4b25-88a9-d1d0a5161109",
           "key": "Key",
           "title": "Title",
           "updatedAt": null,

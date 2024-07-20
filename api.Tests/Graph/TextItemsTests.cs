@@ -14,15 +14,43 @@ public class TextItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
   textItems {
     totalCount
-    items {
+    nodes {
       content
       createdAt
       id
+      internalId
       key
       title
       updatedAt
       version
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TextItemById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  textItemById(id: "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5") {
+    content
+    createdAt
+    id
+    internalId
+    key
+    title
+    updatedAt
+    version
   }
 }
 """);

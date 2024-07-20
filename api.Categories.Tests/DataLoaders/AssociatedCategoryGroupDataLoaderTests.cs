@@ -1,9 +1,8 @@
-using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.GraphExtensions.DataLoaders.Tests;
+namespace api.Categories.DataLoaders.Tests;
 
 public class AssociatedCategoryGroupDataLoaderTests
 {

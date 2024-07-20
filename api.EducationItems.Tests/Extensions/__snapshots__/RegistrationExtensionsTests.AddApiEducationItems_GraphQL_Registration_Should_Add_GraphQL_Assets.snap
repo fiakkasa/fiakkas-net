@@ -2,14 +2,6 @@
   query: Query
 }
 
-"Information about the offset pagination."
-type CollectionSegmentInfo {
-  "Indicates whether more items exist following the set defined by the clients arguments."
-  hasNextPage: Boolean!
-  "Indicates whether more items exist prior the set defined by the clients arguments."
-  hasPreviousPage: Boolean!
-}
-
 type EducationItem {
   categoryId: UUID!
   timePeriod: TimePeriod!
@@ -24,16 +16,39 @@ type EducationItem {
   version: Long!
 }
 
-"A segment of a collection."
-type EducationItemsCollectionSegment {
+"A connection to a list of items."
+type EducationItemsConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [EducationItem!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [EducationItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [EducationItem!]
+}
+
+"An edge in a connection."
+type EducationItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: EducationItem!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
 }
 
 type Query {
-  educationItems(skip: Int take: Int order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsCollectionSegment
+  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsConnection
+  educationItemById(id: UUID!): EducationItem
 }
 
 type TimePeriod {

@@ -1,3 +1,4 @@
+using api.Portfolio.DataLoaders;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Portfolio.Queries;
@@ -18,5 +19,6 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiPortfolio(this IRequestExecutorBuilder builder) =>
         builder
+            .AddDataLoader<PortfolioItemBatchDataLoader>()
             .AddTypeExtension(typeof(PortfolioItemQueries));
 }

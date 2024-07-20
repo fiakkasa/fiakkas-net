@@ -2,7 +2,10 @@ using api.Shared.Types.Interfaces;
 
 namespace api.Shared.Services;
 
-public abstract class AbstractDataRepository<TEntity, TConfig>(ILogger logger, IOptionsSnapshot<TConfig> dataSnapshot)
+public abstract class InMemoryAbstractDataRepository<TEntity, TConfig>(
+    ILogger logger,
+    IOptionsSnapshot<TConfig> dataSnapshot
+)
 : IDataRepository<TEntity>
 where TEntity : IBaseId
 where TConfig : class
@@ -63,7 +66,10 @@ where TConfig : class
         }
     }
 
-    public IQueryable<TMapped> Get<TMapped>(Func<TEntity, bool> predicate, Func<TEntity, TMapped> mapper)
+    public IQueryable<TMapped> Get<TMapped>(
+        Func<TEntity, bool> predicate,
+        Func<TEntity, TMapped> mapper
+    )
     {
         try
         {
@@ -82,6 +88,116 @@ where TConfig : class
             );
 
             return Enumerable.Empty<TMapped>().AsQueryable();
+        }
+    }
+
+    public async ValueTask<TEntity?> Find(
+        Guid id,
+        CancellationToken cancellationToken = default
+    )
+    {
+        try
+        {
+            return await Task.Run(() =>
+                Array.Find(GetSet(), x => x.Id == id),
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get item with id {Id} for type {Type}",
+                id,
+                _type.Name
+            );
+
+            return default;
+        }
+    }
+
+    public async ValueTask<TEntity?> Find(
+        Func<TEntity, bool> predicate,
+        CancellationToken cancellationToken = default
+    )
+    {
+        try
+        {
+            return await Task.Run(() =>
+                Array.Find(GetSet(), x => predicate(x)),
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get item for type {Type}",
+                _type.Name
+            );
+
+            return default;
+        }
+    }
+
+    public async ValueTask<TMapped?> Find<TMapped>(
+        Guid id,
+        Func<TEntity, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    ) where TMapped : IBaseId
+    {
+        try
+        {
+            return await Task.Run(() =>
+                Array.Find(GetSet(), x => x.Id == id) switch
+                {
+                    { } result => mapper(result),
+                    _ => default
+                },
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get item with id {Id} for type {Type} and mapped type {MappedType}",
+                id,
+                _type.Name,
+                typeof(TMapped).Name
+            );
+
+            return default;
+        }
+    }
+
+    public async ValueTask<TMapped?> Find<TMapped>(
+        Func<TEntity, bool> predicate,
+        Func<TEntity, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    ) where TMapped : IBaseId
+    {
+        try
+        {
+            return await Task.Run(() =>
+                Array.Find(GetSet(), x => predicate(x)) switch
+                {
+                    { } result => mapper(result),
+                    _ => default
+                },
+                cancellationToken
+            );
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Failed to get item for type {Type} and mapped type {MappedType}",
+                _type.Name,
+                typeof(TMapped).Name
+            );
+
+            return default;
         }
     }
 

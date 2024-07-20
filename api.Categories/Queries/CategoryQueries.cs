@@ -1,3 +1,4 @@
+using api.Categories.DataLoaders;
 using api.Categories.Interfaces;
 using api.Categories.Mappers;
 using api.Categories.Models;
@@ -8,13 +9,13 @@ namespace api.Categories.Queries;
 [QueryType]
 public static class CategoryQueries
 {
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<ICategory> GetCategories([Service] IDataRepository<ICategoryEntity> repository) =>
         repository.Get(CategoryMappers.Map);
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<PortfolioCategory> GetPortfolioCategories([Service] IDataRepository<ICategoryEntity> repository) =>
@@ -23,7 +24,7 @@ public static class CategoryQueries
             CategoryMappers.MapGenericCategory<PortfolioCategory>
         );
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<ResumeCategory> GetResumeCategories([Service] IDataRepository<ICategoryEntity> repository) =>
@@ -32,7 +33,7 @@ public static class CategoryQueries
             CategoryMappers.MapResumeCategory
         );
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<SoftwareDevelopmentCategory> GetSoftwareDevelopmentCategories([Service] IDataRepository<ICategoryEntity> repository) =>
@@ -41,7 +42,7 @@ public static class CategoryQueries
             CategoryMappers.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>
         );
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<InformationTechnologyCategory> GetInformationTechnologyCategories([Service] IDataRepository<ICategoryEntity> repository) =>
@@ -50,7 +51,7 @@ public static class CategoryQueries
             CategoryMappers.MapGenericTechnologyCategory<InformationTechnologyCategory>
         );
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<ITechnologyCategory> GetTechnologyCategories([Service] IDataRepository<ICategoryEntity> repository) =>
@@ -59,7 +60,7 @@ public static class CategoryQueries
             CategoryMappers.MapTechnologyCategories
         );
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseSorting]
     [UseFiltering]
     public static IQueryable<OtherCategory> GetOtherCategories([Service] IDataRepository<ICategoryEntity> repository) =>

@@ -1,5 +1,7 @@
+using api.ContactItems.DataLoaders;
 using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
+using GreenDonut;
 
 namespace api.ContactItems.Queries.Tests;
 
@@ -27,5 +29,43 @@ public class ContactItemQueriesTests
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<ContactItem>>();
         result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetContactItemById_Should_Return_Data_When_Found()
+    {
+        var id = new Guid("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05");
+        var item = new ContactItem
+        {
+            Id = id,
+            CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+            UpdatedAt = null,
+            Version = 1,
+            Key = "Key",
+            Icon = "Icon",
+            Title = "Title",
+            Description = "Content",
+            Href = new Uri("/test", UriKind.Relative)
+        };
+        var dataRepository = new MockDataRepository<IContactItem>([item]);
+        var dataLoader = new ContactItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+
+        var result = await ContactItemQueries.GetContactItemById(id, dataLoader, default);
+
+        result.Should().NotBeNull();
+        result.Should().BeAssignableTo<ContactItem>();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetContactItemById_Should_Return_Null_When_Not_Found()
+    {
+        var id = new Guid("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05");
+        var dataRepository = new MockDataRepository<IContactItem>([]);
+        var dataLoader = new ContactItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+
+        var result = await ContactItemQueries.GetContactItemById(id, dataLoader, default);
+
+        result.Should().BeNull();
     }
 }

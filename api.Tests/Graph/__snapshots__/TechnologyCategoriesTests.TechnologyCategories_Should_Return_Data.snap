@@ -2,7 +2,7 @@
   "data": {
     "technologyCategories": {
       "totalCount": 2,
-      "items": [
+      "nodes": [
         {
           "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
@@ -10,7 +10,8 @@
           "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
         },
         {
           "__typename": "InformationTechnologyCategory",
@@ -19,7 +20,8 @@
           "id": "6cc43e9a-312b-4923-b890-e966b8168eee",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee"
         }
       ]
     }

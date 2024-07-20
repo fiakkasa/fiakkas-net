@@ -14,10 +14,11 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
 {
   informationTechnologyCategories {
     totalCount
-    items {
+    nodes {
       createdAt
       href
       id
+      internalId
       title
       updatedAt
       version

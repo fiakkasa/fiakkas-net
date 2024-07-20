@@ -1,6 +1,8 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
+using api.Customers.DataLoaders;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;

@@ -7,11 +7,9 @@ public static class RegistrationExtensions
 {
     public static IRequestExecutorBuilder AddApiGraphExtensions(this IRequestExecutorBuilder builder) =>
         builder
-            .AddDataLoader<CustomerBatchDataLoader>()
             .AddDataLoader<CustomerByPortfolioCategoryIdGroupDataLoader>()
             .AddDataLoader<CustomerByTechnologyIdGroupDataLoader>()
             .AddDataLoader<EducationItemByResumeCategoryIdGroupDataLoader>()
-            .AddDataLoader<PortfolioCategoryBatchDataLoader>()
             .AddDataLoader<PortfolioCategoryByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioCategoryByTechnologyIdGroupDataLoader>()
             .AddDataLoader<PortfolioItemByCustomerIdGroupDataLoader>()
@@ -19,10 +17,10 @@ public static class RegistrationExtensions
             .AddDataLoader<PortfolioItemByTechnologyIdGroupDataLoader>()
             .AddDataLoader<PortfolioTechnologyCategoryByCustomerIdGroupDataLoader>()
             .AddDataLoader<PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader>()
-            .AddDataLoader<ResumeCategoryBatchDataLoader>()
             .AddDataLoader<TechnologyCategoryGroupDataLoader>()
             .AddTypeExtension<CustomerTypeExtension>()
             .AddTypeExtension<EducationItemTypeExtension>()
+            .AddTypeExtension<IBaseIdTypeExtension>()
             .AddTypeExtension<ITechnologyCategoryTypeExtension>()
             .AddTypeExtension<PortfolioCategoryTypeExtension>()
             .AddTypeExtension<ResumeCategoryTypeExtension>()

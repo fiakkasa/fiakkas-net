@@ -2,13 +2,14 @@
   "data": {
     "portfolioItems": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
           "href": "/test",
-          "id": "28e483e4-6961-4b25-88a9-d1d0a5161109",
+          "id": "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=",
+          "internalId": "28e483e4-6961-4b25-88a9-d1d0a5161109",
           "technologiesSummary": "Title",
           "technologyIds": [
             "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
@@ -27,7 +28,7 @@
           "customer": {
             "createdAt": "2024-01-01T00:00:00.000Z",
             "href": "/test",
-            "id": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+            "id": "Q3VzdG9tZXIKZzE4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
             "title": "Title",
             "updatedAt": null,
             "version": 1

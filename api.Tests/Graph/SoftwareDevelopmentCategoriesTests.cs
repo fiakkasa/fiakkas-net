@@ -14,10 +14,11 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
 {
   softwareDevelopmentCategories {
     totalCount
-    items {
+    nodes {
       createdAt
       href
       id
+      internalId
       title
       updatedAt
       version

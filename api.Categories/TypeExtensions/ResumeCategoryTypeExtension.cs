@@ -7,7 +7,7 @@ namespace api.Categories.TypeExtensions;
 [ExtendObjectType<ResumeCategory>]
 public sealed class ResumeCategoryTypeExtension
 {
-    [UseOffsetPaging]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
     public async ValueTask<IEnumerable<ICategory>> GetAssociatedCategories(

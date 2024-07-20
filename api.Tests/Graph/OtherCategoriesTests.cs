@@ -15,9 +15,10 @@ public partial class SoftwareDevelopmentCategoriesTests
 {
   otherCategories {
     totalCount
-    items {
+    nodes {
       createdAt
       id
+      internalId
       title
       updatedAt
       version

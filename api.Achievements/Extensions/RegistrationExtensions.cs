@@ -1,3 +1,4 @@
+using api.Achievements.DataLoaders;
 using api.Achievements.Interfaces;
 using api.Achievements.Models;
 using api.Achievements.Queries;
@@ -19,6 +20,7 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiAchievements(this IRequestExecutorBuilder builder) =>
         builder
+            .AddDataLoader<AchievementBatchDataLoader>()
             .AddTypeExtension(typeof(AchievementQueries))
             .AddTypeExtension<AchievementTypeExtension>();
 }

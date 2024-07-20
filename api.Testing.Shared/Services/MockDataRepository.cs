@@ -20,6 +20,46 @@ public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<
             .Select(mapper)
             .AsQueryable();
 
+    public ValueTask<T?> Find(
+        Guid id,
+        CancellationToken cancellationToken = default
+    ) =>
+        ValueTask.FromResult(Array.Find(_collection, x => x.Id == id));
+
+    public ValueTask<T?> Find(
+        Func<T, bool> predicate,
+        CancellationToken cancellationToken = default
+    ) =>
+        ValueTask.FromResult(Array.Find(_collection, x => predicate(x)));
+
+    public ValueTask<TMapped?> Find<TMapped>(
+        Guid id,
+        Func<T, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    ) where TMapped : IBaseId
+    =>
+        ValueTask.FromResult(
+            Array.Find(_collection, x => x.Id == id) switch
+            {
+                { } result => mapper(result),
+                _ => default
+            }
+        );
+
+    public ValueTask<TMapped?> Find<TMapped>(
+        Func<T, bool> predicate,
+        Func<T, TMapped> mapper,
+        CancellationToken cancellationToken = default
+    ) where TMapped : IBaseId
+    =>
+        ValueTask.FromResult(
+            Array.Find(_collection, x => predicate(x)) switch
+            {
+                { } result => mapper(result),
+                _ => default
+            }
+        );
+
     public async ValueTask<IReadOnlyDictionary<Guid, TMapped>> GetBatch<TMapped>(
         IReadOnlyList<Guid> keys,
         Func<T, TMapped> mapper,

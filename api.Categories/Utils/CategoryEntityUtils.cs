@@ -23,4 +23,7 @@ public static class CategoryEntityUtils
 
     public static bool IsOtherCategory(ICategoryEntity item) =>
         item.Kind == CategoryType.Other;
+
+    public static bool IsUnknownCategory(ICategoryEntity item) =>
+        item.Kind == CategoryType.None;
 }

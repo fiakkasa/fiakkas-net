@@ -2,13 +2,14 @@
   "data": {
     "contactItems": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "createdAt": "2024-01-01T00:00:00.000Z",
           "description": "Content",
           "href": "/test",
           "icon": "Icon",
-          "id": "ebf224a8-7ff3-47b9-882b-dd41ec7f5a05",
+          "id": "Q29udGFjdEl0ZW0KZ2ViZjIyNGE4N2ZmMzQ3Yjk4ODJiZGQ0MWVjN2Y1YTA1",
+          "internalId": "ebf224a8-7ff3-47b9-882b-dd41ec7f5a05",
           "key": "Key",
           "title": "Title",
           "updatedAt": null,

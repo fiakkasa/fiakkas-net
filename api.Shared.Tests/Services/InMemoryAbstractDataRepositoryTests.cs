@@ -2,7 +2,7 @@ using api.Shared.Types.Interfaces;
 
 namespace api.Shared.Services.Tests;
 
-public class AbstractDataRepositoryTests
+public class InMemoryAbstractDataRepositoryTests
 {
     public interface ITestEntity : IBaseId { }
 
@@ -14,13 +14,13 @@ public class AbstractDataRepositoryTests
     public record TestConfig(TestEntity[]? Collection = default);
 
     public class TestDataRepositoryWrongType(ILogger<TestDataRepositoryWrongType> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
-    : AbstractDataRepository<TestEntity, TestConfig>(logger, dataSnapshot)
+    : InMemoryAbstractDataRepository<TestEntity, TestConfig>(logger, dataSnapshot)
     {
         protected override TestEntity[]? ResolveSet(TestConfig data) => data.Collection;
     }
 
     public class TestDataRepository(ILogger<TestDataRepository> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
-    : AbstractDataRepository<ITestEntity, TestConfig>(logger, dataSnapshot)
+    : InMemoryAbstractDataRepository<ITestEntity, TestConfig>(logger, dataSnapshot)
     {
         protected override ITestEntity[]? ResolveSet(TestConfig data) => data.Collection;
     }
@@ -31,7 +31,7 @@ public class AbstractDataRepositoryTests
     private readonly TestDataRepository _sut;
     private readonly TestDataRepositoryWrongType _sutWrongType;
 
-    public AbstractDataRepositoryTests()
+    public InMemoryAbstractDataRepositoryTests()
     {
         _logger = Substitute.For<ILogger<TestDataRepository>>();
         _loggerWrongType = Substitute.For<ILogger<TestDataRepositoryWrongType>>();
@@ -253,6 +253,286 @@ public class AbstractDataRepositoryTests
         var result = _sut.Get(x => x.Id == id, x => x.Id).ToArray();
 
         result.Should().ContainSingle();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task Find_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.Find(Guid.NewGuid(), CancellationToken.None);
+
+        result.Should().BeNull();
+        _loggerWrongType
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task Find_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.Find(Guid.NewGuid(), CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task Find_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.Find(Guid.NewGuid(), CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get item with id {Id} for type {Type}"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task Find_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.Find(id, CancellationToken.None);
+
+        result.Should().NotBeNull();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task FindPredicate_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.Find(x => true, CancellationToken.None);
+
+        result.Should().BeNull();
+        _loggerWrongType
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindPredicate_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.Find(x => true, CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindPredicate_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.Find(x => true, CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get item for type {Type}",
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindPredicate_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.Find(x => x.Id == id, CancellationToken.None);
+
+        result.Should().NotBeNull();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task FindMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.Find(Guid.NewGuid(), x => x, CancellationToken.None);
+
+        result.Should().BeNull();
+        _loggerWrongType
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindMapped_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.Find(Guid.NewGuid(), x => x, CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.Find(Guid.NewGuid(), x => x, CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get item with id {Id} for type {Type} and mapped type {MappedType}"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindMapped_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.Find(id, x => x, CancellationToken.None);
+
+        result.Should().NotBeNull();
+        _logger.ReceivedCalls().Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task FindPredicateMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sutWrongType.Find(x => true, x => x, CancellationToken.None);
+
+        result.Should().BeNull();
+        _loggerWrongType
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Type {Type} is not supported"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindPredicateMapped_Should_Return_Empty_Collection_When_Null_Data()
+    {
+        _optionsSnapshot.Value.Returns(x => new TestConfig());
+
+        var result = await _sut.Find(x => true, x => x, CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Warning,
+                OriginalMessage: "Resolver for type {Type} could not materialize collection"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindPredicateMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
+    {
+        _optionsSnapshot.Value.Returns(x => throw new Exception("Splash!"));
+
+        var result = await _sut.Find(x => true, x => x, CancellationToken.None);
+
+        result.Should().BeNull();
+        _logger
+            .GetLogsResultsCollection()
+            .Where(x => x is
+            {
+                LogLevel: LogLevel.Error,
+                OriginalMessage: "Failed to get item for type {Type} and mapped type {MappedType}"
+            })
+            .Should()
+            .ContainSingle();
+    }
+
+    [Fact]
+    public async Task FindPredicateMapped_Should_Return_Collection()
+    {
+        var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
+        _optionsSnapshot.Value.Returns(x => new TestConfig(Collection: [new() { Id = id }]));
+
+        var result = await _sut.Find(x => x.Id == id, x => x, CancellationToken.None);
+
+        result.Should().NotBeNull();
         _logger.ReceivedCalls().Should().BeEmpty();
         result.MatchSnapshot();
     }

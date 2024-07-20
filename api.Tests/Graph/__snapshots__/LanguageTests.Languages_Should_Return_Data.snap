@@ -2,10 +2,11 @@
   "data": {
     "languages": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "02a3be9b-3f04-4b4a-8945-e84fef537b58",
+          "id": "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4",
+          "internalId": "02a3be9b-3f04-4b4a-8945-e84fef537b58",
           "proficiency": "NATIVE",
           "title": "Title",
           "updatedAt": null,

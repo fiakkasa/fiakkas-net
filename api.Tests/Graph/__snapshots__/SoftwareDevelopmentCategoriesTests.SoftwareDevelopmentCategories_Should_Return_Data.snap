@@ -2,11 +2,12 @@
   "data": {
     "softwareDevelopmentCategories": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
           "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
           "title": "Title",
           "updatedAt": null,
           "version": 1,

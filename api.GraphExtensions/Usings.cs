@@ -1,7 +1,9 @@
+global using api.Categories.DataLoaders;
 global using api.Categories.Interfaces;
 global using api.Categories.Mappers;
 global using api.Categories.Models;
 global using api.Categories.Utils;
+global using api.Customers.DataLoaders;
 global using api.Customers.Interfaces;
 global using api.Customers.Mappers;
 global using api.Customers.Models;

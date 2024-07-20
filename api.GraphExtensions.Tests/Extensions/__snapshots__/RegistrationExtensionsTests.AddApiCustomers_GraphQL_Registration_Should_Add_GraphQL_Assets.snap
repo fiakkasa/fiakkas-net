@@ -11,14 +11,6 @@ interface ITechnologyCategory {
   href: URL
 }
 
-"Information about the offset pagination."
-type CollectionSegmentInfo {
-  "Indicates whether more items exist following the set defined by the clients arguments."
-  hasNextPage: Boolean!
-  "Indicates whether more items exist prior the set defined by the clients arguments."
-  hasPreviousPage: Boolean!
-}
-
 type Customer {
   title: String!
   href: URL
@@ -26,17 +18,28 @@ type Customer {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
-  portfolioTechnologyCategories(skip: Int take: Int where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): PortfolioTechnologyCategoriesCollectionSegment
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
+  internalId: UUID!
 }
 
-"A segment of a collection."
-type CustomersCollectionSegment {
+"A connection to a list of items."
+type CustomersConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [Customer!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CustomersEdge!]
+  "A flattened list of the nodes."
+  nodes: [Customer!]
+}
+
+"An edge in a connection."
+type CustomersEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Customer!
 }
 
 type EducationItem {
@@ -52,14 +55,25 @@ type EducationItem {
   updatedAt: DateTime
   version: Long!
   category: ResumeCategory
+  internalId: UUID!
 }
 
-"A segment of a collection."
-type EducationItemsCollectionSegment {
+"A connection to a list of items."
+type EducationItemsConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [EducationItem!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [EducationItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [EducationItem!]
+}
+
+"An edge in a connection."
+type EducationItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: EducationItem!
 }
 
 type MockTechnologyCategory implements ITechnologyCategory {
@@ -69,17 +83,40 @@ type MockTechnologyCategory implements ITechnologyCategory {
   version: Long!
   title: String!
   href: URL
-  portfolioCategories(skip: Int take: Int where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesCollectionSegment
-  portfolioCustomers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersCollectionSegment
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
+  internalId: UUID!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
 }
 
-"A segment of a collection."
-type PortfolioCategoriesCollectionSegment {
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+"A connection to a list of items."
+type PortfolioCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [PortfolioCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PortfolioCategory!]
+}
+
+"An edge in a connection."
+type PortfolioCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PortfolioCategory!
 }
 
 type PortfolioCategory {
@@ -88,17 +125,28 @@ type PortfolioCategory {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  customers(skip: Int take: Int where: CustomerFilterInput order: [CustomerSortInput!]): CustomersCollectionSegment
-  portfolioItems(skip: Int take: Int where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsCollectionSegment
-  technologyCategories(skip: Int take: Int where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesCollectionSegment
+  internalId: UUID!
+  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): CustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesConnection
 }
 
-"A segment of a collection."
-type PortfolioCustomersCollectionSegment {
+"A connection to a list of items."
+type PortfolioCustomersConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [Customer!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioCustomersEdge!]
+  "A flattened list of the nodes."
+  nodes: [Customer!]
+}
+
+"An edge in a connection."
+type PortfolioCustomersEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Customer!
 }
 
 type PortfolioItem {
@@ -112,26 +160,47 @@ type PortfolioItem {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
+  internalId: UUID!
   category: PortfolioCategory
   customer: Customer
-  technologyCategories(skip: Int take: Int where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesCollectionSegment
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesConnection
   technologiesSummary: String!
 }
 
-"A segment of a collection."
-type PortfolioItemsCollectionSegment {
+"A connection to a list of items."
+type PortfolioItemsConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [PortfolioItem!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [PortfolioItem!]
 }
 
-"A segment of a collection."
-type PortfolioTechnologyCategoriesCollectionSegment {
+"An edge in a connection."
+type PortfolioItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PortfolioItem!
+}
+
+"A connection to a list of items."
+type PortfolioTechnologyCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [ITechnologyCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioTechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [ITechnologyCategory!]
+}
+
+"An edge in a connection."
+type PortfolioTechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: ITechnologyCategory!
 }
 
 type Query {
@@ -148,15 +217,26 @@ type ResumeCategory {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  educationItems(skip: Int take: Int where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsCollectionSegment
+  internalId: UUID!
+  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsConnection
 }
 
-"A segment of a collection."
-type TechnologyCategoriesCollectionSegment {
+"A connection to a list of items."
+type TechnologyCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [ITechnologyCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [TechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [ITechnologyCategory!]
+}
+
+"An edge in a connection."
+type TechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: ITechnologyCategory!
 }
 
 type TimePeriod {

@@ -1,8 +1,8 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.EducationItems.Models;
-using api.GraphExtensions.DataLoaders;
 
 namespace api.GraphExtensions.TypeExtensions.Tests;
 
