@@ -2,13 +2,14 @@
   "data": {
     "resumeCategories": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "associatedCategoryTypes": [
             "SOFTWARE_DEVELOPMENT"
           ],
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+          "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
+          "internalId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
           "title": "Title",
           "updatedAt": null,
           "version": 1,

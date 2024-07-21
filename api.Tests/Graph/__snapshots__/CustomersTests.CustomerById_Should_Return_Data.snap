@@ -1,0 +1,13 @@
+﻿{
+  "data": {
+    "customerById": {
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "href": "/test",
+      "id": "Q3VzdG9tZXIKZzE4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
+      "internalId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
+      "title": "Title",
+      "updatedAt": null,
+      "version": 1
+    }
+  }
+}

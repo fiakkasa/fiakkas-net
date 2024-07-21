@@ -1,16 +1,15 @@
-using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.GraphExtensions.DataLoaders.Tests;
+namespace api.Categories.DataLoaders.Tests;
 
 public class AssociatedCategoryGroupDataLoaderTests
 {
     [Fact]
     public async Task LoadAsync_Should_Return_Data_When_Matches_Found()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -55,7 +54,7 @@ public class AssociatedCategoryGroupDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Collection_With_Single_Empty_Collection_When_No_Matches_Found()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>();
+        var dataRepository = new MockDataRepository<ICategory>();
 
         var sut = new AssociatedCategoryGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
 

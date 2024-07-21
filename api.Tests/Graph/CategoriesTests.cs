@@ -14,7 +14,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
   categories {
     totalCount
-    items {
+    nodes {
       __typename
       createdAt
       id
@@ -25,22 +25,15 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version
-        portfolioCategories {
-          totalCount
-        }
-        portfolioCustomers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
       }
       ... on OtherCategory {
         createdAt
         id
+        internalId
         title
         updatedAt
         version
@@ -48,73 +41,36 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       ... on PortfolioCategory {
         createdAt
         id
+        internalId
         title
         updatedAt
         version
-        customers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
-        technologyCategories {
-          totalCount
-        }
       }
       ... on ResumeCategory {
         associatedCategoryTypes
         createdAt
         id
+        internalId
         title
         updatedAt
         version
-        associatedCategories {
-          totalCount
-        }
-        educationItems {
-          totalCount
-        }
       }
       ... on SoftwareDevelopmentCategory {
         createdAt
         href
         id
+        internalId
         title
         updatedAt
         version
-        portfolioCategories {
-          totalCount
-        }
-        portfolioCustomers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
       }
       ... on UnknownCategory {
         createdAt
         id
+        internalId
         title
         updatedAt
         version
-      }
-      ... on UnknownTechnologyCategory {
-        createdAt
-        href
-        id
-        title
-        updatedAt
-        version
-        portfolioCategories {
-          totalCount
-        }
-        portfolioCustomers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
       }
     }
   }

@@ -1,0 +1,6 @@
+POST /graphql HTTP/1.1
+Host: localhost:5069
+Content-Type: application/json
+Content-Length: 185
+
+{"query":"{\n  unknownCategories {\n    totalCount\n    nodes {\n      createdAt\n      id\n      internalId\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}

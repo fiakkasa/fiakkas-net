@@ -4,7 +4,7 @@ using api.Categories.Interfaces;
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record CategoryEntity : BaseData, ICategoryEntity
+public record CategoryEntity : AbstractBaseData, ICategory
 {
     public CategoryType Kind { get; init; }
 

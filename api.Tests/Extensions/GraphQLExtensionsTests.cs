@@ -1,17 +1,22 @@
 using HotChocolate.Execution;
+using HotChocolate.Types.Relay;
 
 namespace api.Extensions.Tests;
 
 public class GraphQLExtensionsTests
 {
-    public record Message(string Text);
+    [Node]
+    public record Message([property: ID] Guid Id, string Text);
 
     [QueryType]
     public static class TestQueries
     {
-        private static readonly Message[] _messages = [new("hello"), new("world")];
+        private static readonly Message[] _messages = [
+            new(new Guid("f5b0d13a-86bc-4b89-891c-625672dbbd84"), "hello"),
+            new(new Guid("8c34e916-5efd-4485-a46a-6b11383a4deb"), "world")
+        ];
 
-        [UseOffsetPaging]
+        [UsePaging]
         [UseSorting]
         [UseFiltering]
         public static IEnumerable<Message> GetMessages() => _messages;

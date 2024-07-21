@@ -2,92 +2,65 @@
   "data": {
     "categories": {
       "totalCount": 6,
-      "items": [
+      "nodes": [
         {
           "__typename": "UnknownCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
+          "id": "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "c9f5879d-4018-49a0-9b71-b479dd5de7ff"
         },
         {
           "__typename": "PortfolioCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+          "id": "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
-          "customers": {
-            "totalCount": 1
-          },
-          "portfolioItems": {
-            "totalCount": 1
-          },
-          "technologyCategories": {
-            "totalCount": 1
-          }
+          "internalId": "38e483e4-6961-4b25-88a9-d1d0a5161109"
         },
         {
           "__typename": "ResumeCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+          "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
           "associatedCategoryTypes": [
             "SOFTWARE_DEVELOPMENT"
           ],
-          "associatedCategories": {
-            "totalCount": 1
-          },
-          "educationItems": {
-            "totalCount": 1
-          }
+          "internalId": "eb9d6258-99c4-46bd-bd44-23d35b19965d"
         },
         {
           "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+          "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
           "href": "/test",
-          "portfolioCategories": {
-            "totalCount": 1
-          },
-          "portfolioCustomers": {
-            "totalCount": 1
-          },
-          "portfolioItems": {
-            "totalCount": 1
-          }
+          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
         },
         {
           "__typename": "InformationTechnologyCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "6cc43e9a-312b-4923-b890-e966b8168eee",
+          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
           "href": "/test",
-          "portfolioCategories": {
-            "totalCount": 0
-          },
-          "portfolioCustomers": {
-            "totalCount": 0
-          },
-          "portfolioItems": {
-            "totalCount": 0
-          }
+          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee"
         },
         {
           "__typename": "OtherCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133",
+          "id": "T3RoZXJDYXRlZ29yeQpnOWZkOTFmOGEyYTQ0NDUyMGE1YjE4YWExYzNjMjkxMzM=",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133"
         }
       ]
     }

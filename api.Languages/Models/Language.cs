@@ -4,7 +4,7 @@ using api.Languages.Interfaces;
 namespace api.Languages.Models;
 
 [ExcludeFromCodeCoverage]
-public record Language : BaseData, ILanguage
+public record Language : AbstractBaseData, ILanguage
 {
     public ProficiencyType Proficiency { get; init; }
     public string Title { get; init; } = string.Empty;

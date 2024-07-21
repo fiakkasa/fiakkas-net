@@ -1,6 +1,8 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
+using api.Customers.DataLoaders;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;
@@ -13,7 +15,7 @@ public class PortfolioItemTypeExtensionTests
     [Fact]
     public async Task GetCategory_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -75,7 +77,7 @@ public class PortfolioItemTypeExtensionTests
     [Fact]
     public async Task GetTechnologyCategories_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -107,7 +109,7 @@ public class PortfolioItemTypeExtensionTests
     [Fact]
     public async Task GetTechnologiesSummary_Should_Return_Content()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

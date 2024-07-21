@@ -63,7 +63,7 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:Mer
 dotnet reportgenerator -reports:./CoverageResults/coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
-To run tests for a specific project, enter the \*.Tests counterpart and run:
+To run tests for a specific project, enter the `*.Tests` counterpart and run:
 
 ```bash
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'

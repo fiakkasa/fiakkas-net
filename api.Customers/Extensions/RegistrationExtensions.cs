@@ -1,3 +1,4 @@
+using api.Customers.DataLoaders;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.Customers.Queries;
@@ -18,5 +19,6 @@ public static class RegistrationExtensions
 
     public static IRequestExecutorBuilder AddApiCustomers(this IRequestExecutorBuilder builder) =>
         builder
+            .AddDataLoader<CustomerBatchDataLoader>()
             .AddTypeExtension(typeof(CustomerQueries));
 }

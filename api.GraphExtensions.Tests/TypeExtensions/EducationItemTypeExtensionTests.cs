@@ -1,8 +1,8 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.EducationItems.Models;
-using api.GraphExtensions.DataLoaders;
 
 namespace api.GraphExtensions.TypeExtensions.Tests;
 
@@ -11,7 +11,7 @@ public class EducationItemTypeExtensionTests
     [Fact]
     public async Task GetCategory_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

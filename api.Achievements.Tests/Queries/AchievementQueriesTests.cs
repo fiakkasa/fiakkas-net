@@ -1,5 +1,7 @@
+using api.Achievements.DataLoaders;
 using api.Achievements.Interfaces;
 using api.Achievements.Models;
+using GreenDonut;
 
 namespace api.Achievements.Queries.Tests;
 
@@ -24,5 +26,40 @@ public class AchievementQueriesTests
         result.Should().ContainSingle();
         result.Should().BeAssignableTo<IQueryable<Achievement>>();
         result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetAchievementById_Should_Return_Data_When_Found()
+    {
+        var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
+        var item = new Achievement
+        {
+            Id = id,
+            CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+            UpdatedAt = null,
+            Version = 1,
+            Content = "Content",
+            Years = [2024]
+        };
+        var dataRepository = new MockDataRepository<IAchievement>([item]);
+        var dataLoader = new AchievementBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+
+        var result = await AchievementQueries.GetAchievementById(id, dataLoader, default);
+
+        result.Should().NotBeNull();
+        result.Should().BeOfType<Achievement>();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetAchievementById_Should_Return_Null_When_Not_Found()
+    {
+        var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
+        var dataRepository = new MockDataRepository<IAchievement>([]);
+        var dataLoader = new AchievementBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+
+        var result = await AchievementQueries.GetAchievementById(id, dataLoader, default);
+
+        result.Should().BeNull();
     }
 }

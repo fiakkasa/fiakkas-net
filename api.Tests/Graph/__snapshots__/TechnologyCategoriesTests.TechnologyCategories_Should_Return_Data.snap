@@ -2,24 +2,44 @@
   "data": {
     "technologyCategories": {
       "totalCount": 2,
-      "items": [
+      "nodes": [
         {
           "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+          "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+          "portfolioCategories": {
+            "totalCount": 1
+          },
+          "portfolioCustomers": {
+            "totalCount": 1
+          },
+          "portfolioItems": {
+            "totalCount": 1
+          }
         },
         {
           "__typename": "InformationTechnologyCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "6cc43e9a-312b-4923-b890-e966b8168eee",
+          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
+          "portfolioCategories": {
+            "totalCount": 0
+          },
+          "portfolioCustomers": {
+            "totalCount": 0
+          },
+          "portfolioItems": {
+            "totalCount": 0
+          }
         }
       ]
     }

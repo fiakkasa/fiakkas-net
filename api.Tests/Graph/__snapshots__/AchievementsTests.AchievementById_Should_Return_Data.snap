@@ -1,0 +1,16 @@
+﻿{
+  "data": {
+    "achievementById": {
+      "content": "Content",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "id": "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk",
+      "internalId": "d4605b0c-58bc-49ac-bcfd-10a24a203add",
+      "updatedAt": null,
+      "version": 1,
+      "years": [
+        2024
+      ],
+      "yearsSummary": "2024"
+    }
+  }
+}

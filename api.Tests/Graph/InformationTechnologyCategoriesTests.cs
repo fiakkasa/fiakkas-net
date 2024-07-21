@@ -14,10 +14,11 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
 {
   informationTechnologyCategories {
     totalCount
-    items {
+    nodes {
       createdAt
       href
       id
+      internalId
       title
       updatedAt
       version
@@ -31,6 +32,32 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
         totalCount
       }
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task InformationTechnologyCategoryById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  informationTechnologyCategoryById(id: "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl") {
+    createdAt
+    href
+    id
+    internalId
+    title
+    updatedAt
+    version
   }
 }
 """);

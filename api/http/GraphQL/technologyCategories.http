@@ -1,6 +1,6 @@
 POST /graphql HTTP/1.1
 Host: localhost:5069
 Content-Type: application/json
-Content-Length: 647
+Content-Length: 709
 
-{"query":"{\n  technologyCategories {\n    totalCount\n    items {\n      __typename\n      createdAt\n      href\n      id\n      title\n      updatedAt\n      version\n      ... on InformationTechnologyCategory {\n        createdAt\n        href\n        id\n        title\n        updatedAt\n        version\n      }\n      ... on SoftwareDevelopmentCategory {\n        createdAt\n        href\n        id\n        title\n        updatedAt\n        version\n      }\n      ... on UnknownTechnologyCategory {\n        createdAt\n        href\n        id\n        title\n        updatedAt\n        version\n      }\n    }\n  }\n}","variables":{}}
+{"query":"{\n  technologyCategories {\n    totalCount\n    nodes {\n      __typename\n      createdAt\n      href\n      id\n      title\n      updatedAt\n      version\n      ... on InformationTechnologyCategory {\n        createdAt\n        href\n        id\n        internalId\n        title\n        updatedAt\n        version\n      }\n      ... on SoftwareDevelopmentCategory {\n        createdAt\n        href\n        id\n        internalId\n        title\n        updatedAt\n        version\n      }\n      ... on UnknownTechnologyCategory {\n        createdAt\n        href\n        id\n        internalId\n        title\n        updatedAt\n        version\n      }\n    }\n  }\n}\n","variables":{}}

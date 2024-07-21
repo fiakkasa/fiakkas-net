@@ -2,16 +2,16 @@
   query: Query
 }
 
-interface ICategory {
-  id: UUID!
+interface IPolymorphicCategory {
+  id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
   title: String!
 }
 
-interface ITechnologyCategory {
-  id: UUID!
+interface IPolymorphicTechnologyCategory {
+  id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
@@ -19,144 +19,262 @@ interface ITechnologyCategory {
   href: URL
 }
 
-"A segment of a collection."
-type AssociatedCategoriesCollectionSegment {
-  "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [ICategory!]
+"The node interface is implemented by entities that have a global unique identifier."
+interface Node {
+  id: ID!
 }
 
-"A segment of a collection."
-type CategoriesCollectionSegment {
+"A connection to a list of items."
+type AssociatedCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [ICategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AssociatedCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [IPolymorphicCategory!]
 }
 
-"Information about the offset pagination."
-type CollectionSegmentInfo {
-  "Indicates whether more items exist following the set defined by the clients arguments."
+"An edge in a connection."
+type AssociatedCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: IPolymorphicCategory!
+}
+
+"A connection to a list of items."
+type CategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [IPolymorphicCategory!]
+}
+
+"An edge in a connection."
+type CategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: IPolymorphicCategory!
+}
+
+"A connection to a list of items."
+type InformationTechnologyCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [InformationTechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [InformationTechnologyCategory!]
+}
+
+"An edge in a connection."
+type InformationTechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: InformationTechnologyCategory!
+}
+
+type InformationTechnologyCategory implements IPolymorphicCategory & IPolymorphicTechnologyCategory & Node {
+  href: URL
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"A connection to a list of items."
+type OtherCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [OtherCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [OtherCategory!]
+}
+
+"An edge in a connection."
+type OtherCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: OtherCategory!
+}
+
+type OtherCategory implements IPolymorphicCategory & Node {
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
   hasNextPage: Boolean!
-  "Indicates whether more items exist prior the set defined by the clients arguments."
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
   hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
 }
 
-"A segment of a collection."
-type InformationTechnologyCategoriesCollectionSegment {
+"A connection to a list of items."
+type PortfolioCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [InformationTechnologyCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PortfolioCategory!]
 }
 
-type InformationTechnologyCategory implements ICategory & ITechnologyCategory {
-  href: URL
+"An edge in a connection."
+type PortfolioCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PortfolioCategory!
+}
+
+type PortfolioCategory implements IPolymorphicCategory & Node {
   title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-}
-
-"A segment of a collection."
-type OtherCategoriesCollectionSegment {
-  "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [OtherCategory!]
-}
-
-type OtherCategory implements ICategory {
-  title: String!
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-}
-
-"A segment of a collection."
-type PortfolioCategoriesCollectionSegment {
-  "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [PortfolioCategory!]
-}
-
-type PortfolioCategory implements ICategory {
-  title: String!
-  id: UUID!
+  id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
 }
 
 type Query {
-  categories(skip: Int take: Int order: [ICategorySortInput!] where: ICategoryFilterInput): CategoriesCollectionSegment
-  portfolioCategories(skip: Int take: Int order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesCollectionSegment
-  resumeCategories(skip: Int take: Int order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesCollectionSegment
-  softwareDevelopmentCategories(skip: Int take: Int order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesCollectionSegment
-  informationTechnologyCategories(skip: Int take: Int order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesCollectionSegment
-  technologyCategories(skip: Int take: Int order: [ITechnologyCategorySortInput!] where: ITechnologyCategoryFilterInput): TechnologyCategoriesCollectionSegment
-  otherCategories(skip: Int take: Int order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesCollectionSegment
+  "Fetches an object given its ID."
+  node("ID of the object." id: ID!): Node
+  "Lookup nodes by a list of IDs."
+  nodes("The list of node IDs." ids: [ID!]!): [Node]!
+  categories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicCategorySortInput!] where: IPolymorphicCategoryFilterInput): CategoriesConnection
+  unknownCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [UnknownCategorySortInput!] where: UnknownCategoryFilterInput): UnknownCategoriesConnection
+  unknownCategoryById(id: ID!): UnknownCategory
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesConnection
+  portfolioCategoryById(id: ID!): PortfolioCategory
+  resumeCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesConnection
+  resumeCategoryById(id: ID!): ResumeCategory
+  softwareDevelopmentCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesConnection
+  softwareDevelopmentCategoryById(id: ID!): SoftwareDevelopmentCategory
+  informationTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesConnection
+  informationTechnologyCategoryById(id: ID!): InformationTechnologyCategory
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicTechnologyCategorySortInput!] where: IPolymorphicTechnologyCategoryFilterInput): TechnologyCategoriesConnection
+  otherCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesConnection
+  otherCategoryById(id: ID!): OtherCategory
 }
 
-"A segment of a collection."
-type ResumeCategoriesCollectionSegment {
+"A connection to a list of items."
+type ResumeCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [ResumeCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ResumeCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [ResumeCategory!]
 }
 
-type ResumeCategory implements ICategory {
+"An edge in a connection."
+type ResumeCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: ResumeCategory!
+}
+
+type ResumeCategory implements IPolymorphicCategory & Node {
   associatedCategoryTypes: [CategoryType!]!
   title: String!
-  id: UUID!
+  id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  associatedCategories(skip: Int take: Int where: ICategoryFilterInput order: [ICategorySortInput!]): AssociatedCategoriesCollectionSegment
+  associatedCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicCategoryFilterInput order: [IPolymorphicCategorySortInput!]): AssociatedCategoriesConnection
 }
 
-"A segment of a collection."
-type SoftwareDevelopmentCategoriesCollectionSegment {
+"A connection to a list of items."
+type SoftwareDevelopmentCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [SoftwareDevelopmentCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SoftwareDevelopmentCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [SoftwareDevelopmentCategory!]
 }
 
-type SoftwareDevelopmentCategory implements ICategory & ITechnologyCategory {
+"An edge in a connection."
+type SoftwareDevelopmentCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SoftwareDevelopmentCategory!
+}
+
+type SoftwareDevelopmentCategory implements IPolymorphicCategory & IPolymorphicTechnologyCategory & Node {
   href: URL
   title: String!
-  id: UUID!
+  id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
 }
 
-"A segment of a collection."
-type TechnologyCategoriesCollectionSegment {
+"A connection to a list of items."
+type TechnologyCategoriesConnection {
   "Information to aid in pagination."
-  pageInfo: CollectionSegmentInfo!
-  "A flattened list of the items."
-  items: [ITechnologyCategory!]
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [TechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [IPolymorphicTechnologyCategory!]
 }
 
-type UnknownCategory implements ICategory {
+"An edge in a connection."
+type TechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: IPolymorphicTechnologyCategory!
+}
+
+"A connection to a list of items."
+type UnknownCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [UnknownCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [UnknownCategory!]
+}
+
+"An edge in a connection."
+type UnknownCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: UnknownCategory!
+}
+
+type UnknownCategory implements IPolymorphicCategory & Node {
   title: String!
-  id: UUID!
+  id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
 }
 
-type UnknownTechnologyCategory implements ICategory & ITechnologyCategory {
+type UnknownTechnologyCategory implements IPolymorphicTechnologyCategory {
+  id: ID!
   href: URL
   title: String!
-  id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
@@ -184,9 +302,9 @@ input DateTimeOperationFilterInput {
   nlte: DateTime
 }
 
-input ICategoryFilterInput {
-  and: [ICategoryFilterInput!]
-  or: [ICategoryFilterInput!]
+input IPolymorphicCategoryFilterInput {
+  and: [IPolymorphicCategoryFilterInput!]
+  or: [IPolymorphicCategoryFilterInput!]
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
   updatedAt: DateTimeOperationFilterInput
@@ -194,7 +312,7 @@ input ICategoryFilterInput {
   title: StringOperationFilterInput
 }
 
-input ICategorySortInput {
+input IPolymorphicCategorySortInput {
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType
@@ -202,9 +320,9 @@ input ICategorySortInput {
   title: SortEnumType
 }
 
-input ITechnologyCategoryFilterInput {
-  and: [ITechnologyCategoryFilterInput!]
-  or: [ITechnologyCategoryFilterInput!]
+input IPolymorphicTechnologyCategoryFilterInput {
+  and: [IPolymorphicTechnologyCategoryFilterInput!]
+  or: [IPolymorphicTechnologyCategoryFilterInput!]
   id: UuidOperationFilterInput
   createdAt: DateTimeOperationFilterInput
   updatedAt: DateTimeOperationFilterInput
@@ -213,7 +331,7 @@ input ITechnologyCategoryFilterInput {
   href: UrlOperationFilterInput
 }
 
-input ITechnologyCategorySortInput {
+input IPolymorphicTechnologyCategorySortInput {
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType
@@ -352,6 +470,24 @@ input StringOperationFilterInput {
   nstartsWith: String
   endsWith: String
   nendsWith: String
+}
+
+input UnknownCategoryFilterInput {
+  and: [UnknownCategoryFilterInput!]
+  or: [UnknownCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input UnknownCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input UriSortInput {

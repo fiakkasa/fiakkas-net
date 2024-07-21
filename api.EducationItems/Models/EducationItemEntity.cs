@@ -3,7 +3,7 @@ using api.EducationItems.Interfaces;
 namespace api.EducationItems.Models;
 
 [ExcludeFromCodeCoverage]
-public record EducationItemEntity : BaseData, IEducationItem
+public record EducationItemEntity : AbstractBaseData, IEducationItem
 {
     public Guid CategoryId { get; init; }
     public TimePeriod TimePeriod { get; init; } = new();

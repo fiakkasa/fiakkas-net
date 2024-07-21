@@ -3,7 +3,7 @@ using api.ContactItems.Interfaces;
 namespace api.ContactItems.Models;
 
 [ExcludeFromCodeCoverage]
-public record ContactItem : BaseData, IContactItem
+public record ContactItem : AbstractBaseData, IContactItem
 {
     public string Key { get; init; } = string.Empty;
     public string? Icon { get; init; }

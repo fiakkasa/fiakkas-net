@@ -1,0 +1,6 @@
+POST /graphql HTTP/1.1
+Host: localhost:5069
+Content-Type: application/json
+Content-Length: 475
+
+{"query":"{\n  educationItemById(id: \"RWR1Y2F0aW9uSXRlbQpnMmYxMjczMDA2NjYzNDFmN2IzYTQwMTU1MzE1YTkzZTA=\") {\n    categoryId\n    createdAt\n    description\n    href\n    id\n    internalId\n    location\n    subjects\n    title\n    updatedAt\n    version\n    category {\n      associatedCategoryTypes\n      createdAt\n      id\n      internalId\n      title\n      updatedAt\n      version\n    }\n    timePeriod {\n      end\n      start\n    }\n  }\n}","variables":{}}

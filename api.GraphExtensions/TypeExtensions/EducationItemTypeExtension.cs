@@ -1,5 +1,3 @@
-using api.GraphExtensions.DataLoaders;
-
 namespace api.GraphExtensions.TypeExtensions;
 
 [ExtendObjectType<EducationItem>]

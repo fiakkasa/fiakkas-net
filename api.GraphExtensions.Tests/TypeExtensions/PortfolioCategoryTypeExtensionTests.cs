@@ -97,7 +97,7 @@ public class PortfolioCategoryTypeExtensionTests
     [Fact]
     public async Task GetTechnologyCategories_Should_Return_Data()
     {
-        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
+        var categoryDataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

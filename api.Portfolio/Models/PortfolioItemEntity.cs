@@ -3,7 +3,7 @@ using api.Portfolio.Interfaces;
 namespace api.Portfolio.Models;
 
 [ExcludeFromCodeCoverage]
-public record PortfolioItemEntity : BaseData, IPortfolioItem
+public record PortfolioItemEntity : AbstractBaseData, IPortfolioItem
 {
     public long Year { get; init; }
     public Guid CategoryId { get; init; }

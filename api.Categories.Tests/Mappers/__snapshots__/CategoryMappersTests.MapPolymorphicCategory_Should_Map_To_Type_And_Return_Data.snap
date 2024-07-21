@@ -1,0 +1,49 @@
+﻿[
+  {
+    "Title": "Title",
+    "Id": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  },
+  {
+    "Title": "Title",
+    "Id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  },
+  {
+    "AssociatedCategoryTypes": [
+      "SoftwareDevelopment"
+    ],
+    "Title": "Title",
+    "Id": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  },
+  {
+    "Href": "/test",
+    "Title": "Title",
+    "Id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  },
+  {
+    "Href": "/test",
+    "Title": "Title",
+    "Id": "6cc43e9a-312b-4923-b890-e966b8168eee",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  },
+  {
+    "Title": "Title",
+    "Id": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  }
+]

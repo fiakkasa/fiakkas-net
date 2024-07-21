@@ -1,13 +1,13 @@
 namespace api.GraphExtensions.DataLoaders;
 
 public sealed class PortfolioTechnologyCategoryByCustomerIdGroupDataLoader(
-    IDataRepository<ICategoryEntity> categoryDataRepository,
+    IDataRepository<ICategory> categoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GroupedDataLoader<Guid, ITechnologyCategory>(batchScheduler, options)
+) : GroupedDataLoader<Guid, IPolymorphicTechnologyCategory>(batchScheduler, options)
 {
-    protected override async Task<ILookup<Guid, ITechnologyCategory>> LoadGroupedBatchAsync(
+    protected override async Task<ILookup<Guid, IPolymorphicTechnologyCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
@@ -33,7 +33,7 @@ public sealed class PortfolioTechnologyCategoryByCustomerIdGroupDataLoader(
                         item => item.Id,
                         (x, item) => new { x.CustomerId, item }
                     )
-                    .ToLookup(x => x.CustomerId, x => x.item.MapTechnologyCategories());
+                    .ToLookup(x => x.CustomerId, x => x.item.MapPolymorphicTechnologyCategory());
             },
             cancellationToken
         );

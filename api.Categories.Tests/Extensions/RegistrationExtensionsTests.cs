@@ -20,7 +20,7 @@ public class RegistrationExtensionsTests
                 .AddApiCategories(configuration)
                 .BuildServiceProvider();
 
-        var dataRepository = serviceProvider.GetService<IDataRepository<ICategoryEntity>>();
+        var dataRepository = serviceProvider.GetService<IDataRepository<ICategory>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<CategoriesDataConfig>>();
 
         dataRepository.Should().NotBeNull();
@@ -32,8 +32,9 @@ public class RegistrationExtensionsTests
     {
         var result =
             await new ServiceCollection()
-                .AddSingleton(Substitute.For<IDataRepository<ICategoryEntity>>())
+                .AddSingleton(Substitute.For<IDataRepository<ICategory>>())
                 .AddGraphQLServer()
+                .AddGlobalObjectIdentification()
                 .AddQueryType()
                 .AddSorting()
                 .AddFiltering()
@@ -43,7 +44,6 @@ public class RegistrationExtensionsTests
         var schema = result.Print();
 
         schema.Should().NotBeEmpty();
-
         schema.MatchSnapshot();
     }
 }

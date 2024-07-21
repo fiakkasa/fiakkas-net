@@ -1,0 +1,6 @@
+POST /graphql HTTP/1.1
+Host: localhost:5069
+Content-Type: application/json
+Content-Length: 407
+
+{"query":"{\n  softwareDevelopmentCategoryById(id: \"U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==\") {\n    createdAt\n    href\n    id\n    internalId\n    title\n    updatedAt\n    version\n    portfolioCategories {\n      totalCount\n    }\n    portfolioCustomers {\n      totalCount\n    }\n    portfolioItems {\n      totalCount\n    }\n  }\n}\n","variables":{}}

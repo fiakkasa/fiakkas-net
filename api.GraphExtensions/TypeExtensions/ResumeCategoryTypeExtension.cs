@@ -5,7 +5,7 @@ namespace api.GraphExtensions.TypeExtensions;
 [ExtendObjectType<ResumeCategory>]
 public sealed class ResumeCategoryTypeExtension
 {
-    [UseOffsetPaging]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
     public async ValueTask<EducationItem[]> GetEducationItems(

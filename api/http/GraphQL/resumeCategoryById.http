@@ -1,0 +1,6 @@
+POST /graphql HTTP/1.1
+Host: localhost:5069
+Content-Type: application/json
+Content-Length: 343
+
+{"query":"{\n  resumeCategoryById(id: \"UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk\") {\n    associatedCategoryTypes\n    createdAt\n    id\n    internalId\n    title\n    updatedAt\n    version\n    associatedCategories {\n      totalCount\n    }\n    educationItems {\n      totalCount\n    }\n  }\n}\n","variables":{}}

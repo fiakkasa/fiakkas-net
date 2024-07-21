@@ -1,4 +1,9 @@
+using api.Categories.Interfaces;
+
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record UnknownTechnologyCategory : TechnologyCategoryBase { }
+public record UnknownTechnologyCategory : 
+    AbstractTechnologyCategory, 
+    IPolymorphicTechnologyCategory 
+{ }

@@ -1,7 +1,7 @@
 namespace api.GraphExtensions.DataLoaders;
 
 public sealed class PortfolioCategoryByTechnologyIdGroupDataLoader(
-    IDataRepository<ICategoryEntity> categoryDataRepository,
+    IDataRepository<ICategory> categoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
@@ -33,7 +33,7 @@ public sealed class PortfolioCategoryByTechnologyIdGroupDataLoader(
                         item => item.Id,
                         (x, item) => new { x.techId, item }
                     )
-                    .ToLookup(x => x.techId, x => x.item.MapGenericCategory<PortfolioCategory>());
+                    .ToLookup(x => x.techId, x => x.item.MapPortfolioCategory());
             },
             cancellationToken
         );

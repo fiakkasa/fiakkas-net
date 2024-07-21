@@ -5,7 +5,7 @@ namespace api.GraphExtensions.TypeExtensions;
 [ExtendObjectType<PortfolioCategory>]
 public sealed class PortfolioCategoryTypeExtension
 {
-    [UseOffsetPaging]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
     public async ValueTask<Customer[]> GetCustomers(
@@ -15,7 +15,7 @@ public sealed class PortfolioCategoryTypeExtension
     ) =>
         await dataLoader.LoadAsync(parent.Id, cancellationToken);
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
     public async ValueTask<PortfolioItem[]> GetPortfolioItems(
@@ -25,10 +25,10 @@ public sealed class PortfolioCategoryTypeExtension
     ) =>
         await dataLoader.LoadAsync(parent.Id, cancellationToken);
 
-    [UseOffsetPaging]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<ITechnologyCategory[]> GetTechnologyCategories(
+    public async ValueTask<IPolymorphicTechnologyCategory[]> GetTechnologyCategories(
         [Parent] PortfolioCategory parent,
         [Service] PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken

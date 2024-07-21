@@ -6,7 +6,9 @@ namespace api.Categories.Mappers;
 
 public static class CategoryMappers
 {
-    public static T MapGenericCategory<T>(this ICategoryEntity x) where T : class, ICategory, new() =>
+    private static T MapGenericCategory<T>(this ICategory x)
+    where T : class, IBaseData, ICategoryTitle, new()
+    =>
         new()
         {
             Id = x.Id,
@@ -16,18 +18,9 @@ public static class CategoryMappers
             Title = x.Title
         };
 
-    public static ResumeCategory MapResumeCategory(this ICategoryEntity x) =>
-        new()
-        {
-            Id = x.Id,
-            CreatedAt = x.CreatedAt,
-            UpdatedAt = x.UpdatedAt,
-            Version = x.Version,
-            Title = x.Title,
-            AssociatedCategoryTypes = x.AssociatedCategoryTypes
-        };
-
-    public static T MapGenericTechnologyCategory<T>(this ICategoryEntity x) where T : class, ITechnologyCategory, new() =>
+    private static T MapGenericTechnologyCategory<T>(this ICategory x)
+    where T : class, ITechnologyCategory, new()
+    =>
         new()
         {
             Id = x.Id,
@@ -38,23 +31,48 @@ public static class CategoryMappers
             Href = x.Href
         };
 
-    public static ITechnologyCategory MapTechnologyCategories(this ICategoryEntity x) =>
+    public static IPolymorphicCategory MapPolymorphicCategory(this ICategory x) =>
         x switch
         {
+            { Kind: CategoryType.Portfolio } => x.MapPortfolioCategory(),
+            { Kind: CategoryType.Resume } => x.MapResumeCategory(),
+            { Kind: CategoryType.Other } => x.MapOtherCategory(),
+            { Kind: CategoryType.SoftwareDevelopment } => x.MapSoftwareDevelopmentCategory(),
+            { Kind: CategoryType.InformationTechnology } => x.MapInformationTechnologyCategory(),
+            _ => x.MapUnknownCategory()
+        };
 
-            { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
-            { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
+    public static IPolymorphicTechnologyCategory MapPolymorphicTechnologyCategory(this ICategory x) =>
+        x switch
+        {
+            { Kind: CategoryType.SoftwareDevelopment } => x.MapSoftwareDevelopmentCategory(),
+            { Kind: CategoryType.InformationTechnology } => x.MapInformationTechnologyCategory(),
             _ => x.MapGenericTechnologyCategory<UnknownTechnologyCategory>()
         };
 
-    public static ICategory Map(this ICategoryEntity x) =>
-        x switch
+    public static UnknownCategory MapUnknownCategory(this ICategory x) =>
+        x.MapGenericCategory<UnknownCategory>();
+
+    public static PortfolioCategory MapPortfolioCategory(this ICategory x) =>
+        x.MapGenericCategory<PortfolioCategory>();
+
+    public static ResumeCategory MapResumeCategory(this ICategory x) =>
+        new()
         {
-            { Kind: CategoryType.Portfolio } => x.MapGenericCategory<PortfolioCategory>(),
-            { Kind: CategoryType.Resume } => x.MapResumeCategory(),
-            { Kind: CategoryType.Other } => x.MapGenericCategory<OtherCategory>(),
-            { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
-            { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
-            _ => x.MapGenericCategory<UnknownCategory>()
+            Id = x.Id,
+            CreatedAt = x.CreatedAt,
+            UpdatedAt = x.UpdatedAt,
+            Version = x.Version,
+            Title = x.Title,
+            AssociatedCategoryTypes = x.AssociatedCategoryTypes
         };
+
+    public static SoftwareDevelopmentCategory MapSoftwareDevelopmentCategory(this ICategory x) =>
+        x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>();
+
+    public static InformationTechnologyCategory MapInformationTechnologyCategory(this ICategory x) =>
+        x.MapGenericTechnologyCategory<InformationTechnologyCategory>();
+
+    public static OtherCategory MapOtherCategory(this ICategory x) =>
+        x.MapGenericCategory<OtherCategory>();
 }

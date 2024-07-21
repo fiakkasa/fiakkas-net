@@ -14,14 +14,41 @@ public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
   languages {
     totalCount
-    items {
+    nodes {
       createdAt
       id
+      internalId
       proficiency
       title
       updatedAt
       version
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task LanguageById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  languageById(id: "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4") {
+    createdAt
+    id
+    internalId
+    proficiency
+    title
+    updatedAt
+    version
   }
 }
 """);

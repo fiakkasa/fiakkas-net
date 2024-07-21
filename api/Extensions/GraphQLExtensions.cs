@@ -56,6 +56,7 @@ public static class GraphQLExtensions
             })
             .ModifyOptions(options => options.StripLeadingIFromInterface = true)
             .ModifyRequestOptions(options => options.IncludeExceptionDetails = isDev)
+            .AddGlobalObjectIdentification()
             .AddQueryType()
             .TrimTypes();
 

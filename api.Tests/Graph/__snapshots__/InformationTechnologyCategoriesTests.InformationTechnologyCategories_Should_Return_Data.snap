@@ -2,11 +2,12 @@
   "data": {
     "informationTechnologyCategories": {
       "totalCount": 1,
-      "items": [
+      "nodes": [
         {
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "6cc43e9a-312b-4923-b890-e966b8168eee",
+          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
+          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
