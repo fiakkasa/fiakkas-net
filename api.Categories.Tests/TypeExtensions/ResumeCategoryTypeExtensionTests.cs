@@ -10,7 +10,7 @@ public class ResumeCategoryTypeExtensionTests
     [Fact]
     public async Task GetAssociatedCategories_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

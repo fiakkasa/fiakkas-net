@@ -1,4 +1,4 @@
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record PortfolioCategory : AbstractCategory { }
+public record PortfolioCategory : AbstractCategoryBase { }

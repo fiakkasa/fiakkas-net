@@ -15,41 +15,51 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
   technologyCategories {
     totalCount
     nodes {
-      __typename
       createdAt
       href
       id
+      internalId
+      kind
       title
       updatedAt
       version
-      ... on InformationTechnologyCategory {
-        createdAt
-        href
-        id
-        internalId
-        title
-        updatedAt
-        version
+      portfolioCategories {
+        totalCount
       }
-      ... on SoftwareDevelopmentCategory {
-        createdAt
-        href
-        id
-        internalId
-        title
-        updatedAt
-        version
+      portfolioCustomers {
+        totalCount
       }
-      ... on UnknownTechnologyCategory {
-        createdAt
-        href
-        id
-        internalId
-        title
-        updatedAt
-        version
+      portfolioItems {
+        totalCount
       }
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TechnologyCategoryById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  technologyCategoryById(id: "VGVjaG5vbG9neUNhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==") {
+    createdAt
+    href
+    id
+    internalId
+    kind
+    title
+    updatedAt
+    version
   }
 }
 """);

@@ -15,7 +15,7 @@ public class PortfolioItemTypeExtensionTests
     [Fact]
     public async Task GetCategory_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -77,7 +77,7 @@ public class PortfolioItemTypeExtensionTests
     [Fact]
     public async Task GetTechnologyCategories_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -109,7 +109,7 @@ public class PortfolioItemTypeExtensionTests
     [Fact]
     public async Task GetTechnologiesSummary_Should_Return_Content()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

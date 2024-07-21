@@ -6,12 +6,12 @@ using api.Categories.Utils;
 namespace api.Categories.DataLoaders;
 
 public sealed class SoftwareDevelopmentCategoryBatchDataLoader(
-    IDataRepository<ICategoryEntity> dataRepository,
+    IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : AbstractGenericBatchDataLoaderById<ICategoryEntity, SoftwareDevelopmentCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategory, SoftwareDevelopmentCategory>(
     dataRepository,
-    CategoryMappers.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>,
+    CategoryMappers.MapSoftwareDevelopmentCategory,
     batchScheduler,
     options,
     (x, keys) =>

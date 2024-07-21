@@ -38,4 +38,30 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
     }
+
+    [Fact]
+    public async Task ResumeCategoryById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  resumeCategoryById(id: "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk") {
+    associatedCategoryTypes
+    createdAt
+    id
+    internalId
+    title
+    updatedAt
+    version
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
 }

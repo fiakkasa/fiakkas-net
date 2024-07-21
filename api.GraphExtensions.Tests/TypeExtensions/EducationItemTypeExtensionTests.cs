@@ -11,7 +11,7 @@ public class EducationItemTypeExtensionTests
     [Fact]
     public async Task GetCategory_Should_Return_Data()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

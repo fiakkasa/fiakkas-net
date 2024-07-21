@@ -13,7 +13,7 @@ public class CustomerTypeExtensionTests
     [Fact]
     public async Task GetPortfolioCategories_Should_Return_Data()
     {
-        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
+        var categoryDataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -61,7 +61,7 @@ public class CustomerTypeExtensionTests
     [Fact]
     public async Task GetPortfolioTechnologyCategories_Should_Return_Data()
     {
-        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
+        var categoryDataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {

@@ -2,15 +2,6 @@
   query: Query
 }
 
-interface ITechnologyCategory {
-  id: UUID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-  title: String!
-  href: URL
-}
-
 type Customer {
   title: String!
   href: URL
@@ -20,7 +11,7 @@ type Customer {
   version: Long!
   portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
   portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
-  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
+  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: TechnologyCategoryFilterInput order: [TechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
   internalId: UUID!
 }
 
@@ -76,13 +67,14 @@ type EducationItemsEdge {
   node: EducationItem!
 }
 
-type MockTechnologyCategory implements ITechnologyCategory {
+type MockTechnologyCategory {
   id: UUID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
   title: String!
   href: URL
+  internalId: UUID!
   portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
   portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
   portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
@@ -127,7 +119,7 @@ type PortfolioCategory {
   internalId: UUID!
   customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): CustomersConnection
   portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesConnection
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: TechnologyCategoryFilterInput order: [TechnologyCategorySortInput!]): TechnologyCategoriesConnection
 }
 
 "A connection to a list of items."
@@ -162,7 +154,7 @@ type PortfolioItem {
   internalId: UUID!
   category: PortfolioCategory
   customer: Customer
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ITechnologyCategoryFilterInput order: [ITechnologyCategorySortInput!]): TechnologyCategoriesConnection
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: TechnologyCategoryFilterInput order: [TechnologyCategorySortInput!]): TechnologyCategoriesConnection
   technologiesSummary: String!
 }
 
@@ -191,7 +183,7 @@ type PortfolioTechnologyCategoriesConnection {
   "A list of edges."
   edges: [PortfolioTechnologyCategoriesEdge!]
   "A flattened list of the nodes."
-  nodes: [ITechnologyCategory!]
+  nodes: [TechnologyCategory!]
 }
 
 "An edge in a connection."
@@ -199,12 +191,12 @@ type PortfolioTechnologyCategoriesEdge {
   "A cursor for use in pagination."
   cursor: String!
   "The item at the end of the edge."
-  node: ITechnologyCategory!
+  node: TechnologyCategory!
 }
 
 type Query {
   customers: [Customer!]!
-  technologyCategories: [ITechnologyCategory!]!
+  technologyCategories: [TechnologyCategory!]!
   portfolioCategories: [PortfolioCategory!]!
   portfolioItems: [PortfolioItem!]!
 }
@@ -227,7 +219,7 @@ type TechnologyCategoriesConnection {
   "A list of edges."
   edges: [TechnologyCategoriesEdge!]
   "A flattened list of the nodes."
-  nodes: [ITechnologyCategory!]
+  nodes: [TechnologyCategory!]
 }
 
 "An edge in a connection."
@@ -235,12 +227,33 @@ type TechnologyCategoriesEdge {
   "A cursor for use in pagination."
   cursor: String!
   "The item at the end of the edge."
-  node: ITechnologyCategory!
+  node: TechnologyCategory!
+}
+
+type TechnologyCategory {
+  kind: CategoryType!
+  href: URL
+  title: String!
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
 }
 
 type TimePeriod {
   start: Date!
   end: Date
+}
+
+input CategoryTypeOperationFilterInput {
+  eq: CategoryType
+  neq: CategoryType
+  in: [CategoryType!]
+  nin: [CategoryType!]
 }
 
 input CustomerFilterInput {
@@ -320,26 +333,6 @@ input EducationItemSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
-}
-
-input ITechnologyCategoryFilterInput {
-  and: [ITechnologyCategoryFilterInput!]
-  or: [ITechnologyCategoryFilterInput!]
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-  title: StringOperationFilterInput
-  href: UrlOperationFilterInput
-}
-
-input ITechnologyCategorySortInput {
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
-  title: SortEnumType
-  href: UriSortInput
 }
 
 input ListStringOperationFilterInput {
@@ -429,6 +422,28 @@ input StringOperationFilterInput {
   nstartsWith: String
   endsWith: String
   nendsWith: String
+}
+
+input TechnologyCategoryFilterInput {
+  and: [TechnologyCategoryFilterInput!]
+  or: [TechnologyCategoryFilterInput!]
+  kind: CategoryTypeOperationFilterInput
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input TechnologyCategorySortInput {
+  kind: SortEnumType
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input TimePeriodFilterInput {

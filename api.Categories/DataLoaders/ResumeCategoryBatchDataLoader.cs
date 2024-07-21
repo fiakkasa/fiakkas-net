@@ -7,10 +7,10 @@ namespace api.Categories.DataLoaders;
 
 [ExcludeFromCodeCoverage]
 public sealed class ResumeCategoryBatchDataLoader(
-    IDataRepository<ICategoryEntity> dataRepository,
+    IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : AbstractGenericBatchDataLoaderById<ICategoryEntity, ResumeCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategory, ResumeCategory>(
     dataRepository,
     CategoryMappers.MapResumeCategory,
     batchScheduler,

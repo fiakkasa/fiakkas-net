@@ -41,4 +41,30 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
     }
+
+    [Fact]
+    public async Task SoftwareDevelopmentCategoryById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  softwareDevelopmentCategoryById(id: "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==") {
+    createdAt
+    href
+    id
+    internalId
+    title
+    updatedAt
+    version
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
 }

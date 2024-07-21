@@ -13,7 +13,7 @@ public static class RegistrationExtensions
     {
         services.AddBoundOptions<CategoriesDataConfig>(config, sectionPath);
 
-        services.AddScoped<IDataRepository<ICategoryEntity>, CategoryDataRepository>();
+        services.AddScoped<IDataRepository<ICategory>, CategoryDataRepository>();
 
         return services;
     }
@@ -21,19 +21,13 @@ public static class RegistrationExtensions
     public static IRequestExecutorBuilder AddApiCategories(this IRequestExecutorBuilder builder) =>
         builder
             .AddDataLoader<AssociatedCategoryGroupDataLoader>()
+            .AddDataLoader<CategoryBatchDataLoader>()
             .AddDataLoader<InformationTechnologyCategoryBatchDataLoader>()
             .AddDataLoader<OtherCategoryBatchDataLoader>()
             .AddDataLoader<PortfolioCategoryBatchDataLoader>()
             .AddDataLoader<ResumeCategoryBatchDataLoader>()
             .AddDataLoader<SoftwareDevelopmentCategoryBatchDataLoader>()
-            .AddDataLoader<UnknownCategoryBatchDataLoader>()
-            .AddObjectType<InformationTechnologyCategory>()
-            .AddObjectType<OtherCategory>()
-            .AddObjectType<PortfolioCategory>()
-            .AddObjectType<ResumeCategory>()
-            .AddObjectType<SoftwareDevelopmentCategory>()
-            .AddObjectType<UnknownCategory>()
-            .AddObjectType<UnknownTechnologyCategory>()
+            .AddDataLoader<TechnologyCategoryBatchDataLoader>()
             .AddTypeExtension(typeof(CategoryQueries))
             .AddTypeExtension<ResumeCategoryTypeExtension>();
 }

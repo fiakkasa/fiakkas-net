@@ -11,7 +11,7 @@ public partial class SoftwareDevelopmentCategoriesTests
             var executor = await fixture.GetRequestExecutor();
 
             var result = await executor.ExecuteAsync(
-    """
+"""
 {
   portfolioCategories {
     totalCount
@@ -32,6 +32,31 @@ public partial class SoftwareDevelopmentCategoriesTests
         totalCount
       }
     }
+  }
+}
+""");
+
+            Func<IQueryResult> fn = result.ExpectQueryResult;
+            fn.Should().NotThrow();
+            fn().Errors.Should().BeNullOrEmpty();
+            result.ToJson().MatchSnapshot();
+        }
+
+        [Fact]
+        public async Task PortfolioCategoryById_Should_Return_Data()
+        {
+            var executor = await fixture.GetRequestExecutor();
+
+            var result = await executor.ExecuteAsync(
+"""
+{
+  portfolioCategoryById(id: "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5") {
+    createdAt
+    id
+    internalId
+    title
+    updatedAt
+    version
   }
 }
 """);

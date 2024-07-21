@@ -28,7 +28,7 @@ public sealed class PortfolioCategoryTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<ITechnologyCategory[]> GetTechnologyCategories(
+    public async ValueTask<TechnologyCategory[]> GetTechnologyCategories(
         [Parent] PortfolioCategory parent,
         [Service] PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken

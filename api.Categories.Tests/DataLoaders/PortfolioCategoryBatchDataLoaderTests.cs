@@ -9,7 +9,7 @@ public class PortfolioCategoryBatchDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Data_When_Matches_Found()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -34,7 +34,7 @@ public class PortfolioCategoryBatchDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Collection_With_Single_Null_Item_When_No_Matches_Found()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>(
+        var dataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -59,7 +59,7 @@ public class PortfolioCategoryBatchDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Collection_With_Single_Null_Item_When_No_Items_Present()
     {
-        var dataRepository = new MockDataRepository<ICategoryEntity>();
+        var dataRepository = new MockDataRepository<ICategory>();
 
         var sut = new PortfolioCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 

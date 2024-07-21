@@ -5,25 +5,25 @@ namespace api.Categories.Utils;
 
 public static class CategoryEntityUtils
 {
-    public static bool IsPortfolioCategory(ICategoryEntity item) =>
+    public static bool IsPortfolioCategory(ICategory item) =>
         item.Kind == CategoryType.Portfolio;
 
-    public static bool IsResumeCategory(ICategoryEntity item) =>
+    public static bool IsResumeCategory(ICategory item) =>
         item.Kind == CategoryType.Resume;
 
-    public static bool IsSoftwareDevelopmentCategory(ICategoryEntity item) =>
+    public static bool IsSoftwareDevelopmentCategory(ICategory item) =>
         item.Kind == CategoryType.SoftwareDevelopment;
 
-    public static bool IsInformationTechnologyCategory(ICategoryEntity item) =>
+    public static bool IsInformationTechnologyCategory(ICategory item) =>
         item.Kind == CategoryType.InformationTechnology;
 
-    public static bool IsTechnologyCategory(ICategoryEntity item) =>
+    public static bool IsTechnologyCategory(ICategory item) =>
         IsSoftwareDevelopmentCategory(item)
         || IsInformationTechnologyCategory(item);
 
-    public static bool IsOtherCategory(ICategoryEntity item) =>
+    public static bool IsOtherCategory(ICategory item) =>
         item.Kind == CategoryType.Other;
 
-    public static bool IsUnknownCategory(ICategoryEntity item) =>
+    public static bool IsUnknownCategory(ICategory item) =>
         item.Kind == CategoryType.None;
 }

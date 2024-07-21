@@ -23,7 +23,7 @@ public class RegistrationExtensionsTests
     public static class TestQueries
     {
         public static IEnumerable<Customer> Customers => [];
-        public static IEnumerable<ITechnologyCategory> TechnologyCategories => [];
+        public static IEnumerable<TechnologyCategory> TechnologyCategories => [];
         public static IEnumerable<PortfolioCategory> PortfolioCategories => [];
         public static IEnumerable<PortfolioItem> PortfolioItems => [];
     }

@@ -1,10 +1,29 @@
+using api.Categories.Enums;
+
 namespace api.Categories.Interfaces;
 
-public interface ICategory 
+public interface ICategoryKind
 {
-    Guid Id { get; init; }
-    DateTimeOffset CreatedAt { get; init; }
-    DateTimeOffset? UpdatedAt { get; init; }
-    long Version { get; init; }
+    CategoryType Kind { get; init; }
+}
+public interface ICategoryTitle
+{
     string Title { get; init; }
+}
+public interface ICategoryUri
+{
+    Uri? Href { get; init; }
+}
+public interface ICategoryAssociatedCategoryTypes
+{
+    CategoryType[] AssociatedCategoryTypes { get; init; }
+}
+
+public interface ICategory :
+    IBaseData,
+    ICategoryKind,
+    ICategoryTitle,
+    ICategoryUri,
+    ICategoryAssociatedCategoryTypes
+{
 }

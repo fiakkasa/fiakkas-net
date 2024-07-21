@@ -5,17 +5,17 @@ using api.Categories.Utils;
 
 namespace api.Categories.DataLoaders;
 
-public sealed class UnknownCategoryBatchDataLoader(
-    IDataRepository<ICategoryEntity> dataRepository,
+public sealed class TechnologyCategoryBatchDataLoader(
+    IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : AbstractGenericBatchDataLoaderById<ICategoryEntity, UnknownCategory>(
+) : AbstractGenericBatchDataLoaderById<ICategory, TechnologyCategory>(
     dataRepository,
-    CategoryMappers.MapGenericCategory<UnknownCategory>,
+    CategoryMappers.MapTechnologyCategory,
     batchScheduler,
     options,
     (x, keys) =>
-        CategoryEntityUtils.IsUnknownCategory(x)
+        CategoryEntityUtils.IsTechnologyCategory(x)
         && keys.Contains(x.Id)
 )
 { }

@@ -1,0 +1,13 @@
+﻿{
+  "data": {
+    "softwareDevelopmentCategoryById": {
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "href": "/test",
+      "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
+      "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+      "title": "Title",
+      "updatedAt": null,
+      "version": 1
+    }
+  }
+}

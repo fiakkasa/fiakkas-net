@@ -11,7 +11,7 @@ public class PortfolioCategoryByCustomerIdGroupDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Data_When_Matches_Found()
     {
-        var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
+        var categoryDataRepository = new MockDataRepository<ICategory>(
         [
             new CategoryEntity
             {
@@ -77,7 +77,7 @@ public class PortfolioCategoryByCustomerIdGroupDataLoaderTests
     [Fact]
     public async Task LoadAsync_Should_Return_Collection_With_Single_Empty_Collection_When_No_Matches_Found()
     {
-        var categoryDataRepository = new MockDataRepository<ICategoryEntity>();
+        var categoryDataRepository = new MockDataRepository<ICategory>();
         var portfolioItemDataRepository = new MockDataRepository<IPortfolioItem>();
 
         var sut = new PortfolioCategoryByCustomerIdGroupDataLoader(

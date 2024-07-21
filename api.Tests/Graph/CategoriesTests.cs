@@ -15,115 +15,44 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
   categories {
     totalCount
     nodes {
-      __typename
+      associatedCategoryTypes
       createdAt
+      href
       id
+      internalId
+      kind
       title
       updatedAt
       version
-      ... on InformationTechnologyCategory {
-        createdAt
-        href
-        id
-        internalId
-        title
-        updatedAt
-        version
-        portfolioCategories {
-          totalCount
-        }
-        portfolioCustomers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
-      }
-      ... on OtherCategory {
-        createdAt
-        id
-        internalId
-        title
-        updatedAt
-        version
-      }
-      ... on PortfolioCategory {
-        createdAt
-        id
-        internalId
-        title
-        updatedAt
-        version
-        customers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
-        technologyCategories {
-          totalCount
-        }
-      }
-      ... on ResumeCategory {
-        associatedCategoryTypes
-        createdAt
-        id
-        internalId
-        title
-        updatedAt
-        version
-        associatedCategories {
-          totalCount
-        }
-        educationItems {
-          totalCount
-        }
-      }
-      ... on SoftwareDevelopmentCategory {
-        createdAt
-        href
-        id
-        internalId
-        title
-        updatedAt
-        version
-        portfolioCategories {
-          totalCount
-        }
-        portfolioCustomers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
-      }
-      ... on UnknownCategory {
-        createdAt
-        id
-        internalId
-        title
-        updatedAt
-        version
-      }
-      ... on UnknownTechnologyCategory {
-        createdAt
-        href
-        id
-        internalId
-        title
-        updatedAt
-        version
-        portfolioCategories {
-          totalCount
-        }
-        portfolioCustomers {
-          totalCount
-        }
-        portfolioItems {
-          totalCount
-        }
-      }
     }
+  }
+}
+""");
+
+        Func<IQueryResult> fn = result.ExpectQueryResult;
+        fn.Should().NotThrow();
+        fn().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task CategoryById_Should_Return_Data()
+    {
+        var executor = await fixture.GetRequestExecutor();
+
+        var result = await executor.ExecuteAsync(
+"""
+{
+  categoryById(id: "Q2F0ZWdvcnkKZ2M5ZjU4NzlkNDAxODQ5YTA5YjcxYjQ3OWRkNWRlN2Zm") {
+    associatedCategoryTypes
+    createdAt
+    href
+    id
+    internalId
+    kind
+    title
+    updatedAt
+    version
   }
 }
 """);

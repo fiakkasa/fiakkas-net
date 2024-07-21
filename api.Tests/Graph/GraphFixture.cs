@@ -46,7 +46,7 @@ public class GraphFixture
                     Years = [2024]
                 }
             ]);
-            var categoryDataRepository = new MockDataRepository<ICategoryEntity>(
+            var categoryDataRepository = new MockDataRepository<ICategory>(
             [
                 new CategoryEntity
                 {
@@ -207,7 +207,7 @@ public class GraphFixture
             _requestExecutor =
                 await new ServiceCollection()
                     .AddSingleton<IDataRepository<IAchievement>>(achievementsDataRepository)
-                    .AddSingleton<IDataRepository<ICategoryEntity>>(categoryDataRepository)
+                    .AddSingleton<IDataRepository<ICategory>>(categoryDataRepository)
                     .AddSingleton<IDataRepository<IContactItem>>(contactItemsDataRepository)
                     .AddSingleton<IDataRepository<ICustomer>>(customerDataRepository)
                     .AddSingleton<IDataRepository<IEducationItem>>(educationItemsDataRepository)

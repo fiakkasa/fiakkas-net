@@ -1,5 +1,8 @@
 ﻿[
   {
+    "Kind": "None",
+    "Href": null,
+    "AssociatedCategoryTypes": [],
     "Title": "Title",
     "Id": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
     "CreatedAt": "2024-01-01T00:00:00+00:00",
@@ -7,6 +10,9 @@
     "Version": 1
   },
   {
+    "Kind": "Portfolio",
+    "Href": null,
+    "AssociatedCategoryTypes": [],
     "Title": "Title",
     "Id": "38e483e4-6961-4b25-88a9-d1d0a5161109",
     "CreatedAt": "2024-01-01T00:00:00+00:00",
@@ -14,6 +20,8 @@
     "Version": 1
   },
   {
+    "Kind": "Resume",
+    "Href": null,
     "AssociatedCategoryTypes": [
       "SoftwareDevelopment"
     ],
@@ -24,7 +32,9 @@
     "Version": 1
   },
   {
+    "Kind": "SoftwareDevelopment",
     "Href": "/test",
+    "AssociatedCategoryTypes": [],
     "Title": "Title",
     "Id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
     "CreatedAt": "2024-01-01T00:00:00+00:00",
@@ -32,7 +42,9 @@
     "Version": 1
   },
   {
+    "Kind": "InformationTechnology",
     "Href": "/test",
+    "AssociatedCategoryTypes": [],
     "Title": "Title",
     "Id": "6cc43e9a-312b-4923-b890-e966b8168eee",
     "CreatedAt": "2024-01-01T00:00:00+00:00",
@@ -40,6 +52,9 @@
     "Version": 1
   },
   {
+    "Kind": "Other",
+    "Href": null,
+    "AssociatedCategoryTypes": [],
     "Title": "Title",
     "Id": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133",
     "CreatedAt": "2024-01-01T00:00:00+00:00",

@@ -1,4 +1,3 @@
-using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
@@ -6,7 +5,9 @@ namespace api.Categories.Mappers;
 
 public static class CategoryMappers
 {
-    public static T MapGenericCategory<T>(this ICategoryEntity x) where T : class, ICategory, new() =>
+    private static T MapGenericCategory<T>(this ICategory x) 
+    where T : class, IBaseData, ICategoryTitle, new()
+    =>
         new()
         {
             Id = x.Id,
@@ -16,18 +17,9 @@ public static class CategoryMappers
             Title = x.Title
         };
 
-    public static ResumeCategory MapResumeCategory(this ICategoryEntity x) =>
-        new()
-        {
-            Id = x.Id,
-            CreatedAt = x.CreatedAt,
-            UpdatedAt = x.UpdatedAt,
-            Version = x.Version,
-            Title = x.Title,
-            AssociatedCategoryTypes = x.AssociatedCategoryTypes
-        };
-
-    public static T MapGenericTechnologyCategory<T>(this ICategoryEntity x) where T : class, ITechnologyCategory, new() =>
+    private static T MapGenericTechnologyCategory<T>(this ICategory x) 
+    where T : class, ITechnologyCategory, new()
+    =>
         new()
         {
             Id = x.Id,
@@ -38,23 +30,51 @@ public static class CategoryMappers
             Href = x.Href
         };
 
-    public static ITechnologyCategory MapTechnologyCategories(this ICategoryEntity x) =>
-        x switch
+    public static Category MapCategory(this ICategory x) =>
+        new()
         {
-
-            { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
-            { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
-            _ => x.MapGenericTechnologyCategory<UnknownTechnologyCategory>()
+            Id = x.Id,
+            CreatedAt = x.CreatedAt,
+            UpdatedAt = x.UpdatedAt,
+            Version = x.Version,
+            Kind = x.Kind,
+            Title = x.Title,
+            Href = x.Href,
+            AssociatedCategoryTypes = x.AssociatedCategoryTypes
         };
 
-    public static ICategory Map(this ICategoryEntity x) =>
-        x switch
+    public static PortfolioCategory MapPortfolioCategory(this ICategory x) =>
+        x.MapGenericCategory<PortfolioCategory>();
+
+    public static ResumeCategory MapResumeCategory(this ICategory x) =>
+        new()
         {
-            { Kind: CategoryType.Portfolio } => x.MapGenericCategory<PortfolioCategory>(),
-            { Kind: CategoryType.Resume } => x.MapResumeCategory(),
-            { Kind: CategoryType.Other } => x.MapGenericCategory<OtherCategory>(),
-            { Kind: CategoryType.SoftwareDevelopment } => x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>(),
-            { Kind: CategoryType.InformationTechnology } => x.MapGenericTechnologyCategory<InformationTechnologyCategory>(),
-            _ => x.MapGenericCategory<UnknownCategory>()
+            Id = x.Id,
+            CreatedAt = x.CreatedAt,
+            UpdatedAt = x.UpdatedAt,
+            Version = x.Version,
+            Title = x.Title,
+            AssociatedCategoryTypes = x.AssociatedCategoryTypes
         };
+
+    public static SoftwareDevelopmentCategory MapSoftwareDevelopmentCategory(this ICategory x) =>
+        x.MapGenericTechnologyCategory<SoftwareDevelopmentCategory>();
+
+    public static InformationTechnologyCategory MapInformationTechnologyCategory(this ICategory x) =>
+        x.MapGenericTechnologyCategory<InformationTechnologyCategory>();
+    
+    public static TechnologyCategory MapTechnologyCategory(this ICategory x) =>
+        new()
+        {
+            Id = x.Id,
+            CreatedAt = x.CreatedAt,
+            UpdatedAt = x.UpdatedAt,
+            Version = x.Version,
+            Kind = x.Kind,
+            Title = x.Title,
+            Href = x.Href
+        };
+
+    public static OtherCategory MapOtherCategory(this ICategory x) =>
+        x.MapGenericCategory<OtherCategory>();
 }

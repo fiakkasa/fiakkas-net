@@ -1,5 +1,4 @@
 using api.Categories.DataLoaders;
-using api.Categories.Interfaces;
 using api.Categories.Models;
 
 namespace api.Categories.TypeExtensions;
@@ -10,7 +9,7 @@ public sealed class ResumeCategoryTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<IEnumerable<ICategory>> GetAssociatedCategories(
+    public async ValueTask<IEnumerable<Category>> GetAssociatedCategories(
         [Parent] ResumeCategory parent,
         [Service] AssociatedCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken

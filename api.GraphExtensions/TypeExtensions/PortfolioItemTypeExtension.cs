@@ -22,7 +22,7 @@ public sealed class PortfolioItemTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<IEnumerable<ITechnologyCategory>> GetTechnologyCategories(
+    public async ValueTask<IEnumerable<TechnologyCategory>> GetTechnologyCategories(
         [Parent] PortfolioItem parent,
         [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken

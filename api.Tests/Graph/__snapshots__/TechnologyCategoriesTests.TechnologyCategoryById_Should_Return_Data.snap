@@ -1,0 +1,14 @@
+﻿{
+  "data": {
+    "technologyCategoryById": {
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "href": "/test",
+      "id": "VGVjaG5vbG9neUNhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
+      "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+      "kind": "SOFTWARE_DEVELOPMENT",
+      "title": "Title",
+      "updatedAt": null,
+      "version": 1
+    }
+  }
+}
