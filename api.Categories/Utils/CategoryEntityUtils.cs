@@ -5,6 +5,9 @@ namespace api.Categories.Utils;
 
 public static class CategoryEntityUtils
 {
+    public static bool IsUnknownCategory(ICategory item) =>
+        item.Kind == CategoryType.None;
+
     public static bool IsPortfolioCategory(ICategory item) =>
         item.Kind == CategoryType.Portfolio;
 
@@ -23,7 +26,4 @@ public static class CategoryEntityUtils
 
     public static bool IsOtherCategory(ICategory item) =>
         item.Kind == CategoryType.Other;
-
-    public static bool IsUnknownCategory(ICategory item) =>
-        item.Kind == CategoryType.None;
 }

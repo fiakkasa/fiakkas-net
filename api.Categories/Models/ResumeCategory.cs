@@ -4,8 +4,8 @@ using api.Categories.Interfaces;
 namespace api.Categories.Models;
 
 [ExcludeFromCodeCoverage]
-public record ResumeCategory : 
-    AbstractCategoryBase, 
+public record ResumeCategory :
+    AbstractCategoryBase,
     ICategoryAssociatedCategoryTypes,
     IPolymorphicCategory
 {

@@ -14,7 +14,7 @@ public sealed class UnknownCategoryBatchDataLoader(
     CategoryMappers.MapUnknownCategory,
     batchScheduler,
     options,
-    (x, keys) => 
+    (x, keys) =>
         CategoryEntityUtils.IsUnknownCategory(x)
         && keys.Contains(x.Id)
 )

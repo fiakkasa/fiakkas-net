@@ -82,7 +82,7 @@ public class CategoryMappersTests
             }
         };
 
-        var result = 
+        var result =
             items.Values
                 .Select(x => x.MapPolymorphicCategory())
                 .ToArray();
@@ -128,7 +128,7 @@ public class CategoryMappersTests
             }
         };
 
-        var result = 
+        var result =
             items.Values
                 .Select(x => x.MapPolymorphicTechnologyCategory())
                 .ToArray();

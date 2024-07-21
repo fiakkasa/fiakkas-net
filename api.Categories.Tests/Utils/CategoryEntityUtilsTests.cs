@@ -18,6 +18,21 @@ public class CategoryEntityUtilsTests
     }
 
     [Theory]
+    [InlineData(CategoryType.None, true)]
+    [InlineData(CategoryType.SoftwareDevelopment, false)]
+    public void IsUnknownCategory_Should_Return_True_When_Matched(CategoryType kind, bool expected)
+    {
+        var item = new CategoryMockEntity
+        {
+            Kind = kind
+        };
+
+        var result = CategoryEntityUtils.IsUnknownCategory(item);
+
+        result.Should().Be(expected);
+    }
+
+    [Theory]
     [InlineData(CategoryType.Portfolio, true)]
     [InlineData(CategoryType.None, false)]
     public void IsPortfolioCategory_Should_Return_True_When_Matched(CategoryType kind, bool expected)
@@ -89,21 +104,6 @@ public class CategoryEntityUtilsTests
         };
 
         var result = CategoryEntityUtils.IsOtherCategory(item);
-
-        result.Should().Be(expected);
-    }
-
-    [Theory]
-    [InlineData(CategoryType.None, true)]
-    [InlineData(CategoryType.SoftwareDevelopment, false)]
-    public void IsUnknownCategory_Should_Return_True_When_Matched(CategoryType kind, bool expected)
-    {
-        var item = new CategoryMockEntity
-        {
-            Kind = kind
-        };
-
-        var result = CategoryEntityUtils.IsUnknownCategory(item);
 
         result.Should().Be(expected);
     }
