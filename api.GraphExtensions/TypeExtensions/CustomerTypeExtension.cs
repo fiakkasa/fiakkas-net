@@ -28,7 +28,7 @@ public sealed class CustomerTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<TechnologyCategory[]> GetPortfolioTechnologyCategories(
+    public async ValueTask<IPolymorphicTechnologyCategory[]> GetPortfolioTechnologyCategories(
         [Parent] Customer parent,
         [Service] PortfolioTechnologyCategoryByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken

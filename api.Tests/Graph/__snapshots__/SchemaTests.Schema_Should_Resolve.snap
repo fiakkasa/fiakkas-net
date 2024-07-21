@@ -7,6 +7,23 @@ interface Node {
   id: ID!
 }
 
+interface PolymorphicCategory {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+}
+
+interface PolymorphicTechnologyCategory {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+  href: URL
+}
+
 type Achievement implements Node {
   content: String!
   years: [Int!]!
@@ -45,7 +62,7 @@ type AssociatedCategoriesConnection {
   "A list of edges."
   edges: [AssociatedCategoriesEdge!]
   "A flattened list of the nodes."
-  nodes: [Category!]
+  nodes: [PolymorphicCategory!]
   "Identifies the total count of items in the connection."
   totalCount: Int!
 }
@@ -55,7 +72,7 @@ type AssociatedCategoriesEdge {
   "A cursor for use in pagination."
   cursor: String!
   "The item at the end of the edge."
-  node: Category!
+  node: PolymorphicCategory!
 }
 
 "A connection to a list of items."
@@ -65,7 +82,7 @@ type CategoriesConnection {
   "A list of edges."
   edges: [CategoriesEdge!]
   "A flattened list of the nodes."
-  nodes: [Category!]
+  nodes: [PolymorphicCategory!]
   "Identifies the total count of items in the connection."
   totalCount: Int!
 }
@@ -75,19 +92,7 @@ type CategoriesEdge {
   "A cursor for use in pagination."
   cursor: String!
   "The item at the end of the edge."
-  node: Category!
-}
-
-type Category implements Node {
-  kind: CategoryType!
-  href: URL
-  associatedCategoryTypes: [CategoryType!]!
-  title: String!
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-  internalId: UUID!
+  node: PolymorphicCategory!
 }
 
 type ContactItem implements Node {
@@ -132,7 +137,7 @@ type Customer implements Node {
   version: Long!
   portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
   portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
-  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: TechnologyCategoryFilterInput order: [TechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
+  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
   internalId: UUID!
 }
 
@@ -225,7 +230,7 @@ type InformationTechnologyCategoriesEdge {
   node: InformationTechnologyCategory!
 }
 
-type InformationTechnologyCategory implements Node {
+type InformationTechnologyCategory implements PolymorphicCategory & PolymorphicTechnologyCategory & Node {
   href: URL
   title: String!
   id: ID!
@@ -293,7 +298,7 @@ type OtherCategoriesEdge {
   node: OtherCategory!
 }
 
-type OtherCategory implements Node {
+type OtherCategory implements PolymorphicCategory & Node {
   title: String!
   id: ID!
   createdAt: DateTime!
@@ -334,7 +339,7 @@ type PortfolioCategoriesEdge {
   node: PortfolioCategory!
 }
 
-type PortfolioCategory implements Node {
+type PortfolioCategory implements PolymorphicCategory & Node {
   title: String!
   id: ID!
   createdAt: DateTime!
@@ -343,7 +348,7 @@ type PortfolioCategory implements Node {
   internalId: UUID!
   customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): CustomersConnection
   portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: TechnologyCategoryFilterInput order: [TechnologyCategorySortInput!]): TechnologyCategoriesConnection
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): TechnologyCategoriesConnection
 }
 
 "A connection to a list of items."
@@ -380,7 +385,7 @@ type PortfolioItem implements Node {
   internalId: UUID!
   category: PortfolioCategory
   customer: Customer
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: TechnologyCategoryFilterInput order: [TechnologyCategorySortInput!]): TechnologyCategoriesConnection
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): TechnologyCategoriesConnection
   technologiesSummary: String!
 }
 
@@ -411,7 +416,7 @@ type PortfolioTechnologyCategoriesConnection {
   "A list of edges."
   edges: [PortfolioTechnologyCategoriesEdge!]
   "A flattened list of the nodes."
-  nodes: [TechnologyCategory!]
+  nodes: [PolymorphicTechnologyCategory!]
   "Identifies the total count of items in the connection."
   totalCount: Int!
 }
@@ -421,7 +426,7 @@ type PortfolioTechnologyCategoriesEdge {
   "A cursor for use in pagination."
   cursor: String!
   "The item at the end of the edge."
-  node: TechnologyCategory!
+  node: PolymorphicTechnologyCategory!
 }
 
 type Query {
@@ -433,8 +438,9 @@ type Query {
   achievementById(id: ID!): Achievement
   systemStatus: SystemInfoItem!
   health: HealthReportSummary!
-  categories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [CategorySortInput!] where: CategoryFilterInput): CategoriesConnection
-  categoryById(id: ID!): Category
+  categories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicCategorySortInput!] where: IPolymorphicCategoryFilterInput): CategoriesConnection
+  unknownCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [UnknownCategorySortInput!] where: UnknownCategoryFilterInput): UnknownCategoriesConnection
+  unknownCategoryById(id: ID!): UnknownCategory
   portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesConnection
   portfolioCategoryById(id: ID!): PortfolioCategory
   resumeCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesConnection
@@ -443,8 +449,7 @@ type Query {
   softwareDevelopmentCategoryById(id: ID!): SoftwareDevelopmentCategory
   informationTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesConnection
   informationTechnologyCategoryById(id: ID!): InformationTechnologyCategory
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [TechnologyCategorySortInput!] where: TechnologyCategoryFilterInput): TechnologyCategoriesConnection
-  technologyCategoryById(id: ID!): TechnologyCategory
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicTechnologyCategorySortInput!] where: IPolymorphicTechnologyCategoryFilterInput): TechnologyCategoriesConnection
   otherCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesConnection
   otherCategoryById(id: ID!): OtherCategory
   contactItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsConnection
@@ -481,14 +486,14 @@ type ResumeCategoriesEdge {
   node: ResumeCategory!
 }
 
-type ResumeCategory implements Node {
+type ResumeCategory implements PolymorphicCategory & Node {
   associatedCategoryTypes: [CategoryType!]!
   title: String!
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  associatedCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CategoryFilterInput order: [CategorySortInput!]): AssociatedCategoriesConnection
+  associatedCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicCategoryFilterInput order: [IPolymorphicCategorySortInput!]): AssociatedCategoriesConnection
   internalId: UUID!
   educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsConnection
 }
@@ -513,7 +518,7 @@ type SoftwareDevelopmentCategoriesEdge {
   node: SoftwareDevelopmentCategory!
 }
 
-type SoftwareDevelopmentCategory implements Node {
+type SoftwareDevelopmentCategory implements PolymorphicCategory & PolymorphicTechnologyCategory & Node {
   href: URL
   title: String!
   id: ID!
@@ -540,7 +545,7 @@ type TechnologyCategoriesConnection {
   "A list of edges."
   edges: [TechnologyCategoriesEdge!]
   "A flattened list of the nodes."
-  nodes: [TechnologyCategory!]
+  nodes: [PolymorphicTechnologyCategory!]
   "Identifies the total count of items in the connection."
   totalCount: Int!
 }
@@ -550,21 +555,7 @@ type TechnologyCategoriesEdge {
   "A cursor for use in pagination."
   cursor: String!
   "The item at the end of the edge."
-  node: TechnologyCategory!
-}
-
-type TechnologyCategory implements Node {
-  kind: CategoryType!
-  href: URL
-  title: String!
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  version: Long!
-  internalId: UUID!
-  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
-  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  node: PolymorphicTechnologyCategory!
 }
 
 type TextItem implements Node {
@@ -603,6 +594,48 @@ type TimePeriod {
   end: Date
 }
 
+"A connection to a list of items."
+type UnknownCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [UnknownCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [UnknownCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type UnknownCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: UnknownCategory!
+}
+
+type UnknownCategory implements PolymorphicCategory & Node {
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+}
+
+type UnknownTechnologyCategory implements PolymorphicTechnologyCategory {
+  id: ID!
+  href: URL
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+}
+
 input AchievementFilterInput {
   and: [AchievementFilterInput!]
   or: [AchievementFilterInput!]
@@ -616,29 +649,6 @@ input AchievementFilterInput {
 
 input AchievementSortInput {
   content: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
-}
-
-input CategoryFilterInput {
-  and: [CategoryFilterInput!]
-  or: [CategoryFilterInput!]
-  kind: CategoryTypeOperationFilterInput
-  href: UrlOperationFilterInput
-  associatedCategoryTypes: ListCategoryTypeOperationFilterInput
-  title: StringOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-}
-
-input CategorySortInput {
-  kind: SortEnumType
-  href: UriSortInput
-  title: SortEnumType
   id: SortEnumType
   createdAt: SortEnumType
   updatedAt: SortEnumType
@@ -755,6 +765,44 @@ input EducationItemSortInput {
   createdAt: SortEnumType
   updatedAt: SortEnumType
   version: SortEnumType
+}
+
+input IPolymorphicCategoryFilterInput {
+  and: [IPolymorphicCategoryFilterInput!]
+  or: [IPolymorphicCategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+}
+
+input IPolymorphicCategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+}
+
+input IPolymorphicTechnologyCategoryFilterInput {
+  and: [IPolymorphicTechnologyCategoryFilterInput!]
+  or: [IPolymorphicTechnologyCategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+}
+
+input IPolymorphicTechnologyCategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+  href: UriSortInput
 }
 
 input InformationTechnologyCategoryFilterInput {
@@ -979,28 +1027,6 @@ input StringOperationFilterInput {
   nendsWith: String
 }
 
-input TechnologyCategoryFilterInput {
-  and: [TechnologyCategoryFilterInput!]
-  or: [TechnologyCategoryFilterInput!]
-  kind: CategoryTypeOperationFilterInput
-  href: UrlOperationFilterInput
-  title: StringOperationFilterInput
-  id: UuidOperationFilterInput
-  createdAt: DateTimeOperationFilterInput
-  updatedAt: DateTimeOperationFilterInput
-  version: LongOperationFilterInput
-}
-
-input TechnologyCategorySortInput {
-  kind: SortEnumType
-  href: UriSortInput
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
-}
-
 input TextItemFilterInput {
   and: [TextItemFilterInput!]
   or: [TextItemFilterInput!]
@@ -1033,6 +1059,24 @@ input TimePeriodFilterInput {
 input TimePeriodSortInput {
   start: SortEnumType
   end: SortEnumType
+}
+
+input UnknownCategoryFilterInput {
+  and: [UnknownCategoryFilterInput!]
+  or: [UnknownCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input UnknownCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
 }
 
 input UriSortInput {

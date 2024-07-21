@@ -4,72 +4,63 @@
       "totalCount": 6,
       "nodes": [
         {
-          "associatedCategoryTypes": [],
+          "__typename": "UnknownCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "href": null,
-          "id": "Q2F0ZWdvcnkKZ2M5ZjU4NzlkNDAxODQ5YTA5YjcxYjQ3OWRkNWRlN2Zm",
-          "internalId": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
-          "kind": "NONE",
+          "id": "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "c9f5879d-4018-49a0-9b71-b479dd5de7ff"
         },
         {
-          "associatedCategoryTypes": [],
+          "__typename": "PortfolioCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "href": null,
-          "id": "Q2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
-          "internalId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
-          "kind": "PORTFOLIO",
+          "id": "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "38e483e4-6961-4b25-88a9-d1d0a5161109"
         },
         {
+          "__typename": "ResumeCategory",
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
           "associatedCategoryTypes": [
             "SOFTWARE_DEVELOPMENT"
           ],
-          "createdAt": "2024-01-01T00:00:00.000Z",
-          "href": null,
-          "id": "Q2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
-          "internalId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
-          "kind": "RESUME",
-          "title": "Title",
-          "updatedAt": null,
-          "version": 1
+          "internalId": "eb9d6258-99c4-46bd-bd44-23d35b19965d"
         },
         {
-          "associatedCategoryTypes": [],
+          "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
           "href": "/test",
-          "id": "Q2F0ZWdvcnkKZ2NhODMyYmY5YjdjYjRjMzFiZjhkMDBmODdhMjc2ZmUz",
-          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
-          "kind": "SOFTWARE_DEVELOPMENT",
-          "title": "Title",
-          "updatedAt": null,
-          "version": 1
+          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"
         },
         {
-          "associatedCategoryTypes": [],
+          "__typename": "InformationTechnologyCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1,
           "href": "/test",
-          "id": "Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
-          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
-          "kind": "INFORMATION_TECHNOLOGY",
-          "title": "Title",
-          "updatedAt": null,
-          "version": 1
+          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee"
         },
         {
-          "associatedCategoryTypes": [],
+          "__typename": "OtherCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "href": null,
-          "id": "Q2F0ZWdvcnkKZzlmZDkxZjhhMmE0NDQ1MjBhNWIxOGFhMWMzYzI5MTMz",
-          "internalId": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133",
-          "kind": "OTHER",
+          "id": "T3RoZXJDYXRlZ29yeQpnOWZkOTFmOGEyYTQ0NDUyMGE1YjE4YWExYzNjMjkxMzM=",
           "title": "Title",
           "updatedAt": null,
-          "version": 1
+          "version": 1,
+          "internalId": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133"
         }
       ]
     }

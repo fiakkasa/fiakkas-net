@@ -4,14 +4,14 @@
       "totalCount": 2,
       "nodes": [
         {
+          "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "VGVjaG5vbG9neUNhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
-          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
-          "kind": "SOFTWARE_DEVELOPMENT",
+          "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
+          "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
           "portfolioCategories": {
             "totalCount": 1
           },
@@ -23,14 +23,14 @@
           }
         },
         {
+          "__typename": "InformationTechnologyCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
           "href": "/test",
-          "id": "VGVjaG5vbG9neUNhdGVnb3J5Cmc2Y2M0M2U5YTMxMmI0OTIzYjg5MGU5NjZiODE2OGVlZQ==",
-          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
-          "kind": "INFORMATION_TECHNOLOGY",
+          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
+          "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
           "portfolioCategories": {
             "totalCount": 0
           },

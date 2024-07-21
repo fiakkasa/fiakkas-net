@@ -1,8 +1,14 @@
 ﻿[
   {
-    "Kind": "SoftwareDevelopment",
+    "Href": null,
+    "Title": "Title",
+    "Id": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
+    "CreatedAt": "2024-01-01T00:00:00+00:00",
+    "UpdatedAt": null,
+    "Version": 1
+  },
+  {
     "Href": "/test",
-    "AssociatedCategoryTypes": [],
     "Title": "Title",
     "Id": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
     "CreatedAt": "2024-01-01T00:00:00+00:00",
@@ -10,11 +16,9 @@
     "Version": 1
   },
   {
-    "Kind": "SoftwareDevelopment",
     "Href": "/test",
-    "AssociatedCategoryTypes": [],
     "Title": "Title",
-    "Id": "cb832bf9-b7cb-4c31-bf8d-00f87a276fe3",
+    "Id": "6cc43e9a-312b-4923-b890-e966b8168eee",
     "CreatedAt": "2024-01-01T00:00:00+00:00",
     "UpdatedAt": null,
     "Version": 1

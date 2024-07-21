@@ -1,0 +1,17 @@
+﻿{
+  "data": {
+    "unknownCategories": {
+      "totalCount": 1,
+      "nodes": [
+        {
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==",
+          "internalId": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
+          "title": "Title",
+          "updatedAt": null,
+          "version": 1
+        }
+      ]
+    }
+  }
+}

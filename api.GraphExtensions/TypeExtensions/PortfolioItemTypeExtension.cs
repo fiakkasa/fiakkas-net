@@ -22,7 +22,7 @@ public sealed class PortfolioItemTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<IEnumerable<TechnologyCategory>> GetTechnologyCategories(
+    public async ValueTask<IEnumerable<IPolymorphicTechnologyCategory>> GetTechnologyCategories(
         [Parent] PortfolioItem parent,
         [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken
@@ -42,7 +42,7 @@ public sealed class PortfolioItemTypeExtension
             ", ",
             (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
                 .SelectMany(x => x)
-                .OfType<ITechnologyCategory>()
+                .OfType<IPolymorphicTechnologyCategory>()
                 .Select(x => x.Title)
         );
 }

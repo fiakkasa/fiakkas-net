@@ -65,7 +65,7 @@ public class EducationItemQueriesTests
         var result = await EducationItemQueries.GetEducationItemById(id, dataLoader, default);
 
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<EducationItem>();
+        result.Should().BeOfType<EducationItem>();
         result.MatchSnapshot();
     }
 

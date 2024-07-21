@@ -32,7 +32,7 @@ public partial class SoftwareDevelopmentCategoriesTests
             fn().Errors.Should().BeNullOrEmpty();
             result.ToJson().MatchSnapshot();
         }
-    
+
         [Fact]
         public async Task OtherCategoryById_Should_Return_Data()
         {

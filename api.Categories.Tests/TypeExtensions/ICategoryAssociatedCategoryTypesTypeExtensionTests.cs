@@ -5,7 +5,7 @@ using api.Categories.Models;
 
 namespace api.Categories.TypeExtensions.Tests;
 
-public class ResumeCategoryTypeExtensionTests
+public class ICategoryAssociatedCategoryTypesTypeExtensionTests
 {
     [Fact]
     public async Task GetAssociatedCategories_Should_Return_Data()
@@ -24,23 +24,22 @@ public class ResumeCategoryTypeExtensionTests
             },
             new CategoryEntity
             {
-                Kind = CategoryType.SoftwareDevelopment,
+                Kind = CategoryType.Other,
                 Id = new Guid("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
-                Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Title = "Title"
             }
         ]);
         var dataLoader = new AssociatedCategoryGroupDataLoader(
             dataRepository,
             AutoBatchScheduler.Default
         );
-        var sut = new ResumeCategoryTypeExtension();
+        var sut = new ICategoryAssociatedCategoryTypesTypeExtension();
 
         var result = await sut.GetAssociatedCategories(
-            new ResumeCategory { AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment] },
+            new ResumeCategory { AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment, CategoryType.Other] },
             dataLoader,
             CancellationToken.None
         );

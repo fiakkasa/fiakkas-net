@@ -55,7 +55,7 @@ public class PortfolioItemQueriesTests
         var result = await PortfolioItemQueries.GetPortfolioItemById(id, dataLoader, default);
 
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<PortfolioItem>();
+        result.Should().BeOfType<PortfolioItem>();
         result.MatchSnapshot();
     }
 

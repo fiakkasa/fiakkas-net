@@ -1,16 +1,20 @@
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.Customers.Models;
+using api.EducationItems.Models;
 using api.Portfolio.Models;
 using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
+using HotChocolate.Types.Relay;
 
 namespace api.GraphExtensions.Extensions.Tests;
 
 public class RegistrationExtensionsTests
 {
-    public record MockTechnologyCategory : ITechnologyCategory
+    [Node]
+    public record MockTechnologyCategory : ITechnologyCategory, IPolymorphicTechnologyCategory
     {
+        [ID]
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }
         public DateTimeOffset? UpdatedAt { get; init; }
@@ -23,21 +27,26 @@ public class RegistrationExtensionsTests
     public static class TestQueries
     {
         public static IEnumerable<Customer> Customers => [];
-        public static IEnumerable<TechnologyCategory> TechnologyCategories => [];
+        public static IEnumerable<EducationItem> EducationItems => [];
+        public static IEnumerable<IPolymorphicTechnologyCategory> PolymorphicTechnologyCategories => [];
+        public static IEnumerable<MockTechnologyCategory> TechnologyCategories => [];
         public static IEnumerable<PortfolioCategory> PortfolioCategories => [];
         public static IEnumerable<PortfolioItem> PortfolioItems => [];
+        public static IEnumerable<ResumeCategory> ResumeCategories => [];
     }
 
     [Fact]
-    public async Task AddApiCustomers_GraphQL_Registration_Should_Add_GraphQL_Assets()
+    public async Task AddApiGraphExtensions_GraphQL_Registration_Should_Add_GraphQL_Assets()
     {
         var result =
             await new ServiceCollection()
                 .AddSingleton(typeof(IDataRepository<>), typeof(MockDataRepository<>))
                 .AddGraphQLServer()
+                .AddGlobalObjectIdentification()
                 .AddQueryType()
                 .AddSorting()
                 .AddFiltering()
+                .AddInterfaceType<IPolymorphicTechnologyCategory>(descriptor => descriptor.Field(f => f.Id).ID())
                 .AddTypeExtension(typeof(TestQueries))
                 .AddObjectType<MockTechnologyCategory>()
                 .AddApiGraphExtensions()
@@ -46,7 +55,6 @@ public class RegistrationExtensionsTests
         var schema = result.Print();
 
         schema.Should().NotBeEmpty();
-
         schema.MatchSnapshot();
     }
 }

@@ -48,7 +48,7 @@ public class LanguageQueriesTests
         var result = await LanguageQueries.GetLanguageById(id, dataLoader, default);
 
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<Language>();
+        result.Should().BeOfType<Language>();
         result.MatchSnapshot();
     }
 

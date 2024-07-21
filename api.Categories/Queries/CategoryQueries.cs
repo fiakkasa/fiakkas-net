@@ -3,7 +3,6 @@ using api.Categories.Interfaces;
 using api.Categories.Mappers;
 using api.Categories.Models;
 using api.Categories.Utils;
-using HotChocolate.Types.Relay;
 
 namespace api.Categories.Queries;
 
@@ -13,13 +12,22 @@ public static class CategoryQueries
     [UsePaging]
     [UseSorting]
     [UseFiltering]
-    public static IQueryable<Category> GetCategories([Service] IDataRepository<ICategory> repository) =>
-        repository.Get(CategoryMappers.MapCategory);
-    
+    public static IQueryable<IPolymorphicCategory> GetCategories([Service] IDataRepository<ICategory> repository) =>
+        repository.Get(CategoryMappers.MapPolymorphicCategory);
+
+    [UsePaging]
+    [UseSorting]
+    [UseFiltering]
+    public static IQueryable<UnknownCategory> GetUnknownCategories([Service] IDataRepository<ICategory> repository) =>
+        repository.Get(
+            CategoryEntityUtils.IsUnknownCategory,
+            CategoryMappers.MapUnknownCategory
+        );
+
     [NodeResolver]
-    public static async ValueTask<Category?> GetCategoryById(
+    public static async ValueTask<UnknownCategory?> GetUnknownCategoryById(
         Guid id,
-        [Service] CategoryBatchDataLoader dataLoader,
+        [Service] UnknownCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
     ) =>
         await dataLoader.LoadAsync(id, cancellationToken);
@@ -84,7 +92,6 @@ public static class CategoryQueries
             CategoryMappers.MapInformationTechnologyCategory
         );
 
-    
     [NodeResolver]
     public static async ValueTask<InformationTechnologyCategory?> GetInformationTechnologyCategoryById(
         Guid id,
@@ -96,19 +103,11 @@ public static class CategoryQueries
     [UsePaging]
     [UseSorting]
     [UseFiltering]
-    public static IQueryable<TechnologyCategory> GetTechnologyCategories([Service] IDataRepository<ICategory> repository) =>
+    public static IQueryable<IPolymorphicTechnologyCategory> GetTechnologyCategories([Service] IDataRepository<ICategory> repository) =>
         repository.Get(
             CategoryEntityUtils.IsTechnologyCategory,
-            CategoryMappers.MapTechnologyCategory
+            CategoryMappers.MapPolymorphicTechnologyCategory
         );
-
-    [NodeResolver]
-    public static async ValueTask<TechnologyCategory?> GetTechnologyCategoryById(
-        Guid id,
-        [Service] TechnologyCategoryBatchDataLoader dataLoader,
-        CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
 
     [UsePaging]
     [UseSorting]

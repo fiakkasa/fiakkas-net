@@ -4,9 +4,9 @@ public sealed class TechnologyCategoryGroupDataLoader(
     IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GroupedDataLoader<Guid, TechnologyCategory>(batchScheduler, options)
+) : GroupedDataLoader<Guid, IPolymorphicTechnologyCategory>(batchScheduler, options)
 {
-    protected override async Task<ILookup<Guid, TechnologyCategory>> LoadGroupedBatchAsync(
+    protected override async Task<ILookup<Guid, IPolymorphicTechnologyCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
@@ -15,7 +15,7 @@ public sealed class TechnologyCategoryGroupDataLoader(
                 CategoryEntityUtils.IsTechnologyCategory(x)
                 && keys.Contains(x.Id),
             x => x.Id,
-            CategoryMappers.MapTechnologyCategory,
+            CategoryMappers.MapPolymorphicTechnologyCategory,
             cancellationToken
         );
 }

@@ -47,7 +47,7 @@ public class AchievementQueriesTests
         var result = await AchievementQueries.GetAchievementById(id, dataLoader, default);
 
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<Achievement>();
+        result.Should().BeOfType<Achievement>();
         result.MatchSnapshot();
     }
 

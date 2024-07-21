@@ -8,6 +8,7 @@ global using HotChocolate;
 global using HotChocolate.Data;
 global using HotChocolate.Execution.Configuration;
 global using HotChocolate.Types;
+global using HotChocolate.Types.Relay;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;

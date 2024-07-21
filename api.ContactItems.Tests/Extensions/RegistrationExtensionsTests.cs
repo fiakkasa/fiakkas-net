@@ -34,6 +34,7 @@ public class RegistrationExtensionsTests
             await new ServiceCollection()
                 .AddSingleton(Substitute.For<IDataRepository<IContactItem>>())
                 .AddGraphQLServer()
+                .AddGlobalObjectIdentification()
                 .AddQueryType()
                 .AddSorting()
                 .AddFiltering()
@@ -43,7 +44,6 @@ public class RegistrationExtensionsTests
         var schema = result.Print();
 
         schema.Should().NotBeEmpty();
-
         schema.MatchSnapshot();
     }
 }

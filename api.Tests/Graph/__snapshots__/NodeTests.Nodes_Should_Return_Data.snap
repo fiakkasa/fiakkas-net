@@ -2,8 +2,8 @@
   "data": {
     "nodes": [
       {
-        "id": "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk",
         "__typename": "Achievement",
+        "id": "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk",
         "content": "Content",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "d4605b0c-58bc-49ac-bcfd-10a24a203add",
@@ -15,20 +15,8 @@
         "yearsSummary": "2024"
       },
       {
-        "id": "Q2F0ZWdvcnkKZ2M5ZjU4NzlkNDAxODQ5YTA5YjcxYjQ3OWRkNWRlN2Zm",
-        "__typename": "Category",
-        "associatedCategoryTypes": [],
-        "createdAt": "2024-01-01T00:00:00.000Z",
-        "href": null,
-        "internalId": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
-        "kind": "NONE",
-        "title": "Title",
-        "updatedAt": null,
-        "version": 1
-      },
-      {
-        "id": "Q29udGFjdEl0ZW0KZ2ViZjIyNGE4N2ZmMzQ3Yjk4ODJiZGQ0MWVjN2Y1YTA1",
         "__typename": "ContactItem",
+        "id": "Q29udGFjdEl0ZW0KZ2ViZjIyNGE4N2ZmMzQ3Yjk4ODJiZGQ0MWVjN2Y1YTA1",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "description": "Content",
         "href": "/test",
@@ -40,8 +28,8 @@
         "version": 1
       },
       {
-        "id": "Q3VzdG9tZXIKZzE4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
         "__typename": "Customer",
+        "id": "Q3VzdG9tZXIKZzE4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "href": "/test",
         "internalId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
@@ -50,8 +38,8 @@
         "version": 1
       },
       {
-        "id": "RWR1Y2F0aW9uSXRlbQpnMzg4OThjNjIxNjFlNDBmMjhhOWYzOWJmMWZmNDYyMjQ=",
         "__typename": "EducationItem",
+        "id": "RWR1Y2F0aW9uSXRlbQpnMzg4OThjNjIxNjFlNDBmMjhhOWYzOWJmMWZmNDYyMjQ=",
         "categoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "description": "Description",
@@ -66,8 +54,8 @@
         "version": 1
       },
       {
-        "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
         "__typename": "InformationTechnologyCategory",
+        "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "href": "/test",
         "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
@@ -76,8 +64,8 @@
         "version": 1
       },
       {
-        "id": "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4",
         "__typename": "Language",
+        "id": "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "02a3be9b-3f04-4b4a-8945-e84fef537b58",
         "proficiency": "NATIVE",
@@ -86,8 +74,8 @@
         "version": 1
       },
       {
-        "id": "T3RoZXJDYXRlZ29yeQpnOWZkOTFmOGEyYTQ0NDUyMGE1YjE4YWExYzNjMjkxMzM=",
         "__typename": "OtherCategory",
+        "id": "T3RoZXJDYXRlZ29yeQpnOWZkOTFmOGEyYTQ0NDUyMGE1YjE4YWExYzNjMjkxMzM=",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133",
         "title": "Title",
@@ -95,8 +83,8 @@
         "version": 1
       },
       {
-        "id": "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
         "__typename": "PortfolioCategory",
+        "id": "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
         "title": "Title",
@@ -104,8 +92,8 @@
         "version": 1
       },
       {
-        "id": "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=",
         "__typename": "PortfolioItem",
+        "id": "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=",
         "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
@@ -121,8 +109,8 @@
         "year": 2024
       },
       {
-        "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
         "__typename": "ResumeCategory",
+        "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
         "associatedCategoryTypes": [
           "SOFTWARE_DEVELOPMENT"
         ],
@@ -133,8 +121,8 @@
         "version": 1
       },
       {
-        "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
         "__typename": "SoftwareDevelopmentCategory",
+        "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "href": "/test",
         "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
@@ -143,19 +131,8 @@
         "version": 1
       },
       {
-        "id": "VGVjaG5vbG9neUNhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
-        "__typename": "TechnologyCategory",
-        "createdAt": "2024-01-01T00:00:00.000Z",
-        "href": "/test",
-        "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
-        "kind": "SOFTWARE_DEVELOPMENT",
-        "title": "Title",
-        "updatedAt": null,
-        "version": 1
-      },
-      {
-        "id": "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
         "__typename": "TextItem",
+        "id": "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
         "content": "Content",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "48e483e4-6961-4b25-88a9-d1d0a5161109",

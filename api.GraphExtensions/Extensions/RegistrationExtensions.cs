@@ -23,6 +23,6 @@ public static class RegistrationExtensions
             .AddTypeExtension<IBaseIdTypeExtension>()
             .AddTypeExtension<ITechnologyCategoryTypeExtension>()
             .AddTypeExtension<PortfolioCategoryTypeExtension>()
-            .AddTypeExtension<ResumeCategoryTypeExtension>()
-            .AddTypeExtension<PortfolioItemTypeExtension>();
+            .AddTypeExtension<PortfolioItemTypeExtension>()
+            .AddTypeExtension<ResumeCategoryTypeExtension>();
 }

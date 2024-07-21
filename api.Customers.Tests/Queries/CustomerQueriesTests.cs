@@ -47,7 +47,7 @@ public class CustomerQueriesTests
         var result = await CustomerQueries.GetCustomerById(id, dataLoader, default);
 
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<Customer>();
+        result.Should().BeOfType<Customer>();
         result.MatchSnapshot();
     }
 

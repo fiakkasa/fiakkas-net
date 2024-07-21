@@ -15,44 +15,64 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
   categories {
     totalCount
     nodes {
-      associatedCategoryTypes
+      __typename
       createdAt
-      href
       id
-      internalId
-      kind
       title
       updatedAt
       version
+      ... on InformationTechnologyCategory {
+        createdAt
+        href
+        id
+        internalId
+        title
+        updatedAt
+        version
+      }
+      ... on OtherCategory {
+        createdAt
+        id
+        internalId
+        title
+        updatedAt
+        version
+      }
+      ... on PortfolioCategory {
+        createdAt
+        id
+        internalId
+        title
+        updatedAt
+        version
+      }
+      ... on ResumeCategory {
+        associatedCategoryTypes
+        createdAt
+        id
+        internalId
+        title
+        updatedAt
+        version
+      }
+      ... on SoftwareDevelopmentCategory {
+        createdAt
+        href
+        id
+        internalId
+        title
+        updatedAt
+        version
+      }
+      ... on UnknownCategory {
+        createdAt
+        id
+        internalId
+        title
+        updatedAt
+        version
+      }
     }
-  }
-}
-""");
-
-        Func<IQueryResult> fn = result.ExpectQueryResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
-        result.ToJson().MatchSnapshot();
-    }
-
-    [Fact]
-    public async Task CategoryById_Should_Return_Data()
-    {
-        var executor = await fixture.GetRequestExecutor();
-
-        var result = await executor.ExecuteAsync(
-"""
-{
-  categoryById(id: "Q2F0ZWdvcnkKZ2M5ZjU4NzlkNDAxODQ5YTA5YjcxYjQ3OWRkNWRlN2Zm") {
-    associatedCategoryTypes
-    createdAt
-    href
-    id
-    internalId
-    kind
-    title
-    updatedAt
-    version
   }
 }
 """);

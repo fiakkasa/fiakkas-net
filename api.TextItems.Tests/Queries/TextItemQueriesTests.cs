@@ -49,7 +49,7 @@ public class TextItemQueriesTests
         var result = await TextItemQueries.GetTextItemById(id, dataLoader, default);
 
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<TextItem>();
+        result.Should().BeOfType<TextItem>();
         result.MatchSnapshot();
     }
 

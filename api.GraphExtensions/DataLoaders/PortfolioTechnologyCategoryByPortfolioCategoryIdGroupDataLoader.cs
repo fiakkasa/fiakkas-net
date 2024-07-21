@@ -5,9 +5,9 @@ public sealed class PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoa
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
     DataLoaderOptions? options = null
-) : GroupedDataLoader<Guid, TechnologyCategory>(batchScheduler, options)
+) : GroupedDataLoader<Guid, IPolymorphicTechnologyCategory>(batchScheduler, options)
 {
-    protected override async Task<ILookup<Guid, TechnologyCategory>> LoadGroupedBatchAsync(
+    protected override async Task<ILookup<Guid, IPolymorphicTechnologyCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
     ) =>
@@ -33,7 +33,7 @@ public sealed class PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoa
                         item => item.Id,
                         (x, item) => new { x.CategoryId, item }
                     )
-                    .ToLookup(x => x.CategoryId, x => x.item.MapTechnologyCategory());
+                    .ToLookup(x => x.CategoryId, x => x.item.MapPolymorphicTechnologyCategory());
             },
             cancellationToken
         );

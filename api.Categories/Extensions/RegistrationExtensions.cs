@@ -21,13 +21,15 @@ public static class RegistrationExtensions
     public static IRequestExecutorBuilder AddApiCategories(this IRequestExecutorBuilder builder) =>
         builder
             .AddDataLoader<AssociatedCategoryGroupDataLoader>()
-            .AddDataLoader<CategoryBatchDataLoader>()
             .AddDataLoader<InformationTechnologyCategoryBatchDataLoader>()
             .AddDataLoader<OtherCategoryBatchDataLoader>()
             .AddDataLoader<PortfolioCategoryBatchDataLoader>()
             .AddDataLoader<ResumeCategoryBatchDataLoader>()
             .AddDataLoader<SoftwareDevelopmentCategoryBatchDataLoader>()
-            .AddDataLoader<TechnologyCategoryBatchDataLoader>()
+            .AddDataLoader<UnknownCategoryBatchDataLoader>()
+            .AddInterfaceType<IPolymorphicCategory>(descriptor => descriptor.Field(f => f.Id).ID())
+            .AddInterfaceType<IPolymorphicTechnologyCategory>(descriptor => descriptor.Field(f => f.Id).ID())
+            .AddObjectType<UnknownTechnologyCategory>(descriptor => descriptor.Field(f => f.Id).ID())
             .AddTypeExtension(typeof(CategoryQueries))
-            .AddTypeExtension<ResumeCategoryTypeExtension>();
+            .AddTypeExtension<ICategoryAssociatedCategoryTypesTypeExtension>();
 }

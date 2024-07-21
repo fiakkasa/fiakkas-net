@@ -5,7 +5,6 @@ using api.Categories.Utils;
 
 namespace api.Categories.DataLoaders;
 
-[ExcludeFromCodeCoverage]
 public sealed class ResumeCategoryBatchDataLoader(
     IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
