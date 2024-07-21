@@ -1,0 +1,6 @@
+POST /graphql HTTP/1.1
+Host: localhost:5069
+Content-Type: application/json
+Content-Length: 220
+
+{"query":"{\n  textItemById(id: \"VGV4dEl0ZW0KZzJmNjllOTczNTUwYjQ3Njk4MDFhZTc1NzgwN2U2ODQ1\") {\n    content\n    createdAt\n    id\n    internalId\n    key\n    title\n    updatedAt\n    version\n  }\n}","variables":{}}

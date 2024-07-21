@@ -1,6 +1,6 @@
 POST /graphql HTTP/1.1
 Host: localhost:5069
 Content-Type: application/json
-Content-Length: 178
+Content-Length: 196
 
-{"query":"{\n  languages {\n    totalCount\n    nodes {\n      createdAt\n      id\n      proficiency\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}
+{"query":"{\n  languages {\n    totalCount\n    nodes {\n      createdAt\n      id\n      internalId\n      proficiency\n      title\n      updatedAt\n      version\n    }\n  }\n}","variables":{}}

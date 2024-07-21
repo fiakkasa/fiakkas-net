@@ -1,6 +1,6 @@
 POST /graphql HTTP/1.1
 Host: localhost:5069
 Content-Type: application/json
-Content-Length: 563
+Content-Length: 623
 
-{"query":"{\n  portfolioItems {\n    totalCount\n    nodes {\n      categoryId\n      createdAt\n      customerId\n      href\n      id\n      technologiesSummary\n      technologyIds\n      title\n      updatedAt\n      version\n      year\n      category {\n        createdAt\n        id\n        title\n        updatedAt\n        version\n      }\n      customer {\n        createdAt\n        href\n        id\n        title\n        updatedAt\n        version\n      }\n      technologyCategories {\n        totalCount\n      }\n    }\n  }\n}","variables":{}}
+{"query":"{\n  portfolioItems {\n    totalCount\n    nodes {\n      categoryId\n      createdAt\n      customerId\n      href\n      id\n      internalId\n      technologiesSummary\n      technologyIds\n      title\n      updatedAt\n      version\n      year\n      category {\n        createdAt\n        id\n        internalId\n        title\n        updatedAt\n        version\n      }\n      customer {\n        createdAt\n        href\n        id\n        internalId\n        title\n        updatedAt\n        version\n      }\n      technologyCategories {\n        totalCount\n      }\n    }\n  }\n}\n","variables":{}}
