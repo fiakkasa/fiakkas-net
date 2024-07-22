@@ -56,6 +56,8 @@ Before running the tests for the first time, ensure that you run the `dotnet too
 
 To run all tests, merge the produced coverage assets, and produce a coverage report run:
 
+_Bash_
+
 ```bash
 rm -rd ./CoverageResults
 rm -rd ./TestResults
