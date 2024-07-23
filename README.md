@@ -61,16 +61,20 @@ _Bash_
 ```bash
 rm -rd ./CoverageResults
 rm -rd ./TestResults
-dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" -m:1
+dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" /p:Exclude="[*]*GraphRequestExecutorBuilderExtensions" -m:1
 dotnet reportgenerator -reports:./CoverageResults/coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
 To run tests for a specific project, enter the `*.Tests` counterpart and run:
 
+_Bash_
+
 ```bash
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml'
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml' /p:Exclude="[*]*GraphRequestExecutorBuilderExtensions"
 dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
+
+📝 _Observe the `/p:Exclude="[*]*GraphRequestExecutorBuilderExtensions`, this is added as to ensure that the auto generated HotChocolate registrations are skipped._
 
 ## Logging
 
