@@ -1,6 +1,4 @@
 using api.Application.Models;
-using api.Application.Queries;
-using api.Application.TypeExtensions;
 
 namespace api.Application.Extensions;
 
@@ -19,8 +17,5 @@ public static class RegistrationExtensions
         );
 
     public static IRequestExecutorBuilder AddApiApplication(this IRequestExecutorBuilder builder) =>
-        builder
-            .AddTypeExtension(typeof(SystemQueries))
-            .AddTypeExtension(typeof(HealthQueries))
-            .AddTypeExtension<SystemInfoItemTypeExtension>();
+        builder.AddApplicationGraph();
 }

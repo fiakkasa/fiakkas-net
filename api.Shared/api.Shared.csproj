@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate" Version="13.9.7" />
     <PackageReference Include="HotChocolate.Data" Version="13.9.7" />
+    <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.7" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,5 @@
-using api.ContactItems.DataLoaders;
 using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
-using api.ContactItems.Queries;
 using api.ContactItems.Services;
 
 namespace api.ContactItems.Extensions;
@@ -18,7 +16,5 @@ public static class RegistrationExtensions
     }
 
     public static IRequestExecutorBuilder AddApiContactItems(this IRequestExecutorBuilder builder) =>
-        builder
-            .AddDataLoader<ContactItemBatchDataLoader>()
-            .AddTypeExtension(typeof(ContactItemQueries));
+        builder.AddContactItemsGraph();
 }

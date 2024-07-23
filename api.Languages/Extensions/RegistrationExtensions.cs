@@ -1,7 +1,5 @@
-using api.Languages.DataLoaders;
 using api.Languages.Interfaces;
 using api.Languages.Models;
-using api.Languages.Queries;
 using api.Languages.Services;
 
 namespace api.Languages.Extensions;
@@ -18,7 +16,5 @@ public static class RegistrationExtensions
     }
 
     public static IRequestExecutorBuilder AddApiLanguages(this IRequestExecutorBuilder builder) =>
-        builder
-            .AddDataLoader<LanguageBatchDataLoader>()
-            .AddTypeExtension(typeof(LanguageQueries));
+        builder.AddLanguagesGraph();
 }

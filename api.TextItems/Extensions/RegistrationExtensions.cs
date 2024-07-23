@@ -1,7 +1,5 @@
-using api.TextItems.DataLoaders;
 using api.TextItems.Interfaces;
 using api.TextItems.Models;
-using api.TextItems.Queries;
 using api.TextItems.Services;
 
 namespace api.TextItems.Extensions;
@@ -18,7 +16,5 @@ public static class RegistrationExtensions
     }
 
     public static IRequestExecutorBuilder AddApiTextItems(this IRequestExecutorBuilder builder) =>
-        builder
-            .AddDataLoader<TextItemBatchDataLoader>()
-            .AddTypeExtension(typeof(TextItemQueries));
+        builder.AddTextItemsGraph();
 }
