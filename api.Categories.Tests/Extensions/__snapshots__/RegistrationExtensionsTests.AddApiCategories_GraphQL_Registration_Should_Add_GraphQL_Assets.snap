@@ -271,7 +271,7 @@ type UnknownCategory implements IPolymorphicCategory & Node {
   version: Long!
 }
 
-type UnknownTechnologyCategory implements IPolymorphicTechnologyCategory {
+type UnknownTechnologyCategory implements Node & IPolymorphicTechnologyCategory {
   id: ID!
   href: URL
   title: String!

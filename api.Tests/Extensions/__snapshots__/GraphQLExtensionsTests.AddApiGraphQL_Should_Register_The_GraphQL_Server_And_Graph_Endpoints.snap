@@ -623,7 +623,7 @@ type UnknownCategory implements PolymorphicCategory & Node {
   internalId: UUID!
 }
 
-type UnknownTechnologyCategory implements PolymorphicTechnologyCategory {
+type UnknownTechnologyCategory implements Node & PolymorphicTechnologyCategory {
   id: ID!
   href: URL
   title: String!
