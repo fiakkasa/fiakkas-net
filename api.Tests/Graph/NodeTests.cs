@@ -38,6 +38,10 @@ public class NodeTests(GraphFixture fixture) : IClassFixture<GraphFixture>
       "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw=="
       #TextItem
       "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5"
+      #UnknownCategory
+      "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg=="
+      #UnknownTechnologyCategory
+      "VW5rbm93blRlY2hub2xvZ3lDYXRlZ29yeQpnZTBlOWNhNWQ1MjYzNDRmNzhiMjNiM2NlMjAzMjMxZDQ="
     ]
   ) {
     __typename
@@ -164,6 +168,15 @@ public class NodeTests(GraphFixture fixture) : IClassFixture<GraphFixture>
     }
     ... on UnknownCategory {
       createdAt
+      id
+      internalId
+      title
+      updatedAt
+      version
+    }
+    ... on UnknownTechnologyCategory {
+      createdAt
+      href
       id
       internalId
       title
