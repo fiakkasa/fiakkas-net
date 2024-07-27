@@ -161,7 +161,7 @@ In addition a number of enrichers are present and enabled by default:
 
 ## Exporting the Schema
 
-The schema cna be export by running the api with the following command:
+The schema can be exported by running the api with the following command:
 
 `dotnet run --project ./api/api.csproj -- schema export --output ../schema.graphql`
 
