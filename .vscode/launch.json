@@ -44,6 +44,26 @@
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       }
+    },
+    {
+      "name": "ui Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ui",
+      "program": "${workspaceFolder}/ui/bin/Debug/net8.0/ui",
+      "args": [],
+      "cwd": "${workspaceFolder}/ui",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
     }
   ]
 }
