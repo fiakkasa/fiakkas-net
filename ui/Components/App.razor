@@ -13,18 +13,9 @@
     <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 
-<body class="vw-100 vh-100 overflow-hidden d-flex flex-column">
+<body class="vh-100 vw-100 overflow-hidden d-flex flex-column">
     <Routes @rendermode="InteractiveServer" />
-    <script src="_framework/blazor.web.js" autostart="false"></script>
-    <script>
-        Blazor.start({
-            circuit: {
-                configureSignalR: builder => {
-                    builder.withUrl('_blazor', 6);
-                }
-            }
-        });
-    </script>
+    <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>

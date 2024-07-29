@@ -80,6 +80,7 @@ const { checkPort } = require('get-port-please');
   const uiProxy = createProxyMiddleware({
     target: dotnetUrl,
     changeOrigin: true,
+    ws: true,
     logger: console,
     pathRewrite: {
       '^/ui': '/'

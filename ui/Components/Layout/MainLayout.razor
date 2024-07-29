@@ -1,8 +1,8 @@
 ﻿@inherits LayoutComponentBase
 
-<NavMenu />
+<NavMenu CssClass="order-3 order-md-1" />
 
-<main class="order-1 flex-fill oveflow-x-hidden overflow-y-auto py-1 px-3">
+<main class="order-2 flex-fill oveflow-x-hidden overflow-y-auto py-1 px-3">
     <ErrorBoundary @ref="errorBoundary">
         <ChildContent>
             @Body
@@ -20,14 +20,6 @@
         </ErrorContent>
     </ErrorBoundary>
 </main>
-
-<div id="blazor-error-ui" class="order-first order-md-last order-sm-0 flex-shrink-0 py-2 px-3">
-    <i class="bi bi-exclamation-triangle text-warning"></i>
-    <span>Whoops, something went wrong...</span>
-    <a href="" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1" title="Reload">
-        <i class="bi bi-arrow-clockwise"></i>
-    </a>
-</div>
 
 @code {
     private ErrorBoundary? errorBoundary;
