@@ -1,25 +1,29 @@
 ﻿@inherits LayoutComponentBase
 
-<NavMenu CssClass="order-3 order-md-1" />
+<div class="position-fixed top-0 start-0 z-0 vh-100 vw-100 d-flex flex-column overflow-hidden">
+    <NavMenu CssClass="py-2 px-3 bg-secondary flex-shrink-0 order-3 order-md-1" />
 
-<main class="order-2 flex-fill oveflow-x-hidden overflow-y-auto py-1 px-3">
-    <ErrorBoundary @ref="errorBoundary">
-        <ChildContent>
-            @Body
-        </ChildContent>
-        <ErrorContent>
-            <div class="h-100 d-flex flex-column justify-content-center align-items-center">
-                <div class="mb-0 mb-md-5">
-                    <i class="bi bi-exclamation-triangle text-warning"></i>
-                    <span>Whoops, something went wrong...</span>
-                    <a href="" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1" title="Reload">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </a>
+    <main class="order-2 flex-fill overflow-hidden overflow-y-auto px-3">
+        <ErrorBoundary @ref="errorBoundary">
+            <ChildContent>
+                <div class="py-2">
+                    @Body
                 </div>
-            </div>
-        </ErrorContent>
-    </ErrorBoundary>
-</main>
+            </ChildContent>
+            <ErrorContent>
+                <div class="py-2 h-100 d-flex flex-column justify-content-center align-items-center">
+                    <div class="mb-0 mb-md-5">
+                        <i class="bi bi-exclamation-triangle text-warning"></i>
+                        <span>Whoops, something went wrong...</span>
+                        <a href="" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1" title="Reload">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </div>
+                </div>
+            </ErrorContent>
+        </ErrorBoundary>
+    </main>
+</div>
 
 @code {
     private ErrorBoundary? errorBoundary;
