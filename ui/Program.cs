@@ -1,8 +1,11 @@
 using ui.Components;
+using ui.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var isDev = builder.Environment.IsDevelopment();
+
+builder.Host.AddUiLoggingProvider();
 
 // Add services to the container.
 services
@@ -17,6 +20,9 @@ if (!isDev)
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+// note: add serilog after "noisy" middleware
+app.UseUiLoggingProvider();
 
 app
     .MapRazorComponents<App>()

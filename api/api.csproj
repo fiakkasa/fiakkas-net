@@ -7,7 +7,6 @@
     <UserSecretsId>b97c365f-36d2-4798-b493-22454f36f0b7</UserSecretsId>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-
     <ContainerRepository>fiakkas-net-api</ContainerRepository>
     <Version>2.1.2</Version>
     <ContainerImageTags>2.1.2;latest</ContainerImageTags>
