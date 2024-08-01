@@ -1,0 +1,28 @@
+<div class="@CssClass">
+    <i class="bi bi-exclamation-triangle text-warning"></i>
+    <span>
+        @if (Message is { Length: > 0 })
+        {
+            @Message
+        }
+        else
+        {
+            <text>
+                No matter how how hard the server tried, no data was retrieved... Try again later!
+            </text>
+        }
+    </span>
+
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string CssClass { get; set; } = "lead";
+
+    [Parameter]
+    public string Message { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

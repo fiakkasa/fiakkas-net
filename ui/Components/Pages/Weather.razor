@@ -11,44 +11,42 @@
 </UniversalTitle>
 
 <ContentFlow IsLoading="@_loading" HasError="@_hasError" HasContent="@(_result is { Length: > 0 })">
-    <ChildContent>
-        <div class="d-none d-md-block">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var forecast in _result)
-                    {
-                        <tr>
-                            <td>@forecast.Date.ToShortDateString()</td>
-                            <td>@forecast.TemperatureC</td>
-                            <td>@forecast.TemperatureF</td>
-                            <td>@forecast.Summary</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="d-block d-md-none">
-            <ul class="list-group">
+    <div class="d-none d-md-block">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temp. (C)</th>
+                    <th>Temp. (F)</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+            <tbody>
                 @foreach (var forecast in _result)
                 {
-                    <li class="list-group-item">
-                        <div><strong>Date:</strong> @forecast.Date.ToShortDateString()</div>
-                        <div><strong>Temp. (C):</strong> @forecast.TemperatureC</div>
-                        <div><strong>Temp. (F):</strong> @forecast.TemperatureF</div>
-                        <div><strong>Summary:</strong> @forecast.Summary</div>
-                    </li>
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
                 }
-            </ul>
-        </div>
-    </ChildContent>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-block d-md-none">
+        <ul class="list-group">
+            @foreach (var forecast in _result)
+            {
+                <li class="list-group-item">
+                    <div><strong>Date:</strong> @forecast.Date.ToShortDateString()</div>
+                    <div><strong>Temp. (C):</strong> @forecast.TemperatureC</div>
+                    <div><strong>Temp. (F):</strong> @forecast.TemperatureF</div>
+                    <div><strong>Summary:</strong> @forecast.Summary</div>
+                </li>
+            }
+        </ul>
+    </div>
 </ContentFlow>
 
 @code {

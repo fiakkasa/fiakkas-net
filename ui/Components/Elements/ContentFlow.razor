@@ -18,7 +18,7 @@ else if (HasError)
     else
     {
         <GenericError Message="@ErrorMessage">
-            @ErrorActionableContent
+            @ErrorExtraContent
         </GenericError>
     }
 }
@@ -34,9 +34,9 @@ else if (!HasContent)
     }
     else
     {
-        <div class="lead">
-            No matter how how hard the server tried, no data was retrieved... Try again later!
-        </div>
+        <GenericNoContent Message="@NoContentMessage">
+            @NoContentExtraContent
+        </GenericNoContent>
     }
 }
 
@@ -52,18 +52,24 @@ else if (!HasContent)
     
     [Parameter]
     public string ErrorMessage { get; set; } = string.Empty;
+    
+    [Parameter]
+    public string NoContentMessage { get; set; } = string.Empty;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public RenderFragment? NoContent { get; set; }
+    
+    [Parameter]
+    public RenderFragment? NoContentExtraContent { get; set; }
 
     [Parameter]
     public RenderFragment? ErrorContent { get; set; }
 
     [Parameter]
-    public RenderFragment? ErrorActionableContent { get; set; }
+    public RenderFragment? ErrorExtraContent { get; set; }
 
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }
