@@ -1,0 +1,53 @@
+@using ui.Models
+@using Microsoft.Extensions.Options
+@inject ILogger<UniversalTitle> _logger
+@inject IOptionsSnapshot<UiConfig> _optionsSnapshot
+
+<PageTitle>@_pageTitle</PageTitle>
+
+@if (Title is { Length: > 0 })
+{
+    <h1 class="sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+        <span>@Title</span>
+
+        @ChildContent
+    </h1>
+}
+else if (ChildContent is { })
+{
+    <h1 class="sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+        @ChildContent
+    </h1>
+}
+
+@code {
+    private string _pageTitle = string.Empty;
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public string PageTitle => _pageTitle ??= Title switch
+    {
+        { Length: > 0 } => $"{_optionsSnapshot.Value.Title}{_optionsSnapshot.Value.Separator}{Title}",
+        _ => _optionsSnapshot.Value.Title
+    };
+
+    protected override void OnParametersSet()
+    {
+        try
+        {
+            _pageTitle = Title switch
+            {
+                { Length: > 0 } => $"{_optionsSnapshot.Value.Title}{_optionsSnapshot.Value.Separator}{Title}",
+                _ => _optionsSnapshot.Value.Title
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to set page title with message: {Message}", ex.Message);
+        }
+    }
+}

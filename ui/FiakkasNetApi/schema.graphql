@@ -1,0 +1,1179 @@
+schema {
+  query: Query
+}
+
+type Query {
+  "Fetches an object given its ID."
+  node("ID of the object." id: ID!): Node
+  "Lookup nodes by a list of IDs."
+  nodes("The list of node IDs." ids: [ID!]!): [Node]!
+  achievements("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [AchievementSortInput!] where: AchievementFilterInput): AchievementsConnection
+  achievementById(id: ID!): Achievement
+  health: HealthReportSummary!
+  systemStatus: SystemInfoItem!
+  categories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicCategorySortInput!] where: IPolymorphicCategoryFilterInput): CategoriesConnection
+  unknownCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [UnknownCategorySortInput!] where: UnknownCategoryFilterInput): UnknownCategoriesConnection
+  unknownCategoryById(id: ID!): UnknownCategory
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesConnection
+  portfolioCategoryById(id: ID!): PortfolioCategory
+  resumeCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesConnection
+  resumeCategoryById(id: ID!): ResumeCategory
+  softwareDevelopmentCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesConnection
+  softwareDevelopmentCategoryById(id: ID!): SoftwareDevelopmentCategory
+  informationTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesConnection
+  informationTechnologyCategoryById(id: ID!): InformationTechnologyCategory
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicTechnologyCategorySortInput!] where: IPolymorphicTechnologyCategoryFilterInput): TechnologyCategoriesConnection
+  otherCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesConnection
+  otherCategoryById(id: ID!): OtherCategory
+  contactItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsConnection
+  contactItemById(id: ID!): ContactItem
+  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [CustomerSortInput!] where: CustomerFilterInput): CustomersConnection
+  customerById(id: ID!): Customer
+  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsConnection
+  educationItemById(id: ID!): EducationItem
+  languages("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [LanguageSortInput!] where: LanguageFilterInput): LanguagesConnection
+  languageById(id: ID!): Language
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsConnection
+  portfolioItemById(id: ID!): PortfolioItem
+  textItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [TextItemSortInput!] where: TextItemFilterInput): TextItemsConnection
+  textItemById(id: ID!): TextItem
+}
+
+"The node interface is implemented by entities that have a global unique identifier."
+interface Node {
+  id: ID!
+}
+
+type UnknownTechnologyCategory implements Node & PolymorphicTechnologyCategory {
+  id: ID!
+  href: URL
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+}
+
+interface PolymorphicTechnologyCategory {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+  href: URL
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+scalar URL
+
+type SoftwareDevelopmentCategory implements PolymorphicCategory & PolymorphicTechnologyCategory & Node {
+  href: URL
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+}
+
+interface PolymorphicCategory {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  title: String!
+}
+
+type UnknownCategory implements PolymorphicCategory & Node {
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+}
+
+scalar UUID
+
+type PortfolioCategory implements PolymorphicCategory & Node {
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): CustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): TechnologyCategoriesConnection
+}
+
+"A connection to a list of items."
+type CustomersConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CustomersEdge!]
+  "A flattened list of the nodes."
+  nodes: [Customer!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+"An edge in a connection."
+type CustomersEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Customer!
+}
+
+type Customer implements Node {
+  title: String!
+  href: URL
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
+  internalId: UUID!
+}
+
+"A connection to a list of items."
+type PortfolioCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PortfolioCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type PortfolioCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PortfolioCategory!
+}
+
+input PortfolioCategoryFilterInput {
+  and: [PortfolioCategoryFilterInput!]
+  or: [PortfolioCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input LongOperationFilterInput {
+  eq: Long
+  neq: Long
+  in: [Long]
+  nin: [Long]
+  gt: Long
+  ngt: Long
+  gte: Long
+  ngte: Long
+  lt: Long
+  nlt: Long
+  lte: Long
+  nlte: Long
+}
+
+input PortfolioCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+"A connection to a list of items."
+type PortfolioItemsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [PortfolioItem!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type PortfolioItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PortfolioItem!
+}
+
+type PortfolioItem implements Node {
+  year: Long!
+  categoryId: UUID!
+  title: String!
+  href: URL
+  technologyIds: [UUID!]!
+  customerId: UUID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  category: PortfolioCategory
+  customer: Customer
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): TechnologyCategoriesConnection
+  technologiesSummary: String!
+}
+
+"A connection to a list of items."
+type TechnologyCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [TechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PolymorphicTechnologyCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type TechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PolymorphicTechnologyCategory!
+}
+
+input IPolymorphicTechnologyCategoryFilterInput {
+  and: [IPolymorphicTechnologyCategoryFilterInput!]
+  or: [IPolymorphicTechnologyCategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+}
+
+input UrlOperationFilterInput {
+  eq: URL
+  neq: URL
+  in: [URL]
+  nin: [URL]
+  gt: URL
+  ngt: URL
+  gte: URL
+  ngte: URL
+  lt: URL
+  nlt: URL
+  lte: URL
+  nlte: URL
+}
+
+input IPolymorphicTechnologyCategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+  href: UriSortInput
+}
+
+input UriSortInput {
+  absolutePath: SortEnumType
+  absoluteUri: SortEnumType
+  localPath: SortEnumType
+  authority: SortEnumType
+  hostNameType: SortEnumType
+  isDefaultPort: SortEnumType
+  isFile: SortEnumType
+  isLoopback: SortEnumType
+  pathAndQuery: SortEnumType
+  isUnc: SortEnumType
+  host: SortEnumType
+  port: SortEnumType
+  query: SortEnumType
+  fragment: SortEnumType
+  scheme: SortEnumType
+  originalString: SortEnumType
+  dnsSafeHost: SortEnumType
+  idnHost: SortEnumType
+  isAbsoluteUri: SortEnumType
+  userEscaped: SortEnumType
+  userInfo: SortEnumType
+}
+
+input PortfolioItemFilterInput {
+  and: [PortfolioItemFilterInput!]
+  or: [PortfolioItemFilterInput!]
+  year: LongOperationFilterInput
+  categoryId: UuidOperationFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  technologyIds: ListUuidOperationFilterInput
+  customerId: UuidOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input ListUuidOperationFilterInput {
+  all: UuidOperationFilterInput
+  none: UuidOperationFilterInput
+  some: UuidOperationFilterInput
+  any: Boolean
+}
+
+input PortfolioItemSortInput {
+  year: SortEnumType
+  categoryId: SortEnumType
+  title: SortEnumType
+  href: UriSortInput
+  customerId: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+"A connection to a list of items."
+type PortfolioTechnologyCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioTechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PolymorphicTechnologyCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type PortfolioTechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PolymorphicTechnologyCategory!
+}
+
+input CustomerFilterInput {
+  and: [CustomerFilterInput!]
+  or: [CustomerFilterInput!]
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input CustomerSortInput {
+  title: SortEnumType
+  href: UriSortInput
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+type ResumeCategory implements PolymorphicCategory & Node {
+  associatedCategoryTypes: [CategoryType!]!
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  associatedCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicCategoryFilterInput order: [IPolymorphicCategorySortInput!]): AssociatedCategoriesConnection
+  internalId: UUID!
+  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsConnection
+}
+
+enum CategoryType {
+  NONE
+  PORTFOLIO
+  RESUME
+  SOFTWARE_DEVELOPMENT
+  INFORMATION_TECHNOLOGY
+  OTHER
+}
+
+"A connection to a list of items."
+type AssociatedCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AssociatedCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PolymorphicCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type AssociatedCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PolymorphicCategory!
+}
+
+input IPolymorphicCategoryFilterInput {
+  and: [IPolymorphicCategoryFilterInput!]
+  or: [IPolymorphicCategoryFilterInput!]
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+  title: StringOperationFilterInput
+}
+
+input IPolymorphicCategorySortInput {
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+  title: SortEnumType
+}
+
+"A connection to a list of items."
+type EducationItemsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [EducationItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [EducationItem!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type EducationItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: EducationItem!
+}
+
+type EducationItem implements Node {
+  categoryId: UUID!
+  timePeriod: TimePeriod!
+  title: String!
+  href: URL
+  location: String!
+  description: String!
+  subjects: [String!]!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  category: ResumeCategory
+  internalId: UUID!
+}
+
+type TimePeriod {
+  start: Date!
+  end: Date
+}
+
+"The `Date` scalar represents an ISO-8601 compliant date type."
+scalar Date
+
+input EducationItemFilterInput {
+  and: [EducationItemFilterInput!]
+  or: [EducationItemFilterInput!]
+  categoryId: UuidOperationFilterInput
+  timePeriod: TimePeriodFilterInput
+  title: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  location: StringOperationFilterInput
+  description: StringOperationFilterInput
+  subjects: ListStringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input TimePeriodFilterInput {
+  and: [TimePeriodFilterInput!]
+  or: [TimePeriodFilterInput!]
+  start: DateOperationFilterInput
+  end: DateOperationFilterInput
+}
+
+input DateOperationFilterInput {
+  eq: Date
+  neq: Date
+  in: [Date]
+  nin: [Date]
+  gt: Date
+  ngt: Date
+  gte: Date
+  ngte: Date
+  lt: Date
+  nlt: Date
+  lte: Date
+  nlte: Date
+}
+
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
+}
+
+input EducationItemSortInput {
+  categoryId: SortEnumType
+  timePeriod: TimePeriodSortInput
+  title: SortEnumType
+  href: UriSortInput
+  location: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input TimePeriodSortInput {
+  start: SortEnumType
+  end: SortEnumType
+}
+
+type InformationTechnologyCategory implements PolymorphicCategory & PolymorphicTechnologyCategory & Node {
+  href: URL
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+}
+
+"A connection to a list of items."
+type PortfolioCustomersConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PortfolioCustomersEdge!]
+  "A flattened list of the nodes."
+  nodes: [Customer!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type PortfolioCustomersEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Customer!
+}
+
+type OtherCategory implements PolymorphicCategory & Node {
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+}
+
+type Achievement implements Node {
+  content: String!
+  years: [Int!]!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  yearsSummary: String!
+  internalId: UUID!
+}
+
+type ContactItem implements Node {
+  key: String!
+  icon: String
+  title: String!
+  description: String!
+  href: URL
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+}
+
+type Language implements Node {
+  proficiency: ProficiencyType!
+  title: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+}
+
+enum ProficiencyType {
+  NONE
+  ELEMENTARY
+  LIMITED_WORKING
+  PROFICIENT
+  FLUENT
+  NATIVE
+}
+
+type TextItem implements Node {
+  key: String!
+  title: String!
+  content: String!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  version: Long!
+  internalId: UUID!
+}
+
+"A connection to a list of items."
+type AchievementsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AchievementsEdge!]
+  "A flattened list of the nodes."
+  nodes: [Achievement!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type AchievementsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Achievement!
+}
+
+input AchievementSortInput {
+  content: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input AchievementFilterInput {
+  and: [AchievementFilterInput!]
+  or: [AchievementFilterInput!]
+  content: StringOperationFilterInput
+  years: ListIntOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input ListIntOperationFilterInput {
+  all: IntOperationFilterInput
+  none: IntOperationFilterInput
+  some: IntOperationFilterInput
+  any: Boolean
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+type HealthReportSummary {
+  status: HealthStatus!
+  totalDuration: TimeSpan!
+  entries: [KeyValuePairOfStringAndHealthReportItem!]
+}
+
+enum HealthStatus {
+  UNHEALTHY
+  DEGRADED
+  HEALTHY
+}
+
+"The `TimeSpan` scalar represents an ISO-8601 compliant duration type."
+scalar TimeSpan
+
+type KeyValuePairOfStringAndHealthReportItem {
+  key: String!
+  value: HealthReportItem!
+}
+
+type HealthReportItem {
+  description: String
+  duration: TimeSpan!
+  status: HealthStatus!
+  tags: [String!]
+}
+
+type SystemInfoItem {
+  version: String!
+  startupTime: DateTime!
+  upTime: TimeSpan!
+  health: HealthReportSummary!
+}
+
+"A connection to a list of items."
+type CategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [PolymorphicCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type CategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: PolymorphicCategory!
+}
+
+"A connection to a list of items."
+type UnknownCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [UnknownCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [UnknownCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type UnknownCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: UnknownCategory!
+}
+
+input UnknownCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input UnknownCategoryFilterInput {
+  and: [UnknownCategoryFilterInput!]
+  or: [UnknownCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+"A connection to a list of items."
+type ResumeCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ResumeCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [ResumeCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type ResumeCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: ResumeCategory!
+}
+
+input ResumeCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input ResumeCategoryFilterInput {
+  and: [ResumeCategoryFilterInput!]
+  or: [ResumeCategoryFilterInput!]
+  associatedCategoryTypes: ListCategoryTypeOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input ListCategoryTypeOperationFilterInput {
+  all: CategoryTypeOperationFilterInput
+  none: CategoryTypeOperationFilterInput
+  some: CategoryTypeOperationFilterInput
+  any: Boolean
+}
+
+input CategoryTypeOperationFilterInput {
+  eq: CategoryType
+  neq: CategoryType
+  in: [CategoryType!]
+  nin: [CategoryType!]
+}
+
+"A connection to a list of items."
+type SoftwareDevelopmentCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SoftwareDevelopmentCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [SoftwareDevelopmentCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SoftwareDevelopmentCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SoftwareDevelopmentCategory!
+}
+
+input SoftwareDevelopmentCategorySortInput {
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input SoftwareDevelopmentCategoryFilterInput {
+  and: [SoftwareDevelopmentCategoryFilterInput!]
+  or: [SoftwareDevelopmentCategoryFilterInput!]
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+"A connection to a list of items."
+type InformationTechnologyCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [InformationTechnologyCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [InformationTechnologyCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type InformationTechnologyCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: InformationTechnologyCategory!
+}
+
+input InformationTechnologyCategorySortInput {
+  href: UriSortInput
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input InformationTechnologyCategoryFilterInput {
+  and: [InformationTechnologyCategoryFilterInput!]
+  or: [InformationTechnologyCategoryFilterInput!]
+  href: UrlOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+"A connection to a list of items."
+type OtherCategoriesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [OtherCategoriesEdge!]
+  "A flattened list of the nodes."
+  nodes: [OtherCategory!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type OtherCategoriesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: OtherCategory!
+}
+
+input OtherCategorySortInput {
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input OtherCategoryFilterInput {
+  and: [OtherCategoryFilterInput!]
+  or: [OtherCategoryFilterInput!]
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+"A connection to a list of items."
+type ContactItemsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ContactItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [ContactItem!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type ContactItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: ContactItem!
+}
+
+input ContactItemSortInput {
+  key: SortEnumType
+  icon: SortEnumType
+  title: SortEnumType
+  description: SortEnumType
+  href: UriSortInput
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input ContactItemFilterInput {
+  and: [ContactItemFilterInput!]
+  or: [ContactItemFilterInput!]
+  key: StringOperationFilterInput
+  icon: StringOperationFilterInput
+  title: StringOperationFilterInput
+  description: StringOperationFilterInput
+  href: UrlOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+"A connection to a list of items."
+type LanguagesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [LanguagesEdge!]
+  "A flattened list of the nodes."
+  nodes: [Language!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type LanguagesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Language!
+}
+
+input LanguageSortInput {
+  proficiency: SortEnumType
+  title: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input LanguageFilterInput {
+  and: [LanguageFilterInput!]
+  or: [LanguageFilterInput!]
+  proficiency: ProficiencyTypeOperationFilterInput
+  title: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}
+
+input ProficiencyTypeOperationFilterInput {
+  eq: ProficiencyType
+  neq: ProficiencyType
+  in: [ProficiencyType!]
+  nin: [ProficiencyType!]
+}
+
+"A connection to a list of items."
+type TextItemsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [TextItemsEdge!]
+  "A flattened list of the nodes."
+  nodes: [TextItem!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type TextItemsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: TextItem!
+}
+
+input TextItemSortInput {
+  key: SortEnumType
+  title: SortEnumType
+  content: SortEnumType
+  id: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  version: SortEnumType
+}
+
+input TextItemFilterInput {
+  and: [TextItemFilterInput!]
+  or: [TextItemFilterInput!]
+  key: StringOperationFilterInput
+  title: StringOperationFilterInput
+  content: StringOperationFilterInput
+  id: UuidOperationFilterInput
+  createdAt: DateTimeOperationFilterInput
+  updatedAt: DateTimeOperationFilterInput
+  version: LongOperationFilterInput
+}

@@ -1,0 +1,46 @@
+﻿@page "/apiSystemStatus"
+@attribute [StreamRendering]
+@implements IDisposable
+@using System.Text.Json
+@using System.Text.Json.Serialization
+
+<UniversalTitle Title="API System Status" />
+
+<UseGetSystemStatus Context="result">
+    <ChildContent>
+        <pre>
+            @(JsonSerializer.Serialize(result.SystemStatus, JsonSerializerOptions))
+        </pre>
+    </ChildContent>
+    <ErrorContent>
+        Something went wrong ...<br />
+        @result.First().Message
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetSystemStatus>
+
+@code {    
+    private JsonSerializerOptions? _jsonSerializerOptions;
+    private JsonSerializerOptions JsonSerializerOptions
+    {
+        get
+        {
+            if (_jsonSerializerOptions == null)
+            {
+                _jsonSerializerOptions = new()
+                {
+                    WriteIndented = true
+                };
+
+                _jsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            }
+            return _jsonSerializerOptions;
+        }
+    }
+
+    public void Dispose()
+    {
+    }
+}

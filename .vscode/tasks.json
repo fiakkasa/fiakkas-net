@@ -51,6 +51,20 @@
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
-    }
+    },
+    {
+      "label": "publish-ui-debug",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "-c",
+        "Debug",
+        "${workspaceFolder}/ui/ui.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
   ]
 }

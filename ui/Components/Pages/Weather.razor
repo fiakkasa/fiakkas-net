@@ -2,16 +2,12 @@
 @attribute [StreamRendering]
 @implements IDisposable
 
-<PageTitle>Weather</PageTitle>
-
-<h1 class="sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
-    <span>Weather</span>
-
+<UniversalTitle Title="Weather">
     <button type="button" class="btn btn-outline-primary rounded-5 p-0 px-1" title="Refresh"
         disabled="@(forecasts == null)" @onclick="SetData">
         <i class="bi bi-arrow-clockwise"></i>
     </button>
-</h1>
+</UniversalTitle>
 
 @if (forecasts == null)
 {
@@ -20,17 +16,17 @@
 else
 {
     <div class="d-none d-md-block">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var forecast in forecasts)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
                 {
                     <tr>
                         <td>@forecast.Date.ToShortDateString()</td>
@@ -43,16 +39,16 @@ else
         </table>
     </div>
     <div class="d-block d-md-none">
-        <ul class="list-group">
+    <ul class="list-group">
         @foreach (var forecast in forecasts)
-        {
-            <li class="list-group-item">
-                <div><strong>Date:</strong> @forecast.Date.ToShortDateString()</div>
-                <div><strong>Temp. (C):</strong> @forecast.TemperatureC</div>
-                <div><strong>Temp. (F):</strong> @forecast.TemperatureF</div>
-                <div><strong>Summary:</strong> @forecast.Summary</div>
-            </li>
-        }
+            {
+                <li class="list-group-item">
+                    <div><strong>Date:</strong> @forecast.Date.ToShortDateString()</div>
+                    <div><strong>Temp. (C):</strong> @forecast.TemperatureC</div>
+                    <div><strong>Temp. (F):</strong> @forecast.TemperatureF</div>
+                    <div><strong>Summary:</strong> @forecast.Summary</div>
+                </li>
+            }
         </ul>
     </div>
 }

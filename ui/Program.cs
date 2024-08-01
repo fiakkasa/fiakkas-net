@@ -7,10 +7,14 @@ var isDev = builder.Environment.IsDevelopment();
 
 builder.Host.AddUiLoggingProvider();
 
+services.AddUiConfig();
+
 // Add services to the container.
 services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
+
+services.AddFiakkasNetApiClient();
 
 var app = builder.Build();
 

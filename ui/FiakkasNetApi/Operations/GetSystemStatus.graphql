@@ -1,0 +1,20 @@
+query GetSystemStatus {
+  systemStatus {
+    startupTime
+    upTime
+    version
+    health {
+      status
+      totalDuration
+      entries {
+        key
+        value {
+          description
+          duration
+          status
+          tags
+        }
+      }
+    }
+  }
+}

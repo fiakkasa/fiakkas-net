@@ -3,29 +3,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "api.NodeProxy Launch",
-      "program": "${workspaceFolder}/api.NodeProxy/index.js",
-      "request": "launch",
-      "preLaunchTask": "publish-api-debug",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "node",
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "Proxy server started on port:\\s+([0-9]+)",
-        "uriFormat": "http://localhost:%s"
-      },
-      "env": {
-        "PORT": "3000",
-        "DOTNET_PROTOCOL": "http",
-        "DOTNET_PORT": "5069",
-        "DOTNET_API_FOLDER_PATH": "${workspaceFolder}/api/bin/Debug/net8.0/publish",
-        "DOTNET_API_EXECUTABLE_NAME": "api",
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    {
       "name": "api Launch",
       "type": "coreclr",
       "request": "launch",
@@ -46,6 +23,30 @@
       }
     },
     {
+      "name": "api.NodeProxy Launch",
+      "program": "${workspaceFolder}/api.NodeProxy/index.js",
+      "request": "launch",
+      "preLaunchTask": "publish-api-debug",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "cwd": "${workspaceFolder}/api.NodeProxy",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Proxy server started on port:\\s+([0-9]+)",
+        "uriFormat": "http://localhost:%s"
+      },
+      "env": {
+        "PORT": "3000",
+        "DOTNET_PROTOCOL": "http",
+        "DOTNET_PORT": "5069",
+        "DOTNET_API_FOLDER_PATH": "${workspaceFolder}/api/bin/Debug/net8.0/publish",
+        "DOTNET_API_EXECUTABLE_NAME": "api",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
       "name": "ui Launch",
       "type": "coreclr",
       "request": "launch",
@@ -63,6 +64,30 @@
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "ui.NodeProxy Launch",
+      "program": "${workspaceFolder}/ui.NodeProxy/index.js",
+      "request": "launch",
+      "preLaunchTask": "publish-ui-debug",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "cwd": "${workspaceFolder}/ui.NodeProxy",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Proxy server started on port:\\s+([0-9]+)",
+        "uriFormat": "http://localhost:%s"
+      },
+      "env": {
+        "PORT": "3001",
+        "DOTNET_PROTOCOL": "http",
+        "DOTNET_PORT": "5296",
+        "DOTNET_UI_FOLDER_PATH": "${workspaceFolder}/ui/bin/Debug/net8.0/publish",
+        "DOTNET_UI_EXECUTABLE_NAME": "ui",
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   ]
