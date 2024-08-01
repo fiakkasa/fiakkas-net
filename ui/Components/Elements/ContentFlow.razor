@@ -17,10 +17,9 @@ else if (HasError)
     }
     else
     {
-        <div class="py-2">
-            <i class="bi bi-exclamation-triangle text-warning"></i>
-            <span>Whoops, something went wrong...</span>
-        </div>
+        <GenericError Message="@ErrorMessage">
+            @ErrorActionableContent
+        </GenericError>
     }
 }
 else if (HasContent)
@@ -42,7 +41,6 @@ else if (!HasContent)
 }
 
 @code {
-
     [Parameter]
     public bool IsLoading { get; set; }
 
@@ -51,6 +49,9 @@ else if (!HasContent)
 
     [Parameter]
     public bool HasContent { get; set; }
+    
+    [Parameter]
+    public string ErrorMessage { get; set; } = string.Empty;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -60,6 +61,9 @@ else if (!HasContent)
 
     [Parameter]
     public RenderFragment? ErrorContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ErrorActionableContent { get; set; }
 
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }

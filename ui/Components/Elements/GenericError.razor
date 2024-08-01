@@ -1,0 +1,28 @@
+<div class="@CssClass">
+    <i class="bi bi-exclamation-triangle text-warning"></i>
+    <span>
+        @if (Message is { Length: > 0 })
+        {
+            @Message
+        }
+        else
+        {
+            <text>
+                Whoops, something went wrong...
+            </text>
+        }
+    </span>
+
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string CssClass { get; set; } = "py-2";
+
+    [Parameter]
+    public string Message { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
