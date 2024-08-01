@@ -1,0 +1,66 @@
+@if (IsLoading)
+{
+    if (LoadingContent is { })
+    {
+        @LoadingContent
+    }
+    else
+    {
+        <Skeleton />
+    }
+}
+else if (HasError)
+{
+    if (ErrorContent is { })
+    {
+        @ErrorContent
+    }
+    else
+    {
+        <div class="py-2">
+            <i class="bi bi-exclamation-triangle text-warning"></i>
+            <span>Whoops, something went wrong...</span>
+        </div>
+    }
+}
+else if (HasContent)
+{
+    @ChildContent
+}
+else if (!HasContent)
+{
+    if (NoContent is { })
+    {
+        @NoContent
+    }
+    else
+    {
+        <div class="lead">
+            No matter how how hard the server tried, no data was retrieved... Try again later!
+        </div>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public bool HasError { get; set; }
+
+    [Parameter]
+    public bool HasContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? NoContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ErrorContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? LoadingContent { get; set; }
+}
