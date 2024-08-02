@@ -7,6 +7,24 @@ html {
   overflow: hidden;
 }
 
+.menu-button:not(.active-menu-button) {
+   border-color: transparent !important;
+}
+
+.bi-nuget > svg,
+.bi-npm > svg {
+  height: 20px;
+  width: 20px;
+}
+
+.bi-nuget > svg {
+  vertical-align: -2px;
+}
+
+.bi-npm > svg {
+  vertical-align: -4px;
+}
+
 #blazor-error-ui {
   display: none;
 }
