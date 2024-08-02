@@ -1,0 +1,28 @@
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void Skeleton_Should_Render()
+    {
+        var cut = Render(@<Skeleton />);
+
+        var result = cut.Find("div.placeholder-glow");
+
+        result.Should().NotBeNull();
+        result.ToMarkupElementOnly().Should().Be("<div class=\"placeholder-glow \">...</div>");
+        result.Children.Where(x => x.ClassList.Contains("placeholder")).Should().HaveCount(5);
+    }
+
+    [Fact]
+    public void Skeleton_Should_Render_With_Defined_CssClass()
+    {
+        var cut = Render(@<Skeleton CssClass="test" />);
+
+        var result = cut.Find("div.placeholder-glow.test");
+
+        result.Should().NotBeNull();
+        result.ToMarkupElementOnly().Should().Be("<div class=\"placeholder-glow test\">...</div>");
+        result.Children.Where(x => x.ClassList.Contains("placeholder")).Should().HaveCount(5);
+    }
+}
+

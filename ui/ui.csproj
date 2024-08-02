@@ -26,4 +26,8 @@
     <PackageReference Include="StrawberryShake.Blazor" Version="13.9.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="ui.Tests" />
+  </ItemGroup>
+
 </Project>

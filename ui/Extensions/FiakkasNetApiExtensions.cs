@@ -6,11 +6,7 @@ public static class FiakkasNetApiExtensions
 {
     public static IServiceCollection AddFiakkasNetApiClient(this IServiceCollection services)
     {
-        services
-            .AddOptions<FiakkasNetApiConfig>()
-            .BindConfiguration(nameof(FiakkasNetApiConfig))
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
+        services.AddValidatedOptions<FiakkasNetApiConfig>();
 
         services
             .AddFiakkasNetApi()
