@@ -1,6 +1,3 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace api.Shared.Extensions;
 
 public static class ServiceCollectionExtensions

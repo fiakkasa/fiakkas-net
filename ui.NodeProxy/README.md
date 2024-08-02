@@ -38,7 +38,7 @@ Before running ensure that the node modules are installed, `npm i`.
 
 - VS Code: use the included profile
 - cli:
-  - publish the ui: `dotnet publish ../ui/ui.csproj`
+  - publish the ui: `dotnet publish ../ui/ui.csproj -o ./publish`
   - run: `node index.js` or `npm start`.
 
 ## References

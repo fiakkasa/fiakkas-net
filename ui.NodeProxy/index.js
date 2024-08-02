@@ -15,9 +15,9 @@ const { checkPort } = require('get-port-please');
   const dotnetPort = process.env.DOTNET_PORT || 5000;
   const dotnetUrl = `${dotnetProtocol}://${dotnetHost}:${dotnetPort}`;
 
-  const dotnetApiFolderPath = process.env.DOTNET_UI_FOLDER_PATH || './publish';
-  const contentRootPath = path.resolve(__dirname, dotnetApiFolderPath);
-  const uiExecutablePath = path.resolve(__dirname, `${dotnetApiFolderPath}/${process.env.DOTNET_UI_EXECUTABLE_NAME || 'ui'}`);
+  const dotnetUiFolderPath = process.env.DOTNET_UI_FOLDER_PATH || './publish';
+  const contentRootPath = path.resolve(__dirname, dotnetUiFolderPath);
+  const uiExecutablePath = path.resolve(__dirname, `${dotnetUiFolderPath}/${process.env.DOTNET_UI_EXECUTABLE_NAME || 'ui'}`);
 
   const dotnetPortIsAvailable = !!(await checkPort(dotnetPort, dotnetHost));
 

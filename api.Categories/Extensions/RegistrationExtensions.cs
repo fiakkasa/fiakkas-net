@@ -20,7 +20,7 @@ public static class RegistrationExtensions
             .AddCategoriesGraph()
             .AddInterfaceType<IPolymorphicCategory>(descriptor => descriptor.Field(f => f.Id).ID())
             .AddInterfaceType<IPolymorphicTechnologyCategory>(descriptor => descriptor.Field(f => f.Id).ID())
-            .AddObjectType<UnknownTechnologyCategory>(descriptor => 
+            .AddObjectType<UnknownTechnologyCategory>(descriptor =>
             {
                 descriptor.Field(f => f.Id).ID();
                 descriptor

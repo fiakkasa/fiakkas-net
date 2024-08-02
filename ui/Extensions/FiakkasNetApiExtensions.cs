@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using ui.Models;
 
 namespace ui.Extensions;

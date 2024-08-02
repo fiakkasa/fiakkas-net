@@ -18,28 +18,31 @@
             <tbody>
                 <tr>
                     <th>Startup Time:</th>
-                    <td class="w-100">@_result!.SystemStatus.StartupTime</td>
+                    <td class="w-100">@_result!.SystemStatus!.StartupTime</td>
                 </tr>
                 <tr>
                     <th>Up Time:</th>
-                    <td>@_result!.SystemStatus.UpTime</td>
+                    <td>@_result!.SystemStatus!.UpTime</td>
                 </tr>
                 <tr>
                     <th>Version:</th>
-                    <td>@_result!.SystemStatus.Version</td>
+                    <td>@_result!.SystemStatus!.Version</td>
                 </tr>
                 <tr>
                     <th>Overall Health:</th>
                     <td>@_result!.SystemStatus.Health.Status</td>
                 </tr>
-                @foreach(var item in _result!.SystemStatus.Health.Entries)
+                @if (_result.SystemStatus.Health.Entries is { Count: > 0 } healthEntries)
                 {
-                    <tr>
-                        <th> 
-                            <i class="bi bi-chevron-compact-right"></i> @item.Key Health:
-                        </th>
-                        <td> @item.Value.Status</td>
-                    </tr>
+                    @foreach (var item in healthEntries)
+                    {
+                        <tr>
+                            <th>
+                                <i class="bi bi-chevron-compact-right"></i> @item.Key Health:
+                            </th>
+                            <td> @item.Value.Status</td>
+                        </tr>
+                    }
                 }
                 <tr>
                     <th>Total Duration:</th>
