@@ -1,5 +1,9 @@
 <div class="@CssClass">
-    <i class="bi bi-exclamation-triangle text-warning"></i>
+    @if(ShowIcon)
+    {
+        <i class="bi bi-exclamation-triangle text-warning"></i>
+    }
+
     <span>
         @if (Message is { Length: > 0 })
         {
@@ -17,6 +21,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public bool ShowIcon { get; set; } = true;
+
     [Parameter]
     public string CssClass { get; set; } = "py-2";
 

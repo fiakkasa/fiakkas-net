@@ -10,7 +10,7 @@
     </button>
 </UniversalTitle>
 
-<ContentFlow IsLoading="@_loading" HasError="@_hasError" HasContent="@(_result is { Length: > 0 })">
+<ContentFlow IsLoading="@_loading" HasError="@_hasError" HasData="@(_result is { Length: > 0 })">
     <div class="d-none d-md-block">
         <table class="table">
             <thead>

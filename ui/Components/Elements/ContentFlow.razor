@@ -1,42 +1,42 @@
 @if (IsLoading)
 {
-    if (LoadingContent is { })
+    if (CustomLoadingContent is { })
     {
-        @LoadingContent
+        @CustomLoadingContent
     }
     else
     {
-        <Skeleton />
+        <Skeleton CssClass="@GenericLoadingCssClass" />
     }
 }
 else if (HasError)
 {
-    if (ErrorContent is { })
+    if (CustomErrorContent is { })
     {
-        @ErrorContent
+        @CustomErrorContent
     }
     else
     {
-        <GenericError Message="@ErrorMessage">
-            @ErrorExtraContent
+        <GenericError Message="@GenericErrorMessage" CssClass="@GenericErrorCssClass">
+            @GenericErrorContent
         </GenericError>
     }
 }
-else if (HasContent)
+else if (HasData)
 {
     @ChildContent
 }
-else if (!HasContent)
+else if (!HasData)
 {
-    if (NoContent is { })
+    if (CustomNoDataContent is { })
     {
-        @NoContent
+        @CustomNoDataContent
     }
     else
     {
-        <GenericNoContent Message="@NoContentMessage">
-            @NoContentExtraContent
-        </GenericNoContent>
+        <GenericNoData Message="@GenericNoDataMessage" CssClass="@GenericNoDataCssClass">
+            @GenericNoDataContent
+        </GenericNoData>
     }
 }
 
@@ -48,29 +48,38 @@ else if (!HasContent)
     public bool HasError { get; set; }
 
     [Parameter]
-    public bool HasContent { get; set; }
-    
+    public bool HasData { get; set; }
+
     [Parameter]
-    public string ErrorMessage { get; set; } = string.Empty;
-    
+    public string GenericLoadingCssClass { get; set; } = string.Empty;
+
     [Parameter]
-    public string NoContentMessage { get; set; } = string.Empty;
+    public string GenericErrorMessage { get; set; } = string.Empty;
+
+    [Parameter]
+    public string GenericErrorCssClass { get; set; } = "py-2";
+
+    [Parameter]
+    public string GenericNoDataMessage { get; set; } = string.Empty;
+
+    [Parameter]
+    public string GenericNoDataCssClass { get; set; } = "lead";
+
+    [Parameter]
+    public RenderFragment? CustomLoadingContent { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public RenderFragment? NoContent { get; set; }
-    
-    [Parameter]
-    public RenderFragment? NoContentExtraContent { get; set; }
+    public RenderFragment? CustomErrorContent { get; set; }
 
     [Parameter]
-    public RenderFragment? ErrorContent { get; set; }
+    public RenderFragment? GenericErrorContent { get; set; }
 
     [Parameter]
-    public RenderFragment? ErrorExtraContent { get; set; }
+    public RenderFragment? CustomNoDataContent { get; set; }
 
     [Parameter]
-    public RenderFragment? LoadingContent { get; set; }
+    public RenderFragment? GenericNoDataContent { get; set; }
 }

@@ -7,7 +7,7 @@
 
 @if (Title is { Length: > 0 })
 {
-    <h1 class="sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+    <h1 class="@CssClass">
         <span>@Title</span>
 
         @ChildContent
@@ -15,13 +15,16 @@
 }
 else if (ChildContent is { })
 {
-    <h1 class="sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+    <h1 class="@CssClass">
         @ChildContent
     </h1>
 }
 
 @code {
     private string _pageTitle = string.Empty;
+
+    [Parameter]
+    public string CssClass { get; set; } = "sticky-top d-flex gap-2 justify-content-start align-items-center bg-body";
 
     [Parameter]
     public string Title { get; set; } = string.Empty;

@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager _navigationManager
+
 <div class="app-container position-relative h-100 w-100 d-flex flex-column">
     <NavMenu CssClass="order-3 order-md-1 z-3 px-3 py-2 flex-shrink-0 bg-secondary" />
 
@@ -14,7 +16,7 @@
             <main class="order-2 z-1 px-3 flex-fill d-flex flex-column justify-content-center align-items-center">
                 <div class="py-2 mb-0 mb-md-5">
                     <GenericError CssClass="py-2 mb-0 mb-md-5">
-                        <a href="" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1" title="Reload">
+                        <a href="@_navigationManager.Uri" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1" title="Reload">
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
                     </GenericError>
