@@ -26,18 +26,15 @@ else if (HasData)
 {
     @ChildContent
 }
-else if (!HasData)
+else if (CustomNoDataContent is { })
 {
-    if (CustomNoDataContent is { })
-    {
-        @CustomNoDataContent
-    }
-    else
-    {
-        <GenericNoData Message="@GenericNoDataMessage" CssClass="@GenericNoDataCssClass">
-            @GenericNoDataContent
-        </GenericNoData>
-    }
+    @CustomNoDataContent
+}
+else
+{
+    <GenericNoData Message="@GenericNoDataMessage" CssClass="@GenericNoDataCssClass">
+        @GenericNoDataContent
+    </GenericNoData>
 }
 
 @code {

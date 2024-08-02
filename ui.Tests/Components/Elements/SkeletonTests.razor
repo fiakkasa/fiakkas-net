@@ -4,24 +4,26 @@
     [Fact]
     public void Skeleton_Should_Render()
     {
+        var expected = Render(@<div class="placeholder-glow ">...</div>).Markup;
         var cut = Render(@<Skeleton />);
 
         var result = cut.Find("div.placeholder-glow");
 
         result.Should().NotBeNull();
-        result.ToMarkupElementOnly().Should().Be("<div class=\"placeholder-glow \">...</div>");
+        result.ToMarkupElementOnly().Should().Be(expected);
         result.Children.Where(x => x.ClassList.Contains("placeholder")).Should().HaveCount(5);
     }
 
     [Fact]
-    public void Skeleton_Should_Render_With_Defined_CssClass()
+    public void Skeleton_Should_Render_With_Defined_Css_Class()
     {
+        var expected = Render(@<div class="placeholder-glow test">...</div>).Markup;
         var cut = Render(@<Skeleton CssClass="test" />);
 
         var result = cut.Find("div.placeholder-glow.test");
 
         result.Should().NotBeNull();
-        result.ToMarkupElementOnly().Should().Be("<div class=\"placeholder-glow test\">...</div>");
+        result.ToMarkupElementOnly().Should().Be(expected);
         result.Children.Where(x => x.ClassList.Contains("placeholder")).Should().HaveCount(5);
     }
 }

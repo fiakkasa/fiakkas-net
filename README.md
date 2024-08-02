@@ -104,6 +104,8 @@ dotnet graphql init http://localhost:5069/graphql -n FiakkasNetApi -p ./FiakkasN
 
 Each test project, ex `api.Tests`, is using the XUnit framework to test the various aspects of the code.
 
+Notably, the `ui.Tests` project is using the BUnit framework in conjunction with XUnit.
+
 All the related tooling is installed under the root folder of the solution.
 
 Before running the tests for the first time, ensure that you run the `dotnet tool restore` command.
@@ -115,20 +117,22 @@ _Bash_
 ```bash
 rm -rd ./CoverageResults
 rm -rd ./TestResults
-dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" /p:Exclude="[*]*GraphRequestExecutorBuilderExtensions" -m:1
+dotnet test /p:CollectCoverage=true /p:CoverletOutput=../CoverageResults/ /p:MergeWith="../CoverageResults/coverage.json" /p:CoverletOutputFormat=\"cobertura,json\" /p:Exclude="[*]*GraphRequestExecutorBuilderExtensions" /p:ExcludeByAttribute="GeneratedCodeAttribute" -m:1
 dotnet reportgenerator -reports:./CoverageResults/coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
-To run tests for a specific project, enter the `*.Tests` counterpart and run:
+To run tests for a specific api related project, enter the `*.Tests` counterpart and run:
 
 _Bash_
 
 ```bash
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml' /p:Exclude="[*]*GraphRequestExecutorBuilderExtensions"
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./coverage.cobertura.xml' /p:Exclude="[*]*GraphRequestExecutorBuilderExtensions" /p:ExcludeByAttribute="GeneratedCodeAttribute"
 dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
 📝 _Observe the `/p:Exclude="[*]*GraphRequestExecutorBuilderExtensions`, this is added as to ensure that the auto generated HotChocolate registrations are skipped._
+
+📝 _Observe the `/p:ExcludeByAttribute="GeneratedCodeAttribute`, this is added as to ensure that any auto generated code is skipped._
 
 ## Logging
 
@@ -223,6 +227,7 @@ The schema can be exported by running the api with the following command:
 
 - .NET SDK: https://dotnet.microsoft.com/en-us/download/visual-studio-sdks
 - ASP.NET: https://dotnet.microsoft.com/en-us/apps/aspnet
+- BUnit: https://bunit.dev/index.html
 - Coverlet (MSBuild): https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
 - GraphQL: https://graphql.org
 - HotChocolate: https://chillicream.com/docs/hotchocolate
@@ -241,3 +246,4 @@ The schema can be exported by running the api with the following command:
 - StrawberryShake: https://chillicream.com/docs/strawberryshake/v13/get-started/console
 - Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - VS Code: https://code.visualstudio.com
+- XUnit: https://xunit.net

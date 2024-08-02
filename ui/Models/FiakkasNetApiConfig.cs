@@ -1,5 +1,6 @@
 namespace ui.Models;
 
+[ExcludeFromCodeCoverage]
 public record FiakkasNetApiConfig
 {
     [Required]
