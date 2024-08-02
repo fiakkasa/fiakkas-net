@@ -13,10 +13,12 @@
             </main>
         </ChildContent>
         <ErrorContent>
-            <main class="order-2 z-1 px-3 flex-fill d-flex flex-column justify-content-center align-items-center">
-                <div class="py-2 mb-0 mb-md-5">
-                    <GenericError CssClass="py-2 mb-0 mb-md-5">
-                        <a href="@_navigationManager.Uri" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1" title="Reload">
+            <main class="order-2 z-1 px-3 flex-fill position-relative overflow-auto">
+                <div class="py-2">
+                    <UniversalTitle Title="Error" />
+                    <GenericError>
+                        <a href="@_navigationManager.Uri" class="btn btn-outline-primary btn-sm rounded-5 p-0 px-1"
+                            title="Reload">
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
                     </GenericError>
