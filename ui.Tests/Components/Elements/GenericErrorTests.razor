@@ -1,0 +1,98 @@
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void GenericError_Should_Render_Default_With_Default_Parameters()
+    {
+        var cut = Render(@<GenericError />);
+
+        var result = cut.Find("div.generic-error");
+
+        result.Should().NotBeNull();
+        result.MarkupMatches(
+            @<div class="generic-error py-2 lead">
+                <i class="bi bi-exclamation-triangle text-warning"></i>
+                <span>
+                    Whoops, something went wrong...
+                </span>
+            </div>
+        );
+    }
+
+    [Fact]
+    public void GenericError_Should_Render_Default_When_ShowIcon_Is_False()
+    {
+        var cut = Render(@<GenericError ShowIcon="false" />);
+
+        var result = cut.Find("div.generic-error");
+
+        result.Should().NotBeNull();
+        result.MarkupMatches(
+            @<div class="generic-error py-2 lead">
+                <span>
+                    Whoops, something went wrong...
+                </span>
+            </div>
+        );
+    }
+
+    [Fact]
+    public void GenericError_Should_Render_With_Message()
+    {
+        var cut = Render(@<GenericError Message="Error Message" />);
+
+        var result = cut.Find("div.generic-error");
+
+        result.Should().NotBeNull();
+        result.MarkupMatches(
+            @<div class="generic-error py-2 lead">
+                <i class="bi bi-exclamation-triangle text-warning"></i>
+                <span>
+                    Error Message
+                </span>
+            </div>
+        );
+    }
+
+    [Fact]
+    public void GenericError_Should_Render_With_Message_And_Css_Class()
+    {
+        var cut = Render(@<GenericError CssClass="test" Message="Error Message" />);
+
+        var result = cut.Find("div.generic-error");
+
+        result.Should().NotBeNull();
+        result.MarkupMatches(
+            @<div class="generic-error test">
+                <i class="bi bi-exclamation-triangle text-warning"></i>
+                <span>
+                   Error Message
+                </span>
+            </div>
+        );
+    }
+
+    [Fact]
+    public void GenericError_Should_Render_With_Message_Css_Class_And_ChildContent_When_ChildContent_Is_Set()
+    {
+        var cut = Render(
+            @<GenericError CssClass="test" Message="Error Message">
+                <a href="">Extra!</a>
+            </GenericError>
+        );
+
+        var result = cut.Find("div.generic-error");
+
+        result.Should().NotBeNull();
+        result.MarkupMatches(
+            @<div class="generic-error test">
+                <i class="bi bi-exclamation-triangle text-warning"></i>
+                <span>
+                   Error Message
+                </span>
+                <a href="">Extra!</a>
+            </div>
+        );
+    }
+}
+

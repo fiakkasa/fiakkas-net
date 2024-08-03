@@ -7,7 +7,7 @@
 
 @if (Title is { Length: > 0 })
 {
-    <h1 class="@CssClass">
+    <h1 class="page-header @CssClass">
         <span>@Title</span>
 
         @ChildContent
@@ -15,7 +15,7 @@
 }
 else if (ChildContent is { })
 {
-    <h1 class="@CssClass">
+    <h1 class="page-header @CssClass">
         @ChildContent
     </h1>
 }

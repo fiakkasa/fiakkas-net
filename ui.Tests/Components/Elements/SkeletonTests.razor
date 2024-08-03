@@ -4,10 +4,10 @@
     [Fact]
     public void Skeleton_Should_Render()
     {
-        var expected = Render(@<div class="placeholder-glow ">...</div>).Markup;
+        var expected = Render(@<div class="skeleton-loader placeholder-glow ">...</div>).Markup;
         var cut = Render(@<Skeleton />);
 
-        var result = cut.Find("div.placeholder-glow");
+        var result = cut.Find("div.skeleton-loader");
 
         result.Should().NotBeNull();
         result.ToMarkupElementOnly().Should().Be(expected);
@@ -17,10 +17,10 @@
     [Fact]
     public void Skeleton_Should_Render_With_Defined_Css_Class()
     {
-        var expected = Render(@<div class="placeholder-glow test">...</div>).Markup;
+        var expected = Render(@<div class="skeleton-loader placeholder-glow test">...</div>).Markup;
         var cut = Render(@<Skeleton CssClass="test" />);
 
-        var result = cut.Find("div.placeholder-glow.test");
+        var result = cut.Find("div.skeleton-loader.test");
 
         result.Should().NotBeNull();
         result.ToMarkupElementOnly().Should().Be(expected);
