@@ -51,13 +51,13 @@ else
     public string GenericLoadingCssClass { get; set; } = string.Empty;
 
     [Parameter]
-    public string GenericErrorMessage { get; set; } = string.Empty;
+    public string? GenericErrorMessage { get; set; }
 
     [Parameter]
     public string GenericErrorCssClass { get; set; } = "py-2 lead";
 
     [Parameter]
-    public string GenericNoDataMessage { get; set; } = string.Empty;
+    public string? GenericNoDataMessage { get; set; }
 
     [Parameter]
     public string GenericNoDataCssClass { get; set; } = "py-2 lead";

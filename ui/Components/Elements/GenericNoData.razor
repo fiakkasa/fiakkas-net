@@ -20,7 +20,7 @@
     public string CssClass { get; set; } = "py-2 lead";
 
     [Parameter]
-    public string Message { get; set; } = string.Empty;
+    public string? Message { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

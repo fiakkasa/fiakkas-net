@@ -3,7 +3,7 @@
 @inject ILogger<UniversalTitle> _logger
 @inject IOptionsSnapshot<UiConfig> _optionsSnapshot
 
-<PageTitle>@_pageTitle</PageTitle>
+<PageTitle>@PageTitle</PageTitle>
 
 @if (Title is { Length: > 0 })
 {
@@ -21,28 +21,22 @@ else if (ChildContent is { })
 }
 
 @code {
-    private string _pageTitle = string.Empty;
-
     [Parameter]
     public string CssClass { get; set; } = "sticky-top d-flex gap-2 justify-content-start align-items-center bg-body";
 
     [Parameter]
-    public string Title { get; set; } = string.Empty;
+    public string? Title { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    public string PageTitle => _pageTitle ??= Title switch
-    {
-        { Length: > 0 } => $"{_optionsSnapshot.Value.Title}{_optionsSnapshot.Value.Separator}{Title}",
-        _ => _optionsSnapshot.Value.Title
-    };
+    public string PageTitle { get; set; } = string.Empty;
 
     protected override void OnParametersSet()
     {
         try
         {
-            _pageTitle = Title switch
+            PageTitle = Title switch
             {
                 { Length: > 0 } => $"{_optionsSnapshot.Value.Title}{_optionsSnapshot.Value.Separator}{Title}",
                 _ => _optionsSnapshot.Value.Title
