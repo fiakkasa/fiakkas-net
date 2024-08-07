@@ -5,7 +5,7 @@
 
 <PageTitle>@PageTitle</PageTitle>
 
-@if (Title is { Length: > 0 })
+@if (Title is { Length: > 0 } && ShowTitle)
 {
     <h1 class="page-header @CssClass">
         <span>@Title</span>
@@ -26,6 +26,9 @@ else if (ChildContent is { })
 
     [Parameter]
     public string? Title { get; set; }
+
+    [Parameter]
+    public bool ShowTitle { get; set; } = true;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

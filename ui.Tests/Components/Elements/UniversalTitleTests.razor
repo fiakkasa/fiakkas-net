@@ -29,7 +29,7 @@
         AddServicesAndStubs();
         var cut = Render(@<UniversalTitle />);
 
-        var result = cut.FindAll("h1.page-header");
+        var result = cut.Markup;
         var instance = cut.FindComponent<UniversalTitle>().Instance;
 
         instance.Should().NotBeNull();
@@ -43,12 +43,26 @@
         AddServicesAndStubs(true);
         var cut = Render(@<UniversalTitle />);
 
-        var result = cut.FindAll("h1.page-header");
+        var result = cut.Markup;
         var instance = cut.FindComponent<UniversalTitle>().Instance;
 
         instance.Should().NotBeNull();
         result.Should().BeEmpty();
         instance.PageTitle.Should().Be(string.Empty);
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_ShowTitle_Is_False()
+    {
+        AddServicesAndStubs();
+        var cut = Render(@<UniversalTitle ShowTitle="false" />);
+
+        var result = cut.Markup;
+        var instance = cut.FindComponent<UniversalTitle>().Instance;
+
+        instance.Should().NotBeNull();
+        result.Should().BeEmpty();
+        instance.PageTitle.Should().Be(_config.Title);
     }
 
     [Fact]
