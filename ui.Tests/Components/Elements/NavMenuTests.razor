@@ -16,8 +16,8 @@
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
     
-        links.Should().HaveCount(9);
-        primaryLinks.Should().HaveCount(3);
+        links.Should().HaveCount(7);
+        primaryLinks.Should().HaveCount(1);
         secondaryLinks.Should().HaveCount(6);
     }
 
@@ -37,8 +37,8 @@
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
         var expandCollapseButton = cut.Find("button[type=\"button\"].nav-menu-expand-collapse");
 
-        links.Should().HaveCount(9);
-        primaryLinks.Should().HaveCount(3);
+        links.Should().HaveCount(7);
+        primaryLinks.Should().HaveCount(1);
         secondaryLinks.Should().HaveCount(6);
     }
 
@@ -61,8 +61,8 @@
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
     
-        links.Should().HaveCount(9);
-        primaryLinks.Should().HaveCount(3);
+        links.Should().HaveCount(7);
+        primaryLinks.Should().HaveCount(1);
         secondaryLinks.Should().HaveCount(6);
     }
 }
