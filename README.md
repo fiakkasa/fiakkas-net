@@ -227,7 +227,7 @@ The schema can be exported by running the api with the following command:
 
 - .NET SDK: https://dotnet.microsoft.com/en-us/download/visual-studio-sdks
 - ASP.NET: https://dotnet.microsoft.com/en-us/apps/aspnet
-- BUnit: https://bunit.dev/index.html
+- BUnit: https://bunit.dev/docs/getting-started
 - Coverlet (MSBuild): https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
 - GraphQL: https://graphql.org
 - HotChocolate: https://chillicream.com/docs/hotchocolate

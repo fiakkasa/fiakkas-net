@@ -1,6 +1,3 @@
-// global using Bunit.TestDoubles;
-// global using Snapshooter.Xunit;
-global using Bunit;
 global using FluentAssertions;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.Configuration;

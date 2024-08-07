@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 
-namespace api.Tests;
+namespace ui.Tests;
 
 public class ProgramTests
 {

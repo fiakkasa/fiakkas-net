@@ -1,0 +1,161 @@
+@inherits TestContext
+
+@code {
+    private readonly ILogger<ApiStatus> _logger = Substitute.For<ILogger<ApiStatus>>();
+
+    private void AddServicesAndStubs()
+    {
+        ComponentFactories.AddStub<PageTitle>();
+        Services.AddSingleton<ILogger<ApiStatus>>(_logger);
+    }
+
+    [Fact]
+    public void Api_Status_Renders_Template_When_Data_Is_Present()
+    {
+        AddServicesAndStubs();
+        var api = Substitute.For<IFiakkasNetApi>();
+        var task = Task.Run(async () =>
+        {
+            await Task.Delay(250);
+
+            var data = new GetSystemStatusResult(
+                new GetSystemStatus_SystemStatus_SystemInfoItem(
+                    DateTimeOffset.Parse("2024-01-01"),
+                    TimeSpan.FromMinutes(1),
+                    "1.0.0",
+                    new GetSystemStatus_SystemStatus_Health_HealthReportSummary(
+                        HealthStatus.Healthy,
+                        TimeSpan.FromSeconds(30),
+                        [
+                            new GetSystemStatus_SystemStatus_Health_Entries_KeyValuePairOfStringAndHealthReportItem(
+                                "Service",
+                                new GetSystemStatus_SystemStatus_Health_Entries_Value_HealthReportItem(
+                                    "Description",
+                                    TimeSpan.FromSeconds(30),
+                                    HealthStatus.Healthy,
+                                    null
+                                )
+                            )
+                        ]
+                    )
+                )
+            );
+            var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
+            result.Data.Returns(data);
+
+            return result;
+        });
+        api
+            .GetSystemStatus
+            .ExecuteAsync(Arg.Any<CancellationToken>())
+            .Returns(task);
+        Services.AddSingleton<IFiakkasNetApi>(api);
+
+        var cut = Render(@<ApiStatus />);
+        
+        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>(), TimeSpan.FromMilliseconds(500));
+        cut.WaitForAssertion(() => cut.Find("table.table"), TimeSpan.FromMilliseconds(500));
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Api_Status_Renders_Template_When_Data_Is_Present_With_No_Health_Entries()
+    {
+        AddServicesAndStubs();
+        var api = Substitute.For<IFiakkasNetApi>();
+        var task = Task.Run(async () =>
+        {
+            await Task.Delay(250);
+
+            var data = new GetSystemStatusResult(
+                new GetSystemStatus_SystemStatus_SystemInfoItem(
+                    DateTimeOffset.Parse("2024-01-01"),
+                    TimeSpan.FromMinutes(1),
+                    "1.0.0",
+                    new GetSystemStatus_SystemStatus_Health_HealthReportSummary(
+                        HealthStatus.Healthy,
+                        TimeSpan.FromSeconds(30),
+                        null
+                    )
+                )
+            );
+            var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
+            result.Data.Returns(data);
+
+            return result;
+        });
+        api
+            .GetSystemStatus
+            .ExecuteAsync(Arg.Any<CancellationToken>())
+            .Returns(task);
+        Services.AddSingleton<IFiakkasNetApi>(api);
+
+        var cut = Render(@<ApiStatus />);
+
+        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>(), TimeSpan.FromMilliseconds(500));
+        cut.WaitForAssertion(() => cut.Find("table.table"), TimeSpan.FromMilliseconds(500));
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Api_Status_Renders_Loading_When_Data_Is_In_Transit()
+    {
+        AddServicesAndStubs();
+        var api = Substitute.For<IFiakkasNetApi>();
+        var task = Task.Run(async () =>
+        {
+            await Task.Delay(500);
+
+            var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
+            result.Data.Returns(default(IGetSystemStatusResult?));
+
+            return result;
+        });
+        api
+            .GetSystemStatus
+            .ExecuteAsync(Arg.Any<CancellationToken>())
+            .Returns(task);
+        Services.AddSingleton<IFiakkasNetApi>(api);
+
+        var cut = Render(@<ApiStatus />);
+
+        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>(), TimeSpan.FromMilliseconds(250));
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Api_Status_Renders_GenericNodata_When_Data_Is_Not_Present()
+    {
+        AddServicesAndStubs();
+        var api = Substitute.For<IFiakkasNetApi>();
+        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
+        result.Data.Returns(default(IGetSystemStatusResult?));
+        api
+            .GetSystemStatus
+            .ExecuteAsync(Arg.Any<CancellationToken>())
+            .Returns(Task.FromResult(result));
+        Services.AddSingleton<IFiakkasNetApi>(api);
+
+        var cut = Render(@<ApiStatus />);
+
+        cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>(), TimeSpan.FromMilliseconds(500));
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Api_Status_Renders_GenericError_When_Error()
+    {
+        AddServicesAndStubs();
+        var api = Substitute.For<IFiakkasNetApi>();
+        api
+            .GetSystemStatus
+            .ExecuteAsync(Arg.Any<CancellationToken>())
+            .ThrowsAsync(new Exception("Splash!"));
+        Services.AddSingleton<IFiakkasNetApi>(api);
+
+        var cut = Render(@<ApiStatus />);
+
+        cut.WaitForAssertion(() => cut.FindComponent<GenericError>(), TimeSpan.FromMilliseconds(500));
+        cut.Markup.MatchSnapshot();
+    }
+}
