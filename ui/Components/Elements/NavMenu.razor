@@ -2,7 +2,7 @@
     <div class="nav-menu-sections-container ms-4 ms-md-0 flex-fill d-flex gap-1 flex-column flex-md-row justify-content-center justify-content-md-between flex-wrap">
 
         <div class="nav-menu-primary-section d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap">
-            <NavLink Match="NavLinkMatch.All" ActiveClass="border border-primary-subtle rounded-5"
+            <NavLink Match="NavLinkMatch.All" ActiveClass="border border-primary-subtle rounded-circle"
                 class="navbar-brand order-3 order-md-1" href="" title="Home">
                 <img src="favicon.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
             </NavLink>
@@ -19,20 +19,20 @@
         <div
             class="nav-menu-collapsible-section @(_menuCollapsed ? "d-none d-md-flex" : "d-flex") d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap">
             <NavLink ActiveClass="active-menu-button"
-                class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" href="api-status"
+                class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" href="api-status"
                 title="API Status">
                 <i class="bi bi-clipboard2-pulse-fill"></i>
             </NavLink>
             <a target="_blank" href="https://twitter.com/fiakkasa"
-                class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" title="X (Twitter)">
+                class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="X (Twitter)">
                 <i class="bi bi-twitter-x"></i>
             </a>
             <a target="_blank" href="https://cy.linkedin.com/in/fiakkasa"
-                class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" title="Linked In">
+                class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="Linked In">
                 <i class="bi bi-linkedin"></i>
             </a>
             <a target="_blank" href="https://www.nuget.org/profiles/fiakkasa"
-                class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" title="Nuget">
+                class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="Nuget">
                 <i class="bi bi-nuget">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-circle"
                         viewBox="0 0 50 50">
@@ -46,7 +46,7 @@
                 </i>
             </a>
             <a target="_blank" href="https://www.npmjs.com/~fiakkasa"
-                class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" title="NPM">
+                class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="NPM">
                 <i class="bi bi-npm">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-npm" viewBox="0 0 32 32">
                         <path
@@ -55,14 +55,14 @@
                 </i>
             </a>
             <a target="_blank" href="https://github.com/fiakkasa"
-                class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" title="GitHub">
+                class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="GitHub">
                 <i class="bi bi-github"></i>
             </a>
         </div>
 
     </div>
 
-    <button type="button" class="nav-menu-expand-collapse d-md-none flex-shrink-0 btn btn-sm btn-outline-primary p-0 px-1 rounded-5" @onclick="ToggleMenuCollapsed">
+    <button type="button" class="nav-menu-expand-collapse d-md-none flex-shrink-0 btn btn-sm btn-outline-primary p-0 px-1 rounded-circle" @onclick="ToggleMenuCollapsed">
         @if (_menuCollapsed)
         {
             <i class="bi bi-chevron-up"></i>
