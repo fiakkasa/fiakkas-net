@@ -1,7 +1,7 @@
-﻿<nav class="d-flex gap-1 align-items-center @CssClass">
-    <div class="ms-4 ms-md-0 flex-fill d-flex gap-1 flex-column flex-md-row justify-content-center justify-content-md-between flex-wrap">
+﻿<nav class="nav-menu d-flex gap-1 align-items-center @CssClass">
+    <div class="nav-menu-sections-container ms-4 ms-md-0 flex-fill d-flex gap-1 flex-column flex-md-row justify-content-center justify-content-md-between flex-wrap">
 
-        <div class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap">
+        <div class="nav-menu-primary-section d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap">
             <NavLink Match="NavLinkMatch.All" ActiveClass="border border-primary-subtle rounded-5"
                 class="navbar-brand order-3 order-md-1" href="" title="Home">
                 <img src="favicon.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
@@ -17,7 +17,7 @@
         </div>
 
         <div
-            class="@(_menuCollapsed ? "d-none d-md-flex" : "d-flex") d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap">
+            class="nav-menu-collapsible-section @(_menuCollapsed ? "d-none d-md-flex" : "d-flex") d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap">
             <NavLink ActiveClass="active-menu-button"
                 class="btn menu-button btn-lg btn-outline-primary rounded-5 p-1 px-2" href="api-status"
                 title="API Status">
@@ -62,7 +62,7 @@
 
     </div>
 
-    <button type="button" class="d-md-none flex-shrink-0 btn btn-sm btn-outline-primary p-0 px-1 rounded-5" @onclick="ToggleMenuCollapsed">
+    <button type="button" class="nav-menu-expand-collapse d-md-none flex-shrink-0 btn btn-sm btn-outline-primary p-0 px-1 rounded-5" @onclick="ToggleMenuCollapsed">
         @if (_menuCollapsed)
         {
             <i class="bi bi-chevron-up"></i>

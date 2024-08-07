@@ -12,9 +12,7 @@
             </ContentFlow>
         );
 
-        var result = cut.Find("div.custom-loading-content");
-
-        result.Should().NotBeNull();
+        cut.Find("div.custom-loading-content");
     }
 
     [Fact]
@@ -24,9 +22,7 @@
 
         var cut = Render(@<ContentFlow IsLoading="true" />);
 
-        var result = cut.Find("div.default-loading");
-
-        result.Should().NotBeNull();
+        cut.Find("div.default-loading");
     }
 
     [Fact]
@@ -38,9 +34,7 @@
 
         var cut = Render(@<ContentFlow IsLoading="true" GenericLoadingCssClass="custom-loading" />);
 
-        var result = cut.Find("div.custom-loading");
-
-        result.Should().NotBeNull();
+        cut.Find("div.custom-loading");
     }
 
     [Fact]
@@ -58,7 +52,7 @@
             </ContentFlow>
         );
 
-        var result = cut.Find("div.custom-error-content");
+        cut.Find("div.custom-error-content");
     }
 
     [Fact]
@@ -68,9 +62,7 @@
 
         var cut = Render(@<ContentFlow HasError="true" />);
 
-        var result = cut.Find("div.default-error");
-
-        result.Should().NotBeNull();
+        cut.Find("div.default-error");
     }
 
     [Fact]
@@ -86,7 +78,6 @@
 
         var result = cut.Find("div.default-error");
 
-        result.Should().NotBeNull();
         result.MarkupMatches(
             @<div class="default-error">
                 Error Message
@@ -107,7 +98,6 @@
 
         var result = cut.Find("div.custom-error");
 
-        result.Should().NotBeNull();
         result.MarkupMatches(
             @<div class="custom-error">
                 Error Message
@@ -135,7 +125,6 @@
 
         var result = cut.Find("div.custom-error");
 
-        result.Should().NotBeNull();
         result.MarkupMatches(
             @<div class="custom-error">
                 Error Message
@@ -186,9 +175,7 @@
             </ContentFlow>
         );
 
-        var result = cut.Find("div.no-data");
-
-        result.Should().NotBeNull();
+        cut.Find("div.no-data");
     }
 
     [Fact]
@@ -198,9 +185,7 @@
 
         var cut = Render(@<ContentFlow />);
 
-        var result = cut.Find("div.default-no-data");
-
-        result.Should().NotBeNull();
+        cut.Find("div.default-no-data");
     }
 
     [Fact]
@@ -216,7 +201,6 @@
 
         var result = cut.Find("div.default-no-data");
 
-        result.Should().NotBeNull();
         result.MarkupMatches(
             @<div class="default-no-data">
                 No Data
@@ -237,7 +221,6 @@
 
         var result = cut.Find("div.custom-no-data");
 
-        result.Should().NotBeNull();
         result.MarkupMatches(
             @<div class="custom-no-data">
                 No Data
@@ -265,7 +248,6 @@
 
         var result = cut.Find("div.custom-no-data");
 
-        result.Should().NotBeNull();
         result.MarkupMatches(
             @<div class="custom-no-data">
                 No Data

@@ -1,0 +1,68 @@
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void NavMenu_Should_Render_With_Default_Parameters()
+    {
+        var cut = Render(@<NavMenu />);
+
+        cut.Find("nav.nav-menu");
+        cut.Find("div.nav-menu-sections-container > div.nav-menu-primary-section");
+        cut.Find("div.nav-menu-sections-container > div.nav-menu-collapsible-section.d-none.d-md-flex");
+        cut.Find("div.nav-menu-primary-section > a > img[alt=\"Logo\"]");
+        cut.Find("button[type=\"button\"].nav-menu-expand-collapse > i.bi.bi-chevron-up");
+
+        var links = cut.FindAll("a");
+        var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
+        var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
+    
+        links.Should().HaveCount(9);
+        primaryLinks.Should().HaveCount(3);
+        secondaryLinks.Should().HaveCount(6);
+    }
+
+    [Fact]
+    public void NavMenu_Should_Render_With_Css_Class()
+    {
+        var cut = Render(@<NavMenu CssClass="test" />);
+
+        cut.Find("nav.nav-menu.test");
+        cut.Find("div.nav-menu-sections-container > div.nav-menu-primary-section");
+        cut.Find("div.nav-menu-sections-container > div.nav-menu-collapsible-section.d-none.d-md-flex");
+        cut.Find("div.nav-menu-primary-section > a > img[alt=\"Logo\"]");
+        cut.Find("button[type=\"button\"].nav-menu-expand-collapse > i.bi.bi-chevron-up");
+
+        var links = cut.FindAll("a");
+        var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
+        var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
+        var expandCollapseButton = cut.Find("button[type=\"button\"].nav-menu-expand-collapse");
+
+        links.Should().HaveCount(9);
+        primaryLinks.Should().HaveCount(3);
+        secondaryLinks.Should().HaveCount(6);
+    }
+
+    [Fact]
+    public void NavMenu_Should_Toggle_Menu()
+    {
+        var cut = Render(@<NavMenu />);
+
+        var toggleButton = cut.Find("button[type=\"button\"].nav-menu-expand-collapse");
+
+        toggleButton.Click();
+
+        cut.Find("nav.nav-menu");
+        cut.Find("div.nav-menu-sections-container > div.nav-menu-primary-section");
+        cut.Find("div.nav-menu-sections-container > div.nav-menu-collapsible-section.d-flex");
+        cut.Find("div.nav-menu-primary-section > a > img[alt=\"Logo\"]");
+        cut.Find("button[type=\"button\"].nav-menu-expand-collapse > i.bi.bi-chevron-down");
+
+        var links = cut.FindAll("a");
+        var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
+        var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
+    
+        links.Should().HaveCount(9);
+        primaryLinks.Should().HaveCount(3);
+        secondaryLinks.Should().HaveCount(6);
+    }
+}
