@@ -5,7 +5,7 @@ namespace ui.Extensions.Tests;
 public class UiExtensionsTests
 {
     [Fact]
-    public void AddUiConfig_Should_Add_ValidatedOptions()
+    public void AddUiConfig_Should_Add_Validated_Options()
     {
         var expected = new UiConfig
         {

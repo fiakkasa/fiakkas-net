@@ -18,7 +18,7 @@ public class OptionsExtensionsTests
     }
 
     [Fact]
-    public async Task AddValidatedOptions_With_Section_Key_And_Default_Key()
+    public async Task AddValidatedOptions_Should_Add_Validated_Options_With_Section_Key_And_Default_Key()
     {
         using var host = await new HostBuilder()
             .ConfigureHostConfiguration(builder =>

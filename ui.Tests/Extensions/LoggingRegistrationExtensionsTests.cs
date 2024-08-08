@@ -5,7 +5,7 @@ namespace ui.Extensions.Tests;
 public class LoggingRegistrationExtensionsTests
 {
     [Fact]
-    public void AddUiLoggingProvider_Adds_Logging_Provider_To_Host()
+    public void AddUiLoggingProvider_Should_Add_Logging_Provider_To_Host()
     {
         var mockHost = Substitute.For<IHostBuilder>();
 
@@ -21,7 +21,7 @@ public class LoggingRegistrationExtensionsTests
     }
 
     [Fact]
-    public void UseUiLoggingProvider_Enables_Logging_Provider_In_Pipeline()
+    public void UseUiLoggingProvider_Should_Enable_Logging_Provider_In_Pipeline()
     {
         var mockApp = Substitute.For<IApplicationBuilder>();
 

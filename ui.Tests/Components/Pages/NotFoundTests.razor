@@ -1,0 +1,17 @@
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void NotFound_Renders_Template()
+    {
+        var cut = Render(@<NotFound />);
+
+        cut.FindComponent<UniversalTitle>();
+        cut.FindComponent<HeadContent>();
+
+        var title = cut.FindAll("h1.page-header");
+
+        title.Should().BeEmpty();
+        cut.Markup.MatchSnapshot();
+    }
+}

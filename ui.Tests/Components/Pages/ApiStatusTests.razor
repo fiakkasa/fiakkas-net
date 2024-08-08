@@ -10,7 +10,7 @@
     }
 
     [Fact]
-    public void Api_Status_Renders_Template_When_Data_Is_Present()
+    public void Api_Status_Should_Render_Template_When_Data_Is_Present()
     {
         AddServicesAndStubs();
         var api = Substitute.For<IFiakkasNetApi>();
@@ -59,7 +59,7 @@
     }
 
     [Fact]
-    public void Api_Status_Renders_Template_When_Data_Is_Present_With_No_Health_Entries()
+    public void Api_Status_Should_Render_Template_When_Data_Is_Present_With_No_Health_Entries()
     {
         AddServicesAndStubs();
         var api = Substitute.For<IFiakkasNetApi>();
@@ -98,7 +98,7 @@
     }
 
     [Fact]
-    public void Api_Status_Renders_Loading_When_Data_Is_In_Transit()
+    public void Api_Status_Should_Render_Loading_When_Data_Is_In_Transit()
     {
         AddServicesAndStubs();
         var api = Substitute.For<IFiakkasNetApi>();
@@ -124,7 +124,7 @@
     }
 
     [Fact]
-    public void Api_Status_Renders_GenericNodata_When_Data_Is_Not_Present()
+    public void Api_Status_Should_Render_GenericNodata_When_Data_Is_Not_Present()
     {
         AddServicesAndStubs();
         var api = Substitute.For<IFiakkasNetApi>();
@@ -143,7 +143,7 @@
     }
 
     [Fact]
-    public void Api_Status_Renders_GenericError_When_Error()
+    public void Api_Status_Should_Render_GenericError_When_Error()
     {
         AddServicesAndStubs();
         var api = Substitute.For<IFiakkasNetApi>();
