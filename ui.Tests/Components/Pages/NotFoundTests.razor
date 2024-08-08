@@ -7,11 +7,13 @@
         var cut = Render(@<NotFound />);
 
         cut.FindComponent<UniversalTitle>();
-        cut.FindComponent<HeadContent>();
+        var headContent = cut.FindComponent<HeadContent>();
 
         var title = cut.FindAll("h1.page-header");
 
         title.Should().BeEmpty();
+        headContent.Instance.Should().NotBeNull();
+        Render(headContent.Instance.ChildContent!).MarkupMatches(@<meta name="robots" content="noindex" />);
         cut.Markup.MatchSnapshot();
     }
 }
