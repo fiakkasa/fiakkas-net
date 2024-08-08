@@ -27,10 +27,10 @@
     public void UniversalTitle_Should_Render_Default_With_Default_Parameters()
     {
         AddServicesAndStubs();
-        var cut = Render(@<UniversalTitle />);
+        var cut = RenderComponent<UniversalTitle>();
 
         var result = cut.Markup;
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.Should().BeEmpty();
@@ -41,10 +41,10 @@
     public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_Options_Throws_Error()
     {
         AddServicesAndStubs(true);
-        var cut = Render(@<UniversalTitle />);
+        var cut = RenderComponent<UniversalTitle>();
 
         var result = cut.Markup;
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.Should().BeEmpty();
@@ -55,10 +55,10 @@
     public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_ShowTitle_Is_False()
     {
         AddServicesAndStubs();
-        var cut = Render(@<UniversalTitle ShowTitle="false" />);
+        var cut = RenderComponent<UniversalTitle>(parameters => parameters.Add(p => p.ShowTitle, false));
 
         var result = cut.Markup;
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.Should().BeEmpty();
@@ -69,10 +69,10 @@
     public void UniversalTitle_Should_Render_With_Title()
     {
         AddServicesAndStubs();
-        var cut = Render(@<UniversalTitle Title="Test" />);
+        var cut = RenderComponent<UniversalTitle>(parameters => parameters.Add(p => p.Title, "Test"));
 
         var result = cut.Find("h1.page-header");
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.MarkupMatches(
@@ -89,10 +89,14 @@
     public void UniversalTitle_Should_Render_With_Title_And_Css_Class()
     {
         AddServicesAndStubs();
-        var cut = Render(@<UniversalTitle CssClass="test" Title="Test" />);
+        var cut = RenderComponent<UniversalTitle>(parameters => 
+            parameters
+                .Add(p => p.CssClass, "test")
+                .Add(p => p.Title, "Test")
+        );
 
         var result = cut.Find("h1.page-header");
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.MarkupMatches(
@@ -109,14 +113,15 @@
     public void UniversalTitle_Should_Render_With_Title_Css_Class_And_ChildContent_When_ChildContent_Is_Set()
     {
         AddServicesAndStubs();
-        var cut = Render(
-            @<UniversalTitle CssClass="test" Title="Test">
-                <a href="">Extra!</a>
-            </UniversalTitle>
+        var cut = RenderComponent<UniversalTitle>(parameters => 
+            parameters
+                .Add(p => p.CssClass, "test")
+                .Add(p => p.Title, "Test")
+                .AddChildContent(@<a href="">Extra!</a>)
         );
 
         var result = cut.Find("h1.page-header");
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.MarkupMatches(
@@ -134,14 +139,12 @@
     public void UniversalTitle_Should_Render_ChildContent_When_Only_ChildContent_Is_Set()
     {
         AddServicesAndStubs();
-        var cut = Render(
-            @<UniversalTitle>
-                <a href="">Extra!</a>
-            </UniversalTitle>
+        var cut = RenderComponent<UniversalTitle>(parameters => 
+            parameters.AddChildContent(@<a href="">Extra!</a>)
         );
 
         var result = cut.Find("h1.page-header");
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.MarkupMatches(
@@ -156,14 +159,14 @@
     public void UniversalTitle_Should_Render_ChildContent_With_Css_Class_When_ChildContent_And_Css_Class_Are_Set()
     {
         AddServicesAndStubs();
-        var cut = Render(
-            @<UniversalTitle CssClass="test">
-                <a href="">Extra!</a>
-            </UniversalTitle>
+        var cut = RenderComponent<UniversalTitle>(parameters => 
+            parameters
+                .Add(p => p.CssClass, "test")
+                .AddChildContent(@<a href="">Extra!</a>)
         );
 
         var result = cut.Find("h1.page-header");
-        var instance = cut.FindComponent<UniversalTitle>().Instance;
+        var instance = cut.Instance;
 
         instance.Should().NotBeNull();
         result.MarkupMatches(

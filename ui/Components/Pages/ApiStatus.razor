@@ -5,33 +5,33 @@
 @implements IDisposable
 
 <UniversalTitle Title="API Status">
-    <button type="button" class="btn btn-outline-primary rounded-circle p-0 px-1" title="Refresh" disabled="@_loading"
+    <button type="button" class="btn btn-outline-primary rounded-circle p-0 px-1" title="Refresh" disabled="@Loading"
         @onclick="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
     </button>
 </UniversalTitle>
 
-<ContentFlow IsLoading="@_loading" HasError="@_hasError" HasData="@(_result?.SystemStatus is { })">
+<ContentFlow IsLoading="@Loading" HasError="@HasError" HasData="@(Result?.SystemStatus is { })">
     <div class="table-responsive">
         <table class="table table-striped table-borderless text-nowrap">
             <tbody>
                 <tr>
                     <th>Startup Time:</th>
-                    <td class="w-100">@_result!.SystemStatus!.StartupTime</td>
+                    <td class="w-100">@Result!.SystemStatus!.StartupTime</td>
                 </tr>
                 <tr>
                     <th>Up Time:</th>
-                    <td>@_result!.SystemStatus!.UpTime</td>
+                    <td>@Result!.SystemStatus!.UpTime</td>
                 </tr>
                 <tr>
                     <th>Version:</th>
-                    <td>@_result!.SystemStatus!.Version</td>
+                    <td>@Result!.SystemStatus!.Version</td>
                 </tr>
                 <tr>
                     <th>Overall Health:</th>
-                    <td>@_result!.SystemStatus.Health.Status</td>
+                    <td>@Result!.SystemStatus.Health.Status</td>
                 </tr>
-                @if (_result.SystemStatus.Health.Entries is { Count: > 0 } healthEntries)
+                @if (Result.SystemStatus.Health.Entries is { Count: > 0 } healthEntries)
                 {
                     @foreach (var item in healthEntries)
                     {
@@ -45,7 +45,7 @@
                 }
                 <tr>
                     <th>Total Duration:</th>
-                    <td>@_result!.SystemStatus.Health.TotalDuration</td>
+                    <td>@Result!.SystemStatus.Health.TotalDuration</td>
                 </tr>
             </tbody>
         </table>
@@ -54,14 +54,14 @@
 
 
 @code {
-    private bool _loading = true;
-    private bool _hasError = false;
-    private IGetSystemStatusResult? _result;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+    internal bool Loading { get; private set; } = true;
+    internal bool HasError { get; private set; } = false;
+    internal IGetSystemStatusResult? Result { get; private set; }
 
     private async Task Refresh()
     {
-        if (_loading) return;
+        if (Loading) return;
 
         await SetData();
     }
@@ -70,9 +70,9 @@
     {
         try
         {
-            _loading = true;
-            _hasError = false;
-            _result = default;
+            Loading = true;
+            HasError = false;
+            Result = default;
 
             StateHasChanged();
 
@@ -80,16 +80,16 @@
 
             result.EnsureNoErrors();
 
-            _result = result.Data;
+            Result = result.Data;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to retrieve data with message: {Message}", ex.Message);
-            _result = default;
-            _hasError = true;
+            Result = default;
+            HasError = true;
         }
 
-        _loading = false;
+        Loading = false;
 
         StateHasChanged();
     }

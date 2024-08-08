@@ -12,7 +12,7 @@
         var title = cut.FindAll("h1.page-header");
 
         title.Should().BeEmpty();
-        headContent.Instance.Should().NotBeNull();
+        headContent.Instance.ChildContent.Should().NotBeNull();
         Render(headContent.Instance.ChildContent!).MarkupMatches(@<meta name="robots" content="noindex" />);
         cut.Markup.MatchSnapshot();
     }
