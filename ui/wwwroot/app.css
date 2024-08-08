@@ -7,6 +7,10 @@ html {
   overflow: hidden;
 }
 
+.app-container {
+  max-width: 1120px;
+}
+
 .menu-button:not(.active-menu-button) {
    border-color: transparent !important;
 }
@@ -25,6 +29,20 @@ html {
   vertical-align: -4px;
 }
 
+textarea {
+  resize: none;
+}
+
 #blazor-error-ui {
   display: none;
+}
+
+::placeholder {
+  opacity: .667!important;
+}
+
+@media (min-width: 1121px) {
+  nav {
+    border-radius: var(--bs-border-radius-pill)!important;
+  }
 }

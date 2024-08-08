@@ -6,7 +6,7 @@
 
 <UniversalTitle Title="API Status">
     <button type="button" class="btn btn-outline-primary rounded-circle p-0 px-1" title="Refresh" disabled="@_loading"
-        @onclick="SetData">
+        @onclick="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
     </button>
 </UniversalTitle>
@@ -58,6 +58,13 @@
     private bool _hasError = false;
     private IGetSystemStatusResult? _result;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+    private async Task Refresh()
+    {
+        if (_loading) return;
+
+        await SetData();
+    }
 
     private async Task SetData()
     {

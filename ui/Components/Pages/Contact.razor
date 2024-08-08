@@ -1,0 +1,106 @@
+@page "/Contact"
+@using ui.Models
+@using Microsoft.AspNetCore.Components.Forms
+
+<UniversalTitle Title="Contact" />
+
+<div class="card">
+    <div class="card-body">
+        <EditForm @ref="_editForm" Model="@_contactFormModel" OnValidSubmit="@HandleValidSubmit"
+            class="d-flex flex-column gap-3">
+            <DataAnnotationsValidator />
+
+            <div>
+                <label>Email</label>
+                <div class="input-group">
+                    <CustomInputText type="email" class="form-control" @bind-Value="_contactFormModel.FromEmail"
+                        placeholder="you@awesome-email.com" disabled="@_loading" />
+                    <span class="input-group-text">
+                        <i class="bi bi-envelope-at"></i>
+                    </span>
+                </div>
+                <ValidationMessage class="small text-warning" For="@(() => _contactFormModel.FromEmail)" />
+            </div>
+
+            <div>
+                <label>Subject</label>
+                <div class="input-group">
+                    <CustomInputText type="text" class="form-control" @bind-Value="_contactFormModel.Subject"
+                        placeholder="I'm interested in discussing..." disabled="@_loading" />
+                    <span class="input-group-text">
+                        <i class="bi bi-pencil"></i>
+                    </span>
+                </div>
+                <ValidationMessage class="small text-warning" For="@(() => _contactFormModel.Subject)" />
+            </div>
+
+            <div>
+                <label>Message</label>
+                <div class="input-group">
+                    <CustomInputTextArea class="form-control" @bind-Value="_contactFormModel.Message" rows="5"
+                        placeholder="Share your thoughts, ideas, or questions..." disabled="@_loading" />
+                    <span class="input-group-text">
+                        <i class="bi bi-journal-text"></i>
+                    </span>
+                </div>
+                <ValidationMessage class="small text-warning" For="@(() => _contactFormModel.Message)" />
+            </div>
+
+            <div class="d-flex justify-content-end me-2 gap-2">
+                <button type="reset" class="btn btn-secondary px-3" @onclick="ResetForm" disabled="@ResetDisabled">
+                    Reset
+                </button>
+                <button type="submit" class="btn btn-primary px-3 me-4" disabled="@SubmitDisabled">
+                    @if (_loading)
+                    {
+                        <span class="spinner-border spinner-border-sm"></span>
+                    }
+                    <span class="px-3">Submit</span>
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    private bool _loading = false;
+    private ContactFormModel _contactFormModel = new();
+    private EditForm _editForm = new();
+    private ValidationContext? _validationContext;
+
+    private ValidationContext ValidationContext => _validationContext ??= new ValidationContext(_contactFormModel);
+    private bool ResetDisabled => _loading || _editForm.EditContext?.IsModified() != true;
+    private bool SubmitDisabled =>
+    _loading
+    || _editForm.EditContext?.IsModified() != true
+    || !Validator.TryValidateObject(_contactFormModel, ValidationContext, default, true);
+
+    private void ResetForm()
+    {
+        if (ResetDisabled) return;
+
+        _contactFormModel = new();
+        _validationContext = default;
+        _editForm.EditContext?.MarkAsUnmodified();
+
+        StateHasChanged();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (SubmitDisabled) return;
+
+        _loading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(2000);
+
+        Console.WriteLine(_contactFormModel);
+
+        _loading = false;
+
+        ResetForm();
+    }
+}
