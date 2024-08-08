@@ -11,27 +11,27 @@
     </button>
 </UniversalTitle>
 
-<ContentFlow IsLoading="@Loading" HasError="@HasError" HasData="@(Result?.SystemStatus is { })">
+<ContentFlow IsLoading="@Loading" HasError="@HasError" HasData="@(Model?.SystemStatus is { })">
     <div class="table-responsive">
         <table class="table table-striped table-borderless text-nowrap">
             <tbody>
                 <tr>
                     <th>Startup Time:</th>
-                    <td class="w-100">@Result!.SystemStatus!.StartupTime</td>
+                    <td class="w-100">@Model!.SystemStatus!.StartupTime</td>
                 </tr>
                 <tr>
                     <th>Up Time:</th>
-                    <td>@Result!.SystemStatus!.UpTime</td>
+                    <td>@Model!.SystemStatus!.UpTime</td>
                 </tr>
                 <tr>
                     <th>Version:</th>
-                    <td>@Result!.SystemStatus!.Version</td>
+                    <td>@Model!.SystemStatus!.Version</td>
                 </tr>
                 <tr>
                     <th>Overall Health:</th>
-                    <td>@Result!.SystemStatus.Health.Status</td>
+                    <td>@Model!.SystemStatus.Health.Status</td>
                 </tr>
-                @if (Result.SystemStatus.Health.Entries is { Count: > 0 } healthEntries)
+                @if (Model.SystemStatus.Health.Entries is { Count: > 0 } healthEntries)
                 {
                     @foreach (var item in healthEntries)
                     {
@@ -45,7 +45,7 @@
                 }
                 <tr>
                     <th>Total Duration:</th>
-                    <td>@Result!.SystemStatus.Health.TotalDuration</td>
+                    <td>@Model!.SystemStatus.Health.TotalDuration</td>
                 </tr>
             </tbody>
         </table>
@@ -57,7 +57,7 @@
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     internal bool Loading { get; private set; } = true;
     internal bool HasError { get; private set; } = false;
-    internal IGetSystemStatusResult? Result { get; private set; }
+    internal IGetSystemStatusResult? Model { get; private set; }
 
     private async Task Refresh()
     {
@@ -72,7 +72,7 @@
         {
             Loading = true;
             HasError = false;
-            Result = default;
+            Model = default;
 
             StateHasChanged();
 
@@ -80,12 +80,12 @@
 
             result.EnsureNoErrors();
 
-            Result = result.Data;
+            Model = result.Data;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to retrieve data with message: {Message}", ex.Message);
-            Result = default;
+            Model = default;
             HasError = true;
         }
 
