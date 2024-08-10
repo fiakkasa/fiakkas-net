@@ -1,31 +1,48 @@
 @page "/Contact"
-@using ui.Models
 @using Microsoft.AspNetCore.Components.Forms
+@using System.Linq.Expressions
+@inject IEmailService _emailService
+@implements IDisposable
 
 <UniversalTitle Title="Contact" />
 
 <div class="card">
     <div class="card-body">
-        <EditForm @ref="_editForm" Model="@Model" OnValidSubmit="@HandleValidSubmit" class="d-flex flex-column gap-3">
-            <DataAnnotationsValidator />
+        @if (SuccessMessageExpirationTime >= DateTimeOffset.Now)
+        {
+            <div class="alert alert-success d-flex">
+                <div class="flex-fill">
+                    Thank you for getting in touch!
+                </div>
+                <button type="button" class="btn-close flex-shrink-0" @onclick="ClearSuccessMessage"></button>
+            </div>
+        }
+
+        <EditForm @ref="_editForm" EditContext="EditContext" OnSubmit="@HandleSubmit" class="d-flex flex-column gap-3">
+
+            <ValidationMessage class="small text-danger" For="@(() => _errorMessage)" />
+            <ValidationMessage class="small text-warning" For="@(() => _warningMessage)" />
 
             <div>
                 <label>Email</label>
                 <div class="input-group">
-                    <CustomInputText type="email" class="form-control" @bind-Value="Model.FromEmail"
+                    <InputText type="email" class="form-control" @bind-Value="Model.SenderAddress"
                         placeholder="you@awesome-email.com" disabled="@Loading" />
                     <span class="input-group-text">
                         <i class="bi bi-envelope-at"></i>
                     </span>
                 </div>
-                <ValidationMessage class="small text-warning" For="@(() => Model.FromEmail)" />
+                <ValidationMessage class="small text-warning" For="@(() => Model.SenderAddress)" />
             </div>
 
             <div>
                 <label>Subject</label>
                 <div class="input-group">
-                    <CustomInputText type="text" class="form-control" @bind-Value="Model.Subject"
-                        placeholder="I'm interested in discussing..." disabled="@Loading" />
+                    <InputText type="text" class="form-control" Value="@Model.Subject"
+                        ValueChanged="value => Model.Subject = value"
+                        ValueExpression="() => Model.Subject"
+                        placeholder="What would you like to inquire about?" disabled="@Loading"
+                        maxlength="@ContactConsts.MaxSubjectCharacters" />
                     <span class="input-group-text">
                         <i class="bi bi-pencil"></i>
                     </span>
@@ -36,8 +53,9 @@
             <div>
                 <label>Message</label>
                 <div class="input-group">
-                    <CustomInputTextArea class="form-control" @bind-Value="Model.Message" rows="5"
-                        placeholder="Share your thoughts, ideas, or questions..." disabled="@Loading" />
+                    <InputTextArea class="form-control" @bind-Value="Model.Message" rows="5"
+                        placeholder="Share your thoughts, ideas, or questions..." disabled="@Loading"
+                        maxlength="@ContactConsts.MaxMessageCharacters" />
                     <span class="input-group-text">
                         <i class="bi bi-journal-text"></i>
                     </span>
@@ -46,10 +64,10 @@
             </div>
 
             <div class="d-flex justify-content-end me-2 gap-2">
-                <button type="reset" class="btn btn-secondary px-3" @onclick="ResetForm" disabled="@ResetDisabled">
+                <button type="reset" class="btn btn-secondary px-3" @onclick="ResetForm" disabled="@Loading">
                     Reset
                 </button>
-                <button type="submit" class="btn btn-primary px-3 me-4" disabled="@SubmitDisabled">
+                <button type="submit" class="btn btn-primary px-3 me-4" disabled="@Loading">
                     @if (Loading)
                     {
                         <span class="spinner-border spinner-border-sm"></span>
@@ -62,43 +80,118 @@
 </div>
 
 @code {
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
     private EditForm _editForm = new();
-    private ValidationContext? _validationContext;
+    private string _warningMessage = string.Empty;
+    private string _errorMessage = string.Empty;
+    private EditContext? _editContext;
+    private ValidationMessageStore? _validationMessageStore;
 
     internal ContactFormModel Model { get; private set; } = new();
-    internal ValidationContext ValidationContext => _validationContext ??= new ValidationContext(Model);
+    internal EditContext EditContext => _editContext ??= new(Model);
+    private ValidationMessageStore ValidationMessageStore => _validationMessageStore ??= new(EditContext);
     internal bool Loading { get; private set; } = false;
-    internal bool ResetDisabled => Loading || _editForm.EditContext?.IsModified() != true;
-    internal bool SubmitDisabled =>
-    Loading
-    || _editForm.EditContext?.IsModified() != true
-    || !Validator.TryValidateObject(Model, ValidationContext, default, true);
+    internal DateTimeOffset SuccessMessageExpirationTime { get; private set; } = DateTimeOffset.MinValue;
+
+    protected override void OnInitialized()
+    {
+        EditContext.OnFieldChanged += (s, e) => { };
+    }
+
+    private void ClearSuccessMessage() => SuccessMessageExpirationTime = DateTimeOffset.MinValue;
+
+    private void ClearCustomValidationMessages()
+    {
+        ValidationMessageStore.Clear();
+        EditContext.NotifyValidationStateChanged();
+    }
 
     private void ResetForm()
     {
-        if (ResetDisabled) return;
+        if (Loading) return;
 
         Model = new();
-        _validationContext = default;
-        _editForm.EditContext?.MarkAsUnmodified();
+        ClearSuccessMessage();
+        ClearCustomValidationMessages();
+        EditContext.MarkAsUnmodified();
 
         StateHasChanged();
     }
 
-    private async Task HandleValidSubmit()
+    private async Task HandleSubmit()
     {
-        if (SubmitDisabled) return;
+        if (Loading) return;
+
+        ClearSuccessMessage();
+        ClearCustomValidationMessages();
+
+        if(!EditContext.Validate()) return;
 
         Loading = true;
-
+       
         StateHasChanged();
 
-        await Task.Delay(2000);
+        var result = await _emailService.SendFrom(
+            Model.SenderAddress,
+            Model.Subject,
+            Model.Message,
+            _cancellationTokenSource.Token
+        );
 
-        Console.WriteLine(Model);
+        var resetForm = result.Match(
+            isSuccess =>
+            {
+                if (isSuccess) return true;
+
+                ValidationMessageStore.Add(() => _errorMessage, "Whoops, something went wrong...");
+
+                return false;
+            },
+            validationErrors =>
+            {
+                foreach (var error in validationErrors)
+                {
+                    var message = error.ToPrettyErrorMessage();
+                    Expression<Func<object>> accessor = error.MemberNames.FirstOrDefault() switch
+                    {
+                        EmailConsts.SenderAddressFieldName => () => Model.SenderAddress,
+                        EmailConsts.SubjectFieldName => () => Model.Subject,
+                        EmailConsts.BodyFieldName => () => Model.Message,
+                        EmailConsts.RecipientAddressFieldName => () => _warningMessage,
+                        _ => () => _errorMessage
+                    };
+
+                    ValidationMessageStore.Add(accessor, message);
+                }
+
+                return false;
+            },
+            exception =>
+            {
+                ValidationMessageStore.Add(() => _errorMessage, exception.ToPrettyErrorMessage());
+
+                return false;
+            }
+        );
 
         Loading = false;
 
+        if (!resetForm)
+        {
+            EditContext.NotifyValidationStateChanged();
+            StateHasChanged();
+
+            return;
+        }
+
         ResetForm();
+
+        SuccessMessageExpirationTime = DateTimeOffset.Now.AddSeconds(3);
+    }
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
     }
 }

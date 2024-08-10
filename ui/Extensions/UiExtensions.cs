@@ -1,5 +1,3 @@
-using ui.Models;
-
 namespace ui.Extensions;
 
 public static class UiExtensions

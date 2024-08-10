@@ -3,15 +3,15 @@ namespace ui.Models;
 [ExcludeFromCodeCoverage]
 public record ContactFormModel
 {
-    [Required(ErrorMessage = "Please enter your email address")]
-    [EmailAddress(ErrorMessage = "Please enter a valid email address")]
-    public string FromEmail { get; set; } = string.Empty;
+    [Required(ErrorMessage = "How about adding your email address!?")]
+    [EmailAddress(ErrorMessage = "How about adding your email address!?")]
+    public string SenderAddress { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Please enter a subject")]
-    [StringLength(100, MinimumLength = 1)]
+    [Required(ErrorMessage =  "How about adding a subject!?")]
+    [StringLength(ContactConsts.MaxSubjectCharacters, ErrorMessage = "That appears to be a tad long...")]
     public string Subject { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Please enter a message")]
-    [StringLength(1000, MinimumLength = 1)]
+    [Required(ErrorMessage = "How about adding a few words!?")]
+    [StringLength(ContactConsts.MaxMessageCharacters, ErrorMessage = "That appears to be a tad long...")]
     public string Message { get; set; } = string.Empty;
 }

@@ -1,4 +1,3 @@
-using ui.Components;
 using ui.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +7,7 @@ var isDev = builder.Environment.IsDevelopment();
 builder.Host.AddUiLoggingProvider();
 
 services.AddUiConfig();
+services.AddHtmlParser();
 
 // Add services to the container.
 services
@@ -15,6 +15,7 @@ services
     .AddInteractiveServerComponents();
 
 services.AddFiakkasNetApiClient();
+services.AddEmailService();
 
 var app = builder.Build();
 
@@ -31,7 +32,7 @@ app.UseAntiforgery();
 app.UseUiLoggingProvider();
 
 app
-    .MapRazorComponents<App>()
+    .MapRazorComponents<ui.Components.App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
