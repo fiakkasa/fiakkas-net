@@ -72,6 +72,8 @@ public class EmailService(
         {
             var defaultHtmlSignature = optionsSnapshot.Value.DefaultHtmlSignature;
             var defaultPlainTextSignature = optionsSnapshot.Value.DefaultPlainTextSignature;
+            var defaultSenderAddress = optionsSnapshot.Value.DefaultSenderAddress;
+            var alwaysUseDefaultSenderAddress = optionsSnapshot.Value.AlwaysUseDefaultSenderAddress;
 
             var validationResults = new List<ValidationResult>(
                 await Validate(parser, senderAddress, recipientAddress, subject, body, cancellationToken)
@@ -84,8 +86,18 @@ public class EmailService(
             var parsedBody = await body.ToParsedHtml(parser, cancellationToken);
             var message = new MailMessage
             {
-                From = new MailAddress(senderAddress),
-                Subject = parsedSubject.PlainText,
+                From = new MailAddress(
+                    alwaysUseDefaultSenderAddress switch
+                    {
+                        true => defaultSenderAddress,
+                        _ => senderAddress
+                    }
+                ),
+                Subject = alwaysUseDefaultSenderAddress switch
+                {
+                    true => $"On Behalf of <{senderAddress}> | {parsedSubject.PlainText}",
+                    _ => parsedSubject.PlainText
+                },
                 SubjectEncoding = Encoding.UTF8,
                 BodyEncoding = Encoding.UTF8,
                 IsBodyHtml = true

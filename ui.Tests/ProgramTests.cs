@@ -29,6 +29,7 @@ public class ProgramTests
     "EnableSsl": false
   },
   "EmailConfig": {
+    "AlwaysUseDefaultSenderAddress": false,
     "DefaultSenderAddress": "email@user.com",
     "DefaultRecipientAddress": "email@user.com",
     "DefaultPlainTextSignature": "Hello!",
