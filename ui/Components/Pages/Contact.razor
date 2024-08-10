@@ -8,7 +8,7 @@
 
 <div class="card">
     <div class="card-body">
-        @if (SuccessMessageExpirationTime >= DateTimeOffset.Now)
+        @if (SuccessMessageExpirationTimer is { })
         {
             <div class="alert alert-success d-flex">
                 <div class="flex-fill">
@@ -18,7 +18,8 @@
             </div>
         }
 
-        <EditForm @ref="_editForm" EditContext="EditContext" OnSubmit="@HandleSubmit" class="d-flex flex-column gap-3">
+        <EditForm EditContext="EditContext" OnValidSubmit="@HandleSubmit" class="d-flex flex-column gap-3">
+            <DataAnnotationsValidator />
 
             <ValidationMessage class="small text-danger" For="@(() => _errorMessage)" />
             <ValidationMessage class="small text-warning" For="@(() => _warningMessage)" />
@@ -39,8 +40,7 @@
                 <label>Subject</label>
                 <div class="input-group">
                     <InputText type="text" class="form-control" Value="@Model.Subject"
-                        ValueChanged="value => Model.Subject = value"
-                        ValueExpression="() => Model.Subject"
+                        ValueChanged="value => Model.Subject = value" ValueExpression="() => Model.Subject"
                         placeholder="What would you like to inquire about?" disabled="@Loading"
                         maxlength="@ContactConsts.MaxSubjectCharacters" />
                     <span class="input-group-text">
@@ -81,7 +81,6 @@
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private EditForm _editForm = new();
     private string _warningMessage = string.Empty;
     private string _errorMessage = string.Empty;
     private EditContext? _editContext;
@@ -91,28 +90,55 @@
     internal EditContext EditContext => _editContext ??= new(Model);
     private ValidationMessageStore ValidationMessageStore => _validationMessageStore ??= new(EditContext);
     internal bool Loading { get; private set; } = false;
-    internal DateTimeOffset SuccessMessageExpirationTime { get; private set; } = DateTimeOffset.MinValue;
+    internal Timer? SuccessMessageExpirationTimer { get; private set; }
 
     protected override void OnInitialized()
     {
-        EditContext.OnFieldChanged += (s, e) => { };
+        EditContext.OnValidationRequested += HandleValidationRequested;
+        EditContext.OnFieldChanged += HandleFieldChange;
     }
 
-    private void ClearSuccessMessage() => SuccessMessageExpirationTime = DateTimeOffset.MinValue;
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args) =>
+    ValidationMessageStore.Clear();
 
-    private void ClearCustomValidationMessages()
+    private void HandleFieldChange(object? sender, FieldChangedEventArgs args) =>
+    ValidationMessageStore.Clear(args.FieldIdentifier);
+
+    private void ClearSuccessMessage()
     {
-        ValidationMessageStore.Clear();
-        EditContext.NotifyValidationStateChanged();
+        SuccessMessageExpirationTimer?.Dispose();
+        SuccessMessageExpirationTimer = default;
+    }
+
+    private void ScheduleAutoClearSuccessMessage()
+    {
+        if (SuccessMessageExpirationTimer is { }) return;
+
+        SuccessMessageExpirationTimer = new(
+            callback: async _ =>
+            {
+                await InvokeAsync(() =>
+                {
+                    ClearSuccessMessage();
+                    StateHasChanged();
+                });
+            },
+            state: null,
+            dueTime: (int)TimeSpan.FromSeconds(3).TotalMilliseconds,
+            period: Timeout.Infinite
+        );
     }
 
     private void ResetForm()
     {
         if (Loading) return;
 
-        Model = new();
+        Model.SenderAddress = string.Empty;
+        Model.Subject = string.Empty;
+        Model.Message = string.Empty;
+
         ClearSuccessMessage();
-        ClearCustomValidationMessages();
+        ValidationMessageStore.Clear();
         EditContext.MarkAsUnmodified();
 
         StateHasChanged();
@@ -122,13 +148,9 @@
     {
         if (Loading) return;
 
-        ClearSuccessMessage();
-        ClearCustomValidationMessages();
-
-        if(!EditContext.Validate()) return;
-
         Loading = true;
-       
+        ClearSuccessMessage();
+
         StateHasChanged();
 
         var result = await _emailService.SendFrom(
@@ -151,7 +173,6 @@
             {
                 foreach (var error in validationErrors)
                 {
-                    var message = error.ToPrettyErrorMessage();
                     Expression<Func<object>> accessor = error.MemberNames.FirstOrDefault() switch
                     {
                         EmailConsts.SenderAddressFieldName => () => Model.SenderAddress,
@@ -161,7 +182,7 @@
                         _ => () => _errorMessage
                     };
 
-                    ValidationMessageStore.Add(accessor, message);
+                    ValidationMessageStore.Add(accessor, error.ToPrettyErrorMessage());
                 }
 
                 return false;
@@ -171,7 +192,7 @@
                 ValidationMessageStore.Add(() => _errorMessage, exception.ToPrettyErrorMessage());
 
                 return false;
-            }
+        }
         );
 
         Loading = false;
@@ -185,12 +206,14 @@
         }
 
         ResetForm();
-
-        SuccessMessageExpirationTime = DateTimeOffset.Now.AddSeconds(3);
+        ScheduleAutoClearSuccessMessage();
     }
 
     public void Dispose()
     {
+        SuccessMessageExpirationTimer?.Dispose();
+        EditContext.OnValidationRequested -= HandleValidationRequested;
+        EditContext.OnFieldChanged -= HandleFieldChange;
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource.Dispose();
     }

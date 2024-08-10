@@ -107,7 +107,7 @@ public class EmailService(
                 )
             );
 
-            //await smtp.Send(message, cancellationToken);
+            await smtp.Send(message, cancellationToken);
 
             return true;
         }
