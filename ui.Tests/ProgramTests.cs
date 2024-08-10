@@ -23,6 +23,17 @@ public class ProgramTests
   "FiakkasNetApiConfig": {
     "BaseUrl": "https://test.com"
   },
+   "SmtpConfig": {
+    "Host": "smtp-host",
+    "Port": 25,
+    "EnableSsl": false
+  },
+  "EmailConfig": {
+    "DefaultSenderAddress": "email@user.com",
+    "DefaultRecipientAddress": "email@user.com",
+    "DefaultPlainTextSignature": "Hello!",
+    "DefaultHtmlSignature": "Hello!"
+  },
   "Serilog": {
     "Using": [
       "Serilog.Sinks.Console"

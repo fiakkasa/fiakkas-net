@@ -28,13 +28,13 @@ public static class EmailExtensions
 
         string[] memberNames = [memberName];
 
-        if (content.All(x => x == ' '))
+        if (string.IsNullOrWhiteSpace(content))
         {
             yield return new ValidationResult(nameof(EmailErrorCodeType.EMPTY_CONTENT), memberNames);
             yield break;
         }
 
-        if (document.Body?.TextContent.Trim() is not { Length: > 0 })
+        if (string.IsNullOrWhiteSpace(document.Body!.TextContent))
             yield return new ValidationResult(nameof(EmailErrorCodeType.UNUSABLE_CONTENT), memberNames);
 
         if (document.GetAllElementsWithAttributes().Any())

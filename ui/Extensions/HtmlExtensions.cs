@@ -31,16 +31,16 @@ public static class HtmlExtensions
         node.QuerySelectorAll("meta");
 
     public static async ValueTask<ParsedHtml> ToParsedHtml(
-        this string content,
+        this string? content,
         IHtmlParser parser,
         CancellationToken cancellationToken = default
     )
     {
-        using var document = await parser.ParseDocumentAsync(content, cancellationToken);
+        using var document = await parser.ParseDocumentAsync(content ?? string.Empty, cancellationToken);
 
         return new(
-            document.Body?.InnerHtml ?? string.Empty,
-            document.Body?.TextContent.Trim() ?? string.Empty
+            document.Body!.InnerHtml,
+            document.Body.TextContent.Trim()
         );
     }
 }
