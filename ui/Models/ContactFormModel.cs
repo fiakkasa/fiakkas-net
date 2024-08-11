@@ -15,6 +15,7 @@ public record ContactFormModel
     [StringLength(ContactConsts.MaxMessageCharacters, ErrorMessage = "That appears to be a tad long...")]
     public string Message { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "How about adding the verification code!?")]
     [Compare(nameof(VerificationCode), ErrorMessage = "That verification code doesn't look quite right...")]
     public string VerificationCodeEntered { get; set; } = string.Empty;
 
