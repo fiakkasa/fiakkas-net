@@ -39,10 +39,9 @@
             <div>
                 <label>Subject</label>
                 <div class="input-group">
-                    <InputText type="text" class="form-control" Value="@Model.Subject"
-                        ValueChanged="value => Model.Subject = value" ValueExpression="() => Model.Subject"
-                        placeholder="What would you like to inquire about?" disabled="@Loading"
-                        maxlength="@ContactConsts.MaxSubjectCharacters" />
+                    <InputText type="text" class="form-control" placeholder="What would you like to inquire about?" 
+                        disabled="@Loading" maxlength="@ContactConsts.MaxSubjectCharacters"
+                        @bind-Value="@Model.Subject" />
                     <span class="input-group-text">
                         <i class="bi bi-pencil"></i>
                     </span>
@@ -53,9 +52,9 @@
             <div>
                 <label>Message</label>
                 <div class="input-group">
-                    <InputTextArea class="form-control" @bind-Value="Model.Message" rows="5"
-                        placeholder="Share your thoughts, ideas, or questions..." disabled="@Loading"
-                        maxlength="@ContactConsts.MaxMessageCharacters" />
+                    <InputTextArea class="form-control" rows="5" placeholder="Share your thoughts, ideas, or questions..." 
+                        disabled="@Loading" maxlength="@ContactConsts.MaxMessageCharacters" 
+                        @bind-Value="Model.Message" />
                     <span class="input-group-text">
                         <i class="bi bi-journal-text"></i>
                     </span>
@@ -63,8 +62,50 @@
                 <ValidationMessage class="small text-warning" For="@(() => Model.Message)" />
             </div>
 
+            <div>
+                <div class="input-group">
+                    <InputText class="form-control" placeholder="Verification Code" disabled="@Loading" 
+                        @bind-Value="Model.VerificationCodeEntered" />
+                    <DntInputCaptcha @bind-Value="Model.VerificationCode"
+                        Language = "@NumberToWordLanguage.English"
+                        DisplayMode = "@DisplayMode.ShowDigits"
+                        AllowThousandsSeparators = "false"
+                        Max = "99999"
+                        Min = "1000"
+                        AbsoluteExpiration = "@TimeSpan.FromMinutes(2)"
+                        ShowRefreshButton = "@(!Loading)"
+                        FontSize = "21"
+                        FontName = "Times New Roman"
+                        FontColor = "#603F83FF"
+                        BackgroundColor = "#FCF6F5FF"
+                        RandomLinesCount = "2"
+                        RandomCirclesCount = "6"
+                        BorderWidth = "0.3"
+                        BorderColor = "grey"
+                        NoisePointsCount = "25"
+                        Padding = "11"
+                        ShadowBlur = "7"
+                        ShadowColor = "navy"
+                        ShadowOffsetX = "-3"
+                        ShadowOffsetY = "-3"
+                        TimerInterval = "@TimeSpan.FromMilliseconds(2500)"
+                        CaptchaCanvasClass = ""
+                        CaptchaDivClass = "input-group-text d-flex justify-content-center align-self-center p-0"
+                        RefreshButtonClass = "btn btn-primary rounded-0"
+                    >
+                        <RefreshButtonChildContent>
+                            <i class="bi bi-arrow-repeat"></i>
+                        </RefreshButtonChildContent>
+                    </DntInputCaptcha>
+                    <span class="input-group-text">
+                        <span class="bi-shield-lock"></span>
+                    </span>
+                </div>
+                <ValidationMessage class="small text-warning" For="@(() => Model.VerificationCodeEntered)" />
+            </div>
+
             <div class="d-flex justify-content-end me-2 gap-2">
-                <button type="reset" class="btn btn-secondary px-3" @onclick="ResetForm" disabled="@Loading">
+                <button type="reset" class="btn btn-secondary px-3" disabled="@Loading" @onclick="ResetForm">
                     Reset
                 </button>
                 <button type="submit" class="btn btn-primary px-3 me-4" disabled="@Loading">
@@ -81,10 +122,10 @@
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private string _warningMessage = string.Empty;
-    private string _errorMessage = string.Empty;
     private EditContext? _editContext;
     private ValidationMessageStore? _validationMessageStore;
+    private string _warningMessage = string.Empty;
+    private string _errorMessage = string.Empty;
 
     internal ContactFormModel Model { get; private set; } = new();
     internal EditContext EditContext => _editContext ??= new(Model);
@@ -92,17 +133,25 @@
     internal bool Loading { get; private set; } = false;
     internal Timer? SuccessMessageExpirationTimer { get; private set; }
 
-    protected override void OnInitialized()
+    protected override void OnInitialized() => AttachEditContextEvents();
+
+    private void AttachEditContextEvents()
     {
         EditContext.OnValidationRequested += HandleValidationRequested;
         EditContext.OnFieldChanged += HandleFieldChange;
     }
 
+    private void DettachEditContextEvents()
+    {
+        EditContext.OnValidationRequested -= HandleValidationRequested;
+        EditContext.OnFieldChanged -= HandleFieldChange;
+    }
+
     private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args) =>
-    ValidationMessageStore.Clear();
+        ValidationMessageStore.Clear();
 
     private void HandleFieldChange(object? sender, FieldChangedEventArgs args) =>
-    ValidationMessageStore.Clear(args.FieldIdentifier);
+        ValidationMessageStore.Clear(args.FieldIdentifier);
 
     private void ClearSuccessMessage()
     {
@@ -133,14 +182,14 @@
     {
         if (Loading) return;
 
-        Model.SenderAddress = string.Empty;
-        Model.Subject = string.Empty;
-        Model.Message = string.Empty;
+        DettachEditContextEvents();
 
+        _validationMessageStore = default;
+        _editContext = default;
+        Model = new();
+
+        AttachEditContextEvents();
         ClearSuccessMessage();
-        ValidationMessageStore.Clear();
-        EditContext.MarkAsUnmodified();
-
         StateHasChanged();
     }
 
@@ -148,9 +197,8 @@
     {
         if (Loading) return;
 
-        Loading = true;
         ClearSuccessMessage();
-
+        Loading = true;
         StateHasChanged();
 
         var result = await _emailService.SendFrom(
@@ -192,7 +240,7 @@
                 ValidationMessageStore.Add(() => _errorMessage, exception.ToPrettyErrorMessage());
 
                 return false;
-        }
+            }
         );
 
         Loading = false;
@@ -211,9 +259,8 @@
 
     public void Dispose()
     {
+        DettachEditContextEvents();
         SuccessMessageExpirationTimer?.Dispose();
-        EditContext.OnValidationRequested -= HandleValidationRequested;
-        EditContext.OnFieldChanged -= HandleFieldChange;
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource.Dispose();
     }

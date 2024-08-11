@@ -1,6 +1,6 @@
-using ui.Services;
-using System.Runtime.CompilerServices;
 using AngleSharp.Html.Parser;
+using System.Runtime.CompilerServices;
+using ui.Services;
 
 namespace ui.Extensions;
 
