@@ -27,7 +27,7 @@
             <div>
                 <label>Email</label>
                 <div class="input-group">
-                    <InputText type="email" class="form-control" @bind-Value="Model.SenderAddress"
+                    <EagerInputText type="email" class="form-control" @bind-Value="Model.SenderAddress"
                         placeholder="you@awesome-email.com" disabled="@Loading" />
                     <span class="input-group-text">
                         <i class="bi bi-envelope-at"></i>
@@ -39,32 +39,46 @@
             <div>
                 <label>Subject</label>
                 <div class="input-group">
-                    <InputText type="text" class="form-control" placeholder="What would you like to inquire about?" 
+                    <EagerInputText type="text" class="form-control" placeholder="What would you like to inquire about?" 
                         disabled="@Loading" maxlength="@ContactConsts.MaxSubjectCharacters"
                         @bind-Value="@Model.Subject" />
                     <span class="input-group-text">
                         <i class="bi bi-pencil"></i>
                     </span>
                 </div>
-                <ValidationMessage class="small text-warning" For="@(() => Model.Subject)" />
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <ValidationMessage class="small text-warning" For="@(() => Model.Subject)" />
+                    </div>
+                    <i class="flex-shrink-0 small text-primary">
+                        @Model.Subject.Length / @ContactConsts.MaxSubjectCharacters
+                    </i>
+                </div>
             </div>
 
             <div>
                 <label>Message</label>
                 <div class="input-group">
-                    <InputTextArea class="form-control" rows="5" placeholder="Share your thoughts, ideas, or questions..." 
+                    <EagerInputTextArea class="form-control" rows="5" placeholder="Share your thoughts, ideas, or questions..." 
                         disabled="@Loading" maxlength="@ContactConsts.MaxMessageCharacters" 
                         @bind-Value="Model.Message" />
                     <span class="input-group-text">
                         <i class="bi bi-journal-text"></i>
                     </span>
                 </div>
-                <ValidationMessage class="small text-warning" For="@(() => Model.Message)" />
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <ValidationMessage class="small text-warning" For="@(() => Model.Message)" />
+                    </div>
+                    <i class="flex-shrink-0 small text-primary">
+                        @Model.Message.Length / @ContactConsts.MaxMessageCharacters
+                    </i>
+                </div>
             </div>
 
             <div>
                 <div class="input-group">
-                    <InputText class="form-control" placeholder="Verification Code" disabled="@Loading" 
+                    <EagerInputText class="form-control" placeholder="Verification Code" disabled="@Loading" 
                         @bind-Value="Model.VerificationCodeEntered" />
                     <DntInputCaptcha @bind-Value="Model.VerificationCode"
                         Language = "@NumberToWordLanguage.English"
@@ -91,8 +105,7 @@
                         TimerInterval = "@TimeSpan.FromMilliseconds(2500)"
                         CaptchaCanvasClass = ""
                         CaptchaDivClass = "input-group-text d-flex justify-content-center align-self-center p-0"
-                        RefreshButtonClass = "btn btn-primary rounded-0"
-                    >
+                        RefreshButtonClass = "btn btn-primary rounded-0">
                         <RefreshButtonChildContent>
                             <i class="bi bi-arrow-repeat"></i>
                         </RefreshButtonChildContent>
