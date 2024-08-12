@@ -32,8 +32,8 @@ public class ProgramTests
     "AlwaysUseDefaultSenderAddress": false,
     "DefaultSenderAddress": "email@user.com",
     "DefaultRecipientAddress": "email@user.com",
-    "DefaultPlainTextSignature": "Hello!",
-    "DefaultHtmlSignature": "Hello!"
+    "PlainTextSignature": "Hello!",
+    "HtmlSignature": "Hello!"
   },
   "Serilog": {
     "Using": [

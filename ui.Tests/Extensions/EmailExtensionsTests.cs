@@ -22,10 +22,11 @@ public class EmailExtensionsTests
         };
         var expectedEmailConfig = new EmailConfig
         {
+            AlwaysUseDefaultSenderAddress = true,
             DefaultSenderAddress = "email@user.com",
             DefaultRecipientAddress = "email@user.com",
-            DefaultPlainTextSignature = "Hello!",
-            DefaultHtmlSignature = "Hello!"
+            PlainTextSignature = "Hello!",
+            HtmlSignature = "Hello!"
         };
         var serviceProvider =
             new ServiceCollection()

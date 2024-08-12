@@ -6,9 +6,9 @@ using ui.Extensions;
 namespace ui.Services;
 
 public class EmailService(
-    IOptionsSnapshot<EmailConfig> optionsSnapshot,
     ISmtpService smtp,
     IHtmlParser parser,
+    IOptionsSnapshot<EmailConfig> optionsSnapshot,
     ILogger<EmailService> logger
 ) : IEmailService
 {
@@ -35,7 +35,7 @@ public class EmailService(
         using var subjectDocument = await parser.ParseDocumentAsync(subject, cancellationToken);
         validationResults.AddRange(subjectDocument.ValidateEmailContent(EmailConsts.SubjectFieldName));
 
-        validationResults.AddRange(ValidateEmailRawContent(subject, EmailConsts.BodyFieldName));
+        validationResults.AddRange(ValidateEmailRawContent(body, EmailConsts.BodyFieldName));
         using var bodyDocument = await parser.ParseDocumentAsync(body, cancellationToken);
         validationResults.AddRange(bodyDocument.ValidateEmailContent(EmailConsts.BodyFieldName));
 
@@ -98,14 +98,14 @@ public class EmailService(
 
         message.AlternateViews.Add(
             AlternateView.CreateAlternateViewFromString(
-                parsedBody.Html + emailConfig.DefaultHtmlSignature,
+                parsedBody.Html + emailConfig.HtmlSignature,
                 Encoding.UTF8,
                 "text/html"
             )
         );
         message.AlternateViews.Add(
             AlternateView.CreateAlternateViewFromString(
-                parsedBody.PlainText + emailConfig.DefaultPlainTextSignature,
+                parsedBody.PlainText + emailConfig.PlainTextSignature,
                 Encoding.UTF8,
                 "text/plain"
             )
