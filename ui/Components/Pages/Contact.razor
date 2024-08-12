@@ -136,8 +136,6 @@
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private const int _minCaptchaValue = 1000;
-    private const int _maxCaptchaValue = 99999;
     private EditContext? _editContext;
     private ValidationMessageStore? _validationMessageStore;
     private string _warningMessage = string.Empty;
