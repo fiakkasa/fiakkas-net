@@ -52,18 +52,30 @@ public class EmailExtensionsTests
         emailServiceResult.Should().NotBeNull();
     }
 
-    [Fact]
-    public async Task ValidateEmailContent_Should_Yield_No_Results_When_Valid()
+    [Theory]
+    [InlineData("user@email.com", 0)]
+    [InlineData("", 2, nameof(EmailErrorCodeType.REQUIRED), nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS))]
+    [InlineData("hello-world", 1, nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS))]
+    public void ValidateEmailAddress_Should_Yield_Results_When_Conditions_Met(
+        string emailAddress,
+        int expectedCount,
+        string? expectedFirst = default,
+        string? expectedSecond = default
+    )
     {
-        var content = "<div>Hello!</div>";
+        var result = emailAddress.ValidateEmailAddress("member").ToArray();
 
-        var result = await content.ValidateEmailContent(_parser, "member").ToListAsync();
+        result.Should().HaveCount(expectedCount);
 
-        result.Should().BeEmpty();
+        if (expectedFirst is { })
+            result[0].ErrorMessage.Should().Be(expectedFirst);
+
+        if (expectedSecond is { })
+            result[1].ErrorMessage.Should().Be(expectedSecond);
     }
 
     [Theory]
-    [InlineData("   ", 1, nameof(EmailErrorCodeType.EMPTY_CONTENT))]
+    [InlineData("<div>Hello!</div>", 0)]
     [InlineData("<html <div  ", 1, nameof(EmailErrorCodeType.UNUSABLE_CONTENT))]
     [InlineData("<div class='test'></div>", 2, nameof(EmailErrorCodeType.UNUSABLE_CONTENT), nameof(EmailErrorCodeType.HTML_ATTRIBUTES_ARE_NOT_ALLOWED))]
     [InlineData("<div class='test'>Hello!</div>", 1, nameof(EmailErrorCodeType.HTML_ATTRIBUTES_ARE_NOT_ALLOWED))]
@@ -78,16 +90,50 @@ public class EmailExtensionsTests
     public async Task ValidateEmailContent_Should_Yield_Results_When_Conditions_Met(
         string content,
         int expectedCount,
-        string expectedFirst,
+        string? expectedFirst = default,
         string? expectedSecond = default
     )
     {
-        var result = await content.ValidateEmailContent(_parser, "member").ToListAsync();
+        using var document = await _parser.ParseDocumentAsync(content);
+
+        var result = document.ValidateEmailContent("member").ToList();
 
         result.Should().HaveCount(expectedCount);
-        result[0].ErrorMessage.Should().Be(expectedFirst);
+
+        if (expectedFirst is { })
+            result[0].ErrorMessage.Should().Be(expectedFirst);
 
         if (expectedSecond is { })
             result[1].ErrorMessage.Should().Be(expectedSecond);
+    }
+
+    [Theory]
+    [InlineData("user@email.com", true, "default@email.com", "default@email.com")]
+    [InlineData("user@email.com", false, "default@email.com", "user@email.com")]
+    public void GetSenderMailAddress_Should_Return_Expected_Address(
+        string senderAddress,
+        bool useDefaultSenderAddress,
+        string defaultSenderAddress,
+        string expectedAddress
+    )
+    {
+        var result = senderAddress.GetSenderMailAddress(useDefaultSenderAddress, defaultSenderAddress);
+
+        result.Address.Should().Be(expectedAddress);
+    }
+
+    [Theory]
+    [InlineData("Test", true, "user@email.com", "On Behalf of <user@email.com> | Test")]
+    [InlineData("Test", false, "user@email.com", "Test")]
+    public void GetSubject_Should_Return_Expected_Subject(
+        string subject,
+        bool isBehalfOf,
+        string senderAddress,
+        string expectedSubject
+    )
+    {
+        var result = subject.GetSubject(isBehalfOf, senderAddress);
+
+        result.Should().Be(expectedSubject);
     }
 }

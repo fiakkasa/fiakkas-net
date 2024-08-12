@@ -2,7 +2,7 @@ namespace ui.Interfaces;
 
 public interface IEmailService
 {
-    ValueTask<OneOf<bool, IReadOnlyCollection<ValidationResult>, InvalidOperationException>> SendFromTo(
+    ValueTask<OneOf<bool, IReadOnlyCollection<ValidationResult>, InvalidOperationException>> Send(
         string senderAddress,
         string recipientAddress,
         string subject,

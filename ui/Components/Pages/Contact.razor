@@ -8,145 +8,161 @@
 
 <div class="card">
     <div class="card-body">
-        @if (SuccessMessageExpirationTimer is { })
-        {
-            <div class="alert alert-success d-flex">
-                <div class="flex-fill">
-                    Thank you for getting in touch!
-                </div>
-                <button type="button" class="btn-close flex-shrink-0" @onclick="ClearSuccessMessage"></button>
-            </div>
-        }
-
-        <EditForm EditContext="EditContext" OnValidSubmit="@HandleSubmit" class="d-flex flex-column gap-3">
-            <DataAnnotationsValidator />
-
-            <ValidationMessage class="small text-danger" For="@(() => _errorMessage)" />
-            <ValidationMessage class="small text-warning" For="@(() => _warningMessage)" />
-
-            <div>
-                <label>Email</label>
-                <div class="input-group">
-                    <EagerInputText type="email" class="form-control" @bind-Value="Model.SenderAddress"
-                        placeholder="you@awesome-email.com" disabled="@Loading" />
-                    <span class="input-group-text">
-                        <i class="bi bi-envelope-at"></i>
-                    </span>
-                </div>
-                <ValidationMessage class="small text-warning" For="@(() => Model.SenderAddress)" />
-            </div>
-
-            <div>
-                <label>Subject</label>
-                <div class="input-group">
-                    <EagerInputText type="text" class="form-control" placeholder="What would you like to inquire about?" 
-                        disabled="@Loading" maxlength="@ContactConsts.MaxSubjectCharacters"
-                        @bind-Value="@Model.Subject" />
-                    <span class="input-group-text">
-                        <i class="bi bi-pencil"></i>
-                    </span>
-                </div>
-                <div class="d-flex">
+        <ContentFlow IsLoading="Loading" HasData="true">
+            @if (SuccessMessageExpirationTimer is { })
+            {
+                <div class="alert alert-success d-flex">
                     <div class="flex-fill">
-                        <ValidationMessage class="small text-warning" For="@(() => Model.Subject)" />
+                        Thank you for getting in touch!
                     </div>
-                    <i class="flex-shrink-0 small text-primary">
-                        @Model.Subject.Length / @ContactConsts.MaxSubjectCharacters
-                    </i>
+                    <button type="button" class="btn-close flex-shrink-0" @onclick="ClearSuccessMessage"></button>
                 </div>
-            </div>
+            }
 
-            <div>
-                <label>Message</label>
-                <div class="input-group">
-                    <EagerInputTextArea class="form-control" rows="5" placeholder="Share your thoughts, ideas, or questions..." 
-                        disabled="@Loading" maxlength="@ContactConsts.MaxMessageCharacters" 
-                        @bind-Value="Model.Message" />
-                    <span class="input-group-text">
-                        <i class="bi bi-journal-text"></i>
-                    </span>
-                </div>
-                <div class="d-flex">
-                    <div class="flex-fill">
-                        <ValidationMessage class="small text-warning" For="@(() => Model.Message)" />
+            <EditForm EditContext="EditContext" OnValidSubmit="@HandleSubmit" class="d-flex flex-column gap-3">
+                <DataAnnotationsValidator />
+
+                <ValidationMessage class="small text-danger" For="@(() => _errorMessage)" />
+                <ValidationMessage class="small text-warning" For="@(() => _warningMessage)" />
+
+                <div>
+                    <label>Email</label>
+                    <div class="input-group">
+                        <EagerInputText type="email" class="form-control" tabindex="1" placeholder="you@awesome-email.com" 
+                            @bind-Value="Model.SenderAddress" />
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-at"></i>
+                        </span>
                     </div>
-                    <i class="flex-shrink-0 small text-primary">
-                        @Model.Message.Length / @ContactConsts.MaxMessageCharacters
-                    </i>
+                    <ValidationMessage class="small text-warning" For="@(() => Model.SenderAddress)" />
                 </div>
-            </div>
 
-            <div>
-                <div class="input-group">
-                    <EagerInputText class="form-control" placeholder="Verification Code" disabled="@Loading" 
-                        @bind-Value="Model.VerificationCodeEntered" />
-                    <DntInputCaptcha @bind-Value="Model.VerificationCode"
-                        Language = "@NumberToWordLanguage.English"
-                        DisplayMode = "@DisplayMode.ShowDigits"
-                        AllowThousandsSeparators = "false"
-                        Max = "99999"
-                        Min = "1000"
-                        AbsoluteExpiration = "@TimeSpan.FromMinutes(2)"
-                        ShowRefreshButton = "@(!Loading)"
-                        FontSize = "21"
-                        FontName = "Times New Roman"
-                        FontColor = "#603F83FF"
-                        BackgroundColor = "#FCF6F5FF"
-                        RandomLinesCount = "2"
-                        RandomCirclesCount = "6"
-                        BorderWidth = "0.3"
-                        BorderColor = "grey"
-                        NoisePointsCount = "25"
-                        Padding = "11"
-                        ShadowBlur = "7"
-                        ShadowColor = "navy"
-                        ShadowOffsetX = "-3"
-                        ShadowOffsetY = "-3"
-                        TimerInterval = "@TimeSpan.FromMilliseconds(2500)"
-                        CaptchaCanvasClass = ""
-                        CaptchaDivClass = "input-group-text d-flex justify-content-center align-self-center p-0"
-                        RefreshButtonClass = "btn btn-primary rounded-0">
-                        <RefreshButtonChildContent>
+                <div>
+                    <label>Subject</label>
+                    <div class="input-group">
+                        <EagerInputText type="text" class="form-control" tabindex="2" placeholder="What would you like to inquire about?" 
+                            maxlength="@ContactConsts.MaxSubjectCharacters"
+                            @bind-Value="@Model.Subject" />
+                        <span class="input-group-text">
+                            <i class="bi bi-pencil"></i>
+                        </span>
+                    </div>
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <ValidationMessage class="small text-warning" For="@(() => Model.Subject)" />
+                        </div>
+                        <i class="flex-shrink-0 small text-primary">
+                            @Model.Subject.Length / @ContactConsts.MaxSubjectCharacters
+                        </i>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Message</label>
+                    <div class="input-group">
+                        <EagerInputTextArea class="form-control" rows="5" tabindex="3" placeholder="Share your thoughts, ideas, or questions..." 
+                            maxlength="@ContactConsts.MaxMessageCharacters" 
+                            @bind-Value="Model.Message" />
+                        <span class="input-group-text">
+                            <i class="bi bi-journal-text"></i>
+                        </span>
+                    </div>
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <ValidationMessage class="small text-warning" For="@(() => Model.Message)" />
+                        </div>
+                        <i class="flex-shrink-0 small text-primary">
+                            @Model.Message.Length / @ContactConsts.MaxMessageCharacters
+                        </i>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="input-group">
+                        <EagerInputText type="text" class="form-control" tabindex="4" placeholder="Verification Code" maxlength="5" 
+                            @bind-Value="Model.VerificationCodeEntered" />
+                        @if(!RefreshingCaptcha)
+                        {
+                            <DntInputCaptcha @bind-Value="Model.VerificationCode"
+                                Min = "1000"
+                                Max = "99999"
+                                Language = "@NumberToWordLanguage.English"
+                                DisplayMode = "@DisplayMode.ShowDigits"
+                                AllowThousandsSeparators = "false"
+                                AbsoluteExpiration = "@TimeSpan.FromMinutes(2)"
+                                ShowRefreshButton="false"
+                                FontSize = "21"
+                                FontName = "Times New Roman"
+                                FontColor = "#603F83FF"
+                                BackgroundColor = "#FCF6F5FF"
+                                RandomLinesCount = "2"
+                                RandomCirclesCount = "6"
+                                BorderWidth = "0.3"
+                                BorderColor = "grey"
+                                NoisePointsCount = "25"
+                                Padding = "11"
+                                ShadowBlur = "7"
+                                ShadowColor = "navy"
+                                ShadowOffsetX = "-3"
+                                ShadowOffsetY = "-3"
+                                TimerInterval = "@TimeSpan.FromMilliseconds(2500)"
+                                CaptchaCanvasClass = ""
+                                CaptchaDivClass = "input-group-text d-flex justify-content-center align-self-center p-0" />
+                        }
+                        <button type="button" class="input-group-text btn btn-primary rounded-0" tabindex="7" disabled="@RefreshingCaptcha" 
+                            @onclick="RefreshCaptcha">
                             <i class="bi bi-arrow-repeat"></i>
-                        </RefreshButtonChildContent>
-                    </DntInputCaptcha>
-                    <span class="input-group-text">
-                        <span class="bi-shield-lock"></span>
-                    </span>
+                        </button>
+                        <span class="input-group-text">
+                            <i class="bi-shield-lock"></i>
+                        </span>
+                    </div>
+                    <ValidationMessage class="small text-warning" For="@(() => Model.VerificationCodeEntered)" />
                 </div>
-                <ValidationMessage class="small text-warning" For="@(() => Model.VerificationCodeEntered)" />
-            </div>
 
-            <div class="d-flex justify-content-end me-2 gap-2">
-                <button type="reset" class="btn btn-secondary px-3" disabled="@Loading" @onclick="ResetForm">
-                    Reset
-                </button>
-                <button type="submit" class="btn btn-primary px-3 me-4" disabled="@Loading">
-                    @if (Loading)
-                    {
-                        <span class="spinner-border spinner-border-sm"></span>
-                    }
-                    <span class="px-3">Submit</span>
-                </button>
-            </div>
-        </EditForm>
+                <div class="d-flex justify-content-end me-2 gap-2">
+                    <button type="reset" class="btn btn-secondary px-3" tabindex="5" @onclick="ResetForm">
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary px-3 me-4" tabindex="6">
+                        <span class="px-3">Submit</span>
+                    </button>
+                </div>
+            </EditForm>
+        </ContentFlow>
+        
     </div>
 </div>
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+    private const int _minCaptchaValue = 1000;
+    private const int _maxCaptchaValue = 99999;
     private EditContext? _editContext;
     private ValidationMessageStore? _validationMessageStore;
     private string _warningMessage = string.Empty;
     private string _errorMessage = string.Empty;
 
     internal ContactFormModel Model { get; private set; } = new();
-    internal EditContext EditContext => _editContext ??= new(Model);
+    internal EditContext EditContext 
+    {
+        get 
+        {
+            if (_editContext is not { })
+            {
+                _editContext = new(Model);
+                AttachEditContextEvents();
+            }
+
+            return _editContext;
+        }
+    } 
     private ValidationMessageStore ValidationMessageStore => _validationMessageStore ??= new(EditContext);
     internal bool Loading { get; private set; } = false;
+    internal bool RefreshingCaptcha { get; private set; } = false;
     internal Timer? SuccessMessageExpirationTimer { get; private set; }
 
-    protected override void OnInitialized() => AttachEditContextEvents();
+    private async ValueTask Delay() => await 250.SafeDelay(_cancellationTokenSource.Token);
 
     private void AttachEditContextEvents()
     {
@@ -168,6 +184,8 @@
 
     private void ClearSuccessMessage()
     {
+        if(SuccessMessageExpirationTimer is not { }) return;
+
         SuccessMessageExpirationTimer?.Dispose();
         SuccessMessageExpirationTimer = default;
     }
@@ -191,28 +209,51 @@
         );
     }
 
-    private void ResetForm()
+    private async Task RefreshCaptcha()
     {
-        if (Loading) return;
+        if(RefreshingCaptcha) return;
 
+        RefreshingCaptcha = true;
+        StateHasChanged();
+
+        await Delay();
+
+        RefreshingCaptcha = false;
+        StateHasChanged();
+
+        if(Model.VerificationCodeEntered.Length == 0) return;
+
+        await Delay();
+
+        EditContext.NotifyFieldChanged(EditContext.Field(nameof(Model.VerificationCode)));
+        EditContext.NotifyFieldChanged(EditContext.Field(nameof(Model.VerificationCodeEntered)));
+    }
+
+    private async Task ResetForm()
+    {
+        Loading = true;
+        StateHasChanged();
+
+        await Delay();
+
+        ClearSuccessMessage();
         DettachEditContextEvents();
-
         _validationMessageStore = default;
         _editContext = default;
         Model = new();
-
-        AttachEditContextEvents();
-        ClearSuccessMessage();
+        Loading = false;
+        
         StateHasChanged();
     }
 
     private async Task HandleSubmit()
     {
-        if (Loading) return;
-
-        ClearSuccessMessage();
         Loading = true;
         StateHasChanged();
+
+        await Delay();
+
+        ClearSuccessMessage();
 
         var result = await _emailService.SendFrom(
             Model.SenderAddress,
@@ -266,7 +307,7 @@
             return;
         }
 
-        ResetForm();
+        await ResetForm();
         ScheduleAutoClearSuccessMessage();
     }
 

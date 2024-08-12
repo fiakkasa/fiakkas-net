@@ -1,11 +1,17 @@
-using AngleSharp.Html.Parser;
-using System.Runtime.CompilerServices;
+using AngleSharp.Html.Dom;
+using System.Net.Mail;
 using ui.Services;
 
 namespace ui.Extensions;
 
 public static class EmailExtensions
 {
+    private static readonly Dictionary<string, ValidationAttribute[]> _emailValidationItems = new()
+    {
+        [nameof(EmailErrorCodeType.REQUIRED)] = [new RequiredAttribute()],
+        [nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS)] = [new EmailAddressAttribute()]
+    };
+
     public static IServiceCollection AddEmailService(this IServiceCollection services)
     {
         services.AddValidatedOptions<SmtpConfig>();
@@ -17,22 +23,21 @@ public static class EmailExtensions
         return services;
     }
 
-    public static async IAsyncEnumerable<ValidationResult> ValidateEmailContent(
-        this string content,
-        IHtmlParser parser,
-        string memberName,
-        [EnumeratorCancellation] CancellationToken cancellationToken = default
-    )
+    public static IEnumerable<ValidationResult> ValidateEmailAddress(this string emailAddress, string memberName)
     {
-        using var document = await parser.ParseDocumentAsync(content, cancellationToken);
-
         string[] memberNames = [memberName];
+        var validationContext = new ValidationContext(emailAddress) { MemberName = memberName };
 
-        if (string.IsNullOrWhiteSpace(content))
+        foreach (var (Key, Value) in _emailValidationItems)
         {
-            yield return new ValidationResult(nameof(EmailErrorCodeType.EMPTY_CONTENT), memberNames);
-            yield break;
+            if (!Validator.TryValidateValue(emailAddress, validationContext, default, Value))
+                yield return new(Key, memberNames);
         }
+    }
+
+    public static IEnumerable<ValidationResult> ValidateEmailContent(this IHtmlDocument document, string memberName)
+    {
+        string[] memberNames = [memberName];
 
         if (string.IsNullOrWhiteSpace(document.Body!.TextContent))
             yield return new ValidationResult(nameof(EmailErrorCodeType.UNUSABLE_CONTENT), memberNames);
@@ -52,4 +57,24 @@ public static class EmailExtensions
         if (document.GetAllMetaElements().Length != 0)
             yield return new ValidationResult(nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED), memberNames);
     }
+
+    public static MailAddress GetSenderMailAddress(
+        this string senderAddress,
+        bool useDefaultSenderAddress,
+        string defaultSenderAddress
+    ) =>
+        new(
+            useDefaultSenderAddress switch
+            {
+                true => defaultSenderAddress,
+                _ => senderAddress
+            }
+        );
+
+    public static string GetSubject(this string subject, bool isBehalfOf, string senderAddress) =>
+        isBehalfOf switch
+        {
+            true => $"On Behalf of <{senderAddress}> | {subject}",
+            _ => subject
+        };
 }

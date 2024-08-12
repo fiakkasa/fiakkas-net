@@ -12,8 +12,13 @@ public class EmailService(
     ILogger<EmailService> logger
 ) : IEmailService
 {
-    private static async ValueTask<IReadOnlyCollection<ValidationResult>> Validate(
-        IHtmlParser parser,
+    private static IEnumerable<ValidationResult> ValidateEmailRawContent(string content, string memberName)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+            yield return new(nameof(EmailErrorCodeType.EMPTY_CONTENT), [memberName]);
+    }
+
+    private async ValueTask<IReadOnlyCollection<ValidationResult>> Validate(
         string senderAddress,
         string recipientAddress,
         string subject,
@@ -23,44 +28,21 @@ public class EmailService(
     {
         var validationResults = new List<ValidationResult>();
 
-        validationResults.AddRange(ValidateEmailAddress(senderAddress, EmailConsts.SenderAddressFieldName));
-        validationResults.AddRange(ValidateEmailAddress(recipientAddress, EmailConsts.RecipientAddressFieldName));
-        validationResults.AddRange(await ValidateEmailContent(subject, parser, EmailConsts.SubjectFieldName, cancellationToken));
-        validationResults.AddRange(await ValidateEmailContent(body, parser, EmailConsts.BodyFieldName, cancellationToken));
+        validationResults.AddRange(senderAddress.ValidateEmailAddress(EmailConsts.SenderAddressFieldName));
+        validationResults.AddRange(recipientAddress.ValidateEmailAddress(EmailConsts.RecipientAddressFieldName));
+
+        validationResults.AddRange(ValidateEmailRawContent(subject, EmailConsts.SubjectFieldName));
+        using var subjectDocument = await parser.ParseDocumentAsync(subject, cancellationToken);
+        validationResults.AddRange(subjectDocument.ValidateEmailContent(EmailConsts.SubjectFieldName));
+
+        validationResults.AddRange(ValidateEmailRawContent(subject, EmailConsts.BodyFieldName));
+        using var bodyDocument = await parser.ParseDocumentAsync(body, cancellationToken);
+        validationResults.AddRange(bodyDocument.ValidateEmailContent(EmailConsts.BodyFieldName));
 
         return validationResults;
-
-        static IReadOnlyCollection<ValidationResult> ValidateEmailAddress(string senderAddress, string memberName)
-        {
-            string[] memberNames = [memberName];
-            var validationContext = new ValidationContext(senderAddress) { MemberName = memberName };
-
-            if (!Validator.TryValidateValue(senderAddress, validationContext, [], [new RequiredAttribute()]))
-                return [new(nameof(EmailErrorCodeType.REQUIRED), memberNames)];
-
-            if (!Validator.TryValidateValue(senderAddress, validationContext, [], [new EmailAddressAttribute()]))
-                return [new(nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS), memberNames)];
-
-            return [];
-        }
-
-        static async ValueTask<IReadOnlyCollection<ValidationResult>> ValidateEmailContent(
-            string content,
-            IHtmlParser parser,
-            string memberName,
-            CancellationToken cancellationToken
-        )
-        {
-            var contentValidationResults = new List<ValidationResult>();
-
-            await foreach (var item in content.ValidateEmailContent(parser, memberName, cancellationToken))
-                contentValidationResults.Add(item);
-
-            return contentValidationResults;
-        }
     }
 
-    public async ValueTask<OneOf<bool, IReadOnlyCollection<ValidationResult>, InvalidOperationException>> SendFromTo(
+    public async ValueTask<OneOf<bool, IReadOnlyCollection<ValidationResult>, InvalidOperationException>> Send(
         string senderAddress,
         string recipientAddress,
         string subject,
@@ -70,54 +52,16 @@ public class EmailService(
     {
         try
         {
-            var defaultHtmlSignature = optionsSnapshot.Value.DefaultHtmlSignature;
-            var defaultPlainTextSignature = optionsSnapshot.Value.DefaultPlainTextSignature;
-            var defaultSenderAddress = optionsSnapshot.Value.DefaultSenderAddress;
-            var alwaysUseDefaultSenderAddress = optionsSnapshot.Value.AlwaysUseDefaultSenderAddress;
+            var emailConfig = optionsSnapshot.Value;
 
             var validationResults = new List<ValidationResult>(
-                await Validate(parser, senderAddress, recipientAddress, subject, body, cancellationToken)
+                await Validate(senderAddress, recipientAddress, subject, body, cancellationToken)
             );
 
             if (validationResults.Count > 0)
                 return validationResults;
 
-            var parsedSubject = await subject.ToParsedHtml(parser, cancellationToken);
-            var parsedBody = await body.ToParsedHtml(parser, cancellationToken);
-            var message = new MailMessage
-            {
-                From = new MailAddress(
-                    alwaysUseDefaultSenderAddress switch
-                    {
-                        true => defaultSenderAddress,
-                        _ => senderAddress
-                    }
-                ),
-                Subject = alwaysUseDefaultSenderAddress switch
-                {
-                    true => $"On Behalf of <{senderAddress}> | {parsedSubject.PlainText}",
-                    _ => parsedSubject.PlainText
-                },
-                SubjectEncoding = Encoding.UTF8,
-                BodyEncoding = Encoding.UTF8,
-                IsBodyHtml = true
-            };
-            message.To.Add(recipientAddress);
-
-            message.AlternateViews.Add(
-                AlternateView.CreateAlternateViewFromString(
-                    parsedBody.Html + defaultHtmlSignature,
-                    Encoding.UTF8,
-                    "text/html"
-                )
-            );
-            message.AlternateViews.Add(
-                AlternateView.CreateAlternateViewFromString(
-                    parsedBody.PlainText + defaultPlainTextSignature,
-                    Encoding.UTF8,
-                    "text/plain"
-                )
-            );
+            var message = await BuildMessage(emailConfig, senderAddress, recipientAddress, subject, body, cancellationToken);
 
             await smtp.Send(message, cancellationToken);
 
@@ -131,6 +75,45 @@ public class EmailService(
         }
     }
 
+    private async ValueTask<MailMessage> BuildMessage(
+        EmailConfig emailConfig,
+        string senderAddress,
+        string recipientAddress,
+        string subject,
+        string body,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var parsedSubject = await subject.ToParsedHtml(parser, cancellationToken);
+        var parsedBody = await body.ToParsedHtml(parser, cancellationToken);
+        var message = new MailMessage
+        {
+            From = senderAddress.GetSenderMailAddress(emailConfig.AlwaysUseDefaultSenderAddress, emailConfig.DefaultSenderAddress),
+            Subject = parsedSubject.PlainText.GetSubject(emailConfig.AlwaysUseDefaultSenderAddress, senderAddress),
+            SubjectEncoding = Encoding.UTF8,
+            BodyEncoding = Encoding.UTF8,
+            IsBodyHtml = true
+        };
+        message.To.Add(recipientAddress);
+
+        message.AlternateViews.Add(
+            AlternateView.CreateAlternateViewFromString(
+                parsedBody.Html + emailConfig.DefaultHtmlSignature,
+                Encoding.UTF8,
+                "text/html"
+            )
+        );
+        message.AlternateViews.Add(
+            AlternateView.CreateAlternateViewFromString(
+                parsedBody.PlainText + emailConfig.DefaultPlainTextSignature,
+                Encoding.UTF8,
+                "text/plain"
+            )
+        );
+
+        return message;
+    }
+
     public async ValueTask<OneOf<bool, IReadOnlyCollection<ValidationResult>, InvalidOperationException>> SendFrom(
         string senderAddress,
         string subject,
@@ -140,7 +123,7 @@ public class EmailService(
     {
         try
         {
-            return await SendFromTo(senderAddress, optionsSnapshot.Value.DefaultRecipientAddress, subject, body, cancellationToken);
+            return await Send(senderAddress, optionsSnapshot.Value.DefaultRecipientAddress, subject, body, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -154,7 +137,7 @@ public class EmailService(
     {
         try
         {
-            return await SendFromTo(optionsSnapshot.Value.DefaultSenderAddress, recipientAddress, subject, body, cancellationToken);
+            return await Send(optionsSnapshot.Value.DefaultSenderAddress, recipientAddress, subject, body, cancellationToken);
         }
         catch (Exception ex)
         {
