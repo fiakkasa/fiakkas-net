@@ -3,6 +3,7 @@ using NSubstitute.ExceptionExtensions;
 using System.Net.Mail;
 using System.Threading;
 using ui.Enums;
+using ui.Extensions;
 using ui.Interfaces;
 using ui.Models;
 using ui.Services;
@@ -12,14 +13,7 @@ namespace ui.Tests.Services;
 public class EmailServiceTests
 {
     private readonly ISmtpService _smtpService;
-    private readonly HtmlParser _parser = new(new HtmlParserOptions
-    {
-        IsScripting = false,
-        SkipComments = true,
-        SkipRCDataText = true,
-        SkipCDATA = true,
-        SkipScriptText = true
-    });
+    private readonly IHtmlParser _parser = HtmlExtensions.ParserFactory();
     private readonly IOptionsSnapshot<EmailConfig> _optionsSnapshot;
     private readonly ILogger<EmailService> _logger;
 
@@ -85,30 +79,66 @@ public class EmailServiceTests
     }
 
     [Theory]
-    [InlineData("", "", nameof(EmailErrorCodeType.EMPTY_CONTENT), nameof(EmailErrorCodeType.EMPTY_CONTENT))]
-    [InlineData("<div>Hello</div>", "", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED), nameof(EmailErrorCodeType.EMPTY_CONTENT))]
-    [InlineData("<div>Hello</div>", "<meta />World!", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED), nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED))]
-    [InlineData("", "<meta/> Hello", nameof(EmailErrorCodeType.EMPTY_CONTENT), nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED))]
-    [InlineData("", "Hello", nameof(EmailErrorCodeType.EMPTY_CONTENT))]
-    [InlineData("<div>Hello</div>", "World!", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED))]
-    [InlineData("Hello", "<meta /> World!", nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED))]
+    [InlineData(
+        default,
+        default,
+        default,
+        default,
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED)
+    )]
+    [InlineData(
+        "",
+        "",
+        "",
+        "",
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED)
+    )]
+    [InlineData(
+        " ",
+        " ",
+        " ",
+        " ",
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.REQUIRED)
+    )]
+    [InlineData(
+        "hello",
+        "",
+        "<div>Hello</div>",
+        "<div <span",
+        nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS),
+        nameof(EmailErrorCodeType.REQUIRED),
+        nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED),
+        nameof(EmailErrorCodeType.UNUSABLE_CONTENT)
+    )]
     public async Task Send_Should_Not_Send_Email_When_Validation_Errors_Found(
-        string subject,
-        string body,
+        string? senderAddress,
+        string? recipientAddress,
+        string? subject,
+        string? body,
         params string[] expectedErrors
     )
     {
         var service = GetEmailService(_config);
 
         var result = await service.Send(
-            _senderAddress,
-            _recipientAddress,
-            subject,
-            body
+            senderAddress!,
+            recipientAddress!,
+            subject!,
+            body!
         );
 
         result.IsT1.Should().BeTrue();
-        result.AsT1.Select(x => x.ErrorMessage).Should().IntersectWith(expectedErrors);
+        result.AsT1.Should().HaveCount(expectedErrors.Length);
+        expectedErrors.Should().ContainInOrder(result.AsT1.Select(x => x.ErrorMessage));
     }
 
     [Fact]

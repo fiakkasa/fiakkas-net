@@ -1,34 +1,20 @@
-using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 
 namespace ui.Extensions;
 
 public static class HtmlExtensions
 {
+    internal static IHtmlParser ParserFactory() => new HtmlParser(new HtmlParserOptions
+    {
+        IsScripting = false,
+        SkipComments = true,
+        SkipRCDataText = true,
+        SkipCDATA = true,
+        SkipScriptText = true
+    });
+
     public static IServiceCollection AddHtmlParser(this IServiceCollection services) =>
-        services.AddSingleton<IHtmlParser>(new HtmlParser(new HtmlParserOptions
-        {
-            IsScripting = false,
-            SkipComments = true,
-            SkipRCDataText = true,
-            SkipCDATA = true,
-            SkipScriptText = true
-        }));
-
-    public static IEnumerable<IElement> GetAllElementsWithAttributes(this IParentNode node) =>
-        node.QuerySelectorAll("*").Where(x => x.Attributes.Length != 0);
-
-    public static IHtmlCollection<IElement> GetAllScriptElements(this IParentNode node) =>
-        node.QuerySelectorAll("script");
-
-    public static IHtmlCollection<IElement> GetAllStyleElements(this IParentNode node) =>
-        node.QuerySelectorAll("style");
-
-    public static IHtmlCollection<IElement> GetAllLinkElements(this IParentNode node) =>
-        node.QuerySelectorAll("link");
-
-    public static IHtmlCollection<IElement> GetAllMetaElements(this IParentNode node) =>
-        node.QuerySelectorAll("meta");
+        services.AddSingleton(_ => ParserFactory());
 
     public static async ValueTask<string> ToParsedPlainText(
         this string? content,
@@ -36,9 +22,11 @@ public static class HtmlExtensions
         CancellationToken cancellationToken = default
     )
     {
-        using var document = await parser.ParseDocumentAsync(content ?? string.Empty, cancellationToken);
+        if (content is not { Length: > 0 }) return string.Empty;
 
-        return document.Body!.TextContent.Trim();
+        using var document = await parser.ParseDocumentAsync(content, cancellationToken);
+
+        return document.Body!.TextContent;
     }
 
     public static async ValueTask<ParsedHtml> ToParsedHtml(
@@ -47,11 +35,13 @@ public static class HtmlExtensions
         CancellationToken cancellationToken = default
     )
     {
-        using var document = await parser.ParseDocumentAsync(content ?? string.Empty, cancellationToken);
+        if (content is not { Length: > 0 }) return new(string.Empty, string.Empty);
 
-        return new(
-            document.Body!.InnerHtml,
-            document.Body.TextContent.Trim()
-        );
+        using var document = await parser.ParseDocumentAsync(content, cancellationToken);
+
+        var trimmed = document.Body!.TextContent.ReplaceLineEndings("\r\n");
+        var html = trimmed.ReplaceLineEndings("<br />");
+
+        return new(html, trimmed);
     }
 }

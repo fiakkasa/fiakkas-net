@@ -1,5 +1,5 @@
-using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 using System.Net.Mail;
 using ui.Services;
 
@@ -11,6 +11,15 @@ public static class EmailExtensions
     {
         [nameof(EmailErrorCodeType.REQUIRED)] = [new RequiredAttribute()],
         [nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS)] = [new EmailAddressAttribute()]
+    };
+    private static readonly Dictionary<string, ValidationAttribute[]> _emailContentValidationItems = new()
+    {
+        [nameof(EmailErrorCodeType.REQUIRED)] = [new RequiredAttribute()]
+    };
+    private static readonly Dictionary<string, Func<IHtmlDocument, bool>> _emailDocumentValidationItems = new()
+    {
+        [nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED)] = document => document is { Head.Children.Length: 0, Body.Children.Length: 0 },
+        [nameof(EmailErrorCodeType.UNUSABLE_CONTENT)] = document => document.Body!.TextContent.Length > 0
     };
 
     public static IServiceCollection AddEmailService(this IServiceCollection services)
@@ -24,50 +33,50 @@ public static class EmailExtensions
         return services;
     }
 
-    public static IEnumerable<ValidationResult> ValidateEmailAddress(this string emailAddress, string memberName)
+    public static IReadOnlyCollection<ValidationResult> ValidateEmailAddress(
+        this string? emailAddress,
+        string memberName
+    )
     {
         string[] memberNames = [memberName];
-        var validationContext = new ValidationContext(emailAddress) { MemberName = memberName };
+        var normalizedEmailAddress = emailAddress ?? string.Empty;
+        var validationContext = new ValidationContext(normalizedEmailAddress) { MemberName = memberName };
 
         foreach (var (Key, Value) in _emailValidationItems)
         {
-            if (!Validator.TryValidateValue(emailAddress, validationContext, default, Value))
-                yield return new(Key, memberNames);
+            if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, Value))
+                return [new(Key, memberNames)];
         }
+
+        return [];
     }
 
-    public static IEnumerable<ValidationResult> ValidateEmailPlainTextContent(this IHtmlDocument document, string memberName)
+    public static async ValueTask<IReadOnlyCollection<ValidationResult>> ValidateEmailContent(
+        this string? content,
+        IHtmlParser parser,
+        string memberName,
+        CancellationToken cancellationToken = default
+    )
     {
         string[] memberNames = [memberName];
+        var normalizedContent = content ?? string.Empty;
+        var validationContext = new ValidationContext(normalizedContent) { MemberName = memberName };
 
-        if (string.IsNullOrWhiteSpace(document.Body!.TextContent))
-            yield return new ValidationResult(nameof(EmailErrorCodeType.UNUSABLE_CONTENT), memberNames);
+        foreach (var (Key, Value) in _emailContentValidationItems)
+        {
+            if (!Validator.TryValidateValue(normalizedContent, validationContext, default, Value))
+                return [new(Key, memberNames)];
+        }
 
-        if (document is not { Head.Children.Length: 0, Body.Children.Length: 0 })
-            yield return new ValidationResult(nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED), memberNames);
-    }
+        using var document = await parser.ParseDocumentAsync(normalizedContent, cancellationToken);
 
-    public static IEnumerable<ValidationResult> ValidateEmailHtmlContent(this IHtmlDocument document, string memberName)
-    {
-        string[] memberNames = [memberName];
+        foreach (var (Key, Value) in _emailDocumentValidationItems)
+        {
+            if (!Value(document))
+                return [new(Key, memberNames)];
+        }
 
-        if (string.IsNullOrWhiteSpace(document.Body!.TextContent))
-            yield return new ValidationResult(nameof(EmailErrorCodeType.UNUSABLE_CONTENT), memberNames);
-
-        if (document.GetAllElementsWithAttributes().Any())
-            yield return new ValidationResult(nameof(EmailErrorCodeType.HTML_ATTRIBUTES_ARE_NOT_ALLOWED), memberNames);
-
-        if (document.GetAllScriptElements().Length != 0)
-            yield return new ValidationResult(nameof(EmailErrorCodeType.SCRIPT_TAGS_ARE_NOT_ALLOWED), memberNames);
-
-        if (document.GetAllStyleElements().Length != 0)
-            yield return new ValidationResult(nameof(EmailErrorCodeType.STYLE_TAGS_ARE_NOT_ALLOWED), memberNames);
-
-        if (document.GetAllLinkElements().Length != 0)
-            yield return new ValidationResult(nameof(EmailErrorCodeType.LINK_TAGS_ARE_NOT_ALLOWED), memberNames);
-
-        if (document.GetAllMetaElements().Length != 0)
-            yield return new ValidationResult(nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED), memberNames);
+        return [];
     }
 
     public static MailAddress GetSenderMailAddress(

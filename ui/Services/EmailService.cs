@@ -12,12 +12,6 @@ public class EmailService(
     ILogger<EmailService> logger
 ) : IEmailService
 {
-    private static IEnumerable<ValidationResult> ValidateEmailRawContent(string content, string memberName)
-    {
-        if (string.IsNullOrWhiteSpace(content))
-            yield return new(nameof(EmailErrorCodeType.EMPTY_CONTENT), [memberName]);
-    }
-
     private async ValueTask<IReadOnlyCollection<ValidationResult>> Validate(
         string senderAddress,
         string recipientAddress,
@@ -30,28 +24,8 @@ public class EmailService(
 
         validationResults.AddRange(senderAddress.ValidateEmailAddress(EmailConsts.SenderAddressFieldName));
         validationResults.AddRange(recipientAddress.ValidateEmailAddress(EmailConsts.RecipientAddressFieldName));
-
-        var subjectEmptyValidationResults = ValidateEmailRawContent(subject, EmailConsts.SubjectFieldName).ToArray();
-        if (subjectEmptyValidationResults.Length > 0)
-        {
-            validationResults.AddRange(subjectEmptyValidationResults);
-        }
-        else
-        {
-            using var subjectDocument = await parser.ParseDocumentAsync(subject, cancellationToken);
-            validationResults.AddRange(subjectDocument.ValidateEmailPlainTextContent(EmailConsts.SubjectFieldName));
-        }
-
-        var bodyEmptyValidationResults = ValidateEmailRawContent(body, EmailConsts.BodyFieldName).ToArray();
-        if (bodyEmptyValidationResults.Length > 0)
-        {
-            validationResults.AddRange(ValidateEmailRawContent(body, EmailConsts.BodyFieldName));
-        }
-        else
-        {
-            using var bodyDocument = await parser.ParseDocumentAsync(body, cancellationToken);
-            validationResults.AddRange(bodyDocument.ValidateEmailHtmlContent(EmailConsts.BodyFieldName));
-        }
+        validationResults.AddRange(await subject.ValidateEmailContent(parser, EmailConsts.SubjectFieldName, cancellationToken));
+        validationResults.AddRange(await body.ValidateEmailContent(parser, EmailConsts.BodyFieldName, cancellationToken));
 
         return validationResults;
     }
