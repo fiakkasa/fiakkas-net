@@ -30,6 +30,17 @@ public static class HtmlExtensions
     public static IHtmlCollection<IElement> GetAllMetaElements(this IParentNode node) =>
         node.QuerySelectorAll("meta");
 
+    public static async ValueTask<string> ToParsedPlainText(
+        this string? content,
+        IHtmlParser parser,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var document = await parser.ParseDocumentAsync(content ?? string.Empty, cancellationToken);
+
+        return document.Body!.TextContent.Trim();
+    }
+
     public static async ValueTask<ParsedHtml> ToParsedHtml(
         this string? content,
         IHtmlParser parser,

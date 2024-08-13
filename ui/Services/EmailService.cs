@@ -31,13 +31,27 @@ public class EmailService(
         validationResults.AddRange(senderAddress.ValidateEmailAddress(EmailConsts.SenderAddressFieldName));
         validationResults.AddRange(recipientAddress.ValidateEmailAddress(EmailConsts.RecipientAddressFieldName));
 
-        validationResults.AddRange(ValidateEmailRawContent(subject, EmailConsts.SubjectFieldName));
-        using var subjectDocument = await parser.ParseDocumentAsync(subject, cancellationToken);
-        validationResults.AddRange(subjectDocument.ValidateEmailContent(EmailConsts.SubjectFieldName));
+        var subjectEmptyValidationResults = ValidateEmailRawContent(subject, EmailConsts.SubjectFieldName).ToArray();
+        if (subjectEmptyValidationResults.Length > 0)
+        {
+            validationResults.AddRange(subjectEmptyValidationResults);
+        }
+        else
+        {
+            using var subjectDocument = await parser.ParseDocumentAsync(subject, cancellationToken);
+            validationResults.AddRange(subjectDocument.ValidateEmailPlainTextContent(EmailConsts.SubjectFieldName));
+        }
 
-        validationResults.AddRange(ValidateEmailRawContent(body, EmailConsts.BodyFieldName));
-        using var bodyDocument = await parser.ParseDocumentAsync(body, cancellationToken);
-        validationResults.AddRange(bodyDocument.ValidateEmailContent(EmailConsts.BodyFieldName));
+        var bodyEmptyValidationResults = ValidateEmailRawContent(body, EmailConsts.BodyFieldName).ToArray();
+        if (bodyEmptyValidationResults.Length > 0)
+        {
+            validationResults.AddRange(ValidateEmailRawContent(body, EmailConsts.BodyFieldName));
+        }
+        else
+        {
+            using var bodyDocument = await parser.ParseDocumentAsync(body, cancellationToken);
+            validationResults.AddRange(bodyDocument.ValidateEmailHtmlContent(EmailConsts.BodyFieldName));
+        }
 
         return validationResults;
     }
@@ -84,25 +98,19 @@ public class EmailService(
         CancellationToken cancellationToken = default
     )
     {
-        var parsedSubject = await subject.ToParsedHtml(parser, cancellationToken);
+        var parsedSubject = await subject.ToParsedPlainText(parser, cancellationToken);
         var parsedBody = await body.ToParsedHtml(parser, cancellationToken);
         var message = new MailMessage
         {
             From = senderAddress.GetSenderMailAddress(emailConfig.AlwaysUseDefaultSenderAddress, emailConfig.DefaultSenderAddress),
-            Subject = parsedSubject.PlainText.GetSubject(emailConfig.AlwaysUseDefaultSenderAddress, senderAddress),
+            Subject = parsedSubject.GetSubject(emailConfig.AlwaysUseDefaultSenderAddress, senderAddress),
             SubjectEncoding = Encoding.UTF8,
+            Body = parsedBody.Html + emailConfig.HtmlSignature,
             BodyEncoding = Encoding.UTF8,
             IsBodyHtml = true
         };
         message.To.Add(recipientAddress);
 
-        message.AlternateViews.Add(
-            AlternateView.CreateAlternateViewFromString(
-                parsedBody.Html + emailConfig.HtmlSignature,
-                Encoding.UTF8,
-                "text/html"
-            )
-        );
         message.AlternateViews.Add(
             AlternateView.CreateAlternateViewFromString(
                 parsedBody.PlainText + emailConfig.PlainTextSignature,

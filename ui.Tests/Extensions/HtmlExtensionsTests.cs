@@ -4,7 +4,14 @@ namespace ui.Extensions.Tests;
 
 public class HtmlExtensionsTests
 {
-    private readonly HtmlParser _parser = new();
+    private readonly HtmlParser _parser = new(new HtmlParserOptions
+    {
+        IsScripting = false,
+        SkipComments = true,
+        SkipRCDataText = true,
+        SkipCDATA = true,
+        SkipScriptText = true
+    });
 
     [Fact]
     public void AddHtmlParser_Should_Add_Parser()
@@ -125,6 +132,36 @@ public class HtmlExtensionsTests
         var document = _parser.ParseDocument(html);
 
         var result = document.GetAllMetaElements();
+
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task ToParsedPlainText_Should_Return_Parsed_Content_When_Content_Is_Parsable()
+    {
+        var html = "<div>Hello!</div>";
+
+        var result = await html.ToParsedPlainText(_parser);
+
+        result.Should().Be("Hello!");
+    }
+
+    [Fact]
+    public async Task ToParsedPlainText_Should_Return_Empty_Parsed_Content_When_Content_Is_Null()
+    {
+        string? html = default;
+
+        var result = await html.ToParsedPlainText(_parser);
+
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task ToParsedPlainText_Should_Return_Empty_Parsed_Content_When_Content_Is_Not_Parsable()
+    {
+        string html = "<div <span ";
+
+        var result = await html.ToParsedPlainText(_parser);
 
         result.Should().BeEmpty();
     }

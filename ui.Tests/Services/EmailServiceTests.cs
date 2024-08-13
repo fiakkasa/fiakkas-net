@@ -12,7 +12,14 @@ namespace ui.Tests.Services;
 public class EmailServiceTests
 {
     private readonly ISmtpService _smtpService;
-    private readonly HtmlParser _parser = new();
+    private readonly HtmlParser _parser = new(new HtmlParserOptions
+    {
+        IsScripting = false,
+        SkipComments = true,
+        SkipRCDataText = true,
+        SkipCDATA = true,
+        SkipScriptText = true
+    });
     private readonly IOptionsSnapshot<EmailConfig> _optionsSnapshot;
     private readonly ILogger<EmailService> _logger;
 
@@ -69,25 +76,39 @@ public class EmailServiceTests
         sendCall.To!.Count.Should().Be(1);
         sendCall.To[0]!.Should().Be(_recipientAddress);
         sendCall.Subject.Should().EndWith(_subject);
-        sendCall.AlternateViews.Should().HaveCount(2);
-        sendCall.AlternateViews[0].ContentType.Should().Be("text/html; charset=utf-8");
-        using var htmlStream = sendCall.AlternateViews[0].ContentStream;
-        var htmlString = await new StreamReader(htmlStream).ReadToEndAsync();
-        htmlString.Should().Be(_body + _config.HtmlSignature);
-        sendCall.AlternateViews[1].ContentType.Should().Be("text/plain; charset=utf-8");
-        using var plaintTextStream = sendCall.AlternateViews[1].ContentStream;
+        sendCall.Body.Should().Be(_body + _config.HtmlSignature);
+        sendCall.AlternateViews.Should().ContainSingle();
+        sendCall.AlternateViews[0].ContentType.Should().Be("text/plain; charset=utf-8");
+        using var plaintTextStream = sendCall.AlternateViews[0].ContentStream;
         var plaintTextString = await new StreamReader(plaintTextStream).ReadToEndAsync();
         plaintTextString.Should().Be(_body + _config.PlainTextSignature);
     }
 
-    [Fact]
-    public async Task Send_Should_Not_Send_Email_When_Validation_Errors_Found()
+    [Theory]
+    [InlineData("", "", nameof(EmailErrorCodeType.EMPTY_CONTENT), nameof(EmailErrorCodeType.EMPTY_CONTENT))]
+    [InlineData("<div>Hello</div>", "", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED), nameof(EmailErrorCodeType.EMPTY_CONTENT))]
+    [InlineData("<div>Hello</div>", "<meta />World!", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED), nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED))]
+    [InlineData("", "<meta/> Hello", nameof(EmailErrorCodeType.EMPTY_CONTENT), nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED))]
+    [InlineData("", "Hello", nameof(EmailErrorCodeType.EMPTY_CONTENT))]
+    [InlineData("<div>Hello</div>", "World!", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED))]
+    [InlineData("Hello", "<meta /> World!", nameof(EmailErrorCodeType.META_TAGS_ARE_NOT_ALLOWED))]
+    public async Task Send_Should_Not_Send_Email_When_Validation_Errors_Found(
+        string subject,
+        string body,
+        params string[] expectedErrors
+    )
     {
         var service = GetEmailService(_config);
 
-        var result = await service.Send(_senderAddress, _recipientAddress, _subject, "");
+        var result = await service.Send(
+            _senderAddress,
+            _recipientAddress,
+            subject,
+            body
+        );
 
         result.IsT1.Should().BeTrue();
+        result.AsT1.Select(x => x.ErrorMessage).Should().IntersectWith(expectedErrors);
     }
 
     [Fact]

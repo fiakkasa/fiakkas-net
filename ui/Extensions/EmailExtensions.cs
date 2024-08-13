@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using System.Net.Mail;
 using ui.Services;
@@ -35,7 +36,18 @@ public static class EmailExtensions
         }
     }
 
-    public static IEnumerable<ValidationResult> ValidateEmailContent(this IHtmlDocument document, string memberName)
+    public static IEnumerable<ValidationResult> ValidateEmailPlainTextContent(this IHtmlDocument document, string memberName)
+    {
+        string[] memberNames = [memberName];
+
+        if (string.IsNullOrWhiteSpace(document.Body!.TextContent))
+            yield return new ValidationResult(nameof(EmailErrorCodeType.UNUSABLE_CONTENT), memberNames);
+
+        if (document is not { Head.Children.Length: 0, Body.Children.Length: 0 })
+            yield return new ValidationResult(nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED), memberNames);
+    }
+
+    public static IEnumerable<ValidationResult> ValidateEmailHtmlContent(this IHtmlDocument document, string memberName)
     {
         string[] memberNames = [memberName];
 
