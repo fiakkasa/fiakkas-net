@@ -79,12 +79,18 @@ public class EmailService(
             From = senderAddress.GetSenderMailAddress(emailConfig.AlwaysUseDefaultSenderAddress, emailConfig.DefaultSenderAddress),
             Subject = parsedSubject.GetSubject(emailConfig.AlwaysUseDefaultSenderAddress, senderAddress),
             SubjectEncoding = Encoding.UTF8,
-            Body = parsedBody.Html + emailConfig.HtmlSignature,
             BodyEncoding = Encoding.UTF8,
             IsBodyHtml = true
         };
         message.To.Add(recipientAddress);
 
+        message.AlternateViews.Add(
+            AlternateView.CreateAlternateViewFromString(
+                parsedBody.Html + emailConfig.HtmlSignature,
+                Encoding.UTF8,
+                "text/html"
+            )
+        );
         message.AlternateViews.Add(
             AlternateView.CreateAlternateViewFromString(
                 parsedBody.PlainText + emailConfig.PlainTextSignature,

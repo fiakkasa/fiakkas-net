@@ -21,14 +21,15 @@ public class EmailServiceTests
     private const string _senderAddress = "sender@email.com";
     private const string _recipientAddress = "recipient@email.com";
     private const string _subject = "Subject";
-    private const string _body = "Body";
+    private const string _body = "Body\r\nHello";
+    private const string _bodyHtml = "Body<br />Hello";
     private static readonly EmailConfig _config = new()
     {
         AlwaysUseDefaultSenderAddress = true,
         DefaultSenderAddress = _defaultSenderAddress,
         DefaultRecipientAddress = "recipient@user.com",
         PlainTextSignature = "Hello!",
-        HtmlSignature = "Hello!"
+        HtmlSignature = "<br />Hello!"
     };
 
     public EmailServiceTests()
@@ -70,10 +71,16 @@ public class EmailServiceTests
         sendCall.To!.Count.Should().Be(1);
         sendCall.To[0]!.Should().Be(_recipientAddress);
         sendCall.Subject.Should().EndWith(_subject);
-        sendCall.Body.Should().Be(_body + _config.HtmlSignature);
-        sendCall.AlternateViews.Should().ContainSingle();
-        sendCall.AlternateViews[0].ContentType.Should().Be("text/plain; charset=utf-8");
-        using var plaintTextStream = sendCall.AlternateViews[0].ContentStream;
+
+        sendCall.AlternateViews.Should().HaveCount(2);
+
+        sendCall.AlternateViews[0].ContentType.Should().Be("text/html; charset=utf-8");
+        using var htmlStream = sendCall.AlternateViews[0].ContentStream;
+        var htmlString = await new StreamReader(htmlStream).ReadToEndAsync();
+        htmlString.Should().Be(_bodyHtml + _config.HtmlSignature);
+
+        sendCall.AlternateViews[1].ContentType.Should().Be("text/plain; charset=utf-8");
+        using var plaintTextStream = sendCall.AlternateViews[1].ContentStream;
         var plaintTextString = await new StreamReader(plaintTextStream).ReadToEndAsync();
         plaintTextString.Should().Be(_body + _config.PlainTextSignature);
     }
