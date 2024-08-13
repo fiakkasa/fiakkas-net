@@ -1,0 +1,29 @@
+@inherits TestContext
+
+@code {
+    private readonly IEmailService _emailService = Substitute.For<IEmailService>();
+
+    public ContactTests() : base()
+    {
+        ComponentFactories.AddStub<DntInputCaptcha>(@<span>@Random.Shared.Next(1000, 99999)</span>);
+        Services.AddSingleton(_emailService);
+    }
+
+    [Fact]
+    public async Task Contact_Should_Render_Form()
+    {
+        var cut = Render(@<Contact />);
+
+        await Task.Delay(250);
+
+        cut.FindAll("alert").Should().BeEmpty();
+        cut.FindComponent<EditForm>();
+        cut.FindComponent<DataAnnotationsValidator>();
+        cut.FindComponents<ValidationMessage<string>>().Should().HaveCount(6);
+        cut.FindComponents<EagerInputText>().Should().HaveCount(3);
+        cut.FindComponents<EagerInputTextArea>().Should().ContainSingle();
+        cut.Find("""button[type="button"]""");
+        cut.Find("""button[type="reset"]""");
+        cut.Find("""button[type="submit"]""");
+    }
+}

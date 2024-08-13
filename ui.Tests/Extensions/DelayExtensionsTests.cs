@@ -13,11 +13,15 @@ public class DelayExtensionsTests
     {
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
-        var start = Stopwatch.GetTimestamp();
 
-        await delay.SafeDelay(cts.Token);
+        var result = await Task.Run(async () =>
+        {
+            var start = Stopwatch.GetTimestamp();
 
-        var result = Stopwatch.GetElapsedTime(start);
+            await delay.SafeDelay(cts.Token);
+
+            return Stopwatch.GetElapsedTime(start);
+        });
 
         result.Milliseconds.Should().BeInRange(startRange, endRange);
     }
@@ -30,11 +34,15 @@ public class DelayExtensionsTests
     {
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
-        var start = Stopwatch.GetTimestamp();
 
-        await TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token);
+        var result = await Task.Run(async () =>
+        {
+            var start = Stopwatch.GetTimestamp();
 
-        var result = Stopwatch.GetElapsedTime(start);
+            await TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token);
+
+            return Stopwatch.GetElapsedTime(start);
+        });
 
         result.Milliseconds.Should().BeInRange(startRange, endRange);
     }

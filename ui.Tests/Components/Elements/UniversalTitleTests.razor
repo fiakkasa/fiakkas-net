@@ -8,25 +8,20 @@
         Separator = " - ",
         Title = "Title"
     };
+    private readonly IOptionsSnapshot<UiConfig> _options = Substitute.For<IOptionsSnapshot<UiConfig>>();
 
-    private void AddServicesAndStubs(bool throwErrorOnOptions = false) 
+    public UniversalTitleTests() : base()
     {
         ComponentFactories.AddStub<PageTitle>();
-        var options = Substitute.For<IOptionsSnapshot<UiConfig>>();
-        
-        if(throwErrorOnOptions)
-            options.Value.Throws(new Exception("Splash!"));
-        else
-            options.Value.Returns(_config);
+        _options.Value.Returns(_config);
 
-        Services.AddSingleton<ILogger<UniversalTitle>>(_logger);
-        Services.AddSingleton<IOptionsSnapshot<UiConfig>>(options);
+        Services.AddSingleton(_logger);
+        Services.AddSingleton(_options);
     }
 
     [Fact]
     public void UniversalTitle_Should_Render_Default_With_Default_Parameters()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>();
 
         var result = cut.Markup;
@@ -40,7 +35,7 @@
     [Fact]
     public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_Options_Throws_Error()
     {
-        AddServicesAndStubs(true);
+        _options.Value.Throws(new Exception("Splash!"));
         var cut = RenderComponent<UniversalTitle>();
 
         var result = cut.Markup;
@@ -54,7 +49,6 @@
     [Fact]
     public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_ShowTitle_Is_False()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>(parameters => parameters.Add(p => p.ShowTitle, false));
 
         var result = cut.Markup;
@@ -68,7 +62,6 @@
     [Fact]
     public void UniversalTitle_Should_Render_With_Title()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>(parameters => parameters.Add(p => p.Title, "Test"));
 
         var result = cut.Find("h1.page-header");
@@ -88,7 +81,6 @@
     [Fact]
     public void UniversalTitle_Should_Render_With_Title_And_Css_Class()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>(parameters => 
             parameters
                 .Add(p => p.CssClass, "test")
@@ -112,7 +104,6 @@
     [Fact]
     public void UniversalTitle_Should_Render_With_Title_Css_Class_And_ChildContent_When_ChildContent_Is_Set()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>(parameters => 
             parameters
                 .Add(p => p.CssClass, "test")
@@ -138,7 +129,6 @@
     [Fact]
     public void UniversalTitle_Should_Render_ChildContent_When_Only_ChildContent_Is_Set()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>(parameters => 
             parameters.AddChildContent(@<a href="">Extra!</a>)
         );
@@ -158,7 +148,6 @@
     [Fact]
     public void UniversalTitle_Should_Render_ChildContent_With_Css_Class_When_ChildContent_And_Css_Class_Are_Set()
     {
-        AddServicesAndStubs();
         var cut = RenderComponent<UniversalTitle>(parameters => 
             parameters
                 .Add(p => p.CssClass, "test")
