@@ -48,7 +48,9 @@ public static class EmailExtensions
         foreach (var (key, value) in EmailValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, value))
+            {
                 return [new(key, memberNames)];
+            }
         }
 
         return [];
@@ -76,7 +78,9 @@ public static class EmailExtensions
         foreach (var (key, value) in EmailDocumentValidationItems)
         {
             if (!value(document))
+            {
                 return [new(key, memberNames)];
+            }
         }
 
         return [];
@@ -86,19 +90,21 @@ public static class EmailExtensions
         this string senderAddress,
         bool useDefaultSenderAddress,
         string defaultSenderAddress
-    ) =>
-        new(
-            useDefaultSenderAddress switch
-            {
-                true => defaultSenderAddress,
-                _ => senderAddress
-            }
-        );
-
-    public static string GetSubject(this string subject, bool isBehalfOf, string senderAddress) =>
-        isBehalfOf switch
+    ) => new(
+        useDefaultSenderAddress switch
         {
-            true => $"On Behalf of <{senderAddress}> | {subject}",
-            _ => subject
-        };
+            true => defaultSenderAddress,
+            _ => senderAddress
+        }
+    );
+
+    public static string GetSubject(
+        this string subject,
+        bool isBehalfOf,
+        string senderAddress
+    ) => isBehalfOf switch
+    {
+        true => $"On Behalf of <{senderAddress}> | {subject}",
+        _ => subject
+    };
 }
