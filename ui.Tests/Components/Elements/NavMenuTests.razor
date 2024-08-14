@@ -1,10 +1,11 @@
 @inherits TestContext
 
 @code {
+
     [Fact]
     public void NavMenu_Should_Render_With_Default_Parameters()
     {
-        var cut = Render(@<NavMenu />);
+        var cut = Render(@<NavMenu/>);
 
         cut.Find("nav.nav-menu");
         cut.Find("div.nav-menu-sections-container > div.nav-menu-primary-section");
@@ -15,7 +16,7 @@
         var links = cut.FindAll("a");
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
-    
+
         links.Should().HaveCount(8);
         primaryLinks.Should().HaveCount(2);
         secondaryLinks.Should().HaveCount(6);
@@ -24,7 +25,7 @@
     [Fact]
     public void NavMenu_Should_Render_With_Css_Class()
     {
-        var cut = Render(@<NavMenu CssClass="test" />);
+        var cut = Render(@<NavMenu CssClass="test"/>);
 
         cut.Find("nav.nav-menu.test");
         cut.Find("div.nav-menu-sections-container > div.nav-menu-primary-section");
@@ -45,7 +46,7 @@
     [Fact]
     public void NavMenu_Should_Toggle_Menu()
     {
-        var cut = Render(@<NavMenu />);
+        var cut = Render(@<NavMenu/>);
 
         var toggleButton = cut.Find("""button[type="button"].nav-menu-expand-collapse""");
 
@@ -60,9 +61,10 @@
         var links = cut.FindAll("a");
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
-    
+
         links.Should().HaveCount(8);
         primaryLinks.Should().HaveCount(2);
         secondaryLinks.Should().HaveCount(6);
     }
+
 }

@@ -44,7 +44,7 @@
             .Returns(taskSource.Task);
         Services.AddSingleton<IFiakkasNetApi>(api);
 
-        var cut = Render(@<ApiStatus />);
+        var cut = Render(@<ApiStatus/>);
 
         await Task.Delay(250);
 
@@ -84,7 +84,7 @@
             .Returns(taskSource.Task);
         Services.AddSingleton<IFiakkasNetApi>(api);
 
-        var cut = Render(@<ApiStatus />);
+        var cut = Render(@<ApiStatus/>);
 
         await Task.Delay(250);
 
@@ -112,7 +112,7 @@
             .Returns(taskSource.Task);
         Services.AddSingleton<IFiakkasNetApi>(api);
 
-        var cut = Render(@<ApiStatus />);
+        var cut = Render(@<ApiStatus/>);
 
         await Task.Delay(250);
 
@@ -215,7 +215,7 @@
             .Returns(Task.FromResult(result));
         Services.AddSingleton<IFiakkasNetApi>(api);
 
-        var cut = Render(@<ApiStatus />);
+        var cut = Render(@<ApiStatus/>);
 
         await Task.Delay(250);
 
@@ -235,12 +235,13 @@
             .ThrowsAsync(new Exception("Splash!"));
         Services.AddSingleton<IFiakkasNetApi>(api);
 
-        var cut = Render(@<ApiStatus />);
+        var cut = Render(@<ApiStatus/>);
 
         await Task.Delay(250);
 
         cut.FindComponent<GenericError>();
-        
+
         cut.Markup.MatchSnapshot();
     }
+
 }

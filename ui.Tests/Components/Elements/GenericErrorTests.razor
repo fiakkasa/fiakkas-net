@@ -1,10 +1,11 @@
 @inherits TestContext
 
 @code {
+
     [Fact]
     public void GenericError_Should_Render_Default_With_Default_Parameters()
     {
-        var cut = Render(@<GenericError />);
+        var cut = Render(@<GenericError/>);
 
         var result = cut.Find("div.generic-error");
 
@@ -21,7 +22,7 @@
     [Fact]
     public void GenericError_Should_Render_Default_When_ShowIcon_Is_False()
     {
-        var cut = Render(@<GenericError ShowIcon="false" />);
+        var cut = Render(@<GenericError ShowIcon="false"/>);
 
         var result = cut.Find("div.generic-error");
 
@@ -37,7 +38,7 @@
     [Fact]
     public void GenericError_Should_Render_With_Message()
     {
-        var cut = Render(@<GenericError Message="Error Message" />);
+        var cut = Render(@<GenericError Message="Error Message"/>);
 
         var result = cut.Find("div.generic-error");
 
@@ -54,7 +55,7 @@
     [Fact]
     public void GenericError_Should_Render_With_Message_And_Css_Class()
     {
-        var cut = Render(@<GenericError CssClass="test" Message="Error Message" />);
+        var cut = Render(@<GenericError CssClass="test" Message="Error Message"/>);
 
         var result = cut.Find("div.generic-error");
 
@@ -62,7 +63,7 @@
             @<div class="generic-error test">
                 <i class="bi bi-exclamation-triangle text-warning"></i>
                 <span>
-                   Error Message
+                    Error Message
                 </span>
             </div>
         );
@@ -83,11 +84,11 @@
             @<div class="generic-error test">
                 <i class="bi bi-exclamation-triangle text-warning"></i>
                 <span>
-                   Error Message
+                    Error Message
                 </span>
                 <a href="">Extra!</a>
             </div>
         );
     }
-}
 
+}

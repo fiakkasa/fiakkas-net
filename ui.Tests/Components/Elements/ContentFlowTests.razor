@@ -1,6 +1,7 @@
 @inherits TestContext
 
 @code {
+
     [Fact]
     public void Content_Flow_Should_Render_Custom_Loading_When_IsLoading_Is_True_And_CustomLoading_Is_Set()
     {
@@ -20,7 +21,7 @@
     {
         ComponentFactories.AddStub<Skeleton>(@<div class="default-loading"></div>);
 
-        var cut = Render(@<ContentFlow IsLoading="true" />);
+        var cut = Render(@<ContentFlow IsLoading="true"/>);
 
         cut.Find("div.default-loading");
     }
@@ -28,11 +29,11 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_Loading_With_Css_Class_When_IsLoading_Is_True_And_CustomLoading_Is_Null()
     {
-        ComponentFactories.AddStub<Skeleton>(parameters => 
+        ComponentFactories.AddStub<Skeleton>(parameters =>
             @<div class="@parameters.Get(x => x.CssClass)"></div>
         );
 
-        var cut = Render(@<ContentFlow IsLoading="true" GenericLoadingCssClass="custom-loading" />);
+        var cut = Render(@<ContentFlow IsLoading="true" GenericLoadingCssClass="custom-loading"/>);
 
         cut.Find("div.custom-loading");
     }
@@ -40,7 +41,7 @@
     [Fact]
     public void Content_Flow_Should_Render_Custom_Error_When_HasError_Is_True_And_CustomErrorContent_Is_Set()
     {
-        ComponentFactories.AddStub<GenericError>(parameters => 
+        ComponentFactories.AddStub<GenericError>(parameters =>
             @<div class="custom-error-content"></div>
         );
 
@@ -60,7 +61,7 @@
     {
         ComponentFactories.AddStub<GenericError>(@<div class="default-error"></div>);
 
-        var cut = Render(@<ContentFlow HasError="true" />);
+        var cut = Render(@<ContentFlow HasError="true"/>);
 
         cut.Find("div.default-error");
     }
@@ -68,13 +69,13 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_Error_With_Message_When_HasError_Is_True_And_CustomErrorContent_Is_Null()
     {
-        ComponentFactories.AddStub<GenericError>(parameters => 
+        ComponentFactories.AddStub<GenericError>(parameters =>
             @<div class="default-error">
                 @parameters.Get(x => x.Message)
             </div>
         );
 
-        var cut = Render(@<ContentFlow HasError="true" GenericErrorMessage="Error Message" />);
+        var cut = Render(@<ContentFlow HasError="true" GenericErrorMessage="Error Message"/>);
 
         var result = cut.Find("div.default-error");
 
@@ -88,13 +89,13 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_Error_With_Message_And_Css_Class_When_HasError_Is_True_And_CustomErrorContent_Is_Null()
     {
-        ComponentFactories.AddStub<GenericError>(parameters => 
+        ComponentFactories.AddStub<GenericError>(parameters =>
             @<div class="@parameters.Get(x => x.CssClass)">
                 @parameters.Get(x => x.Message)
             </div>
         );
 
-        var cut = Render(@<ContentFlow HasError="true" GenericErrorMessage="Error Message" GenericErrorCssClass="custom-error" />);
+        var cut = Render(@<ContentFlow HasError="true" GenericErrorMessage="Error Message" GenericErrorCssClass="custom-error"/>);
 
         var result = cut.Find("div.custom-error");
 
@@ -108,7 +109,7 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_Error_With_Message_Css_Class_And_GenericErrorContent_When_HasError_Is_True_And_GenericErrorContent_Is_Set()
     {
-        ComponentFactories.AddStub<GenericError>(parameters => 
+        ComponentFactories.AddStub<GenericError>(parameters =>
             @<div class="@parameters.Get(x => x.CssClass)">
                 @parameters.Get(x => x.Message)
                 @parameters.Get(x => x.ChildContent)
@@ -138,15 +139,15 @@
     {
         var cut = Render(
             @<text>
-                <ContentFlow HasData="true">
-                    <div class="content"></div>
-                </ContentFlow>
-                <ContentFlow HasData="true">
-                    <ChildContent>
-                        <div class="content"></div>
-                    </ChildContent>
-                </ContentFlow>
-            </text>
+                 <ContentFlow HasData="true">
+                     <div class="content"></div>
+                 </ContentFlow>
+                 <ContentFlow HasData="true">
+                     <ChildContent>
+                         <div class="content"></div>
+                     </ChildContent>
+                 </ContentFlow>
+             </text>
         );
 
         var result = cut.FindAll("div.content");
@@ -183,7 +184,7 @@
     {
         ComponentFactories.AddStub<GenericNoData>(@<div class="default-no-data"></div>);
 
-        var cut = Render(@<ContentFlow />);
+        var cut = Render(@<ContentFlow/>);
 
         cut.Find("div.default-no-data");
     }
@@ -191,13 +192,13 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_No_Data_With_Message_When_All_Flags_Are_False_And_CustomNoDataContent_Is_Null()
     {
-        ComponentFactories.AddStub<GenericNoData>(parameters => 
+        ComponentFactories.AddStub<GenericNoData>(parameters =>
             @<div class="default-no-data">
                 @parameters.Get(x => x.Message)
             </div>
         );
 
-        var cut = Render(@<ContentFlow GenericNoDataMessage="No Data" />);
+        var cut = Render(@<ContentFlow GenericNoDataMessage="No Data"/>);
 
         var result = cut.Find("div.default-no-data");
 
@@ -211,13 +212,13 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_No_Data_With_Message_And_Css_Class_When_All_Flags_Are_False_And_CustomNoDataContent_Is_Null()
     {
-        ComponentFactories.AddStub<GenericNoData>(parameters => 
+        ComponentFactories.AddStub<GenericNoData>(parameters =>
             @<div class="@parameters.Get(x => x.CssClass)">
                 @parameters.Get(x => x.Message)
             </div>
         );
 
-        var cut = Render(@<ContentFlow GenericNoDataMessage="No Data" GenericNoDataCssClass="custom-no-data" />);
+        var cut = Render(@<ContentFlow GenericNoDataMessage="No Data" GenericNoDataCssClass="custom-no-data"/>);
 
         var result = cut.Find("div.custom-no-data");
 
@@ -231,7 +232,7 @@
     [Fact]
     public void Content_Flow_Should_Render_Default_No_Data_With_Message_Css_Class_And_CustomNoDataContent_When_All_Flags_Are_False_And_CustomNoDataContent_Is_Set()
     {
-        ComponentFactories.AddStub<GenericNoData>(parameters => 
+        ComponentFactories.AddStub<GenericNoData>(parameters =>
             @<div class="@parameters.Get(x => x.CssClass)">
                 @parameters.Get(x => x.Message)
                 @parameters.Get(x => x.ChildContent)
@@ -255,5 +256,5 @@
             </div>
         );
     }
-}
 
+}

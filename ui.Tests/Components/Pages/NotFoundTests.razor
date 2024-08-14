@@ -1,10 +1,11 @@
 @inherits TestContext
 
 @code {
+
     [Fact]
     public void NotFound_Renders_Template()
     {
-        var cut = Render(@<NotFound />);
+        var cut = Render(@<NotFound/>);
 
         cut.FindComponent<UniversalTitle>();
         var headContent = cut.FindComponent<HeadContent>();
@@ -13,7 +14,8 @@
 
         title.Should().BeEmpty();
         headContent.Instance.ChildContent.Should().NotBeNull();
-        Render(headContent.Instance.ChildContent!).MarkupMatches(@<meta name="robots" content="noindex" />);
+        Render(headContent.Instance.ChildContent!).MarkupMatches(@<meta name="robots" content="noindex"/>);
         cut.Markup.MatchSnapshot();
     }
+
 }
