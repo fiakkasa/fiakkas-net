@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\api.Shared\api.Shared.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="api.Customers.Tests" />
-  </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="api.Customers.Tests"/>
+    </ItemGroup>
 
 </Project>

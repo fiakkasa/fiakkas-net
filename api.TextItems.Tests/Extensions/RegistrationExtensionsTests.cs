@@ -1,9 +1,10 @@
 using api.Shared.Types.Interfaces;
+using api.TextItems.Extensions;
 using api.TextItems.Interfaces;
 using api.TextItems.Models;
 using HotChocolate.Execution;
 
-namespace api.TextItems.Extensions.Tests;
+namespace api.TextItems.Tests.Extensions;
 
 public class RegistrationExtensionsTests
 {

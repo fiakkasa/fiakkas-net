@@ -13,14 +13,15 @@
                     <div class="flex-fill">
                         Thank you for getting in touch!
                     </div>
-                    <button type="button" 
-                            class="btn-close flex-shrink-0" 
-                            @onclick="ClearSuccessMessage"></button>
+                    <button type="button"
+                            class="btn-close flex-shrink-0"
+                            @onclick="ClearSuccessMessage">
+                    </button>
                 </div>
             }
 
-            <EditForm EditContext="EditContext" 
-                      OnValidSubmit="@HandleSubmit" 
+            <EditForm EditContext="EditContext"
+                      OnValidSubmit="@HandleSubmit"
                       class="d-flex flex-column gap-3">
                 <DataAnnotationsValidator/>
 
@@ -216,19 +217,19 @@
         if (SuccessMessageExpirationTimer is not null) return;
 
         SuccessMessageExpirationTimer = new(
-            callback: async _ =>
-            {
-                await InvokeAsync(() =>
-                {
-                    ClearSuccessMessage();
-                    StateHasChanged();
-                });
-            },
-            state: null,
-            dueTime: (int)TimeSpan.FromSeconds(10).TotalMilliseconds,
-            period: Timeout.Infinite
+            SuccessMessageExpirationTimerCallback,
+            null,
+            (int)TimeSpan.FromSeconds(10).TotalMilliseconds,
+            Timeout.Infinite
         );
     }
+
+    private async void SuccessMessageExpirationTimerCallback(object? _)
+        => await InvokeAsync(() =>
+        {
+            ClearSuccessMessage();
+            StateHasChanged();
+        });
 
     private async Task RefreshCaptcha()
     {

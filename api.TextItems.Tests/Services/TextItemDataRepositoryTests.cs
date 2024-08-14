@@ -1,6 +1,7 @@
 using api.TextItems.Models;
+using api.TextItems.Services;
 
-namespace api.TextItems.Services.Tests;
+namespace api.TextItems.Tests.Services;
 
 public class TextItemDataRepositoryTests
 {
@@ -9,7 +10,7 @@ public class TextItemDataRepositoryTests
     {
         var item = new TextItemEntity
         {
-            Id = new Guid("2f69e973-550b-4769-801a-e757807e6845"),
+            Id = new("2f69e973-550b-4769-801a-e757807e6845"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

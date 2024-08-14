@@ -1,9 +1,10 @@
+using api.Customers.Extensions;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
-namespace api.Customers.Extensions.Tests;
+namespace api.Customers.Tests.Extensions;
 
 public class RegistrationExtensionsTests
 {

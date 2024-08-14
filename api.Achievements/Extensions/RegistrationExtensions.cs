@@ -6,7 +6,11 @@ namespace api.Achievements.Extensions;
 
 public static class RegistrationExtensions
 {
-    public static IServiceCollection AddApiAchievements(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
+    public static IServiceCollection AddApiAchievements(
+        this IServiceCollection services,
+        IConfiguration config,
+        string sectionPath = "data"
+    )
     {
         services.AddBoundOptions<AchievementsDataConfig>(config, sectionPath);
 

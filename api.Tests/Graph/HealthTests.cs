@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class HealthTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,27 +10,26 @@ public class HealthTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  health {
-    status
-    totalDuration
-    entries {
-      key
-      value {
-        description
-        duration
-        status
-        tags
-      }
-    }
-  }
-}
-""");
+            """
+            {
+              health {
+                status
+                totalDuration
+                entries {
+                  key
+                  value {
+                    description
+                    duration
+                    status
+                    tags
+                  }
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         result.ToJson().MatchSnapshot();
     }
 }
-

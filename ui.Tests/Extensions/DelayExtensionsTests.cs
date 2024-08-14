@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using System.Threading;
+using ui.Extensions;
 
-namespace ui.Extensions.Tests;
+namespace ui.Tests.Extensions;
 
 public class DelayExtensionsTests
 {

@@ -1,6 +1,7 @@
 using AngleSharp.Html.Parser;
+using ui.Extensions;
 
-namespace ui.Extensions.Tests;
+namespace ui.Tests.Extensions;
 
 public class HtmlExtensionsTests
 {

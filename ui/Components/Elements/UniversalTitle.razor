@@ -19,13 +19,18 @@ else if (ChildContent is not null)
 }
 
 @code {
-    [Parameter] public string CssClass { get; set; } = "sticky-top d-flex gap-2 justify-content-start align-items-center bg-body";
 
-    [Parameter] public string? Title { get; set; }
+    [Parameter]
+    public string CssClass { get; set; } = "sticky-top d-flex gap-2 justify-content-start align-items-center bg-body";
 
-    [Parameter] public bool ShowTitle { get; set; } = true;
+    [Parameter]
+    public string? Title { get; set; }
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public bool ShowTitle { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     internal string PageTitle { get; private set; } = string.Empty;
 

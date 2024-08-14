@@ -7,9 +7,8 @@ namespace api.Categories.Mappers;
 public static class CategoryMappers
 {
     private static T MapGenericCategory<T>(this ICategory x)
-    where T : class, IBaseData, ICategoryTitle, new()
-    =>
-        new()
+        where T : class, IBaseData, ICategoryTitle, new()
+        => new()
         {
             Id = x.Id,
             CreatedAt = x.CreatedAt,
@@ -19,9 +18,8 @@ public static class CategoryMappers
         };
 
     private static T MapGenericTechnologyCategory<T>(this ICategory x)
-    where T : class, ITechnologyCategory, new()
-    =>
-        new()
+        where T : class, ITechnologyCategory, new()
+        => new()
         {
             Id = x.Id,
             CreatedAt = x.CreatedAt,
@@ -50,8 +48,7 @@ public static class CategoryMappers
             _ => x.MapGenericTechnologyCategory<UnknownTechnologyCategory>()
         };
 
-    public static UnknownCategory MapUnknownCategory(this ICategory x) =>
-        x.MapGenericCategory<UnknownCategory>();
+    public static UnknownCategory MapUnknownCategory(this ICategory x) => x.MapGenericCategory<UnknownCategory>();
 
     public static PortfolioCategory MapPortfolioCategory(this ICategory x) =>
         x.MapGenericCategory<PortfolioCategory>();

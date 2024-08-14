@@ -7,10 +7,10 @@ public sealed record HealthReportSummary
     public IReadOnlyDictionary<string, HealthReportItem>? Entries { get; init; }
 
     public static implicit operator HealthReportSummary(HealthReport healthReport) =>
-       new()
-       {
-           Status = healthReport.Status,
-           TotalDuration = healthReport.TotalDuration,
-           Entries = healthReport.Entries.ToDictionary(x => x.Key, x => (HealthReportItem)x.Value)
-       };
+        new()
+        {
+            Status = healthReport.Status,
+            TotalDuration = healthReport.TotalDuration,
+            Entries = healthReport.Entries.ToDictionary(x => x.Key, x => (HealthReportItem)x.Value)
+        };
 }

@@ -1,4 +1,6 @@
-namespace api.Application.TypeExtensions.Tests;
+using api.Application.TypeExtensions;
+
+namespace api.Application.Tests.TypeExtensions;
 
 public class SystemInfoItemTypeExtensionTests
 {
@@ -10,9 +12,9 @@ public class SystemInfoItemTypeExtensionTests
             .CheckHealthAsync(Arg.Any<CancellationToken>())
             .Returns(
                 new HealthReport(
-                    entries: new Dictionary<string, HealthReportEntry>(),
-                    status: HealthStatus.Healthy,
-                    totalDuration: TimeSpan.FromSeconds(10)
+                    new Dictionary<string, HealthReportEntry>(),
+                    HealthStatus.Healthy,
+                    TimeSpan.FromSeconds(10)
                 )
             );
         var sut = new SystemInfoItemTypeExtension();

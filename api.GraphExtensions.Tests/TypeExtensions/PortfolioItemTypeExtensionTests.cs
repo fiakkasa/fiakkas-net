@@ -6,9 +6,9 @@ using api.Customers.DataLoaders;
 using api.Customers.Interfaces;
 using api.Customers.Models;
 using api.GraphExtensions.DataLoaders;
-using api.Portfolio.Models;
+using api.GraphExtensions.TypeExtensions;
 
-namespace api.GraphExtensions.TypeExtensions.Tests;
+namespace api.GraphExtensions.Tests.TypeExtensions;
 
 public class PortfolioItemTypeExtensionTests
 {
@@ -20,7 +20,7 @@ public class PortfolioItemTypeExtensionTests
             new CategoryEntity
             {
                 Kind = CategoryType.Portfolio,
-                Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Id = new("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -34,7 +34,10 @@ public class PortfolioItemTypeExtensionTests
         var sut = new PortfolioItemTypeExtension();
 
         var result = await sut.GetCategory(
-            new PortfolioItem { CategoryId = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109") },
+            new()
+            {
+                CategoryId = new("38e483e4-6961-4b25-88a9-d1d0a5161109")
+            },
             dataLoader,
             CancellationToken.None
         );
@@ -50,12 +53,12 @@ public class PortfolioItemTypeExtensionTests
         [
             new Customer
             {
-                Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Id = new("18e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             }
         ]);
         var dataLoader = new CustomerBatchDataLoader(
@@ -65,7 +68,10 @@ public class PortfolioItemTypeExtensionTests
         var sut = new PortfolioItemTypeExtension();
 
         var result = await sut.GetCustomer(
-            new PortfolioItem { CustomerId = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109") },
+            new()
+            {
+                CustomerId = new("18e483e4-6961-4b25-88a9-d1d0a5161109")
+            },
             dataLoader,
             CancellationToken.None
         );
@@ -82,12 +88,12 @@ public class PortfolioItemTypeExtensionTests
             new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
-                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             }
         ]);
         var dataLoader = new TechnologyCategoryGroupDataLoader(
@@ -97,7 +103,10 @@ public class PortfolioItemTypeExtensionTests
         var sut = new PortfolioItemTypeExtension();
 
         var result = await sut.GetTechnologyCategories(
-            new PortfolioItem { TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")] },
+            new()
+            {
+                TechnologyIds = [new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")]
+            },
             dataLoader,
             CancellationToken.None
         );
@@ -114,12 +123,12 @@ public class PortfolioItemTypeExtensionTests
             new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
-                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             }
         ]);
         var dataLoader = new TechnologyCategoryGroupDataLoader(
@@ -129,7 +138,10 @@ public class PortfolioItemTypeExtensionTests
         var sut = new PortfolioItemTypeExtension();
 
         var result = await sut.GetTechnologiesSummary(
-            new PortfolioItem { TechnologyIds = [new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")] },
+            new()
+            {
+                TechnologyIds = [new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")]
+            },
             dataLoader,
             CancellationToken.None
         );

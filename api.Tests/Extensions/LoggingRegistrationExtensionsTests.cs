@@ -1,6 +1,7 @@
+using api.Extensions;
 using Microsoft.AspNetCore.Http;
 
-namespace api.Extensions.Tests;
+namespace api.Tests.Extensions;
 
 public class LoggingRegistrationExtensionsTests
 {

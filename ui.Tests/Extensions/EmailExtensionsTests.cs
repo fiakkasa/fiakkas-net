@@ -1,9 +1,10 @@
 using AngleSharp.Html.Parser;
 using ui.Enums;
+using ui.Extensions;
 using ui.Interfaces;
 using ui.Models;
 
-namespace ui.Extensions.Tests;
+namespace ui.Tests.Extensions;
 
 public class EmailExtensionsTests
 {
@@ -34,7 +35,7 @@ public class EmailExtensionsTests
                     new Dictionary<string, object>
                     {
                         [nameof(SmtpConfig)] = expectedSmtpConfig,
-                        [nameof(EmailConfig)] = expectedEmailConfig,
+                        [nameof(EmailConfig)] = expectedEmailConfig
                     }.ToConfiguration()
                 )
                 .AddSingleton(Substitute.For<IHtmlParser>())

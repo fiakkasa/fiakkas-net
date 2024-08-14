@@ -1,8 +1,9 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.Categories.DataLoaders.Tests;
+namespace api.Categories.Tests.DataLoaders;
 
 public class AssociatedCategoryGroupDataLoaderTests
 {
@@ -14,7 +15,7 @@ public class AssociatedCategoryGroupDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.Resume,
-                Id = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                Id = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -24,22 +25,22 @@ public class AssociatedCategoryGroupDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
-                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             },
             new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
-                Id = new Guid("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             }
         ]);
         var sut = new AssociatedCategoryGroupDataLoader(dataRepository, AutoBatchScheduler.Default);

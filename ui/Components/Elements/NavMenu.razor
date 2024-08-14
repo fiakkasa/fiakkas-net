@@ -90,7 +90,8 @@
 @code {
     private bool _menuCollapsed = true;
 
-    [Parameter] public string CssClass { get; set; } = string.Empty;
+    [Parameter]
+    public string CssClass { get; set; } = string.Empty;
 
     private void ToggleMenuCollapsed() => _menuCollapsed = !_menuCollapsed;
 }

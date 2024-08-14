@@ -1,4 +1,6 @@
-namespace ui.Extensions.Tests;
+using ui.Extensions;
+
+namespace ui.Tests.Extensions;
 
 public class StringExtensionsTests
 {

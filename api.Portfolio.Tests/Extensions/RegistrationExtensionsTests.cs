@@ -1,9 +1,10 @@
+using api.Portfolio.Extensions;
 using api.Portfolio.Interfaces;
 using api.Portfolio.Models;
 using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
-namespace api.Portfolio.Extensions.Tests;
+namespace api.Portfolio.Tests.Extensions;
 
 public class RegistrationExtensionsTests
 {

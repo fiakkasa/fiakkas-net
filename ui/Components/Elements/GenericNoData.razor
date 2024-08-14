@@ -16,9 +16,14 @@
 </div>
 
 @code {
-    [Parameter] public string CssClass { get; set; } = "py-2 lead";
 
-    [Parameter] public string? Message { get; set; }
+    [Parameter]
+    public string CssClass { get; set; } = "py-2 lead";
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
 }

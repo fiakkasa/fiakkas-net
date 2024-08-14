@@ -43,7 +43,10 @@ public static class EmailExtensions
     {
         string[] memberNames = [memberName];
         var normalizedEmailAddress = emailAddress ?? string.Empty;
-        var validationContext = new ValidationContext(normalizedEmailAddress) { MemberName = memberName };
+        var validationContext = new ValidationContext(normalizedEmailAddress)
+        {
+            MemberName = memberName
+        };
 
         foreach (var (key, value) in EmailValidationItems)
         {
@@ -65,12 +68,17 @@ public static class EmailExtensions
     {
         string[] memberNames = [memberName];
         var normalizedContent = content ?? string.Empty;
-        var validationContext = new ValidationContext(normalizedContent) { MemberName = memberName };
+        var validationContext = new ValidationContext(normalizedContent)
+        {
+            MemberName = memberName
+        };
 
         foreach (var (key, value) in EmailContentValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedContent, validationContext, default, value))
+            {
                 return [new(key, memberNames)];
+            }
         }
 
         using var document = await parser.ParseDocumentAsync(normalizedContent, cancellationToken);

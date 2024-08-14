@@ -21,11 +21,17 @@
 </div>
 
 @code {
-    [Parameter] public bool ShowIcon { get; set; } = true;
 
-    [Parameter] public string CssClass { get; set; } = "py-2 lead";
+    [Parameter]
+    public bool ShowIcon { get; set; } = true;
 
-    [Parameter] public string? Message { get; set; }
+    [Parameter]
+    public string CssClass { get; set; } = "py-2 lead";
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
 }

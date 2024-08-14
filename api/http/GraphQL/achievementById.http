@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 236
 
-{"query":"{\n  achievementById(id: \"QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk\") {\n    content\n    createdAt\n    id\n    internalId\n    updatedAt\n    version\n    years\n    yearsSummary\n  }\n}","variables":{}}
+{
+  "query": "{\n  achievementById(id: \"QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk\") {\n    content\n    createdAt\n    id\n    internalId\n    updatedAt\n    version\n    years\n    yearsSummary\n  }\n}",
+  "variables": {}
+}

@@ -4,6 +4,7 @@ public interface IDataRepository<TEntity> where TEntity : IBaseId
 {
     IQueryable<TEntity> Get();
     IQueryable<TMapped> Get<TMapped>(Func<TEntity, TMapped> mapper);
+
     IQueryable<TMapped> Get<TMapped>(
         Func<TEntity, bool> predicate,
         Func<TEntity, TMapped> mapper
@@ -49,8 +50,8 @@ public interface IDataRepository<TEntity> where TEntity : IBaseId
         Func<TEntity, TMapped> mapper,
         CancellationToken cancellationToken = default
     )
-    where TMapped : IBaseId
-    where TKey : notnull;
+        where TMapped : IBaseId
+        where TKey : notnull;
 
     ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
         IReadOnlyList<Guid> keys,

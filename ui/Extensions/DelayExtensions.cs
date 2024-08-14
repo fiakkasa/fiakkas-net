@@ -12,7 +12,10 @@ public static class DelayExtensions
                 _ => Task.CompletedTask
             });
         }
-        catch { /* ignore */ }
+        catch
+        {
+            // ignore
+        }
     }
 
     public static async ValueTask SafeDelay(this int millisecondsDelay, CancellationToken cancellationToken = default)
@@ -25,6 +28,9 @@ public static class DelayExtensions
                 _ => Task.CompletedTask
             });
         }
-        catch { /* ignore */ }
+        catch
+        {
+            // ignore
+        }
     }
 }

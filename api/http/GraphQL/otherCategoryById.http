@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 213
 
-{"query":"{\n  otherCategoryById(id: \"T3RoZXJDYXRlZ29yeQpnZGY3NDBmN2QyMWViNGMzNWFkYmU1M2Y0OTRlM2RjYzc=\") {\n    createdAt\n    id\n    internalId\n    title\n    updatedAt\n    version\n  }\n}\n","variables":{}}
+{
+  "query": "{\n  otherCategoryById(id: \"T3RoZXJDYXRlZ29yeQpnZGY3NDBmN2QyMWViNGMzNWFkYmU1M2Y0OTRlM2RjYzc=\") {\n    createdAt\n    id\n    internalId\n    title\n    updatedAt\n    version\n  }\n}\n",
+  "variables": {}
+}

@@ -1,7 +1,8 @@
 using System.Net.Mail;
+using ui.Extensions;
 using ui.Models;
 
-namespace ui.Extensions.Tests;
+namespace ui.Tests.Extensions;
 
 public class SmtpExtensionsTests
 {
@@ -46,7 +47,7 @@ public class SmtpExtensionsTests
             Password = password
         };
 
-        var result = config.GetNetworkCredentials() is { };
+        var result = config.GetNetworkCredentials() is not null;
 
         result.Should().Be(expected);
     }

@@ -4,7 +4,7 @@ namespace ui.Extensions;
 
 public static class HtmlExtensions
 {
-    internal static IHtmlParser ParserFactory() => new HtmlParser(new HtmlParserOptions
+    internal static IHtmlParser ParserFactory() => new HtmlParser(new()
     {
         IsScripting = false,
         SkipComments = true,

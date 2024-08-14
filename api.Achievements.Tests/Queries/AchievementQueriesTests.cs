@@ -1,9 +1,10 @@
 using api.Achievements.DataLoaders;
 using api.Achievements.Interfaces;
 using api.Achievements.Models;
+using api.Achievements.Queries;
 using GreenDonut;
 
-namespace api.Achievements.Queries.Tests;
+namespace api.Achievements.Tests.Queries;
 
 public class AchievementQueriesTests
 {
@@ -12,7 +13,7 @@ public class AchievementQueriesTests
     {
         var item = new Achievement
         {
-            Id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add"),
+            Id = new("d4605b0c-58bc-49ac-bcfd-10a24a203add"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

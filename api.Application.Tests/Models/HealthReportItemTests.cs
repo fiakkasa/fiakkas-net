@@ -1,4 +1,6 @@
-namespace api.Application.Models.Tests;
+using api.Application.Models;
+
+namespace api.Application.Tests.Models;
 
 public class HealthReportItemTests
 {
@@ -10,7 +12,7 @@ public class HealthReportItemTests
             HealthStatus.Healthy,
             "description",
             duration,
-            new Exception("Splash!"),
+            new("Splash!"),
             new Dictionary<string, object>(),
             ["tag"]
         );

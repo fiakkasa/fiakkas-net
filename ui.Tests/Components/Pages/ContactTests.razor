@@ -3,7 +3,7 @@
 @code {
     private readonly IEmailService _emailService = Substitute.For<IEmailService>();
 
-    public ContactTests() : base()
+    public ContactTests()
     {
         ComponentFactories.AddStub<DntInputCaptcha>(@<span>@Random.Shared.Next(1000, 99999)</span>);
         Services.AddSingleton(_emailService);

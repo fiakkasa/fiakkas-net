@@ -1,9 +1,10 @@
 using api.TextItems.DataLoaders;
 using api.TextItems.Interfaces;
 using api.TextItems.Models;
+using api.TextItems.Queries;
 using GreenDonut;
 
-namespace api.TextItems.Queries.Tests;
+namespace api.TextItems.Tests.Queries;
 
 public class TextItemQueriesTests
 {
@@ -12,7 +13,7 @@ public class TextItemQueriesTests
     {
         var item = new TextItem
         {
-            Id = new Guid("2f69e973-550b-4769-801a-e757807e6845"),
+            Id = new("2f69e973-550b-4769-801a-e757807e6845"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

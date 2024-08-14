@@ -24,7 +24,7 @@ app.UseStatusCodePagesWithRedirects("/404");
 
 // Configure the HTTP request pipeline.
 if (!isDev)
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error", true);
 
 app.UseStaticFiles();
 app.UseAntiforgery();

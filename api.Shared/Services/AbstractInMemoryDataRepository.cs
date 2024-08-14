@@ -6,30 +6,11 @@ public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
     ILogger logger,
     IOptionsSnapshot<TConfig> dataSnapshot
 )
-: IDataRepository<TEntity>
-where TEntity : IBaseId
-where TConfig : class
+    : IDataRepository<TEntity>
+    where TEntity : IBaseId
+    where TConfig : class
 {
     private static readonly Type _type = typeof(TEntity);
-
-    private TEntity[] GetSet()
-    {
-        if (!_type.IsInterface)
-        {
-            logger.LogWarning("Type {Type} is not supported", _type.Name);
-
-            return [];
-        }
-
-        if (ResolveSet(dataSnapshot.Value) is TEntity[] collection)
-            return collection;
-
-        logger.LogWarning("Resolver for type {Type} could not materialize collection", _type.Name);
-
-        return [];
-    }
-
-    protected abstract TEntity[]? ResolveSet(TConfig data);
 
     public IQueryable<TEntity> Get()
     {
@@ -99,7 +80,7 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                Array.Find(GetSet(), x => x.Id == id),
+                    Array.Find(GetSet(), x => x.Id == id),
                 cancellationToken
             );
         }
@@ -124,7 +105,7 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                Array.Find(GetSet(), x => predicate(x)),
+                    Array.Find(GetSet(), x => predicate(x)),
                 cancellationToken
             );
         }
@@ -149,11 +130,11 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                Array.Find(GetSet(), x => x.Id == id) switch
-                {
-                    { } result => mapper(result),
-                    _ => default
-                },
+                    Array.Find(GetSet(), x => x.Id == id) switch
+                    {
+                        { } result => mapper(result),
+                        _ => default
+                    },
                 cancellationToken
             );
         }
@@ -180,11 +161,11 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                Array.Find(GetSet(), x => predicate(x)) switch
-                {
-                    { } result => mapper(result),
-                    _ => default
-                },
+                    Array.Find(GetSet(), x => predicate(x)) switch
+                    {
+                        { } result => mapper(result),
+                        _ => default
+                    },
                 cancellationToken
             );
         }
@@ -210,9 +191,9 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                GetSet()
-                    .Where(x => keys.Contains(x.Id))
-                    .ToDictionary(x => x.Id, mapper),
+                    GetSet()
+                        .Where(x => keys.Contains(x.Id))
+                        .ToDictionary(x => x.Id, mapper),
                 cancellationToken
             );
         }
@@ -238,9 +219,9 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                GetSet()
-                    .Where(predicate)
-                    .ToDictionary(x => x.Id, mapper),
+                    GetSet()
+                        .Where(predicate)
+                        .ToDictionary(x => x.Id, mapper),
                 cancellationToken
             );
         }
@@ -263,15 +244,15 @@ where TConfig : class
         Func<TEntity, TMapped> mapper,
         CancellationToken cancellationToken = default
     )
-    where TMapped : IBaseId
-    where TKey : notnull
+        where TMapped : IBaseId
+        where TKey : notnull
     {
         try
         {
             return await Task.Run(() =>
-                GetSet()
-                    .Where(predicate)
-                    .ToDictionary(x => keySelector(x), mapper),
+                    GetSet()
+                        .Where(predicate)
+                        .ToDictionary(x => keySelector(x), mapper),
                 cancellationToken
             );
         }
@@ -298,9 +279,9 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                GetSet()
-                    .Where(x => keys.Contains(keySelector(x)))
-                    .ToLookup(keySelector, mapper),
+                    GetSet()
+                        .Where(x => keys.Contains(keySelector(x)))
+                        .ToLookup(keySelector, mapper),
                 cancellationToken
             );
         }
@@ -327,9 +308,9 @@ where TConfig : class
         try
         {
             return await Task.Run(() =>
-                GetSet()
-                    .Where(predicate)
-                    .ToLookup(keySelector, mapper),
+                    GetSet()
+                        .Where(predicate)
+                        .ToLookup(keySelector, mapper),
                 cancellationToken
             );
         }
@@ -345,4 +326,23 @@ where TConfig : class
             return Enumerable.Empty<TEntity>().ToLookup(x => default(TKey)!, x => default(TMapped)!);
         }
     }
+
+    private TEntity[] GetSet()
+    {
+        if (!_type.IsInterface)
+        {
+            logger.LogWarning("Type {Type} is not supported", _type.Name);
+
+            return [];
+        }
+
+        if (ResolveSet(dataSnapshot.Value) is TEntity[] collection)
+            return collection;
+
+        logger.LogWarning("Resolver for type {Type} could not materialize collection", _type.Name);
+
+        return [];
+    }
+
+    protected abstract TEntity[]? ResolveSet(TConfig data);
 }

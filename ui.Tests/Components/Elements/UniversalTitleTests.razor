@@ -12,7 +12,7 @@
 
     private readonly IOptionsSnapshot<UiConfig> _options = Substitute.For<IOptionsSnapshot<UiConfig>>();
 
-    public UniversalTitleTests() : base()
+    public UniversalTitleTests()
     {
         ComponentFactories.AddStub<PageTitle>();
         _options.Value.Returns(_config);

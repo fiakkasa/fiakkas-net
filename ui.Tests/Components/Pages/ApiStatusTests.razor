@@ -3,7 +3,7 @@
 @code {
     private readonly ILogger<ApiStatus> _logger = Substitute.For<ILogger<ApiStatus>>();
 
-    public ApiStatusTests() : base()
+    public ApiStatusTests()
     {
         ComponentFactories.AddStub<PageTitle>();
         Services.AddSingleton(_logger);
@@ -15,7 +15,7 @@
         var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
         var data = new GetSystemStatusResult(
             new GetSystemStatus_SystemStatus_SystemInfoItem(
-                DateTimeOffset.Parse("2024-01-01"),
+                new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 TimeSpan.FromMinutes(1),
                 "1.0.0",
                 new GetSystemStatus_SystemStatus_Health_HealthReportSummary(
@@ -42,7 +42,7 @@
             .GetSystemStatus
             .ExecuteAsync(Arg.Any<CancellationToken>())
             .Returns(taskSource.Task);
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = Render(@<ApiStatus/>);
 
@@ -65,7 +65,7 @@
         var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
         var data = new GetSystemStatusResult(
             new GetSystemStatus_SystemStatus_SystemInfoItem(
-                DateTimeOffset.Parse("2024-01-01"),
+                new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 TimeSpan.FromMinutes(1),
                 "1.0.0",
                 new GetSystemStatus_SystemStatus_Health_HealthReportSummary(
@@ -82,7 +82,7 @@
             .GetSystemStatus
             .ExecuteAsync(Arg.Any<CancellationToken>())
             .Returns(taskSource.Task);
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = Render(@<ApiStatus/>);
 
@@ -110,7 +110,7 @@
             .GetSystemStatus
             .ExecuteAsync(Arg.Any<CancellationToken>())
             .Returns(taskSource.Task);
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = Render(@<ApiStatus/>);
 
@@ -137,7 +137,7 @@
                 Task.FromResult(result),
                 taskSource.Task
             );
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = RenderComponent<ApiStatus>();
         var refreshButton = cut.Find("button");
@@ -181,7 +181,7 @@
                 Task.FromResult(result),
                 taskSourceAfter.Task
             );
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = RenderComponent<ApiStatus>();
         var refreshButton = cut.Find("button");
@@ -213,7 +213,7 @@
             .GetSystemStatus
             .ExecuteAsync(Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(result));
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = Render(@<ApiStatus/>);
 
@@ -233,7 +233,7 @@
             .GetSystemStatus
             .ExecuteAsync(Arg.Any<CancellationToken>())
             .ThrowsAsync(new Exception("Splash!"));
-        Services.AddSingleton<IFiakkasNetApi>(api);
+        Services.AddSingleton(api);
 
         var cut = Render(@<ApiStatus/>);
 

@@ -38,31 +38,47 @@ else
 }
 
 @code {
-    [Parameter] public bool IsLoading { get; set; }
 
-    [Parameter] public bool HasError { get; set; }
+    [Parameter]
+    public bool IsLoading { get; set; }
 
-    [Parameter] public bool HasData { get; set; }
+    [Parameter]
+    public bool HasError { get; set; }
 
-    [Parameter] public string GenericLoadingCssClass { get; set; } = string.Empty;
+    [Parameter]
+    public bool HasData { get; set; }
 
-    [Parameter] public string? GenericErrorMessage { get; set; }
+    [Parameter]
+    public string GenericLoadingCssClass { get; set; } = string.Empty;
 
-    [Parameter] public string GenericErrorCssClass { get; set; } = "py-2 lead";
+    [Parameter]
+    public string? GenericErrorMessage { get; set; }
 
-    [Parameter] public string? GenericNoDataMessage { get; set; }
+    [Parameter]
+    public string GenericErrorCssClass { get; set; } = "py-2 lead";
 
-    [Parameter] public string GenericNoDataCssClass { get; set; } = "py-2 lead";
+    [Parameter]
+    public string? GenericNoDataMessage { get; set; }
 
-    [Parameter] public RenderFragment? CustomLoadingContent { get; set; }
+    [Parameter]
+    public string GenericNoDataCssClass { get; set; } = "py-2 lead";
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? CustomLoadingContent { get; set; }
 
-    [Parameter] public RenderFragment? CustomErrorContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-    [Parameter] public RenderFragment? GenericErrorContent { get; set; }
+    [Parameter]
+    public RenderFragment? CustomErrorContent { get; set; }
 
-    [Parameter] public RenderFragment? CustomNoDataContent { get; set; }
+    [Parameter]
+    public RenderFragment? GenericErrorContent { get; set; }
 
-    [Parameter] public RenderFragment? GenericNoDataContent { get; set; }
+    [Parameter]
+    public RenderFragment? CustomNoDataContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? GenericNoDataContent { get; set; }
+
 }

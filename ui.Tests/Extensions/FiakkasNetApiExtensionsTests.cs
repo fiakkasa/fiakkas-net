@@ -1,8 +1,9 @@
 using System.Net.Http;
+using ui.Extensions;
 using ui.GraphQL;
 using ui.Models;
 
-namespace ui.Extensions.Tests;
+namespace ui.Tests.Extensions;
 
 public class FiakkasNetApiExtensionsTests
 {
@@ -11,7 +12,7 @@ public class FiakkasNetApiExtensionsTests
     {
         var expected = new FiakkasNetApiConfig
         {
-            BaseUrl = new Uri("https://test.com")
+            BaseUrl = new("https://test.com")
         };
         var serviceProvider =
             new ServiceCollection()

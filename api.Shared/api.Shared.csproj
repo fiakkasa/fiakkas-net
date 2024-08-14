@@ -1,27 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="HotChocolate" Version="13.9.11" />
-    <PackageReference Include="HotChocolate.Data" Version="13.9.11" />
-    <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.11" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="HotChocolate" Version="13.9.11"/>
+        <PackageReference Include="HotChocolate.Data" Version="13.9.11"/>
+        <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.11"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\api.Shared.Types\api.Shared.Types.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\api.Shared.Types\api.Shared.Types.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="api.Shared.Tests" />
-  </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="api.Shared.Tests"/>
+    </ItemGroup>
 
 </Project>

@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\api.Categories\api.Categories.csproj" />
-    <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
-    <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj" />
-    <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-    <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\api.Categories\api.Categories.csproj"/>
+        <ProjectReference Include="..\api.Customers\api.Customers.csproj"/>
+        <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj"/>
+        <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj"/>
+        <ProjectReference Include="..\api.Shared\api.Shared.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="api.GraphExtensions.Tests" />
-  </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="api.GraphExtensions.Tests"/>
+    </ItemGroup>
 
 </Project>

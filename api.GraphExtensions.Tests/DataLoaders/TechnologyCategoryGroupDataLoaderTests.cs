@@ -1,8 +1,9 @@
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
+using api.GraphExtensions.DataLoaders;
 
-namespace api.GraphExtensions.DataLoaders.Tests;
+namespace api.GraphExtensions.Tests.DataLoaders;
 
 public class TechnologyCategoryGroupDataLoaderTests
 {
@@ -14,7 +15,7 @@ public class TechnologyCategoryGroupDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.None,
-                Id = new Guid("ca732bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("ca732bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -23,30 +24,33 @@ public class TechnologyCategoryGroupDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
-                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             },
             new CategoryEntity
             {
                 Kind = CategoryType.InformationTechnology,
-                Id = new Guid("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             }
         ]);
         var sut = new TechnologyCategoryGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"), new Guid("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3")], CancellationToken.None);
+        var result =
+            await sut.LoadAsync(
+                [new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"), new("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3")],
+                CancellationToken.None);
 
         result.Should().HaveCount(2);
-        result.All(x => x.Length == 1);
+        result.All(x => x.Length == 1).Should().BeTrue();
         result.MatchSnapshot();
     }
 

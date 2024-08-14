@@ -12,17 +12,13 @@ namespace ui.Tests.Services;
 
 public class EmailServiceTests
 {
-    private readonly ISmtpService _smtpService;
-    private readonly IHtmlParser _parser = HtmlExtensions.ParserFactory();
-    private readonly IOptionsSnapshot<EmailConfig> _optionsSnapshot;
-    private readonly ILogger<EmailService> _logger;
-
     private const string _defaultSenderAddress = "email@user.com";
     private const string _senderAddress = "sender@email.com";
     private const string _recipientAddress = "recipient@email.com";
     private const string _subject = "Subject";
     private const string _body = "Body\r\nHello";
     private const string _bodyHtml = "Body<br />Hello";
+
     private static readonly EmailConfig _config = new()
     {
         AlwaysUseDefaultSenderAddress = true,
@@ -32,19 +28,17 @@ public class EmailServiceTests
         HtmlSignature = "<br />Hello!"
     };
 
-    public EmailServiceTests()
-    {
-        _smtpService = Substitute.For<ISmtpService>();
-        _optionsSnapshot = Substitute.For<IOptionsSnapshot<EmailConfig>>();
-        _logger = Substitute.For<ILogger<EmailService>>();
-    }
+    private readonly ILogger<EmailService> _logger = Substitute.For<ILogger<EmailService>>();
+    private readonly IOptionsSnapshot<EmailConfig> _optionsSnapshot = Substitute.For<IOptionsSnapshot<EmailConfig>>();
+    private readonly IHtmlParser _parser = HtmlExtensions.ParserFactory();
+    private readonly ISmtpService _smtpService = Substitute.For<ISmtpService>();
 
     private EmailService GetEmailService(EmailConfig? config = default)
     {
-        if (config is { })
+        if (config is not null)
             _optionsSnapshot.Value.Returns(config);
 
-        return new EmailService(_smtpService, _parser, _optionsSnapshot, _logger);
+        return new(_smtpService, _parser, _optionsSnapshot, _logger);
     }
 
     [Theory]
@@ -55,7 +49,10 @@ public class EmailServiceTests
         string expectedSenderAddress
     )
     {
-        var service = GetEmailService(_config with { AlwaysUseDefaultSenderAddress = alwaysUseDefaultSenderAddress });
+        var service = GetEmailService(_config with
+        {
+            AlwaysUseDefaultSenderAddress = alwaysUseDefaultSenderAddress
+        });
 
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);
         var sendCall =
@@ -157,7 +154,7 @@ public class EmailServiceTests
         var service = GetEmailService(_config);
 
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);
-        var errorLogs = _logger.GetLogsResults(targetLogLevel: LogLevel.Error);
+        var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
         result.IsT2.Should().BeTrue();
         result.AsT2.Should().BeOfType<InvalidOperationException>();
@@ -183,7 +180,7 @@ public class EmailServiceTests
         _optionsSnapshot.Value.Throws(new Exception("Splash!"));
 
         var result = await service.SendFrom(_senderAddress, _subject, _body);
-        var errorLogs = _logger.GetLogsResults(targetLogLevel: LogLevel.Error);
+        var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
         result.IsT2.Should().BeTrue();
         result.AsT2.Should().BeOfType<InvalidOperationException>();
@@ -209,7 +206,7 @@ public class EmailServiceTests
         _optionsSnapshot.Value.Throws(new Exception("Splash!"));
 
         var result = await service.SendTo(_recipientAddress, _subject, _body);
-        var errorLogs = _logger.GetLogsResults(targetLogLevel: LogLevel.Error);
+        var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
         result.IsT2.Should().BeTrue();
         result.AsT2.Should().BeOfType<InvalidOperationException>();

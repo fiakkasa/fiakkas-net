@@ -1,4 +1,6 @@
-namespace api.Application.Models.Tests;
+using api.Application.Models;
+
+namespace api.Application.Tests.Models;
 
 public class SystemInfoItemTests
 {

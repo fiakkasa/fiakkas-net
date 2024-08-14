@@ -1,6 +1,7 @@
+using ui.Extensions;
 using ui.Models;
 
-namespace ui.Extensions.Tests;
+namespace ui.Tests.Extensions;
 
 public class UiExtensionsTests
 {

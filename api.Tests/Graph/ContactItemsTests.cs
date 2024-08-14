@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class ContactItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,25 +10,25 @@ public class ContactItemsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  contactItems {
-    totalCount
-    nodes {
-      createdAt
-      description
-      href
-      icon
-      id
-      internalId
-      key
-      title
-      updatedAt
-      version
-    }
-  }
-}
-""");
+            """
+            {
+              contactItems {
+                totalCount
+                nodes {
+                  createdAt
+                  description
+                  href
+                  icon
+                  id
+                  internalId
+                  key
+                  title
+                  updatedAt
+                  version
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -42,22 +42,22 @@ public class ContactItemsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  contactItemById(id: "Q29udGFjdEl0ZW0KZ2ViZjIyNGE4N2ZmMzQ3Yjk4ODJiZGQ0MWVjN2Y1YTA1") {
-    createdAt
-    description
-    href
-    icon
-    id
-    internalId
-    key
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              contactItemById(id: "Q29udGFjdEl0ZW0KZ2ViZjIyNGE4N2ZmMzQ3Yjk4ODJiZGQ0MWVjN2Y1YTA1") {
+                createdAt
+                description
+                href
+                icon
+                id
+                internalId
+                key
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

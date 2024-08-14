@@ -12,7 +12,7 @@ html {
 }
 
 .menu-button:not(.active-menu-button) {
-   border-color: transparent !important;
+  border-color: transparent !important;
 }
 
 .bi-nuget > svg,
@@ -38,11 +38,11 @@ textarea {
 }
 
 ::placeholder {
-  opacity: .667!important;
+  opacity: .667 !important;
 }
 
 @media (min-width: 1121px) {
   nav {
-    border-radius: var(--bs-border-radius-pill)!important;
+    border-radius: var(--bs-border-radius-pill) !important;
   }
 }

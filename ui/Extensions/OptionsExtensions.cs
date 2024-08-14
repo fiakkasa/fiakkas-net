@@ -6,8 +6,7 @@ public static class OptionsExtensions
         this IServiceCollection services,
         string? sectionKey = default
     ) where TOptions : class
-    =>
-        services
+        => services
             .AddOptions<TOptions>()
             .BindConfiguration(sectionKey ?? typeof(TOptions).Name)
             .ValidateDataAnnotations()

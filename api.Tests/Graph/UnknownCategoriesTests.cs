@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,21 +10,21 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  unknownCategories {
-    totalCount
-    nodes {
-      createdAt
-      id
-      internalId
-      title
-      updatedAt
-      version
-    }
-  }
-}
-""");
+            """
+            {
+              unknownCategories {
+                totalCount
+                nodes {
+                  createdAt
+                  id
+                  internalId
+                  title
+                  updatedAt
+                  version
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -38,18 +38,18 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  unknownCategoryById(id: "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==") {
-    createdAt
-    id
-    internalId
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              unknownCategoryById(id: "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==") {
+                createdAt
+                id
+                internalId
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -57,4 +57,3 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
         result.ToJson().MatchSnapshot();
     }
 }
-

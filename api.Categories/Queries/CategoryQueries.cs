@@ -19,35 +19,31 @@ public static class CategoryQueries
     [UseSorting]
     [UseFiltering]
     public static IQueryable<UnknownCategory> GetUnknownCategories([Service] IDataRepository<ICategory> repository) =>
-        repository.Get(
-            CategoryEntityUtils.IsUnknownCategory,
-            CategoryMappers.MapUnknownCategory
-        );
+        repository.Get(CategoryEntityUtils.IsUnknownCategory, CategoryMappers.MapUnknownCategory);
 
     [NodeResolver]
     public static async ValueTask<UnknownCategory?> GetUnknownCategoryById(
         Guid id,
         [Service] UnknownCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
+    ) => await dataLoader.LoadAsync(id, cancellationToken);
 
     [UsePaging]
     [UseSorting]
     [UseFiltering]
-    public static IQueryable<PortfolioCategory> GetPortfolioCategories([Service] IDataRepository<ICategory> repository) =>
-        repository.Get(
-            CategoryEntityUtils.IsPortfolioCategory,
-            CategoryMappers.MapPortfolioCategory
-        );
+    public static IQueryable<PortfolioCategory> GetPortfolioCategories(
+        [Service] IDataRepository<ICategory> repository
+    ) => repository.Get(
+        CategoryEntityUtils.IsPortfolioCategory,
+        CategoryMappers.MapPortfolioCategory
+    );
 
     [NodeResolver]
     public static async ValueTask<PortfolioCategory?> GetPortfolioCategoryById(
         Guid id,
         [Service] PortfolioCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
+    ) => await dataLoader.LoadAsync(id, cancellationToken);
 
     [UsePaging]
     [UseSorting]
@@ -63,51 +59,51 @@ public static class CategoryQueries
         Guid id,
         [Service] ResumeCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
+    ) => await dataLoader.LoadAsync(id, cancellationToken);
 
     [UsePaging]
     [UseSorting]
     [UseFiltering]
-    public static IQueryable<SoftwareDevelopmentCategory> GetSoftwareDevelopmentCategories([Service] IDataRepository<ICategory> repository) =>
-        repository.Get(
-            CategoryEntityUtils.IsSoftwareDevelopmentCategory,
-            CategoryMappers.MapSoftwareDevelopmentCategory
-        );
+    public static IQueryable<SoftwareDevelopmentCategory> GetSoftwareDevelopmentCategories(
+        [Service] IDataRepository<ICategory> repository
+    ) => repository.Get(
+        CategoryEntityUtils.IsSoftwareDevelopmentCategory,
+        CategoryMappers.MapSoftwareDevelopmentCategory
+    );
 
     [NodeResolver]
     public static async ValueTask<SoftwareDevelopmentCategory?> GetSoftwareDevelopmentCategoryById(
         Guid id,
         [Service] SoftwareDevelopmentCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
+    ) => await dataLoader.LoadAsync(id, cancellationToken);
 
     [UsePaging]
     [UseSorting]
     [UseFiltering]
-    public static IQueryable<InformationTechnologyCategory> GetInformationTechnologyCategories([Service] IDataRepository<ICategory> repository) =>
-        repository.Get(
-            CategoryEntityUtils.IsInformationTechnologyCategory,
-            CategoryMappers.MapInformationTechnologyCategory
-        );
+    public static IQueryable<InformationTechnologyCategory> GetInformationTechnologyCategories(
+        [Service] IDataRepository<ICategory> repository
+    ) => repository.Get(
+        CategoryEntityUtils.IsInformationTechnologyCategory,
+        CategoryMappers.MapInformationTechnologyCategory
+    );
 
     [NodeResolver]
     public static async ValueTask<InformationTechnologyCategory?> GetInformationTechnologyCategoryById(
         Guid id,
         [Service] InformationTechnologyCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
+    ) => await dataLoader.LoadAsync(id, cancellationToken);
 
     [UsePaging]
     [UseSorting]
     [UseFiltering]
-    public static IQueryable<IPolymorphicTechnologyCategory> GetTechnologyCategories([Service] IDataRepository<ICategory> repository) =>
-        repository.Get(
-            CategoryEntityUtils.IsTechnologyCategory,
-            CategoryMappers.MapPolymorphicTechnologyCategory
-        );
+    public static IQueryable<IPolymorphicTechnologyCategory> GetTechnologyCategories(
+        [Service] IDataRepository<ICategory> repository
+    ) => repository.Get(
+        CategoryEntityUtils.IsTechnologyCategory,
+        CategoryMappers.MapPolymorphicTechnologyCategory
+    );
 
     [UsePaging]
     [UseSorting]
@@ -123,6 +119,5 @@ public static class CategoryQueries
         Guid id,
         [Service] OtherCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken = default
-    ) =>
-        await dataLoader.LoadAsync(id, cancellationToken);
+    ) => await dataLoader.LoadAsync(id, cancellationToken);
 }

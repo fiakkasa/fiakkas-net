@@ -12,4 +12,5 @@ public interface IEducationItem<TTimePeriod> : IBaseData
     string[] Subjects { get; init; }
 }
 
-public interface IEducationItem : IEducationItem<TimePeriod> { }
+public interface IEducationItem : IEducationItem<TimePeriod>
+{ }

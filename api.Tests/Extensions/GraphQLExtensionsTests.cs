@@ -1,35 +1,17 @@
+using api.Extensions;
 using HotChocolate.Execution;
 using HotChocolate.Types.Relay;
 
-namespace api.Extensions.Tests;
+namespace api.Tests.Extensions;
 
 public class GraphQLExtensionsTests
 {
-    [Node]
-    public record Message([property: ID] Guid Id, string Text);
-
-    [QueryType]
-    public static class TestQueries
-    {
-        private static readonly Message[] _messages = [
-            new(new Guid("f5b0d13a-86bc-4b89-891c-625672dbbd84"), "hello"),
-            new(new Guid("8c34e916-5efd-4485-a46a-6b11383a4deb"), "world")
-        ];
-
-        [UsePaging]
-        [UseSorting]
-        [UseFiltering]
-        public static IEnumerable<Message> GetMessages() => _messages;
-
-        public static string Text => "Hello";
-    }
-
     [Fact]
     public async Task AddApiGraphQL_Should_Register_The_GraphQL_Server_And_Graph_Endpoints()
     {
         var requestExecutor =
             await new ServiceCollection()
-                .AddApiGraphQL(isDev: false)
+                .AddApiGraphQL(false)
                 .BuildServiceProvider()
                 .GetRequestExecutorAsync();
 
@@ -42,15 +24,15 @@ public class GraphQLExtensionsTests
     [Fact]
     public async Task AddApiGraphQLServer_And_MapApiGraphQL_In_Dev_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
-        var isDev = true;
+        const bool isDev = true;
         var builder = new WebHostBuilder()
-           .ConfigureServices(services =>
+            .ConfigureServices(services =>
                 services
                     .AddRouting()
                     .AddApiGraphQLServer(isDev)
                     .AddTypeExtension(typeof(TestQueries))
             )
-           .Configure(app =>
+            .Configure(app =>
                 app
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapApiGraphQL(isDev))
@@ -67,7 +49,10 @@ public class GraphQLExtensionsTests
         {
             Method = HttpMethod.Post,
             RequestUri = new(Consts.GraphQLEndPoint, UriKind.Relative),
-            Content = JsonContent.Create(new { query = "{ text }" })
+            Content = JsonContent.Create(new
+            {
+                query = "{ text }"
+            })
         };
         queryRequest.Headers.Add("GraphQL-Tracing", "1");
         var queryResponse = await client.SendAsync(queryRequest);
@@ -86,18 +71,20 @@ public class GraphQLExtensionsTests
         queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
         queryResult.RootElement.GetProperty("extensions").GetProperty("tracing").GetRawText().Should().NotBeEmpty();
     }
+
     [Fact]
-    public async Task AddApiGraphQLServer_And_MapApiGraphQL_In_Release_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
+    public async Task
+        AddApiGraphQLServer_And_MapApiGraphQL_In_Release_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
-        var isDev = false;
+        const bool isDev = false;
         var builder = new WebHostBuilder()
-           .ConfigureServices(services =>
+            .ConfigureServices(services =>
                 services
                     .AddRouting()
                     .AddApiGraphQLServer(isDev)
                     .AddTypeExtension(typeof(TestQueries))
             )
-           .Configure(app =>
+            .Configure(app =>
                 app
                     .UseRouting()
                     .UseEndpoints(endpoints => endpoints.MapApiGraphQL(isDev))
@@ -114,7 +101,10 @@ public class GraphQLExtensionsTests
         {
             Method = HttpMethod.Post,
             RequestUri = new(Consts.GraphQLEndPoint, UriKind.Relative),
-            Content = JsonContent.Create(new { query = "{ text }" })
+            Content = JsonContent.Create(new
+            {
+                query = "{ text }"
+            })
         };
         queryRequest.Headers.Add("GraphQL-Tracing", "1");
         var queryResponse = await client.SendAsync(queryRequest);
@@ -132,5 +122,29 @@ public class GraphQLExtensionsTests
         queryResult.Should().NotBeNull();
         queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
         queryResult.RootElement.TryGetProperty("extensions", out var _).Should().BeFalse();
+    }
+
+    [Node]
+    public record Message(
+        [property: ID]
+        Guid Id,
+        string Text
+    );
+
+    [QueryType]
+    public static class TestQueries
+    {
+        private static readonly Message[] _messages =
+        [
+            new(new("f5b0d13a-86bc-4b89-891c-625672dbbd84"), "hello"),
+            new(new("8c34e916-5efd-4485-a46a-6b11383a4deb"), "world")
+        ];
+
+        public static string Text => "Hello";
+
+        [UsePaging]
+        [UseSorting]
+        [UseFiltering]
+        public static IEnumerable<Message> GetMessages() => _messages;
     }
 }

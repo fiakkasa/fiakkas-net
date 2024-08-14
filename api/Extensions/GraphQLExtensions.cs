@@ -39,7 +39,7 @@ public static class GraphQLExtensions
         services
             .AddGraphQLServer()
             .InitializeOnStartup()
-            .AddMaxExecutionDepthRule(Consts.GraphQLMaxExecutionDepthRule, skipIntrospectionFields: isDev)
+            .AddMaxExecutionDepthRule(Consts.GraphQLMaxExecutionDepthRule, isDev)
             .AllowIntrospection(isDev)
             .AddApolloTracing(isDev switch
             {
@@ -66,14 +66,17 @@ public static class GraphQLExtensions
             app.MapGraphQLVoyager(Consts.GraphQLSchemaVisualizerEndPoint);
 
         app
-          .MapGraphQL(Consts.GraphQLEndPoint)
-          .WithOptions(new()
-          {
-              Tool = { Enable = isDev },
-              EnableSchemaRequests = isDev,
-              EnableGetRequests = false,
-              AllowedGetOperations = AllowedGetOperations.Query
-          });
+            .MapGraphQL(Consts.GraphQLEndPoint)
+            .WithOptions(new()
+            {
+                Tool =
+                {
+                    Enable = isDev
+                },
+                EnableSchemaRequests = isDev,
+                EnableGetRequests = false,
+                AllowedGetOperations = AllowedGetOperations.Query
+            });
 
         return app;
     }
