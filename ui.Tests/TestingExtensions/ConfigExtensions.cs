@@ -21,7 +21,8 @@ public static class ConfigExtensions
             )
             .Build();
 
-    public static T AddToConfigurationBuilder<T>(this T builder, Dictionary<string, object> config) where T : IConfigurationBuilder
+    public static T AddToConfigurationBuilder<T>(this T builder, Dictionary<string, object> config)
+        where T : IConfigurationBuilder
     {
         builder.AddJsonStream(
             new MemoryStream(

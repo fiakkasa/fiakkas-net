@@ -3,17 +3,17 @@ namespace ui.Models;
 [ExcludeFromCodeCoverage]
 public record EmailConfig
 {
-    public bool AlwaysUseDefaultSenderAddress { get; set; }
+    public bool AlwaysUseDefaultSenderAddress { get; init; }
 
     [EmailAddress]
-    public string DefaultSenderAddress { get; set; } = string.Empty;
+    public string DefaultSenderAddress { get; init; } = string.Empty;
 
     [EmailAddress]
-    public string DefaultRecipientAddress { get; set; } = string.Empty;
+    public string DefaultRecipientAddress { get; init; } = string.Empty;
 
     [StringLength(128)]
-    public string PlainTextSignature { get; set; } = string.Empty;
+    public string PlainTextSignature { get; init; } = string.Empty;
 
     [StringLength(256)]
-    public string HtmlSignature { get; set; } = string.Empty;
+    public string HtmlSignature { get; init; } = string.Empty;
 }
