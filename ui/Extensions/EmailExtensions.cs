@@ -7,19 +7,22 @@ namespace ui.Extensions;
 
 public static class EmailExtensions
 {
-    private static readonly Dictionary<string, ValidationAttribute[]> _emailValidationItems = new()
+    private static readonly Dictionary<string, ValidationAttribute[]> EmailValidationItems = new()
     {
-        [nameof(EmailErrorCodeType.REQUIRED)] = [new RequiredAttribute()],
-        [nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS)] = [new EmailAddressAttribute()]
+        [nameof(EmailErrorCodeType.Required)] = [new RequiredAttribute()],
+        [nameof(EmailErrorCodeType.InvalidEmailAddress)] = [new EmailAddressAttribute()]
     };
-    private static readonly Dictionary<string, ValidationAttribute[]> _emailContentValidationItems = new()
+
+    private static readonly Dictionary<string, ValidationAttribute[]> EmailContentValidationItems = new()
     {
-        [nameof(EmailErrorCodeType.REQUIRED)] = [new RequiredAttribute()]
+        [nameof(EmailErrorCodeType.Required)] = [new RequiredAttribute()]
     };
-    private static readonly Dictionary<string, Func<IHtmlDocument, bool>> _emailDocumentValidationItems = new()
+
+    private static readonly Dictionary<string, Func<IHtmlDocument, bool>> EmailDocumentValidationItems = new()
     {
-        [nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED)] = document => document is { Head.Children.Length: 0, Body.Children.Length: 0 },
-        [nameof(EmailErrorCodeType.UNUSABLE_CONTENT)] = document => document.Body!.TextContent.Length > 0
+        [nameof(EmailErrorCodeType.MarkupIsNotAllowed)] =
+            document => document is { Head.Children.Length: 0, Body.Children.Length: 0 },
+        [nameof(EmailErrorCodeType.UnusableContent)] = document => document.Body!.TextContent.Length > 0
     };
 
     public static IServiceCollection AddEmailService(this IServiceCollection services)
@@ -42,10 +45,10 @@ public static class EmailExtensions
         var normalizedEmailAddress = emailAddress ?? string.Empty;
         var validationContext = new ValidationContext(normalizedEmailAddress) { MemberName = memberName };
 
-        foreach (var (Key, Value) in _emailValidationItems)
+        foreach (var (key, value) in EmailValidationItems)
         {
-            if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, Value))
-                return [new(Key, memberNames)];
+            if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, value))
+                return [new(key, memberNames)];
         }
 
         return [];
@@ -62,18 +65,18 @@ public static class EmailExtensions
         var normalizedContent = content ?? string.Empty;
         var validationContext = new ValidationContext(normalizedContent) { MemberName = memberName };
 
-        foreach (var (Key, Value) in _emailContentValidationItems)
+        foreach (var (key, value) in EmailContentValidationItems)
         {
-            if (!Validator.TryValidateValue(normalizedContent, validationContext, default, Value))
-                return [new(Key, memberNames)];
+            if (!Validator.TryValidateValue(normalizedContent, validationContext, default, value))
+                return [new(key, memberNames)];
         }
 
         using var document = await parser.ParseDocumentAsync(normalizedContent, cancellationToken);
 
-        foreach (var (Key, Value) in _emailDocumentValidationItems)
+        foreach (var (key, value) in EmailDocumentValidationItems)
         {
-            if (!Value(document))
-                return [new(Key, memberNames)];
+            if (!value(document))
+                return [new(key, memberNames)];
         }
 
         return [];

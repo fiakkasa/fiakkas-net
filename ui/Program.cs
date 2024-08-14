@@ -1,3 +1,4 @@
+using ui.Components;
 using ui.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +33,7 @@ app.UseAntiforgery();
 app.UseUiLoggingProvider();
 
 app
-    .MapRazorComponents<ui.Components.App>()
+    .MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();

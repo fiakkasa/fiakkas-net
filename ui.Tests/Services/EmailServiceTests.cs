@@ -91,40 +91,40 @@ public class EmailServiceTests
         default,
         default,
         default,
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED)
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required)
     )]
     [InlineData(
         "",
         "",
         "",
         "",
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED)
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required)
     )]
     [InlineData(
         " ",
         " ",
         " ",
         " ",
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.REQUIRED)
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.Required)
     )]
     [InlineData(
         "hello",
         "",
         "<div>Hello</div>",
         "<div <span",
-        nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS),
-        nameof(EmailErrorCodeType.REQUIRED),
-        nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED),
-        nameof(EmailErrorCodeType.UNUSABLE_CONTENT)
+        nameof(EmailErrorCodeType.InvalidEmailAddress),
+        nameof(EmailErrorCodeType.Required),
+        nameof(EmailErrorCodeType.MarkupIsNotAllowed),
+        nameof(EmailErrorCodeType.UnusableContent)
     )]
     public async Task Send_Should_Not_Send_Email_When_Validation_Errors_Found(
         string? senderAddress,
@@ -161,7 +161,7 @@ public class EmailServiceTests
 
         result.IsT2.Should().BeTrue();
         result.AsT2.Should().BeOfType<InvalidOperationException>();
-        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FAILED_TO_SEND));
+        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FailedToSend));
         errorLogs.Should().ContainSingle();
         errorLogs[0].ExceptionMessage.Should().Be("Splash!");
     }
@@ -187,7 +187,7 @@ public class EmailServiceTests
 
         result.IsT2.Should().BeTrue();
         result.AsT2.Should().BeOfType<InvalidOperationException>();
-        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FAILED_TO_SEND));
+        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FailedToSend));
         errorLogs.Should().ContainSingle();
         errorLogs[0].ExceptionMessage.Should().Be("Splash!");
     }
@@ -213,7 +213,7 @@ public class EmailServiceTests
 
         result.IsT2.Should().BeTrue();
         result.AsT2.Should().BeOfType<InvalidOperationException>();
-        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FAILED_TO_SEND));
+        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FailedToSend));
         errorLogs.Should().ContainSingle();
         errorLogs[0].ExceptionMessage.Should().Be("Splash!");
     }

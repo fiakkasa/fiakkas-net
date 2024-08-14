@@ -59,7 +59,7 @@ public class EmailService(
         {
             logger.LogError(ex, "Failed to send email from {SenderAddress} to {RecipientAddress}", senderAddress, recipientAddress);
 
-            return new InvalidOperationException(nameof(EmailErrorCodeType.FAILED_TO_SEND), ex);
+            return new InvalidOperationException(nameof(EmailErrorCodeType.FailedToSend), ex);
         }
     }
 
@@ -117,7 +117,7 @@ public class EmailService(
         {
             logger.LogError(ex, "Failed to send email from {SenderAddress} to {RecipientAddress}", senderAddress, nameof(EmailConfig.DefaultRecipientAddress));
 
-            return new InvalidOperationException(nameof(EmailErrorCodeType.FAILED_TO_SEND), ex);
+            return new InvalidOperationException(nameof(EmailErrorCodeType.FailedToSend), ex);
         }
     }
 
@@ -131,7 +131,7 @@ public class EmailService(
         {
             logger.LogError(ex, "Failed to send email from {SenderAddress} to {RecipientAddress}", nameof(EmailConfig.DefaultSenderAddress), recipientAddress);
 
-            return new InvalidOperationException(nameof(EmailErrorCodeType.FAILED_TO_SEND), ex);
+            return new InvalidOperationException(nameof(EmailErrorCodeType.FailedToSend), ex);
         }
     }
 }

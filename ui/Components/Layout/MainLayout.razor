@@ -1,11 +1,11 @@
 ﻿@inherits LayoutComponentBase
-@inject NavigationManager _navigationManager
+@inject NavigationManager NavigationManager
 @attribute [ExcludeFromCodeCoverage]
 
 <div class="app-container position-relative m-auto h-100 w-100 d-flex flex-column">
-    <NavMenu CssClass="order-3 order-md-1 z-3 px-3 py-2 flex-shrink-0 bg-light overflow-hidden" />
+    <NavMenu CssClass="order-3 order-md-1 z-3 px-3 py-2 flex-shrink-0 bg-light overflow-hidden"/>
 
-    <ErrorBoundary @ref="errorBoundary">
+    <ErrorBoundary @ref="_errorBoundary">
         <ChildContent>
             <main class="order-2 z-1 px-3 flex-fill position-relative overflow-auto">
                 <div class="py-2">
@@ -16,10 +16,10 @@
         <ErrorContent>
             <main class="order-2 z-1 px-3 flex-fill position-relative overflow-auto">
                 <div class="py-2">
-                    <UniversalTitle Title="Error" />
+                    <UniversalTitle Title="Error"/>
                     <GenericError>
-                        <a href="@_navigationManager.Uri" class="btn btn-outline-primary btn-sm rounded-circle p-0 px-1"
-                            title="Reload">
+                        <a href="@NavigationManager.Uri" class="btn btn-outline-primary btn-sm rounded-circle p-0 px-1"
+                           title="Reload">
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
                     </GenericError>
@@ -30,7 +30,7 @@
 </div>
 
 @code {
-    private ErrorBoundary? errorBoundary;
+    private ErrorBoundary? _errorBoundary;
 
-    protected override void OnParametersSet() => errorBoundary?.Recover();
+    protected override void OnParametersSet() => _errorBoundary?.Recover();
 }

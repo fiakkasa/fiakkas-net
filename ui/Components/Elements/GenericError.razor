@@ -1,5 +1,5 @@
 <div class="generic-error @CssClass">
-    @if(ShowIcon)
+    @if (ShowIcon)
     {
         <i class="bi bi-exclamation-triangle text-warning"></i>
     }
@@ -21,15 +21,11 @@
 </div>
 
 @code {
-    [Parameter]
-    public bool ShowIcon { get; set; } = true;
+    [Parameter] public bool ShowIcon { get; set; } = true;
 
-    [Parameter]
-    public string CssClass { get; set; } = "py-2 lead";
+    [Parameter] public string CssClass { get; set; } = "py-2 lead";
 
-    [Parameter]
-    public string? Message { get; set; }
+    [Parameter] public string? Message { get; set; }
 
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 }

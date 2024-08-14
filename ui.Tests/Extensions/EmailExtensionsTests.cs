@@ -55,10 +55,10 @@ public class EmailExtensionsTests
 
     [Theory]
     [InlineData("user@email.com")]
-    [InlineData(null, nameof(EmailErrorCodeType.REQUIRED))]
-    [InlineData("", nameof(EmailErrorCodeType.REQUIRED))]
-    [InlineData(" ", nameof(EmailErrorCodeType.REQUIRED))]
-    [InlineData("hello-world", nameof(EmailErrorCodeType.INVALID_EMAIL_ADDRESS))]
+    [InlineData(null, nameof(EmailErrorCodeType.Required))]
+    [InlineData("", nameof(EmailErrorCodeType.Required))]
+    [InlineData(" ", nameof(EmailErrorCodeType.Required))]
+    [InlineData("hello-world", nameof(EmailErrorCodeType.InvalidEmailAddress))]
     public void ValidateEmailAddress_Should_Yield_Results_When_Conditions_Met(
         string? emailAddress,
         params string[] expectedErrors
@@ -72,13 +72,13 @@ public class EmailExtensionsTests
 
     [Theory]
     [InlineData("Hello!")]
-    [InlineData(null, nameof(EmailErrorCodeType.REQUIRED))]
-    [InlineData("", nameof(EmailErrorCodeType.REQUIRED))]
-    [InlineData(" ", nameof(EmailErrorCodeType.REQUIRED))]
-    [InlineData("<div></div>", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED))]
-    [InlineData("<meta /> Test", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED))]
-    [InlineData("<div>Hello!</div>", nameof(EmailErrorCodeType.MARKUP_IS_NOT_ALLOWED))]
-    [InlineData("<html <div  ", nameof(EmailErrorCodeType.UNUSABLE_CONTENT))]
+    [InlineData(null, nameof(EmailErrorCodeType.Required))]
+    [InlineData("", nameof(EmailErrorCodeType.Required))]
+    [InlineData(" ", nameof(EmailErrorCodeType.Required))]
+    [InlineData("<div></div>", nameof(EmailErrorCodeType.MarkupIsNotAllowed))]
+    [InlineData("<meta /> Test", nameof(EmailErrorCodeType.MarkupIsNotAllowed))]
+    [InlineData("<div>Hello!</div>", nameof(EmailErrorCodeType.MarkupIsNotAllowed))]
+    [InlineData("<html <div  ", nameof(EmailErrorCodeType.UnusableContent))]
     public async Task ValidateEmailContent_Should_Yield_Results_When_Conditions_Met(
         string? content,
         params string[] expectedErrors
