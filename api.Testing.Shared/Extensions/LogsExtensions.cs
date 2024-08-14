@@ -17,26 +17,24 @@ public static class LogsExtensions
                         IEnumerable<KeyValuePair<string, object?>> arguments,
                         Exception exception,
                         ..
-                    ] =>
-                        new TestingLogMessage(
-                            LogLevel: logLevel,
-                            OriginalMessage: arguments.First(x => x.Key == "{OriginalFormat}").Value?.ToString(),
-                            Arguments: arguments.ToArray(),
-                            ExceptionType: exception.GetType().Name,
-                            ExceptionMessage: exception.Message,
-                            ExceptionSource: exception.Source
-                        ),
+                    ] when arguments.ToArray() is { Length: >= 0 } arrayArgs => new(
+                        logLevel,
+                        arrayArgs.FirstOrDefault(item => item.Key == "{OriginalFormat}").Value?.ToString(),
+                        arrayArgs,
+                        exception.GetType().Name,
+                        exception.Message,
+                        exception.Source
+                    ),
                     [
                         LogLevel logLevel,
                         _,
                         IEnumerable<KeyValuePair<string, object?>> arguments,
                         ..
-                    ] =>
-                        new TestingLogMessage(
-                            LogLevel: logLevel,
-                            OriginalMessage: arguments.First(x => x.Key == "{OriginalFormat}").Value?.ToString(),
-                            Arguments: arguments.ToArray()
-                        ),
+                    ] when arguments.ToArray() is { Length: >= 0 } arrayArgs => new TestingLogMessage(
+                        logLevel,
+                        arrayArgs.FirstOrDefault(item => item.Key == "{OriginalFormat}").Value?.ToString(),
+                        arrayArgs
+                    ),
                     _ => null
                 }
             )
