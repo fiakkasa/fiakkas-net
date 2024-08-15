@@ -74,11 +74,25 @@ Consider using the `data.sample.json` file as a starting point.
 ```json
 {
   "UiConfig": {
-    "Title": "<Title>",
+    "Title": "UI",
     "Separator": " - "
   },
   "FiakkasNetApiConfig": {
-    "BaseUrl": "api_url/graphql"
+    "BaseUrl": null
+  },
+  "SmtpConfig": {
+    "Host": null,
+    "Port": 25,
+    "Username": null,
+    "Password": null,
+    "EnableSsl": false
+  },
+  "EmailConfig": {
+    "AlwaysUseDefaultSenderAddress": false,
+    "DefaultSenderAddress": "",
+    "DefaultRecipientAddress": "",
+    "PlainTextSignature": "",
+    "HtmlSignature": ""
   }
 }
 ```
