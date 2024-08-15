@@ -14,5 +14,4 @@ public sealed class CustomerBatchDataLoader(
     CustomerMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

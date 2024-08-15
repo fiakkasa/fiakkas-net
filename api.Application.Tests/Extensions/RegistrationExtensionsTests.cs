@@ -25,7 +25,7 @@ public class RegistrationExtensionsTests
     [Fact]
     public void AddApiApplication_Service_Registration_Should_Add_SystemInfo_With_Version()
     {
-        var value = "1.1.1";
+        const string value = "1.1.1";
         var result =
             new ServiceCollection()
                 .AddApiApplication(_start, new(value))

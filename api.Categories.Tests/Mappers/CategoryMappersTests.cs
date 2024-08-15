@@ -251,7 +251,7 @@ public class CategoryMappersTests
         result.MatchSnapshot();
     }
 
-    public record CategoryMockEntity : ICategory
+    private record CategoryMockEntity : ICategory
     {
         public CategoryType Kind { get; init; }
         public Guid Id { get; init; }

@@ -35,7 +35,7 @@ public class EducationItemMappersTests
         result.MatchSnapshot();
     }
 
-    public record EducationItemMockEntity : IEducationItem
+    private record EducationItemMockEntity : IEducationItem
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

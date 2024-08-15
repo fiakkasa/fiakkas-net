@@ -9,5 +9,5 @@ public sealed class AchievementDataRepository(
 )
     : AbstractInMemoryDataRepository<IAchievement, AchievementsDataConfig>(logger, dataSnapshot)
 {
-    protected override IAchievement[]? ResolveSet(AchievementsDataConfig data) => data.Achievements;
+    protected override IReadOnlyCollection<IAchievement>? ResolveSet(AchievementsDataConfig data) => data.Achievements;
 }

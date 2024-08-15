@@ -23,7 +23,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void Get_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = _sutWrongType.Get().ToArray();
 
@@ -43,7 +43,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void Get_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = _sut.Get().ToArray();
 
@@ -63,7 +63,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void Get_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
         var result = _sut.Get().ToArray();
 
@@ -83,7 +83,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void Get_Should_Return_Collection()
     {
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = new("99e483e4-6961-4b25-88a9-d1d0a5161109")
@@ -100,7 +100,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = _sutWrongType.Get(x => x.Id).ToArray();
 
@@ -120,7 +120,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetMapped_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = _sut.Get(x => x.Id).ToArray();
 
@@ -140,7 +140,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
         var result = _sut.Get(x => x.Id).ToArray();
 
@@ -160,7 +160,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetMapped_Should_Return_Collection()
     {
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = new("99e483e4-6961-4b25-88a9-d1d0a5161109")
@@ -177,9 +177,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetPredicateMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = _sutWrongType.Get(x => true, x => x.Id).ToArray();
+        var result = _sutWrongType.Get(_ => true, x => x.Id).ToArray();
 
         result.Should().BeEmpty();
         _loggerWrongType
@@ -197,9 +197,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetPredicateMapped_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = _sut.Get(x => true, x => x.Id).ToArray();
+        var result = _sut.Get(_ => true, x => x.Id).ToArray();
 
         result.Should().BeEmpty();
         _logger
@@ -217,9 +217,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public void GetPredicateMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = _sut.Get(x => true, x => x.Id).ToArray();
+        var result = _sut.Get(_ => true, x => x.Id).ToArray();
 
         result.Should().BeEmpty();
         _logger
@@ -238,7 +238,7 @@ public class AbstractInMemoryDataRepositoryTests
     public void GetPredicateMapped_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -255,7 +255,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task Find_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sutWrongType.Find(Guid.NewGuid(), CancellationToken.None);
 
@@ -274,7 +274,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task Find_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sut.Find(Guid.NewGuid(), CancellationToken.None);
 
@@ -293,7 +293,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task Find_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
         var result = await _sut.Find(Guid.NewGuid(), CancellationToken.None);
 
@@ -313,7 +313,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task Find_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -330,9 +330,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindPredicate_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sutWrongType.Find(x => true, CancellationToken.None);
+        var result = await _sutWrongType.Find(_ => true, CancellationToken.None);
 
         result.Should().BeNull();
         _loggerWrongType
@@ -349,9 +349,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindPredicate_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sut.Find(x => true, CancellationToken.None);
+        var result = await _sut.Find(_ => true, CancellationToken.None);
 
         result.Should().BeNull();
         _logger
@@ -368,9 +368,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindPredicate_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.Find(x => true, CancellationToken.None);
+        var result = await _sut.Find(_ => true, CancellationToken.None);
 
         result.Should().BeNull();
         _logger
@@ -388,7 +388,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task FindPredicate_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -405,7 +405,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sutWrongType.Find(Guid.NewGuid(), x => x, CancellationToken.None);
 
@@ -424,7 +424,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindMapped_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sut.Find(Guid.NewGuid(), x => x, CancellationToken.None);
 
@@ -443,7 +443,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
         var result = await _sut.Find(Guid.NewGuid(), x => x, CancellationToken.None);
 
@@ -463,7 +463,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task FindMapped_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -480,9 +480,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindPredicateMapped_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sutWrongType.Find(x => true, x => x, CancellationToken.None);
+        var result = await _sutWrongType.Find(_ => true, x => x, CancellationToken.None);
 
         result.Should().BeNull();
         _loggerWrongType
@@ -499,9 +499,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindPredicateMapped_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sut.Find(x => true, x => x, CancellationToken.None);
+        var result = await _sut.Find(_ => true, x => x, CancellationToken.None);
 
         result.Should().BeNull();
         _logger
@@ -518,9 +518,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task FindPredicateMapped_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.Find(x => true, x => x, CancellationToken.None);
+        var result = await _sut.Find(_ => true, x => x, CancellationToken.None);
 
         result.Should().BeNull();
         _logger
@@ -538,7 +538,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task FindPredicateMapped_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -555,7 +555,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatch_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sutWrongType.GetBatch([], x => x, CancellationToken.None);
 
@@ -575,7 +575,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatch_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sut.GetBatch([], x => x, CancellationToken.None);
 
@@ -595,7 +595,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatch_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
         var result = await _sut.GetBatch([], x => x, CancellationToken.None);
 
@@ -616,7 +616,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task GetBatch_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -633,9 +633,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatchPredicate_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sutWrongType.GetBatch(x => true, x => x, CancellationToken.None);
+        var result = await _sutWrongType.GetBatch(_ => true, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _loggerWrongType
@@ -653,9 +653,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatchPredicate_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sut.GetBatch(x => true, x => x, CancellationToken.None);
+        var result = await _sut.GetBatch(_ => true, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _logger
@@ -673,9 +673,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatchPredicate_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.GetBatch(x => true, x => x, CancellationToken.None);
+        var result = await _sut.GetBatch(_ => true, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _logger
@@ -694,7 +694,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task GetBatchPredicate_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -711,9 +711,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatchPredicateKeySelector_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sutWrongType.GetBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+        var result = await _sutWrongType.GetBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _loggerWrongType
@@ -731,9 +731,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatchPredicateKeySelector_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sut.GetBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+        var result = await _sut.GetBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _logger
@@ -751,9 +751,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetBatchPredicateKeySelector_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.GetBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+        var result = await _sut.GetBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _logger
@@ -772,7 +772,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task GetBatchPredicateKeySelector_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -789,7 +789,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatch_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sutWrongType.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
@@ -809,7 +809,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatch_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
         var result = await _sut.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
@@ -829,7 +829,7 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatch_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
         var result = await _sut.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
@@ -850,7 +850,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task GetGroupedBatch_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -867,9 +867,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatchPredicate_Should_Return_Empty_Collection_When_Non_Interface_Type_Used()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sutWrongType.GetGroupedBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+        var result = await _sutWrongType.GetGroupedBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _loggerWrongType
@@ -887,9 +887,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatchPredicate_Should_Return_Empty_Collection_When_Null_Data()
     {
-        _optionsSnapshot.Value.Returns(x => new());
+        _optionsSnapshot.Value.Returns(_ => new());
 
-        var result = await _sut.GetGroupedBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+        var result = await _sut.GetGroupedBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _logger
@@ -907,9 +907,9 @@ public class AbstractInMemoryDataRepositoryTests
     [Fact]
     public async Task GetGroupedBatchPredicate_Should_Return_Empty_Collection_When_Exception_Occurs()
     {
-        _optionsSnapshot.Value.Returns(x => throw new("Splash!"));
+        _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.GetGroupedBatch(x => true, x => x.Id, x => x, CancellationToken.None);
+        var result = await _sut.GetGroupedBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         result.Should().BeEmpty();
         _logger
@@ -928,7 +928,7 @@ public class AbstractInMemoryDataRepositoryTests
     public async Task GetGroupedBatchPredicate_Should_Return_Collection()
     {
         var id = new Guid("99e483e4-6961-4b25-88a9-d1d0a5161109");
-        _optionsSnapshot.Value.Returns(x => new([
+        _optionsSnapshot.Value.Returns(_ => new([
             new()
             {
                 Id = id
@@ -942,8 +942,7 @@ public class AbstractInMemoryDataRepositoryTests
         result.MatchSnapshot();
     }
 
-    public interface ITestEntity : IBaseId
-    { }
+    public interface ITestEntity : IBaseId;
 
     public record TestEntity : ITestEntity
     {
@@ -964,6 +963,6 @@ public class AbstractInMemoryDataRepositoryTests
     public class TestDataRepository(ILogger<TestDataRepository> logger, IOptionsSnapshot<TestConfig> dataSnapshot)
         : AbstractInMemoryDataRepository<ITestEntity, TestConfig>(logger, dataSnapshot)
     {
-        protected override ITestEntity[]? ResolveSet(TestConfig data) => data.Collection;
+        protected override IReadOnlyCollection<ITestEntity>? ResolveSet(TestConfig data) => data.Collection;
     }
 }

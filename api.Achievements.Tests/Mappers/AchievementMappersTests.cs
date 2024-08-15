@@ -25,7 +25,7 @@ public class AchievementMappersTests
         result.MatchSnapshot();
     }
 
-    public record AchievementMockEntity : IAchievement
+    private record AchievementMockEntity : IAchievement
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

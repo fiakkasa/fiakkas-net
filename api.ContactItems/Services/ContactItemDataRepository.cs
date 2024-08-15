@@ -9,5 +9,5 @@ public sealed class ContactItemDataRepository(
 )
     : AbstractInMemoryDataRepository<IContactItem, ContactItemsDataConfig>(logger, dataSnapshot)
 {
-    protected override IContactItem[]? ResolveSet(ContactItemsDataConfig data) => data.ContactItems;
+    protected override IReadOnlyCollection<IContactItem>? ResolveSet(ContactItemsDataConfig data) => data.ContactItems;
 }

@@ -9,5 +9,5 @@ public sealed class CategoryDataRepository(
 )
     : AbstractInMemoryDataRepository<ICategory, CategoriesDataConfig>(logger, dataSnapshot)
 {
-    protected override ICategory[]? ResolveSet(CategoriesDataConfig data) => data.Categories;
+    protected override IReadOnlyCollection<ICategory>? ResolveSet(CategoriesDataConfig data) => data.Categories;
 }

@@ -9,5 +9,5 @@ public sealed class EducationItemDataRepository(
 )
     : AbstractInMemoryDataRepository<IEducationItem, EducationItemsDataConfig>(logger, dataSnapshot)
 {
-    protected override IEducationItem[]? ResolveSet(EducationItemsDataConfig data) => data.EducationItems;
+    protected override IReadOnlyCollection<IEducationItem>? ResolveSet(EducationItemsDataConfig data) => data.EducationItems;
 }

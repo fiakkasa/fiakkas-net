@@ -7,18 +7,18 @@ namespace ui.Extensions;
 
 public static class EmailExtensions
 {
-    private static readonly Dictionary<string, ValidationAttribute[]> EmailValidationItems = new()
+    private static readonly Dictionary<string, ValidationAttribute[]> _emailValidationItems = new()
     {
         [nameof(EmailErrorCodeType.Required)] = [new RequiredAttribute()],
         [nameof(EmailErrorCodeType.InvalidEmailAddress)] = [new EmailAddressAttribute()]
     };
 
-    private static readonly Dictionary<string, ValidationAttribute[]> EmailContentValidationItems = new()
+    private static readonly Dictionary<string, ValidationAttribute[]> _emailContentValidationItems = new()
     {
         [nameof(EmailErrorCodeType.Required)] = [new RequiredAttribute()]
     };
 
-    private static readonly Dictionary<string, Func<IHtmlDocument, bool>> EmailDocumentValidationItems = new()
+    private static readonly Dictionary<string, Func<IHtmlDocument, bool>> _emailDocumentValidationItems = new()
     {
         [nameof(EmailErrorCodeType.MarkupIsNotAllowed)] =
             document => document is { Head.Children.Length: 0, Body.Children.Length: 0 },
@@ -48,7 +48,7 @@ public static class EmailExtensions
             MemberName = memberName
         };
 
-        foreach (var (key, value) in EmailValidationItems)
+        foreach (var (key, value) in _emailValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, value))
             {
@@ -73,7 +73,7 @@ public static class EmailExtensions
             MemberName = memberName
         };
 
-        foreach (var (key, value) in EmailContentValidationItems)
+        foreach (var (key, value) in _emailContentValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedContent, validationContext, default, value))
             {
@@ -83,7 +83,7 @@ public static class EmailExtensions
 
         using var document = await parser.ParseDocumentAsync(normalizedContent, cancellationToken);
 
-        foreach (var (key, value) in EmailDocumentValidationItems)
+        foreach (var (key, value) in _emailDocumentValidationItems)
         {
             if (!value(document))
             {

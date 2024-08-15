@@ -7,7 +7,7 @@ namespace api.Languages.Extensions;
 public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiLanguages(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration config,
         string sectionPath = "data"
     )

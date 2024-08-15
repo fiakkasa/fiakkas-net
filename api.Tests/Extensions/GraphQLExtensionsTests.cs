@@ -42,7 +42,7 @@ public class GraphQLExtensionsTests
         var graph = await server.Services.GetRequestExecutorAsync();
         var client = server.CreateClient();
 
-        var schema = graph?.Schema?.Print() ?? string.Empty;
+        var schema = graph.Schema.Print();
         var voyagerResponse = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
         var bananaCakePopResponse = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
         var queryRequest = new HttpRequestMessage
@@ -94,7 +94,7 @@ public class GraphQLExtensionsTests
         var graph = await server.Services.GetRequestExecutorAsync();
         var client = server.CreateClient();
 
-        var schema = graph?.Schema?.Print() ?? string.Empty;
+        var schema = graph.Schema.Print();
         var voyagerResponse = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
         var bananaCakePopResponse = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
         var queryRequest = new HttpRequestMessage
@@ -121,7 +121,7 @@ public class GraphQLExtensionsTests
         queryResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         queryResult.Should().NotBeNull();
         queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
-        queryResult.RootElement.TryGetProperty("extensions", out var _).Should().BeFalse();
+        queryResult.RootElement.TryGetProperty("extensions", out _).Should().BeFalse();
     }
 
     [Node]

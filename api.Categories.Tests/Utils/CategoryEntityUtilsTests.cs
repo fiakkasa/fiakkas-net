@@ -97,7 +97,7 @@ public class CategoryEntityUtilsTests
         result.Should().Be(expected);
     }
 
-    public record CategoryMockEntity : ICategory
+    private record CategoryMockEntity : ICategory
     {
         public CategoryType Kind { get; init; }
         public Guid Id { get; init; }

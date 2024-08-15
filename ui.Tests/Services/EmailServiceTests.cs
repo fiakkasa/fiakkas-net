@@ -65,19 +65,19 @@ public class EmailServiceTests
         result.IsT0.Should().BeTrue();
         sendCall.Should().NotBeNull();
         sendCall!.From!.Address.Should().Be(expectedSenderAddress);
-        sendCall.To!.Count.Should().Be(1);
-        sendCall.To[0]!.Should().Be(_recipientAddress);
+        sendCall.To.Count.Should().Be(1);
+        sendCall.To[0].Should().Be(_recipientAddress);
         sendCall.Subject.Should().EndWith(_subject);
 
         sendCall.AlternateViews.Should().HaveCount(2);
 
         sendCall.AlternateViews[0].ContentType.Should().Be("text/html; charset=utf-8");
-        using var htmlStream = sendCall.AlternateViews[0].ContentStream;
+        await using var htmlStream = sendCall.AlternateViews[0].ContentStream;
         var htmlString = await new StreamReader(htmlStream).ReadToEndAsync();
         htmlString.Should().Be(_bodyHtml + _config.HtmlSignature);
 
         sendCall.AlternateViews[1].ContentType.Should().Be("text/plain; charset=utf-8");
-        using var plaintTextStream = sendCall.AlternateViews[1].ContentStream;
+        await using var plaintTextStream = sendCall.AlternateViews[1].ContentStream;
         var plaintTextString = await new StreamReader(plaintTextStream).ReadToEndAsync();
         plaintTextString.Should().Be(_body + _config.PlainTextSignature);
     }
@@ -148,9 +148,11 @@ public class EmailServiceTests
     [Fact]
     public async Task Send_Should_Not_Send_Email_When_Error_Occurs()
     {
+#pragma warning disable CA2012
         _smtpService
             .Send(Arg.Any<MailMessage>(), Arg.Any<CancellationToken>())
             .Throws(new Exception("Splash!"));
+#pragma warning restore CA2012
         var service = GetEmailService(_config);
 
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);

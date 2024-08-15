@@ -9,7 +9,7 @@ namespace api.Portfolio.Extensions;
 public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiPortfolio(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration config,
         string sectionPath = "data"
     )

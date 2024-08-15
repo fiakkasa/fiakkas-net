@@ -28,7 +28,7 @@ public class ContactItemMappersTests
         result.MatchSnapshot();
     }
 
-    public record ContactItemMockEntity : IContactItem
+    private record ContactItemMockEntity : IContactItem
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

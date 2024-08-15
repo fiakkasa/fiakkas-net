@@ -9,5 +9,5 @@ public sealed class TextItemDataRepository(
 )
     : AbstractInMemoryDataRepository<ITextItem, TextItemsDataConfig>(logger, dataSnapshot)
 {
-    protected override ITextItem[]? ResolveSet(TextItemsDataConfig data) => data.TextItems;
+    protected override IReadOnlyCollection<ITextItem>? ResolveSet(TextItemsDataConfig data) => data.TextItems;
 }

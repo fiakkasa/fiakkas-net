@@ -14,5 +14,4 @@ public sealed class LanguageBatchDataLoader(
     LanguageMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

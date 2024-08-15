@@ -26,7 +26,7 @@ public class LanguageMappersTests
         result.MatchSnapshot();
     }
 
-    public record LanguageMockEntity : ILanguage
+    private record LanguageMockEntity : ILanguage
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

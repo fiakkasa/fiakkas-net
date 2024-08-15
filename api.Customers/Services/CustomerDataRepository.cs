@@ -9,5 +9,5 @@ public sealed class CustomerDataRepository(
 )
     : AbstractInMemoryDataRepository<ICustomer, CustomersDataConfig>(logger, dataSnapshot)
 {
-    protected override ICustomer[]? ResolveSet(CustomersDataConfig data) => data.Customers;
+    protected override IReadOnlyCollection<ICustomer>? ResolveSet(CustomersDataConfig data) => data.Customers;
 }

@@ -26,7 +26,7 @@ public class TextItemMappersTests
         result.MatchSnapshot();
     }
 
-    public record TextItemMockEntity : ITextItem
+    private record TextItemMockEntity : ITextItem
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

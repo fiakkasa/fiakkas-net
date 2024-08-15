@@ -17,5 +17,4 @@ public sealed class UnknownCategoryBatchDataLoader(
     (x, keys) =>
         CategoryEntityUtils.IsUnknownCategory(x)
         && keys.Contains(x.Id)
-)
-{ }
+);

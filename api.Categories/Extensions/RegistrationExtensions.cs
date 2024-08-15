@@ -7,7 +7,7 @@ namespace api.Categories.Extensions;
 public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiCategories(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration config,
         string sectionPath = "data"
     )
@@ -29,6 +29,6 @@ public static class RegistrationExtensions
                 descriptor.Field(f => f.Id).ID();
                 descriptor
                     .ImplementsNode()
-                    .ResolveNode(x => ValueTask.FromResult<object?>(default));
+                    .ResolveNode(_ => ValueTask.FromResult<object?>(default));
             });
 }

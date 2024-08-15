@@ -25,7 +25,7 @@ public class CustomerMappersTests
         result.MatchSnapshot();
     }
 
-    public record CustomerMockEntity : ICustomer
+    private record CustomerMockEntity : ICustomer
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

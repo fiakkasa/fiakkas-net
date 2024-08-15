@@ -17,5 +17,4 @@ public sealed class OtherCategoryBatchDataLoader(
     (x, keys) =>
         CategoryEntityUtils.IsOtherCategory(x)
         && keys.Contains(x.Id)
-)
-{ }
+);

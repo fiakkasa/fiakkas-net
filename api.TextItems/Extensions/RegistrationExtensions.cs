@@ -7,7 +7,7 @@ namespace api.TextItems.Extensions;
 public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiTextItems(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration config,
         string sectionPath = "data"
     )

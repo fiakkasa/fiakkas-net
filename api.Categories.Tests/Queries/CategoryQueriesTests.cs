@@ -11,9 +11,9 @@ public class CategoryQueriesTests
     [Fact]
     public void GetCategories_Should_Return_Data()
     {
-        var collection = new CategoryEntity[]
+        var collection = new ICategory[]
         {
-            new()
+            new CategoryEntity
             {
                 Kind = CategoryType.None,
                 Id = new("c9f5879d-4018-49a0-9b71-b479dd5de7ff"),
@@ -22,7 +22,7 @@ public class CategoryQueriesTests
                 Version = 1,
                 Title = "Title"
             },
-            new()
+            new CategoryEntity
             {
                 Kind = CategoryType.Portfolio,
                 Id = new("38e483e4-6961-4b25-88a9-d1d0a5161109"),
@@ -31,7 +31,7 @@ public class CategoryQueriesTests
                 Version = 1,
                 Title = "Title"
             },
-            new()
+            new CategoryEntity
             {
                 Kind = CategoryType.Resume,
                 Id = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
@@ -41,7 +41,7 @@ public class CategoryQueriesTests
                 Title = "Title",
                 AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment]
             },
-            new()
+            new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
                 Id = new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
@@ -51,7 +51,7 @@ public class CategoryQueriesTests
                 Title = "Title",
                 Href = new("/test", UriKind.Relative)
             },
-            new()
+            new CategoryEntity
             {
                 Kind = CategoryType.InformationTechnology,
                 Id = new("6cc43e9a-312b-4923-b890-e966b8168eee"),
@@ -61,7 +61,7 @@ public class CategoryQueriesTests
                 Title = "Title",
                 Href = new("/test", UriKind.Relative)
             },
-            new()
+            new CategoryEntity
             {
                 Kind = CategoryType.Other,
                 Id = new("9fd91f8a-2a44-4520-a5b1-8aa1c3c29133"),

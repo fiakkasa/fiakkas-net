@@ -15,6 +15,5 @@ public class IBaseIdTypeExtensionTests
         result.Should().Be(item.Id);
     }
 
-    public record MockItem(Guid Id) : IBaseId
-    { }
+    private record MockItem(Guid Id) : IBaseId;
 }

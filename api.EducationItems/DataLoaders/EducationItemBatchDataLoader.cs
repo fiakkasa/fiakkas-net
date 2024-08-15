@@ -14,5 +14,4 @@ public sealed class EducationItemBatchDataLoader(
     EducationItemMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

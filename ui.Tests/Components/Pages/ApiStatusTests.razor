@@ -227,7 +227,6 @@
     [Fact]
     public async Task Api_Status_Should_Render_GenericError_When_Error()
     {
-        var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
         var api = Substitute.For<IFiakkasNetApi>();
         api
             .GetSystemStatus

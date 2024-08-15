@@ -7,6 +7,8 @@ public sealed class PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoa
     DataLoaderOptions? options = null
 ) : GroupedDataLoader<Guid, IPolymorphicTechnologyCategory>(batchScheduler, options)
 {
+    private static readonly Expression<Func<ICategory, bool>> _where = x => CategoryEntityUtils.IsTechnologyCategory(x);
+
     protected override async Task<ILookup<Guid, IPolymorphicTechnologyCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
@@ -25,7 +27,7 @@ public sealed class PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoa
             var items =
                 categoryDataRepository
                     .Get()
-                    .Where(CategoryEntityUtils.IsTechnologyCategory)
+                    .Where(_where)
                     .ToHashSet();
 
             return collection

@@ -17,7 +17,7 @@ public static class LogsExtensions
                         IEnumerable<KeyValuePair<string, object?>> arguments,
                         Exception exception,
                         ..
-                    ] when arguments.ToArray() is { Length: >= 0 } arrayArgs => new(
+                    ] when arguments.ToArray() is { } arrayArgs => new(
                         logLevel,
                         arrayArgs.FirstOrDefault(item => item.Key == "{OriginalFormat}").Value?.ToString(),
                         arrayArgs,
@@ -30,7 +30,7 @@ public static class LogsExtensions
                         _,
                         IEnumerable<KeyValuePair<string, object?>> arguments,
                         ..
-                    ] when arguments.ToArray() is { Length: >= 0 } arrayArgs => new TestingLogMessage(
+                    ] when arguments.ToArray() is { } arrayArgs => new TestingLogMessage(
                         logLevel,
                         arrayArgs.FirstOrDefault(item => item.Key == "{OriginalFormat}").Value?.ToString(),
                         arrayArgs

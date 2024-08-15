@@ -9,5 +9,5 @@ public sealed class LanguageDataRepository(
 )
     : AbstractInMemoryDataRepository<ILanguage, LanguagesDataConfig>(logger, dataSnapshot)
 {
-    protected override ILanguage[]? ResolveSet(LanguagesDataConfig data) => data.Languages;
+    protected override IReadOnlyCollection<ILanguage>? ResolveSet(LanguagesDataConfig data) => data.Languages;
 }

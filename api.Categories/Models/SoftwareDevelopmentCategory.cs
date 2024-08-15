@@ -6,5 +6,4 @@ namespace api.Categories.Models;
 public record SoftwareDevelopmentCategory :
     AbstractTechnologyCategory,
     IPolymorphicCategory,
-    IPolymorphicTechnologyCategory
-{ }
+    IPolymorphicTechnologyCategory;

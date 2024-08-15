@@ -294,7 +294,7 @@ public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
                 typeof(TMapped).Name
             );
 
-            return Enumerable.Empty<TEntity>().ToLookup(x => x.Id, x => default(TMapped)!);
+            return Enumerable.Empty<TEntity>().ToLookup(x => x.Id, _ => default(TMapped)!);
         }
     }
 
@@ -323,7 +323,7 @@ public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
                 typeof(TMapped).Name
             );
 
-            return Enumerable.Empty<TEntity>().ToLookup(x => default(TKey)!, x => default(TMapped)!);
+            return Enumerable.Empty<TEntity>().ToLookup(_ => default(TKey)!, _ => default(TMapped)!);
         }
     }
 
@@ -344,5 +344,5 @@ public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
         return [];
     }
 
-    protected abstract TEntity[]? ResolveSet(TConfig data);
+    protected abstract IReadOnlyCollection<TEntity>? ResolveSet(TConfig data);
 }

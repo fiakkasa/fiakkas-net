@@ -36,7 +36,7 @@
         var links = cut.FindAll("a");
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
-        var expandCollapseButton = cut.Find("""button[type="button"].nav-menu-expand-collapse""");
+        cut.Find("""button[type="button"].nav-menu-expand-collapse""");
 
         links.Should().HaveCount(8);
         primaryLinks.Should().HaveCount(2);

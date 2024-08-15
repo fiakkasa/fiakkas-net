@@ -82,7 +82,7 @@ public class AbstractGenericBatchDataLoaderByIdTests
         string Text { get; }
     }
 
-    public record MockItemEntity : IMockItem
+    private record MockItemEntity : IMockItem
     {
         public Guid Id { get; init; }
         public string Text { get; init; } = string.Empty;
@@ -107,8 +107,7 @@ public class AbstractGenericBatchDataLoaderByIdTests
         },
         batchScheduler,
         options
-    )
-    { }
+    );
 
     public sealed class MockWithPredicateBatchDataLoader(
         IDataRepository<IMockItem> dataRepository,
@@ -124,6 +123,5 @@ public class AbstractGenericBatchDataLoaderByIdTests
         batchScheduler,
         options,
         (x, keys) => keys.Contains(x.Id) && x.Text == "Hello"
-    )
-    { }
+    );
 }

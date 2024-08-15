@@ -7,7 +7,7 @@ namespace api.EducationItems.Extensions;
 public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiEducationItems(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration config,
         string sectionPath = "data"
     )

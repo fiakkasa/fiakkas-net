@@ -9,5 +9,5 @@ public sealed class PortfolioItemDataRepository(
 )
     : AbstractInMemoryDataRepository<IPortfolioItem, PortfolioDataConfig>(logger, dataSnapshot)
 {
-    protected override IPortfolioItem[]? ResolveSet(PortfolioDataConfig data) => data.PortfolioItems;
+    protected override IReadOnlyCollection<IPortfolioItem>? ResolveSet(PortfolioDataConfig data) => data.PortfolioItems;
 }

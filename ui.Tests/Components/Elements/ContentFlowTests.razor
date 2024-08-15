@@ -41,7 +41,7 @@
     [Fact]
     public void Content_Flow_Should_Render_Custom_Error_When_HasError_Is_True_And_CustomErrorContent_Is_Set()
     {
-        ComponentFactories.AddStub<GenericError>(parameters =>
+        ComponentFactories.AddStub<GenericError>(_ =>
             @<div class="custom-error-content"></div>
         );
 

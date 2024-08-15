@@ -26,7 +26,7 @@ public class OptionsExtensionsTests
             .ConfigureWebHost(webBuilder =>
                 webBuilder
                     .UseTestServer()
-                    .ConfigureServices((ctx, services) =>
+                    .ConfigureServices((_, services) =>
                     {
                         services.AddValidatedOptions<MockConfig>();
                         services.AddValidatedOptions<MockConfigAlt>("SectionKey");
@@ -37,8 +37,8 @@ public class OptionsExtensionsTests
 
         var services = host.GetTestServer().Services;
 
-        var results = services.GetServices<IOptionsSnapshot<MockConfig>>();
-        var resultsAlt = services.GetServices<IOptionsSnapshot<MockConfigAlt>>();
+        var results = services.GetServices<IOptionsSnapshot<MockConfig>>().ToArray();
+        var resultsAlt = services.GetServices<IOptionsSnapshot<MockConfigAlt>>().ToArray();
 
         results.Should().ContainSingle();
         resultsAlt.Should().ContainSingle();

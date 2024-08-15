@@ -17,5 +17,4 @@ public sealed class PortfolioCategoryBatchDataLoader(
     (x, keys) =>
         CategoryEntityUtils.IsPortfolioCategory(x)
         && keys.Contains(x.Id)
-)
-{ }
+);

@@ -29,7 +29,7 @@ public class PortfolioItemMappersTests
         result.MatchSnapshot();
     }
 
-    public record PortfolioItemMockEntity : IPortfolioItem
+    private record PortfolioItemMockEntity : IPortfolioItem
     {
         public Guid Id { get; init; }
         public DateTimeOffset CreatedAt { get; init; }

@@ -8,7 +8,7 @@ public class ProgramTests
     [Fact]
     public async Task Program_Should_Run_In_Release_Mode()
     {
-        using var app = new Waf("Release");
+        await using var app = new Waf("Release");
 
         var client = app.CreateClient();
 
@@ -20,7 +20,7 @@ public class ProgramTests
     [Fact]
     public async Task Program_Should_Run_In_Development_Mode()
     {
-        using var app = new Waf("Development");
+        await using var app = new Waf("Development");
 
         var client = app.CreateClient();
 
@@ -29,11 +29,11 @@ public class ProgramTests
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    internal class Waf(string environment) : WebApplicationFactory<Program>
+    private class Waf(string environment) : WebApplicationFactory<Program>
     {
         protected override IHost CreateHost(IHostBuilder builder)
         {
-            builder.ConfigureAppConfiguration((hostingContext, config) =>
+            builder.ConfigureAppConfiguration((_, config) =>
             {
                 config.Sources.Clear();
 
