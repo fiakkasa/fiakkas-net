@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class AchievementsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,23 +10,23 @@ public class AchievementsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  achievements {
-    totalCount
-    nodes {
-      content
-      createdAt
-      id
-      internalId
-      updatedAt
-      version
-      years
-      yearsSummary
-    }
-  }
-}
-""");
+            """
+            {
+              achievements {
+                totalCount
+                nodes {
+                  content
+                  createdAt
+                  id
+                  internalId
+                  updatedAt
+                  version
+                  years
+                  yearsSummary
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -40,20 +40,20 @@ public class AchievementsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  achievementById(id: "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk") {
-    content
-    createdAt
-    id
-    internalId
-    updatedAt
-    version
-    years
-    yearsSummary
-  }
-}
-""");
+            """
+            {
+              achievementById(id: "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk") {
+                content
+                createdAt
+                id
+                internalId
+                updatedAt
+                version
+                years
+                yearsSummary
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

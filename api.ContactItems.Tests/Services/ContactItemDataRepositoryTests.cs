@@ -1,6 +1,7 @@
 using api.ContactItems.Models;
+using api.ContactItems.Services;
 
-namespace api.ContactItems.Services.Tests;
+namespace api.ContactItems.Tests.Services;
 
 public class ContactItemDataRepositoryTests
 {
@@ -9,7 +10,7 @@ public class ContactItemDataRepositoryTests
     {
         var item = new ContactItemEntity
         {
-            Id = new Guid("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05"),
+            Id = new("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
@@ -17,7 +18,7 @@ public class ContactItemDataRepositoryTests
             Icon = "Icon",
             Title = "Title",
             Description = "Content",
-            Href = new Uri("/test", UriKind.Relative)
+            Href = new("/test", UriKind.Relative)
         };
         var configData = new ContactItemsDataConfig
         {

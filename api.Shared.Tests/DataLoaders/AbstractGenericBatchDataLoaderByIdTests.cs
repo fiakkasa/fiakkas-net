@@ -1,53 +1,12 @@
+using api.Shared.DataLoaders;
 using api.Shared.Types.Interfaces;
 using api.Testing.Shared.Services;
 using GreenDonut;
 
-namespace api.Shared.DataLoaders.Tests;
+namespace api.Shared.Tests.DataLoaders;
 
 public class AbstractGenericBatchDataLoaderByIdTests
 {
-    public interface IMockItem : IBaseId
-    {
-        string Text { get; }
-    }
-
-    public record MockItemEntity : IMockItem
-    {
-        public Guid Id { get; init; }
-        public string Text { get; init; } = string.Empty;
-    }
-
-    public record MockItem : IMockItem
-    {
-        public Guid Id { get; init; }
-        public string Text { get; init; } = string.Empty;
-    }
-
-    public sealed class MockBatchDataLoader(
-        IDataRepository<IMockItem> dataRepository,
-        IBatchScheduler batchScheduler,
-        DataLoaderOptions? options = null
-    ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
-        dataRepository,
-        x => new MockItem { Id = x.Id, Text = x.Text },
-        batchScheduler,
-        options
-    )
-    { }
-
-    public sealed class MockWithPredicateBatchDataLoader(
-        IDataRepository<IMockItem> dataRepository,
-        IBatchScheduler batchScheduler,
-        DataLoaderOptions? options = null
-    ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
-        dataRepository,
-        x => new MockItem { Id = x.Id, Text = x.Text },
-        batchScheduler,
-        options,
-        (x, keys) => keys.Contains(x.Id) && x.Text == "Hello"
-    )
-    { }
-
     [Fact]
     public async Task LoadAsync_Should_Return_Data_When_Matches_Found()
     {
@@ -117,4 +76,52 @@ public class AbstractGenericBatchDataLoaderByIdTests
         result[0].Should().BeNull();
         result.MatchSnapshot();
     }
+
+    public interface IMockItem : IBaseId
+    {
+        string Text { get; }
+    }
+
+    private record MockItemEntity : IMockItem
+    {
+        public Guid Id { get; init; }
+        public string Text { get; init; } = string.Empty;
+    }
+
+    public record MockItem : IMockItem
+    {
+        public Guid Id { get; init; }
+        public string Text { get; init; } = string.Empty;
+    }
+
+    public sealed class MockBatchDataLoader(
+        IDataRepository<IMockItem> dataRepository,
+        IBatchScheduler batchScheduler,
+        DataLoaderOptions? options = null
+    ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
+        dataRepository,
+        x => new()
+        {
+            Id = x.Id,
+            Text = x.Text
+        },
+        batchScheduler,
+        options
+    );
+
+    public sealed class MockWithPredicateBatchDataLoader(
+        IDataRepository<IMockItem> dataRepository,
+        IBatchScheduler batchScheduler,
+        DataLoaderOptions? options = null
+    ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
+        dataRepository,
+        x => new()
+        {
+            Id = x.Id,
+            Text = x.Text
+        },
+        batchScheduler,
+        options,
+        (x, keys) => keys.Contains(x.Id) && x.Text == "Hello"
+    );
 }

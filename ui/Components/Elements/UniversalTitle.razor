@@ -1,0 +1,53 @@
+@inject ILogger<UniversalTitle> Logger
+@inject IOptionsSnapshot<UiConfig> OptionsSnapshot
+
+<PageTitle>@PageTitle</PageTitle>
+
+@if (Title is { Length: > 0 } && ShowTitle)
+{
+    <h1 class="page-header @CssClass">
+        <span>@Title</span>
+
+        @ChildContent
+    </h1>
+}
+else if (ChildContent is not null)
+{
+    <h1 class="page-header @CssClass">
+        @ChildContent
+    </h1>
+}
+
+@code {
+
+    [Parameter]
+    public string CssClass { get; set; } = "sticky-top d-flex gap-2 justify-content-start align-items-center bg-body";
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public bool ShowTitle { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    internal string PageTitle { get; private set; } = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        try
+        {
+            PageTitle = Title switch
+            {
+                { Length: > 0 } => $"{OptionsSnapshot.Value.Title}{OptionsSnapshot.Value.Separator}{Title}",
+                _ => OptionsSnapshot.Value.Title
+            };
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to set page title with message: {Message}", ex.Message);
+        }
+    }
+
+}

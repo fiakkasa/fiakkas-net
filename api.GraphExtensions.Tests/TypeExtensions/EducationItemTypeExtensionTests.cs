@@ -2,9 +2,9 @@ using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
-using api.EducationItems.Models;
+using api.GraphExtensions.TypeExtensions;
 
-namespace api.GraphExtensions.TypeExtensions.Tests;
+namespace api.GraphExtensions.Tests.TypeExtensions;
 
 public class EducationItemTypeExtensionTests
 {
@@ -16,7 +16,7 @@ public class EducationItemTypeExtensionTests
             new CategoryEntity
             {
                 Kind = CategoryType.Resume,
-                Id = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                Id = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -31,7 +31,10 @@ public class EducationItemTypeExtensionTests
         var sut = new EducationItemTypeExtension();
 
         var result = await sut.GetCategory(
-            new EducationItem { CategoryId = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d") },
+            new()
+            {
+                CategoryId = new("eb9d6258-99c4-46bd-bd44-23d35b19965d")
+            },
             dataLoader,
             CancellationToken.None
         );

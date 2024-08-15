@@ -1,6 +1,7 @@
 using api.Achievements.Models;
+using api.Achievements.Services;
 
-namespace api.Achievements.Services.Tests;
+namespace api.Achievements.Tests.Services;
 
 public class AchievementDataRepositoryTests
 {
@@ -9,7 +10,7 @@ public class AchievementDataRepositoryTests
     {
         var item = new AchievementEntity
         {
-            Id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add"),
+            Id = new("d4605b0c-58bc-49ac-bcfd-10a24a203add"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

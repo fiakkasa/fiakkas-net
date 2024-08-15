@@ -1,9 +1,10 @@
 using api.ContactItems.DataLoaders;
 using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
+using api.ContactItems.Queries;
 using GreenDonut;
 
-namespace api.ContactItems.Queries.Tests;
+namespace api.ContactItems.Tests.Queries;
 
 public class ContactItemQueriesTests
 {
@@ -12,7 +13,7 @@ public class ContactItemQueriesTests
     {
         var item = new ContactItem
         {
-            Id = new Guid("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05"),
+            Id = new("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
@@ -20,7 +21,7 @@ public class ContactItemQueriesTests
             Icon = "Icon",
             Title = "Title",
             Description = "Content",
-            Href = new Uri("/test", UriKind.Relative)
+            Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<IContactItem>([item]);
 
@@ -45,7 +46,7 @@ public class ContactItemQueriesTests
             Icon = "Icon",
             Title = "Title",
             Description = "Content",
-            Href = new Uri("/test", UriKind.Relative)
+            Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<IContactItem>([item]);
         var dataLoader = new ContactItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);

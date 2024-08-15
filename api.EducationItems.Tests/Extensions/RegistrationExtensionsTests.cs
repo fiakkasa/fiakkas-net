@@ -1,9 +1,10 @@
+using api.EducationItems.Extensions;
 using api.EducationItems.Interfaces;
 using api.EducationItems.Models;
 using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
-namespace api.EducationItems.Extensions.Tests;
+namespace api.EducationItems.Tests.Extensions;
 
 public class RegistrationExtensionsTests
 {

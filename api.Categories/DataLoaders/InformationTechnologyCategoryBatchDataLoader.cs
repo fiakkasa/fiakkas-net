@@ -17,5 +17,4 @@ public sealed class InformationTechnologyCategoryBatchDataLoader(
     (x, keys) =>
         CategoryEntityUtils.IsInformationTechnologyCategory(x)
         && keys.Contains(x.Id)
-)
-{ }
+);

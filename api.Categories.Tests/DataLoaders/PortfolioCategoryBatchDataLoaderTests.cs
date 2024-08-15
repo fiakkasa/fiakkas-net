@@ -1,8 +1,9 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.Categories.DataLoaders.Tests;
+namespace api.Categories.Tests.DataLoaders;
 
 public class PortfolioCategoryBatchDataLoaderTests
 {
@@ -14,7 +15,7 @@ public class PortfolioCategoryBatchDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.Portfolio,
-                Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Id = new("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -24,7 +25,7 @@ public class PortfolioCategoryBatchDataLoaderTests
 
         var sut = new PortfolioCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
+        var result = await sut.LoadAsync([new("38e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
 
         result.Should().ContainSingle();
         result[0].Should().NotBeNull();
@@ -39,7 +40,7 @@ public class PortfolioCategoryBatchDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.None,
-                Id = new Guid("38e483e4-6961-4b25-88a9-d1d0a5161109"),
+                Id = new("38e483e4-6961-4b25-88a9-d1d0a5161109"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,

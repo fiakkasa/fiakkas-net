@@ -14,5 +14,4 @@ public sealed class AchievementBatchDataLoader(
     AchievementMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

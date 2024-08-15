@@ -3,8 +3,8 @@ using api.Shared.Types.Interfaces;
 namespace api.Shared.DataLoaders;
 
 public abstract class AbstractGenericBatchDataLoaderById<TEntity, TMapped> : BatchDataLoader<Guid, TMapped>
-where TEntity : IBaseId
-where TMapped : IBaseId
+    where TEntity : IBaseId
+    where TMapped : IBaseId
 {
     private readonly IDataRepository<TEntity> _dataRepository;
     private readonly Func<TEntity, TMapped> _mapper;
@@ -36,4 +36,3 @@ where TMapped : IBaseId
         _ => await _dataRepository.GetBatch(keys, _mapper, cancellationToken)
     };
 }
-

@@ -14,5 +14,4 @@ public sealed class PortfolioItemBatchDataLoader(
     PortfolioItemMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

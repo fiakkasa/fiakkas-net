@@ -17,5 +17,4 @@ public sealed class ResumeCategoryBatchDataLoader(
     (x, keys) =>
         CategoryEntityUtils.IsResumeCategory(x)
         && keys.Contains(x.Id)
-)
-{ }
+);

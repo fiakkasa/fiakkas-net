@@ -1,4 +1,6 @@
-namespace api.Application.Queries.Tests;
+using api.Application.Queries;
+
+namespace api.Application.Tests.Queries;
 
 public class HealthQueriesTests
 {
@@ -10,9 +12,9 @@ public class HealthQueriesTests
             .CheckHealthAsync(Arg.Any<CancellationToken>())
             .Returns(
                 new HealthReport(
-                    entries: new Dictionary<string, HealthReportEntry>(),
-                    status: HealthStatus.Healthy,
-                    totalDuration: TimeSpan.FromSeconds(10)
+                    new Dictionary<string, HealthReportEntry>(),
+                    HealthStatus.Healthy,
+                    TimeSpan.FromSeconds(10)
                 )
             );
 

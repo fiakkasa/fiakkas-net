@@ -1,4 +1,6 @@
-namespace api.Application.Models.Tests;
+using api.Application.Models;
+
+namespace api.Application.Tests.Models;
 
 public class HealthReportSummaryTests
 {
@@ -9,7 +11,7 @@ public class HealthReportSummaryTests
         var healthReport = new HealthReport(
             new Dictionary<string, HealthReportEntry>
             {
-                ["Key"] = new HealthReportEntry(
+                ["Key"] = new(
                     HealthStatus.Healthy,
                     default,
                     duration,

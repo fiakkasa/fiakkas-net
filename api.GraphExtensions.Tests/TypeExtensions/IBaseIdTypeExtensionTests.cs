@@ -1,11 +1,10 @@
+using api.GraphExtensions.TypeExtensions;
 using api.Shared.Types.Interfaces;
 
-namespace api.GraphExtensions.TypeExtensions.Tests;
+namespace api.GraphExtensions.Tests.TypeExtensions;
 
 public class IBaseIdTypeExtensionTests
 {
-    public record MockItem(Guid Id) : IBaseId { }
-
     [Fact]
     public void InternalId_Should_Return_Id()
     {
@@ -15,4 +14,6 @@ public class IBaseIdTypeExtensionTests
         var result = sut.GetInternalId(item);
         result.Should().Be(item.Id);
     }
+
+    private record MockItem(Guid Id) : IBaseId;
 }

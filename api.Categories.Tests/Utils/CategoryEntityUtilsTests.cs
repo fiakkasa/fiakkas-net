@@ -1,22 +1,11 @@
 using api.Categories.Enums;
 using api.Categories.Interfaces;
+using api.Categories.Utils;
 
-namespace api.Categories.Utils.Tests;
+namespace api.Categories.Tests.Utils;
 
 public class CategoryEntityUtilsTests
 {
-    public record CategoryMockEntity : ICategory
-    {
-        public CategoryType Kind { get; init; }
-        public Guid Id { get; init; }
-        public DateTimeOffset CreatedAt { get; init; }
-        public DateTimeOffset? UpdatedAt { get; init; }
-        public long Version { get; init; }
-        public string Title { get; init; } = string.Empty;
-        public Uri? Href { get; init; }
-        public CategoryType[] AssociatedCategoryTypes { get; init; } = [];
-    }
-
     [Theory]
     [InlineData(CategoryType.None, true)]
     [InlineData(CategoryType.SoftwareDevelopment, false)]
@@ -106,5 +95,17 @@ public class CategoryEntityUtilsTests
         var result = CategoryEntityUtils.IsOtherCategory(item);
 
         result.Should().Be(expected);
+    }
+
+    private record CategoryMockEntity : ICategory
+    {
+        public CategoryType Kind { get; init; }
+        public Guid Id { get; init; }
+        public DateTimeOffset CreatedAt { get; init; }
+        public DateTimeOffset? UpdatedAt { get; init; }
+        public long Version { get; init; }
+        public string Title { get; init; } = string.Empty;
+        public Uri? Href { get; init; }
+        public CategoryType[] AssociatedCategoryTypes { get; init; } = [];
     }
 }

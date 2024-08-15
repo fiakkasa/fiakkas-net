@@ -6,7 +6,11 @@ namespace api.Customers.Extensions;
 
 public static class RegistrationExtensions
 {
-    public static IServiceCollection AddApiCustomers(this IServiceCollection services, IConfiguration config, string sectionPath = "data")
+    public static IServiceCollection AddApiCustomers(
+        this IServiceCollection services,
+        IConfiguration config,
+        string sectionPath = "data"
+    )
     {
         services.AddBoundOptions<CustomersDataConfig>(config, sectionPath);
 

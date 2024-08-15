@@ -1,0 +1,29 @@
+<div class="generic-no-data @CssClass">
+    <span>
+        @if (Message is { Length: > 0 })
+        {
+            @Message
+        }
+        else
+        {
+            <text>
+                No matter how how hard the server tried, no data was retrieved... Please try again later!
+            </text>
+        }
+    </span>
+
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter]
+    public string CssClass { get; set; } = "py-2 lead";
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}

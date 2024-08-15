@@ -14,5 +14,4 @@ public sealed class TextItemBatchDataLoader(
     TextItemMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

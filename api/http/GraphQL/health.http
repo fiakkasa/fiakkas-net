@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 205
 
-{"query":"{\n  health {\n    status\n    totalDuration\n    entries {\n      key\n      value {\n        description\n        duration\n        status\n        tags\n      }\n    }\n  }\n}","variables":{}}
+{
+  "query": "{\n  health {\n    status\n    totalDuration\n    entries {\n      key\n      value {\n        description\n        duration\n        status\n        tags\n      }\n    }\n  }\n}",
+  "variables": {}
+}

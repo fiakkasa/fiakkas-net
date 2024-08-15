@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,28 +10,28 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  resumeCategories {
-    totalCount
-    nodes {
-      associatedCategoryTypes
-      createdAt
-      id
-      internalId
-      title
-      updatedAt
-      version
-      associatedCategories {
-        totalCount
-      }
-      educationItems {
-        totalCount
-      }
-    }
-  }
-}
-""");
+            """
+            {
+              resumeCategories {
+                totalCount
+                nodes {
+                  associatedCategoryTypes
+                  createdAt
+                  id
+                  internalId
+                  title
+                  updatedAt
+                  version
+                  associatedCategories {
+                    totalCount
+                  }
+                  educationItems {
+                    totalCount
+                  }
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -45,19 +45,19 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  resumeCategoryById(id: "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk") {
-    associatedCategoryTypes
-    createdAt
-    id
-    internalId
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              resumeCategoryById(id: "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk") {
+                associatedCategoryTypes
+                createdAt
+                id
+                internalId
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

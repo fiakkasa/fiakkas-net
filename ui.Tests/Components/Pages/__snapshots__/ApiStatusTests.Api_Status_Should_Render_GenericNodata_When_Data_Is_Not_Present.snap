@@ -1,0 +1,9 @@
+﻿<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body"><span>API Status</span>
+
+        <button type="button" class="btn btn-outline-primary rounded-circle p-0 px-1" title="Refresh" blazor:onclick="1"><i class="bi bi-arrow-clockwise"></i></button></h1>
+
+<div class="generic-no-data py-2 lead"><span>
+                No matter how how hard the server tried, no data was retrieved... Please try again later!
+            </span>
+
+    </div>

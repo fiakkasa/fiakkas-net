@@ -1,9 +1,10 @@
+using api.ContactItems.Extensions;
 using api.ContactItems.Interfaces;
 using api.ContactItems.Models;
 using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
-namespace api.ContactItems.Extensions.Tests;
+namespace api.ContactItems.Tests.Extensions;
 
 public class RegistrationExtensionsTests
 {

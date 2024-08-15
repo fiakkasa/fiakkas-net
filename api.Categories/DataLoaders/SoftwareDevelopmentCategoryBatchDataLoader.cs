@@ -17,5 +17,4 @@ public sealed class SoftwareDevelopmentCategoryBatchDataLoader(
     (x, keys) =>
         CategoryEntityUtils.IsSoftwareDevelopmentCategory(x)
         && keys.Contains(x.Id)
-)
-{ }
+);

@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class TextItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,23 +10,23 @@ public class TextItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  textItems {
-    totalCount
-    nodes {
-      content
-      createdAt
-      id
-      internalId
-      key
-      title
-      updatedAt
-      version
-    }
-  }
-}
-""");
+            """
+            {
+              textItems {
+                totalCount
+                nodes {
+                  content
+                  createdAt
+                  id
+                  internalId
+                  key
+                  title
+                  updatedAt
+                  version
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -40,20 +40,20 @@ public class TextItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  textItemById(id: "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5") {
-    content
-    createdAt
-    id
-    internalId
-    key
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              textItemById(id: "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5") {
+                content
+                createdAt
+                id
+                internalId
+                key
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -61,4 +61,3 @@ public class TextItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         result.ToJson().MatchSnapshot();
     }
 }
-

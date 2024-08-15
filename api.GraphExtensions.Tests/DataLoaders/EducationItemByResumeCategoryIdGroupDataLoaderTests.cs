@@ -1,7 +1,8 @@
 using api.EducationItems.Interfaces;
 using api.EducationItems.Models;
+using api.GraphExtensions.DataLoaders;
 
-namespace api.GraphExtensions.DataLoaders.Tests;
+namespace api.GraphExtensions.Tests.DataLoaders;
 
 public class EducationItemByResumeCategoryIdGroupDataLoaderTests
 {
@@ -12,36 +13,36 @@ public class EducationItemByResumeCategoryIdGroupDataLoaderTests
         [
             new EducationItem
             {
-                Id = new Guid("38898c62-161e-40f2-8a9f-39bf1ff46224"),
+                Id = new("38898c62-161e-40f2-8a9f-39bf1ff46224"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
-                CategoryId = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                CategoryId = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
                 TimePeriod = new()
                 {
-                    Start = new DateOnly(2024, 1, 1),
+                    Start = new(2024, 1, 1),
                     End = null
                 },
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative),
+                Href = new("/test", UriKind.Relative),
                 Location = "Location",
                 Description = "Description",
                 Subjects = ["Subject"]
             },
             new EducationItem
             {
-                Id = new Guid("39898c62-161e-40f2-8a9f-39bf1ff46224"),
+                Id = new("39898c62-161e-40f2-8a9f-39bf1ff46224"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
-                CategoryId = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                CategoryId = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
                 TimePeriod = new()
                 {
-                    Start = new DateOnly(2024, 1, 1),
+                    Start = new(2024, 1, 1),
                     End = null
                 },
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative),
+                Href = new("/test", UriKind.Relative),
                 Location = "Location",
                 Description = "Description",
                 Subjects = ["Subject"]
@@ -49,7 +50,7 @@ public class EducationItemByResumeCategoryIdGroupDataLoaderTests
         ]);
         var sut = new EducationItemByResumeCategoryIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d")], CancellationToken.None);
+        var result = await sut.LoadAsync([new("eb9d6258-99c4-46bd-bd44-23d35b19965d")], CancellationToken.None);
 
         result.Should().ContainSingle();
         result[0].Should().HaveCount(2);

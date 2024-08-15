@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 379
 
-{"query":"{\n  softwareDevelopmentCategories {\n    totalCount\n    nodes {\n      createdAt\n      href\n      id\n      internalId\n      title\n      updatedAt\n      version\n      portfolioCategories {\n        totalCount\n      }\n      portfolioCustomers {\n        totalCount\n      }\n      portfolioItems {\n        totalCount\n      }\n    }\n  }\n}\n","variables":{}}
+{
+  "query": "{\n  softwareDevelopmentCategories {\n    totalCount\n    nodes {\n      createdAt\n      href\n      id\n      internalId\n      title\n      updatedAt\n      version\n      portfolioCategories {\n        totalCount\n      }\n      portfolioCustomers {\n        totalCount\n      }\n      portfolioItems {\n        totalCount\n      }\n    }\n  }\n}\n",
+  "variables": {}
+}

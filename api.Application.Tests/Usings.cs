@@ -1,5 +1,4 @@
 global using FluentAssertions;
-global using HotChocolate;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using NSubstitute;

@@ -1,7 +1,8 @@
 using api.Languages.Enums;
 using api.Languages.Models;
+using api.Languages.Services;
 
-namespace api.Languages.Services.Tests;
+namespace api.Languages.Tests.Services;
 
 public class LanguageDataRepositoryTests
 {
@@ -10,7 +11,7 @@ public class LanguageDataRepositoryTests
     {
         var item = new LanguageEntity
         {
-            Id = new Guid("02a3be9b-3f04-4b4a-8945-e84fef537b58"),
+            Id = new("02a3be9b-3f04-4b4a-8945-e84fef537b58"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

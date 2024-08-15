@@ -1,0 +1,175 @@
+@using ui.Models
+@inherits TestContext
+
+@code {
+    private readonly ILogger<UniversalTitle> _logger = Substitute.For<ILogger<UniversalTitle>>();
+
+    private readonly UiConfig _config = new()
+    {
+        Separator = " - ",
+        Title = "Title"
+    };
+
+    private readonly IOptionsSnapshot<UiConfig> _options = Substitute.For<IOptionsSnapshot<UiConfig>>();
+
+    public UniversalTitleTests()
+    {
+        ComponentFactories.AddStub<PageTitle>();
+        _options.Value.Returns(_config);
+
+        Services.AddSingleton(_logger);
+        Services.AddSingleton(_options);
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_Default_With_Default_Parameters()
+    {
+        var cut = RenderComponent<UniversalTitle>();
+
+        var result = cut.Markup;
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.Should().BeEmpty();
+        instance.PageTitle.Should().Be(_config.Title);
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_Options_Throws_Error()
+    {
+        _options.Value.Throws(new Exception("Splash!"));
+        var cut = RenderComponent<UniversalTitle>();
+
+        var result = cut.Markup;
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.Should().BeEmpty();
+        instance.PageTitle.Should().Be(string.Empty);
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_ShowTitle_Is_False()
+    {
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters.Add(p => p.ShowTitle, false)
+        );
+
+        var result = cut.Markup;
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.Should().BeEmpty();
+        instance.PageTitle.Should().Be(_config.Title);
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_With_Title()
+    {
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters.Add(p => p.Title, "Test")
+        );
+
+        var result = cut.Find("h1.page-header");
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.MarkupMatches(
+            @<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+                <span>
+                    Test
+                </span>
+            </h1>
+        );
+        instance.PageTitle.Should().Be(_config.Title + _config.Separator + "Test");
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_With_Title_And_Css_Class()
+    {
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters
+                .Add(p => p.CssClass, "test")
+                .Add(p => p.Title, "Test")
+        );
+
+        var result = cut.Find("h1.page-header");
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.MarkupMatches(
+            @<h1 class="page-header test">
+                <span>
+                    Test
+                </span>
+            </h1>
+        );
+        instance.PageTitle.Should().Be(_config.Title + _config.Separator + "Test");
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_With_Title_Css_Class_And_ChildContent_When_ChildContent_Is_Set()
+    {
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters
+                .Add(p => p.CssClass, "test")
+                .Add(p => p.Title, "Test")
+                .AddChildContent(@<a href="">Extra!</a>)
+        );
+
+        var result = cut.Find("h1.page-header");
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.MarkupMatches(
+            @<h1 class="page-header test">
+                <span>
+                    Test
+                </span>
+                <a href="">Extra!</a>
+            </h1>
+        );
+        instance.PageTitle.Should().Be(_config.Title + _config.Separator + "Test");
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_ChildContent_When_Only_ChildContent_Is_Set()
+    {
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters.AddChildContent(@<a href="">Extra!</a>)
+        );
+
+        var result = cut.Find("h1.page-header");
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.MarkupMatches(
+            @<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+                <a href="">Extra!</a>
+            </h1>
+        );
+        instance.PageTitle.Should().Be(_config.Title);
+    }
+
+    [Fact]
+    public void UniversalTitle_Should_Render_ChildContent_With_Css_Class_When_ChildContent_And_Css_Class_Are_Set()
+    {
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters
+                .Add(p => p.CssClass, "test")
+                .AddChildContent(@<a href="">Extra!</a>)
+        );
+
+        var result = cut.Find("h1.page-header");
+        var instance = cut.Instance;
+
+        instance.Should().NotBeNull();
+        result.MarkupMatches(
+            @<h1 class="page-header test">
+                <a href="">Extra!</a>
+            </h1>
+        );
+        instance.PageTitle.Should().Be(_config.Title);
+    }
+
+}

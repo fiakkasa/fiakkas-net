@@ -1,9 +1,10 @@
+using api.Achievements.Extensions;
 using api.Achievements.Interfaces;
 using api.Achievements.Models;
 using api.Shared.Types.Interfaces;
 using HotChocolate.Execution;
 
-namespace api.Achievements.Extensions.Tests;
+namespace api.Achievements.Tests.Extensions;
 
 public class RegistrationExtensionsTests
 {

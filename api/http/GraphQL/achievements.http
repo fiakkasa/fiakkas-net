@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 215
 
-{"query":"{\n  achievements {\n    totalCount\n    nodes {\n      content\n      createdAt\n      id\n      internalId\n      updatedAt\n      version\n      years\n      yearsSummary\n    }\n  }\n}","variables":{}}
+{
+  "query": "{\n  achievements {\n    totalCount\n    nodes {\n      content\n      createdAt\n      id\n      internalId\n      updatedAt\n      version\n      years\n      yearsSummary\n    }\n  }\n}",
+  "variables": {}
+}

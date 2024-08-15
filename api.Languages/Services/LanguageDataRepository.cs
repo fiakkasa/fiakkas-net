@@ -3,8 +3,11 @@ using api.Languages.Models;
 
 namespace api.Languages.Services;
 
-public sealed class LanguageDataRepository(ILogger<LanguageDataRepository> logger, IOptionsSnapshot<LanguagesDataConfig> dataSnapshot)
-: AbstractInMemoryDataRepository<ILanguage, LanguagesDataConfig>(logger, dataSnapshot)
+public sealed class LanguageDataRepository(
+    ILogger<LanguageDataRepository> logger,
+    IOptionsSnapshot<LanguagesDataConfig> dataSnapshot
+)
+    : AbstractInMemoryDataRepository<ILanguage, LanguagesDataConfig>(logger, dataSnapshot)
 {
-    protected override ILanguage[]? ResolveSet(LanguagesDataConfig data) => data.Languages;
+    protected override IReadOnlyCollection<ILanguage>? ResolveSet(LanguagesDataConfig data) => data.Languages;
 }

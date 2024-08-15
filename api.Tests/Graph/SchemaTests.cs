@@ -1,4 +1,4 @@
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class SchemaTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {

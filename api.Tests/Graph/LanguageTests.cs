@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,22 +10,22 @@ public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  languages {
-    totalCount
-    nodes {
-      createdAt
-      id
-      internalId
-      proficiency
-      title
-      updatedAt
-      version
-    }
-  }
-}
-""");
+            """
+            {
+              languages {
+                totalCount
+                nodes {
+                  createdAt
+                  id
+                  internalId
+                  proficiency
+                  title
+                  updatedAt
+                  version
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -39,19 +39,19 @@ public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  languageById(id: "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4") {
-    createdAt
-    id
-    internalId
-    proficiency
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              languageById(id: "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4") {
+                createdAt
+                id
+                internalId
+                proficiency
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

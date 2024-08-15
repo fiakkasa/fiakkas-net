@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,38 +10,38 @@ public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  educationItems {
-    totalCount
-    nodes {
-      categoryId
-      createdAt
-      description
-      href
-      id
-      internalId
-      location
-      subjects
-      title
-      updatedAt
-      version
-      timePeriod {
-        end
-        start
-      }
-      category {
-        associatedCategoryTypes
-        createdAt
-        id
-        title
-        updatedAt
-        version
-      }
-    }
-  }
-}
-""");
+            """
+            {
+              educationItems {
+                totalCount
+                nodes {
+                  categoryId
+                  createdAt
+                  description
+                  href
+                  id
+                  internalId
+                  location
+                  subjects
+                  title
+                  updatedAt
+                  version
+                  timePeriod {
+                    end
+                    start
+                  }
+                  category {
+                    associatedCategoryTypes
+                    createdAt
+                    id
+                    title
+                    updatedAt
+                    version
+                  }
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -55,36 +55,36 @@ public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  educationItemById(id: "RWR1Y2F0aW9uSXRlbQpnMzg4OThjNjIxNjFlNDBmMjhhOWYzOWJmMWZmNDYyMjQ=") {
-    categoryId
-    createdAt
-    description
-    href
-    id
-    internalId
-    location
-    subjects
-    title
-    updatedAt
-    version
-    timePeriod {
-      end
-      start
-    }
-    category {
-      associatedCategoryTypes
-      createdAt
-      id
-      internalId
-      title
-      updatedAt
-      version
-    }
-  }
-}
-""");
+            """
+            {
+              educationItemById(id: "RWR1Y2F0aW9uSXRlbQpnMzg4OThjNjIxNjFlNDBmMjhhOWYzOWJmMWZmNDYyMjQ=") {
+                categoryId
+                createdAt
+                description
+                href
+                id
+                internalId
+                location
+                subjects
+                title
+                updatedAt
+                version
+                timePeriod {
+                  end
+                  start
+                }
+                category {
+                  associatedCategoryTypes
+                  createdAt
+                  id
+                  internalId
+                  title
+                  updatedAt
+                  version
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,45 +10,45 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  portfolioItems {
-    totalCount
-    nodes {
-      categoryId
-      createdAt
-      customerId
-      href
-      id
-      internalId
-      technologiesSummary
-      technologyIds
-      title
-      updatedAt
-      version
-      year
-      category {
-        createdAt
-        id
-        title
-        updatedAt
-        version
-      }
-      customer {
-        createdAt
-        href
-        id
-        title
-        updatedAt
-        version
-      }
-      technologyCategories {
-        totalCount
-      }
-    }
-  }
-}
-""");
+            """
+            {
+              portfolioItems {
+                totalCount
+                nodes {
+                  categoryId
+                  createdAt
+                  customerId
+                  href
+                  id
+                  internalId
+                  technologiesSummary
+                  technologyIds
+                  title
+                  updatedAt
+                  version
+                  year
+                  category {
+                    createdAt
+                    id
+                    title
+                    updatedAt
+                    version
+                  }
+                  customer {
+                    createdAt
+                    href
+                    id
+                    title
+                    updatedAt
+                    version
+                  }
+                  technologyCategories {
+                    totalCount
+                  }
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -62,24 +62,24 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  portfolioItemById(id: "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=") {
-    categoryId
-    createdAt
-    customerId
-    href
-    id
-    internalId
-    technologiesSummary
-    technologyIds
-    title
-    updatedAt
-    version
-    year
-  }
-}
-""");
+            """
+            {
+              portfolioItemById(id: "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=") {
+                categoryId
+                createdAt
+                customerId
+                href
+                id
+                internalId
+                technologiesSummary
+                technologyIds
+                title
+                updatedAt
+                version
+                year
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

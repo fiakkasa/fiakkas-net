@@ -5,5 +5,4 @@ public interface ICategory :
     ICategoryKind,
     ICategoryTitle,
     ICategoryUri,
-    ICategoryAssociatedCategoryTypes
-{ }
+    ICategoryAssociatedCategoryTypes;

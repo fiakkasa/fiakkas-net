@@ -37,53 +37,53 @@ public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
     ) where TMapped : IBaseId
-    =>
-        ValueTask.FromResult(
-            Array.Find(_collection, x => x.Id == id) switch
-            {
-                { } result => mapper(result),
-                _ => default
-            }
-        );
+        =>
+            ValueTask.FromResult(
+                Array.Find(_collection, x => x.Id == id) switch
+                {
+                    { } result => mapper(result),
+                    _ => default
+                }
+            );
 
     public ValueTask<TMapped?> Find<TMapped>(
         Func<T, bool> predicate,
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
     ) where TMapped : IBaseId
-    =>
-        ValueTask.FromResult(
-            Array.Find(_collection, x => predicate(x)) switch
-            {
-                { } result => mapper(result),
-                _ => default
-            }
-        );
+        =>
+            ValueTask.FromResult(
+                Array.Find(_collection, x => predicate(x)) switch
+                {
+                    { } result => mapper(result),
+                    _ => default
+                }
+            );
 
     public async ValueTask<IReadOnlyDictionary<Guid, TMapped>> GetBatch<TMapped>(
         IReadOnlyList<Guid> keys,
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
     ) where TMapped : IBaseId
-    =>
-        await ValueTask.FromResult(
-            _collection
-                .Where(x => keys.Contains(x.Id))
-                .Select(mapper)
-                .ToDictionary(x => x.Id)
-        );
+        =>
+            await ValueTask.FromResult(
+                _collection
+                    .Where(x => keys.Contains(x.Id))
+                    .Select(mapper)
+                    .ToDictionary(x => x.Id)
+            );
 
     public async ValueTask<IReadOnlyDictionary<Guid, TMapped>> GetBatch<TMapped>(
         Func<T, bool> predicate,
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
     ) where TMapped : IBaseId
-    =>
-        await ValueTask.FromResult(
-            _collection
-                .Where(predicate)
-                .ToDictionary(x => x.Id, mapper)
-        );
+        =>
+            await ValueTask.FromResult(
+                _collection
+                    .Where(predicate)
+                    .ToDictionary(x => x.Id, mapper)
+            );
 
     public async ValueTask<IReadOnlyDictionary<TKey, TMapped>> GetBatch<TMapped, TKey>(
         Func<T, bool> predicate,
@@ -91,14 +91,14 @@ public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
     )
-    where TMapped : IBaseId
-    where TKey : notnull
-    =>
-        await ValueTask.FromResult(
-            _collection
-                .Where(predicate)
-                .ToDictionary(x => keySelector(x), mapper)
-        );
+        where TMapped : IBaseId
+        where TKey : notnull
+        =>
+            await ValueTask.FromResult(
+                _collection
+                    .Where(predicate)
+                    .ToDictionary(x => keySelector(x), mapper)
+            );
 
     public ValueTask<ILookup<Guid, TMapped>> GetGroupedBatch<TMapped>(
         IReadOnlyList<Guid> keys,
@@ -118,10 +118,10 @@ public class MockDataRepository<T>(T[]? collection = default) : IDataRepository<
         Func<T, TMapped> mapper,
         CancellationToken cancellationToken = default
     ) where TKey : notnull
-     =>
-        ValueTask.FromResult(
-            _collection
-                .Where(predicate)
-                .ToLookup(keySelector, mapper)
-        );
+        =>
+            ValueTask.FromResult(
+                _collection
+                    .Where(predicate)
+                    .ToLookup(keySelector, mapper)
+            );
 }

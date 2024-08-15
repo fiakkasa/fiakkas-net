@@ -14,5 +14,4 @@ public sealed class ContactItemBatchDataLoader(
     ContactItemMappers.Map,
     batchScheduler,
     options
-)
-{ }
+);

@@ -1,9 +1,10 @@
 using api.Customers.DataLoaders;
 using api.Customers.Interfaces;
 using api.Customers.Models;
+using api.Customers.Queries;
 using GreenDonut;
 
-namespace api.Customers.Queries.Tests;
+namespace api.Customers.Tests.Queries;
 
 public class CustomerQueriesTests
 {
@@ -12,12 +13,12 @@ public class CustomerQueriesTests
     {
         var item = new Customer
         {
-            Id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109"),
+            Id = new("18e483e4-6961-4b25-88a9-d1d0a5161109"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,
             Title = "Title",
-            Href = new Uri("/test", UriKind.Relative)
+            Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<ICustomer>([item]);
 
@@ -39,7 +40,7 @@ public class CustomerQueriesTests
             UpdatedAt = null,
             Version = 1,
             Title = "Title",
-            Href = new Uri("/test", UriKind.Relative)
+            Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<ICustomer>([item]);
         var dataLoader = new CustomerBatchDataLoader(dataRepository, AutoBatchScheduler.Default);

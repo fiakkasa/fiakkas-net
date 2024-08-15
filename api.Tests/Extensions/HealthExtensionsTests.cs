@@ -1,4 +1,6 @@
-namespace api.Extensions.Tests;
+using api.Extensions;
+
+namespace api.Tests.Extensions;
 
 public class HealthExtensionsTests
 {

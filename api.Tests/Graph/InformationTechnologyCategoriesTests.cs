@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,31 +10,31 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  informationTechnologyCategories {
-    totalCount
-    nodes {
-      createdAt
-      href
-      id
-      internalId
-      title
-      updatedAt
-      version
-      portfolioCategories {
-        totalCount
-      }
-      portfolioCustomers {
-        totalCount
-      }
-      portfolioItems {
-        totalCount
-      }
-    }
-  }
-}
-""");
+            """
+            {
+              informationTechnologyCategories {
+                totalCount
+                nodes {
+                  createdAt
+                  href
+                  id
+                  internalId
+                  title
+                  updatedAt
+                  version
+                  portfolioCategories {
+                    totalCount
+                  }
+                  portfolioCustomers {
+                    totalCount
+                  }
+                  portfolioItems {
+                    totalCount
+                  }
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -48,19 +48,19 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  informationTechnologyCategoryById(id: "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl") {
-    createdAt
-    href
-    id
-    internalId
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              informationTechnologyCategoryById(id: "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl") {
+                createdAt
+                href
+                id
+                internalId
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

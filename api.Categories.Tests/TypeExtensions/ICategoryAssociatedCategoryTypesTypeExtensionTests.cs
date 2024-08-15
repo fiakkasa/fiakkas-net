@@ -2,8 +2,9 @@ using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
+using api.Categories.TypeExtensions;
 
-namespace api.Categories.TypeExtensions.Tests;
+namespace api.Categories.Tests.TypeExtensions;
 
 public class ICategoryAssociatedCategoryTypesTypeExtensionTests
 {
@@ -15,17 +16,17 @@ public class ICategoryAssociatedCategoryTypesTypeExtensionTests
             new CategoryEntity
             {
                 Kind = CategoryType.SoftwareDevelopment,
-                Id = new Guid("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
                 Title = "Title",
-                Href = new Uri("/test", UriKind.Relative)
+                Href = new("/test", UriKind.Relative)
             },
             new CategoryEntity
             {
                 Kind = CategoryType.Other,
-                Id = new Guid("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
+                Id = new("cb832bf9-b7cb-4c31-bf8d-00f87a276fe3"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -39,7 +40,10 @@ public class ICategoryAssociatedCategoryTypesTypeExtensionTests
         var sut = new ICategoryAssociatedCategoryTypesTypeExtension();
 
         var result = await sut.GetAssociatedCategories(
-            new ResumeCategory { AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment, CategoryType.Other] },
+            new ResumeCategory
+            {
+                AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment, CategoryType.Other]
+            },
             dataLoader,
             CancellationToken.None
         );

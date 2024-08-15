@@ -1,6 +1,7 @@
 using api.Application.Models;
+using api.Application.Queries;
 
-namespace api.Application.Queries.Tests;
+namespace api.Application.Tests.Queries;
 
 public class SystemQueriesQueriesTests
 {

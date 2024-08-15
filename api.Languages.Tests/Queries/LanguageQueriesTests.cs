@@ -2,9 +2,10 @@ using api.Languages.DataLoaders;
 using api.Languages.Enums;
 using api.Languages.Interfaces;
 using api.Languages.Models;
+using api.Languages.Queries;
 using GreenDonut;
 
-namespace api.Languages.Queries.Tests;
+namespace api.Languages.Tests.Queries;
 
 public class LanguageQueriesTests
 {
@@ -13,7 +14,7 @@ public class LanguageQueriesTests
     {
         var item = new Language
         {
-            Id = new Guid("02a3be9b-3f04-4b4a-8945-e84fef537b58"),
+            Id = new("02a3be9b-3f04-4b4a-8945-e84fef537b58"),
             CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
             UpdatedAt = null,
             Version = 1,

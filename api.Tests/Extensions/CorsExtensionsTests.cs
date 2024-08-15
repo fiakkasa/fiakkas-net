@@ -1,6 +1,7 @@
+using api.Extensions;
 using Microsoft.AspNetCore.Http;
 
-namespace api.Extensions.Tests;
+namespace api.Tests.Extensions;
 
 public class CorsExtensionsTests
 {
@@ -52,7 +53,10 @@ public class CorsExtensionsTests
             x.StatusCode.Should().Be(HttpStatusCode.NoContent);
             x.Headers.Should().ContainSingle(h => h.Key == "Access-Control-Allow-Origin" && h.Value.First() == "*");
             x.Headers.Should().ContainSingle(h => h.Key == "Access-Control-Allow-Headers" && h.Value.First() == "*");
-            x.Headers.Should().ContainSingle(h => h.Key == "Access-Control-Allow-Methods" && h.Value.First() == HttpMethods.Post);
+            x.Headers.Should().ContainSingle(h =>
+                h.Key == "Access-Control-Allow-Methods"
+                && h.Value.First() == HttpMethods.Post
+            );
         });
     }
 }

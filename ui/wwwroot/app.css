@@ -1,0 +1,48 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  max-width: 1120px;
+}
+
+.menu-button:not(.active-menu-button) {
+  border-color: transparent !important;
+}
+
+.bi-nuget > svg,
+.bi-npm > svg {
+  height: 20px;
+  width: 20px;
+}
+
+.bi-nuget > svg {
+  vertical-align: -2px;
+}
+
+.bi-npm > svg {
+  vertical-align: -4px;
+}
+
+textarea {
+  resize: none;
+}
+
+#blazor-error-ui {
+  display: none;
+}
+
+::placeholder {
+  opacity: .667 !important;
+}
+
+@media (min-width: 1121px) {
+  nav {
+    border-radius: var(--bs-border-radius-pill) !important;
+  }
+}

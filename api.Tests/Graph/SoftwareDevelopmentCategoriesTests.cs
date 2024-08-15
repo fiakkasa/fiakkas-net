@@ -1,6 +1,6 @@
 using HotChocolate.Execution;
 
-namespace api.Tests;
+namespace api.Tests.Graph;
 
 public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 {
@@ -10,31 +10,31 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  softwareDevelopmentCategories {
-    totalCount
-    nodes {
-      createdAt
-      href
-      id
-      internalId
-      title
-      updatedAt
-      version
-      portfolioCategories {
-        totalCount
-      }
-      portfolioCustomers {
-        totalCount
-      }
-      portfolioItems {
-        totalCount
-      }
-    }
-  }
-}
-""");
+            """
+            {
+              softwareDevelopmentCategories {
+                totalCount
+                nodes {
+                  createdAt
+                  href
+                  id
+                  internalId
+                  title
+                  updatedAt
+                  version
+                  portfolioCategories {
+                    totalCount
+                  }
+                  portfolioCustomers {
+                    totalCount
+                  }
+                  portfolioItems {
+                    totalCount
+                  }
+                }
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
@@ -48,19 +48,19 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
         var executor = await fixture.GetRequestExecutor();
 
         var result = await executor.ExecuteAsync(
-"""
-{
-  softwareDevelopmentCategoryById(id: "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==") {
-    createdAt
-    href
-    id
-    internalId
-    title
-    updatedAt
-    version
-  }
-}
-""");
+            """
+            {
+              softwareDevelopmentCategoryById(id: "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==") {
+                createdAt
+                href
+                id
+                internalId
+                title
+                updatedAt
+                version
+              }
+            }
+            """);
 
         Func<IQueryResult> fn = result.ExpectQueryResult;
         fn.Should().NotThrow();

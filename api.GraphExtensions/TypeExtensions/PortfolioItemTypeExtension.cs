@@ -9,15 +9,13 @@ public sealed class PortfolioItemTypeExtension
         [Parent] PortfolioItem parent,
         [Service] PortfolioCategoryBatchDataLoader dataLoader,
         CancellationToken cancellationToken
-    ) =>
-        await dataLoader.LoadAsync(parent.CategoryId, cancellationToken);
+    ) => await dataLoader.LoadAsync(parent.CategoryId, cancellationToken);
 
     public async ValueTask<Customer?> GetCustomer(
         [Parent] PortfolioItem parent,
         [Service] CustomerBatchDataLoader dataLoader,
         CancellationToken cancellationToken
-    ) =>
-        await dataLoader.LoadAsync(parent.CustomerId, cancellationToken);
+    ) => await dataLoader.LoadAsync(parent.CustomerId, cancellationToken);
 
     [UsePaging]
     [UseFiltering]
@@ -37,12 +35,11 @@ public sealed class PortfolioItemTypeExtension
         [Parent] PortfolioItem parent,
         [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken
-    ) =>
-        string.Join(
-            ", ",
-            (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
-                .SelectMany(x => x)
-                .OfType<IPolymorphicTechnologyCategory>()
-                .Select(x => x.Title)
-        );
+    ) => string.Join(
+        ", ",
+        (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
+        .SelectMany(x => x)
+        .OfType<IPolymorphicTechnologyCategory>()
+        .Select(x => x.Title)
+    );
 }

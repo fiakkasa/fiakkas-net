@@ -1,0 +1,251 @@
+@using AngleSharp.Diffing.Extensions
+@using ui.Consts
+@using ui.Enums
+@using ui.Models
+@inherits TestContext
+
+@code {
+    private readonly IEmailService _emailService = Substitute.For<IEmailService>();
+
+    public ContactTests()
+    {
+        ComponentFactories.AddStub<DntInputCaptcha>(@<span>12345</span>);
+        Services.AddSingleton(_emailService);
+    }
+
+    [Fact]
+    public void Contact_Should_Render_Form()
+    {
+        var cut = Render(@<Contact/>);
+
+        cut.FindAll("alert").Should().BeEmpty();
+        cut.FindComponent<EditForm>();
+        cut.FindComponent<DataAnnotationsValidator>();
+        cut.FindComponents<ValidationMessage<string>>().Should().HaveCount(6);
+        cut.FindComponents<EagerInputText>().Should().HaveCount(3);
+        cut.FindComponents<EagerInputTextArea>().Should().ContainSingle();
+        cut.Find("""button[type="button"]""");
+        cut.Find("""button[type="reset"]""");
+        cut.Find("""button[type="submit"]""");
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Theory]
+    [InlineData("", 1)]
+    [InlineData("12345", 1)]
+    [InlineData("12345", 3)]
+    public void Contact_Should_Refresh_Captcha(string input, int numberOfClicks)
+    {
+        var cut = RenderComponent<Contact>();
+
+        cut.Find("""input[data-kind="verification"]""").Input(input);
+
+        for (var i = 0; i < numberOfClicks; i++)
+            cut.Find("""button[type="button"]""").Click();
+
+        cut.WaitForAssertion(() => cut.Find("""button[type="button"][disabled]"""));
+        cut.WaitForAssertion(() =>
+            cut
+                .Find("""button[type="button"]""")
+                .Attributes
+                .Select(x => x.Name)
+                .Should()
+                .NotContain("disabled")
+        );
+    }
+
+    [Fact]
+    public void Contact_Should_Not_Submit_Form_When_Invalid_Model()
+    {
+        string[] expectedErrorMessages =
+        [
+            "How about adding your email address!?",
+            "How about adding a subject!?",
+            "How about adding a few words!?",
+            "How about adding the verification code!?"
+        ];
+        var cut = RenderComponent<Contact>();
+
+        cut.Find("""button[type="submit"]""").Click();
+
+        cut.WaitForAssertion(() =>
+        {
+            var validationMessages =
+                cut
+                    .FindAll("div.small.text-warning")
+                    .Select(x => x.TextContent)
+                    .ToArray();
+
+            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
+            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Contact_Should_Submit_Form_And_Render_Service_Validation_Messages_When_Invalid_Model()
+    {
+        _emailService.SendFrom(
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<CancellationToken>()
+        ).Returns(new List<ValidationResult>
+        {
+            new(nameof(EmailErrorCodeType.InvalidEmailAddress), [EmailConsts.SenderAddressFieldName]),
+            new(nameof(EmailErrorCodeType.Required), [EmailConsts.RecipientAddressFieldName]),
+            new(nameof(EmailErrorCodeType.MarkupIsNotAllowed), [EmailConsts.SubjectFieldName]),
+            new(nameof(EmailErrorCodeType.UnusableContent), [EmailConsts.BodyFieldName]),
+            new("Error", [])
+        });
+
+        string[] expectedErrorMessages =
+        [
+            "Required",
+            "Invalid email address",
+            "Markup is not allowed",
+            "Unusable content",
+            "Error"
+        ];
+        var cut = RenderComponent<Contact>();
+
+        cut.Find("""input[data-kind="email"]""").Input("user@email.com");
+        cut.Find("""input[data-kind="subject"]""").Input("Subject <meta />");
+        cut.Find("""textarea[data-kind="message"]""").Input("<html <head");
+        cut.Find("""input[data-kind="verification"]""").Input("12345");
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+
+        cut.Find("""button[type="submit"]""").Click();
+
+        cut.WaitForAssertion(() => cut.FindComponents<Skeleton>());
+        cut.WaitForAssertion(() =>
+        {
+            var validationMessages =
+                cut
+                    .FindAll("div.small.text-warning")
+                    .Concat(cut.FindAll("div.small.text-danger"))
+                    .Select(x => x.TextContent)
+                    .ToArray();
+
+            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
+            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Contact_Should_Submit_Form_And_Render_Service_Validation_Messages_When_Error_Occurs()
+    {
+        _emailService.SendFrom(
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<CancellationToken>()
+        ).Returns(new InvalidOperationException(nameof(EmailErrorCodeType.FailedToSend)));
+
+        string[] expectedErrorMessages =
+        [
+            "Failed to send"
+        ];
+        var cut = RenderComponent<Contact>();
+
+        cut.Find("""input[data-kind="email"]""").Input("user@email.com");
+        cut.Find("""input[data-kind="subject"]""").Input("Subject");
+        cut.Find("""textarea[data-kind="message"]""").Input("Message");
+        cut.Find("""input[data-kind="verification"]""").Input("12345");
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+
+        cut.Find("""button[type="submit"]""").Click();
+
+        cut.WaitForAssertion(() => cut.FindComponents<Skeleton>());
+        cut.WaitForAssertion(() =>
+        {
+            var validationMessages =
+                cut
+                    .FindAll("div.small.text-danger")
+                    .Select(x => x.TextContent)
+                    .ToArray();
+
+            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
+            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Contact_Should_Submit_Form_And_Render_Generic_Error_When_Service_Returns_False()
+    {
+        _emailService.SendFrom(
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<CancellationToken>()
+        ).Returns(false);
+
+        string[] expectedErrorMessages =
+        [
+            "Whoops, something went wrong..."
+        ];
+        var cut = RenderComponent<Contact>();
+
+        cut.Find("""input[data-kind="email"]""").Input("user@email.com");
+        cut.Find("""input[data-kind="subject"]""").Input("Subject");
+        cut.Find("""textarea[data-kind="message"]""").Input("Message");
+        cut.Find("""input[data-kind="verification"]""").Input("12345");
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+
+        cut.Find("""button[type="submit"]""").Click();
+
+        cut.WaitForAssertion(() => cut.FindComponents<Skeleton>());
+        cut.WaitForAssertion(() =>
+        {
+            var validationMessages =
+                cut
+                    .FindAll("div.small.text-danger")
+                    .Select(x => x.TextContent)
+                    .ToArray();
+
+            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
+            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Contact_Should_Submit_Form_And_Render_Success_Message()
+    {
+        _emailService.SendFrom(
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<string>(),
+            Arg.Any<CancellationToken>()
+        ).Returns(true);
+
+        var cut = RenderComponent<Contact>();
+
+        cut.Find("""input[data-kind="email"]""").Input("user@email.com");
+        cut.Find("""input[data-kind="subject"]""").Input("Subject");
+        cut.Find("""textarea[data-kind="message"]""").Input("Message");
+        cut.Find("""input[data-kind="verification"]""").Input("12345");
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+
+        cut.Find("""button[type="submit"]""").Click();
+
+        cut.WaitForAssertion(() => cut.FindComponents<Skeleton>());
+        cut.WaitForAssertion(() => cut.Find("div.alert.alert-success"));
+        cut.Markup.MatchSnapshot();
+        cut.WaitForAssertion(() =>
+            cut
+                .FindAll("div.alert")
+                .Should()
+                .BeEmpty(),
+            TimeSpan.FromSeconds(20)
+        );
+    }
+
+}

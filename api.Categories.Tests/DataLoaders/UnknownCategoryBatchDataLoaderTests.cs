@@ -1,8 +1,9 @@
+using api.Categories.DataLoaders;
 using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 
-namespace api.Categories.DataLoaders.Tests;
+namespace api.Categories.Tests.DataLoaders;
 
 public class UnknownCategoryBatchDataLoaderTests
 {
@@ -14,7 +15,7 @@ public class UnknownCategoryBatchDataLoaderTests
             new CategoryEntity
             {
                 Kind = CategoryType.None,
-                Id = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                Id = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
                 CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
                 UpdatedAt = null,
                 Version = 1,
@@ -24,7 +25,7 @@ public class UnknownCategoryBatchDataLoaderTests
 
         var sut = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 
-        var result = await sut.LoadAsync([new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d")], CancellationToken.None);
+        var result = await sut.LoadAsync([new("eb9d6258-99c4-46bd-bd44-23d35b19965d")], CancellationToken.None);
 
         result.Should().ContainSingle();
         result[0].Should().NotBeNull();
@@ -35,17 +36,17 @@ public class UnknownCategoryBatchDataLoaderTests
     public async Task LoadAsync_Should_Return_Collection_With_Single_Null_Item_When_No_Matches_Found()
     {
         var dataRepository = new MockDataRepository<ICategory>(
-       [
-           new CategoryEntity
-           {
-               Kind = CategoryType.Other,
-               Id = new Guid("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
-               CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
-               UpdatedAt = null,
-               Version = 1,
-               Title = "Title"
-           }
-       ]);
+        [
+            new CategoryEntity
+            {
+                Kind = CategoryType.Other,
+                Id = new("eb9d6258-99c4-46bd-bd44-23d35b19965d"),
+                CreatedAt = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                UpdatedAt = null,
+                Version = 1,
+                Title = "Title"
+            }
+        ]);
 
         var sut = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
 

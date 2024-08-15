@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 487
 
-{"query":"{\n  portfolioItemById(id: \"UG9ydGZvbGlvSXRlbQpnOWVlMGYzMDMyNzk4NGQzZjkxZDY2NTRkNTI5ZjdjOTQ=\") {\n    categoryId\n    createdAt\n    customerId\n    href\n    id\n    internalId\n    technologiesSummary\n    technologyIds\n    title\n    updatedAt\n    version\n    year\n    customer {\n      createdAt\n      href\n      id\n      internalId\n      title\n      updatedAt\n      version\n    }\n    technologyCategories {\n      totalCount\n    }\n  }\n}\n","variables":{}}
+{
+  "query": "{\n  portfolioItemById(id: \"UG9ydGZvbGlvSXRlbQpnOWVlMGYzMDMyNzk4NGQzZjkxZDY2NTRkNTI5ZjdjOTQ=\") {\n    categoryId\n    createdAt\n    customerId\n    href\n    id\n    internalId\n    technologiesSummary\n    technologyIds\n    title\n    updatedAt\n    version\n    year\n    customer {\n      createdAt\n      href\n      id\n      internalId\n      title\n      updatedAt\n      version\n    }\n    technologyCategories {\n      totalCount\n    }\n  }\n}\n",
+  "variables": {}
+}

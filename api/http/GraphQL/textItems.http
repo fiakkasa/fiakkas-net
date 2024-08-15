@@ -3,4 +3,7 @@ Host: localhost:5069
 Content-Type: application/json
 Content-Length: 205
 
-{"query":"{\n  textItems {\n    totalCount\n    nodes {\n      content\n      createdAt\n      id\n      internalId\n      key\n      title\n      updatedAt\n      version\n    }\n  }\n}\n","variables":{}}
+{
+  "query": "{\n  textItems {\n    totalCount\n    nodes {\n      content\n      createdAt\n      id\n      internalId\n      key\n      title\n      updatedAt\n      version\n    }\n  }\n}\n",
+  "variables": {}
+}

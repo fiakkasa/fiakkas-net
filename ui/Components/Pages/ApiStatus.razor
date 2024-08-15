@@ -1,0 +1,109 @@
+﻿@page "/api-status"
+@attribute [StreamRendering]
+@inject IFiakkasNetApi Api
+@inject ILogger<ApiStatus> Logger
+@implements IDisposable
+
+<UniversalTitle Title="API Status">
+    <button type="button"
+            class="btn btn-outline-primary rounded-circle p-0 px-1"
+            title="Refresh" disabled="@Loading"
+            @onclick="Refresh">
+        <i class="bi bi-arrow-clockwise"></i>
+    </button>
+</UniversalTitle>
+
+<ContentFlow IsLoading="@Loading"
+             HasError="@HasError"
+             HasData="@(Model?.SystemStatus is not null)">
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless text-nowrap">
+            <tbody>
+            <tr>
+                <th>Startup Time:</th>
+                <td class="w-100">@Model!.SystemStatus!.StartupTime</td>
+            </tr>
+            <tr>
+                <th>Up Time:</th>
+                <td>@Model!.SystemStatus.UpTime</td>
+            </tr>
+            <tr>
+                <th>Version:</th>
+                <td>@Model!.SystemStatus.Version</td>
+            </tr>
+            <tr>
+                <th>Overall Health:</th>
+                <td>@Model!.SystemStatus.Health.Status</td>
+            </tr>
+            @if (Model.SystemStatus.Health.Entries is { Count: > 0 } healthEntries)
+            {
+                @foreach (var item in healthEntries)
+                {
+                    <tr>
+                        <th>
+                            <i class="bi bi-chevron-compact-right"></i> @item.Key Health:
+                        </th>
+                        <td> @item.Value.Status</td>
+                    </tr>
+                }
+            }
+            <tr>
+                <th>Total Duration:</th>
+                <td>@Model!.SystemStatus.Health.TotalDuration</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ContentFlow>
+
+
+@code {
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    internal bool Loading { get; private set; } = true;
+    internal bool HasError { get; private set; }
+    internal IGetSystemStatusResult? Model { get; private set; }
+
+    private async Task Refresh()
+    {
+        if (Loading) return;
+
+        await SetData();
+    }
+
+    private async Task SetData()
+    {
+        try
+        {
+            Loading = true;
+            HasError = false;
+            Model = default;
+
+            StateHasChanged();
+
+            var result = await Api.GetSystemStatus.ExecuteAsync(_cancellationTokenSource.Token);
+
+            result.EnsureNoErrors();
+
+            Model = result.Data;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to retrieve data with message: {Message}", ex.Message);
+            Model = default;
+            HasError = true;
+        }
+
+        Loading = false;
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync() => await SetData();
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
+    }
+
+}
