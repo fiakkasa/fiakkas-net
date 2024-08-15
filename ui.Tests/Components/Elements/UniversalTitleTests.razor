@@ -51,7 +51,9 @@
     [Fact]
     public void UniversalTitle_Should_Render_Default_With_Empty_Title_When_ShowTitle_Is_False()
     {
-        var cut = RenderComponent<UniversalTitle>(parameters => parameters.Add(p => p.ShowTitle, false));
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters.Add(p => p.ShowTitle, false)
+        );
 
         var result = cut.Markup;
         var instance = cut.Instance;
@@ -64,7 +66,9 @@
     [Fact]
     public void UniversalTitle_Should_Render_With_Title()
     {
-        var cut = RenderComponent<UniversalTitle>(parameters => parameters.Add(p => p.Title, "Test"));
+        var cut = RenderComponent<UniversalTitle>(parameters =>
+            parameters.Add(p => p.Title, "Test")
+        );
 
         var result = cut.Find("h1.page-header");
         var instance = cut.Instance;

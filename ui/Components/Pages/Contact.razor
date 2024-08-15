@@ -35,6 +35,7 @@
                                         class="form-control"
                                         tabindex="1"
                                         placeholder="you@awesome-email.com"
+                                        data-kind="email"
                                         @bind-Value="Model.SenderAddress"/>
                         <span class="input-group-text">
                             <i class="bi bi-envelope-at"></i>
@@ -51,6 +52,7 @@
                                         tabindex="2"
                                         placeholder="What would you like to inquire about?"
                                         maxlength="@ContactConsts.MaxSubjectCharacters"
+                                        data-kind="subject"
                                         @bind-Value="@Model.Subject"/>
                         <span class="input-group-text">
                             <i class="bi bi-pencil"></i>
@@ -74,6 +76,7 @@
                                             tabindex="3"
                                             placeholder="Share your thoughts, ideas, or questions..."
                                             maxlength="@ContactConsts.MaxMessageCharacters"
+                                            data-kind="message"
                                             @bind-Value="Model.Message"/>
                         <span class="input-group-text">
                             <i class="bi bi-journal-text"></i>
@@ -96,6 +99,7 @@
                                         tabindex="4"
                                         placeholder="Verification Code"
                                         maxlength="5"
+                                        data-kind="verification"
                                         @bind-Value="Model.VerificationCodeEntered"/>
                         @if (!RefreshingCaptcha)
                         {
@@ -208,7 +212,7 @@
     {
         if (SuccessMessageExpirationTimer is null) return;
 
-        SuccessMessageExpirationTimer?.Dispose();
+        SuccessMessageExpirationTimer.Dispose();
         SuccessMessageExpirationTimer = default;
     }
 
@@ -336,7 +340,7 @@
     public void Dispose()
     {
         DetachEditContextEvents();
-        SuccessMessageExpirationTimer?.Dispose();
+        ClearSuccessMessage();
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource.Dispose();
     }
