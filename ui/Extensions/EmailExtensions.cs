@@ -20,8 +20,8 @@ public static class EmailExtensions
 
     private static readonly Dictionary<string, Func<IHtmlDocument, bool>> _emailDocumentValidationItems = new()
     {
-        [nameof(EmailErrorCodeType.MarkupIsNotAllowed)] =
-            document => document is { Head.Children.Length: 0, Body.Children.Length: 0 },
+        [nameof(EmailErrorCodeType.MarkupIsNotAllowed)] = document =>
+            document is { Head.Children.Length: 0, Body.Children.Length: 0 },
         [nameof(EmailErrorCodeType.UnusableContent)] = document => document.Body!.TextContent.Length > 0
     };
 
@@ -51,9 +51,7 @@ public static class EmailExtensions
         foreach (var (key, value) in _emailValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, value))
-            {
                 return [new(key, memberNames)];
-            }
         }
 
         return [];
@@ -76,9 +74,7 @@ public static class EmailExtensions
         foreach (var (key, value) in _emailContentValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedContent, validationContext, default, value))
-            {
                 return [new(key, memberNames)];
-            }
         }
 
         using var document = await parser.ParseDocumentAsync(normalizedContent, cancellationToken);
@@ -86,9 +82,7 @@ public static class EmailExtensions
         foreach (var (key, value) in _emailDocumentValidationItems)
         {
             if (!value(document))
-            {
                 return [new(key, memberNames)];
-            }
         }
 
         return [];

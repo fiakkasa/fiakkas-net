@@ -1,4 +1,3 @@
-@using AngleSharp.Diffing.Extensions
 @using ui.Consts
 @using ui.Enums
 @using ui.Models
@@ -240,10 +239,10 @@
         cut.WaitForAssertion(() => cut.Find("div.alert.alert-success"));
         cut.Markup.MatchSnapshot();
         cut.WaitForAssertion(() =>
-            cut
-                .FindAll("div.alert")
-                .Should()
-                .BeEmpty(),
+                cut
+                    .FindAll("div.alert")
+                    .Should()
+                    .BeEmpty(),
             TimeSpan.FromSeconds(20)
         );
     }

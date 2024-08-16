@@ -50,7 +50,7 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -81,7 +81,7 @@ public class PortfolioItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
