@@ -36,7 +36,7 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -62,7 +62,7 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

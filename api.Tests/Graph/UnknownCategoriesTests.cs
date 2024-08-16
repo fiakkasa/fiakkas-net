@@ -26,7 +26,7 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -51,7 +51,7 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

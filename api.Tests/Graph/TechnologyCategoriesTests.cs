@@ -81,7 +81,7 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

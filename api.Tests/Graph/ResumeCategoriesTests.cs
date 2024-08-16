@@ -33,7 +33,7 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -59,7 +59,7 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
             }
             """);
 
-        Func<IQueryResult> fn = result.ExpectQueryResult;
+        var fn = result.ExpectQueryResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

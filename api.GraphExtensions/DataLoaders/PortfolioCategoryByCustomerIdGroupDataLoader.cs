@@ -9,7 +9,7 @@ public sealed class PortfolioCategoryByCustomerIdGroupDataLoader(
 {
     private static readonly Expression<Func<ICategory, bool>> _where = x =>
         CategoryEntityUtils.IsPortfolioCategory(x);
-    
+
     protected override async Task<ILookup<Guid, PortfolioCategory>> LoadGroupedBatchAsync(
         IReadOnlyList<Guid> keys,
         CancellationToken cancellationToken
