@@ -3,6 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EE630536-15D1-438F-852D-14C534AB7E80}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
+		api.NodeProxy\api.NodeProxy.README.md = api.NodeProxy\api.NodeProxy.README.md
+		ui.NodeProxy\ui.NodeProxy.README.md = ui.NodeProxy\ui.NodeProxy.README.md
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.GraphExtensions.Tests", "api.GraphExtensions.Tests\api.GraphExtensions.Tests.csproj", "{7AF9A3D8-FB60-44E6-80AD-888C7D5324EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.Portfolio.Tests", "api.Portfolio.Tests\api.Portfolio.Tests.csproj", "{5D183729-DD3A-483D-A77E-DBB581F75AA0}"
