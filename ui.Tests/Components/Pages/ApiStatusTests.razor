@@ -108,9 +108,9 @@
 
         cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
 
-        taskSource.SetResult(result);
-
         cut.Markup.MatchSnapshot();
+
+        taskSource.SetResult(result);
     }
 
     [Fact]
@@ -152,9 +152,9 @@
 
         cut.WaitForAssertion(() => cut.Instance.Loading.Should().BeTrue());
 
-        taskSource.SetResult(result);
-
         cut.Markup.MatchSnapshot();
+
+        taskSource.SetResult(result);
     }
 
     [Fact]
@@ -191,6 +191,12 @@
         });
 
         taskSourceAfter.SetResult(result);
+        
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeNull();
+            cut.Instance.Loading.Should().BeFalse();
+        });
 
         cut.Markup.MatchSnapshot();
     }

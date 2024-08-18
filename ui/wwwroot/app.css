@@ -41,8 +41,18 @@ textarea {
   opacity: .667 !important;
 }
 
+.prefers-light {
+  display: none;
+}
+
 @media (min-width: 1121px) {
   nav {
     border-radius: var(--bs-border-radius-pill) !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .prefers-light {
+    display: inline;
   }
 }

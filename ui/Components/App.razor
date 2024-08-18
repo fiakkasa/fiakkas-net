@@ -16,11 +16,13 @@
           content="cyprus, limassol, c#, php, graphql, odata, entity framework, asp.net, blazor, typescript, javascript, jquery, angular, react, json, css, less, sass, html 5, xhtml, html, vb.net, visual basic.net, mysql, mssql, mongodb, java, wordpress, object oriented programming, object oriented design, web development, oss author"/>
     <meta name="author" content="Adamos Fiakkas"/>
     <HeadOutlet @rendermode="InteractiveServer"/>
+    <script src="theme-auto-switcher.js"></script>
 </head>
 
-<body>
+<body data-bs-theme="light">
 <Routes @rendermode="InteractiveServer"/>
 <script src="_framework/blazor.web.js"></script>
+<span class="prefers-light"></span>
 </body>
 
 </html>
