@@ -23,7 +23,7 @@
 
 ## Overview
 
-The main goal is to have a well defined contracts based implementation with each project under the solution contributing
+The main goal is to have a well-defined contracts based implementation with each project under the solution contributing
 their own assets to the overall solution.
 
 The solution structure is inspired by the Vertical Slice architecture.
@@ -155,7 +155,7 @@ is skipped._
 
 The solution is configured to use the ILogger abstraction with Serilog and most specifically the Console and File sinks.
 
-In addition a number of enrichers are present and enabled by default:
+In addition, a number of enrichers are present and enabled by default:
 
 - Serilog.Enrichers.AssemblyName
 - Serilog.Enrichers.ClientInfo

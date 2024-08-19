@@ -6,8 +6,7 @@ namespace api.ContactItems.Services;
 public sealed class ContactItemDataRepository(
     ILogger<ContactItemDataRepository> logger,
     IOptionsSnapshot<ContactItemsDataConfig> dataSnapshot
-)
-    : AbstractInMemoryDataRepository<IContactItem, ContactItemsDataConfig>(logger, dataSnapshot)
+) : AbstractReadOnlyInMemoryDataRepository<IContactItem, ContactItemsDataConfig>(logger, dataSnapshot)
 {
     protected override IReadOnlyCollection<IContactItem>? ResolveSet(ContactItemsDataConfig data) => data.ContactItems;
 }
