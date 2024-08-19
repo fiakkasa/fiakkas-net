@@ -63,7 +63,9 @@ public static class GraphQLExtensions
     public static IEndpointRouteBuilder MapApiGraphQL(this IEndpointRouteBuilder app, bool isDev)
     {
         if (isDev)
+        {
             app.MapGraphQLVoyager(Consts.GraphQLSchemaVisualizerEndPoint);
+        }
 
         app
             .MapGraphQL(Consts.GraphQLEndPoint)

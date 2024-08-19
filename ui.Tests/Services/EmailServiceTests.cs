@@ -36,7 +36,9 @@ public class EmailServiceTests
     private EmailService GetEmailService(EmailConfig? config = default)
     {
         if (config is not null)
+        {
             _optionsSnapshot.Value.Returns(config);
+        }
 
         return new(_smtpService, _parser, _optionsSnapshot, _logger);
     }

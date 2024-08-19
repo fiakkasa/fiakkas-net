@@ -51,7 +51,9 @@ public static class EmailExtensions
         foreach (var (key, value) in _emailValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedEmailAddress, validationContext, default, value))
+            {
                 return [new(key, memberNames)];
+            }
         }
 
         return [];
@@ -74,7 +76,9 @@ public static class EmailExtensions
         foreach (var (key, value) in _emailContentValidationItems)
         {
             if (!Validator.TryValidateValue(normalizedContent, validationContext, default, value))
+            {
                 return [new(key, memberNames)];
+            }
         }
 
         using var document = await parser.ParseDocumentAsync(normalizedContent, cancellationToken);
@@ -82,7 +86,9 @@ public static class EmailExtensions
         foreach (var (key, value) in _emailDocumentValidationItems)
         {
             if (!value(document))
+            {
                 return [new(key, memberNames)];
+            }
         }
 
         return [];
