@@ -6,8 +6,7 @@ namespace api.Achievements.Services;
 public sealed class AchievementDataRepository(
     ILogger<AchievementDataRepository> logger,
     IOptionsSnapshot<AchievementsDataConfig> dataSnapshot
-)
-    : AbstractInMemoryDataRepository<IAchievement, AchievementsDataConfig>(logger, dataSnapshot)
+) : AbstractReadOnlyInMemoryDataRepository<IAchievement, AchievementsDataConfig>(logger, dataSnapshot)
 {
     protected override IReadOnlyCollection<IAchievement>? ResolveSet(AchievementsDataConfig data) => data.Achievements;
 }

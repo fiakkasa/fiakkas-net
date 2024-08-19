@@ -6,8 +6,7 @@ namespace api.Languages.Services;
 public sealed class LanguageDataRepository(
     ILogger<LanguageDataRepository> logger,
     IOptionsSnapshot<LanguagesDataConfig> dataSnapshot
-)
-    : AbstractInMemoryDataRepository<ILanguage, LanguagesDataConfig>(logger, dataSnapshot)
+) : AbstractReadOnlyInMemoryDataRepository<ILanguage, LanguagesDataConfig>(logger, dataSnapshot)
 {
     protected override IReadOnlyCollection<ILanguage>? ResolveSet(LanguagesDataConfig data) => data.Languages;
 }
