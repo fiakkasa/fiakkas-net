@@ -252,7 +252,7 @@ public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
             return await Task.Run(() =>
                     GetSet()
                         .Where(predicate)
-                        .ToDictionary(x => keySelector(x), mapper),
+                        .ToDictionary(keySelector, mapper),
                 cancellationToken
             );
         }
@@ -337,7 +337,9 @@ public abstract class AbstractInMemoryDataRepository<TEntity, TConfig>(
         }
 
         if (ResolveSet(dataSnapshot.Value) is TEntity[] collection)
+        {
             return collection;
+        }
 
         logger.LogWarning("Resolver for type {Type} could not materialize collection", _type.Name);
 

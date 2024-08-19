@@ -191,7 +191,7 @@
         });
 
         taskSourceAfter.SetResult(result);
-        
+
         cut.WaitForAssertion(() =>
         {
             refreshButton.GetAttribute("disabled").Should().BeNull();

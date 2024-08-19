@@ -29,7 +29,9 @@ public class EmailService(
             );
 
             if (validationResults.Count > 0)
+            {
                 return validationResults;
+            }
 
             var message = await BuildMessage(emailConfig, senderAddress, recipientAddress, subject, body,
                 cancellationToken);
