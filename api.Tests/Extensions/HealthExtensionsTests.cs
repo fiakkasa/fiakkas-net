@@ -21,7 +21,8 @@ public class HealthExtensionsTests
         var result =
             options!
                 .CurrentValue
-                .Registrations.Select(x => x.Name)
+                .Registrations
+                .Select(x => x.Name)
                 .ToArray();
 
         result.Should().Contain(Consts.ApiHealthName);

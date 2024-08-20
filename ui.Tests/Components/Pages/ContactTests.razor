@@ -86,19 +86,21 @@
     [Fact]
     public void Contact_Should_Submit_Form_And_Render_Service_Validation_Messages_When_Invalid_Model()
     {
-        _emailService.SendFrom(
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<CancellationToken>()
-        ).Returns(new List<ValidationResult>
-        {
-            new(nameof(EmailErrorCodeType.InvalidEmailAddress), [EmailConsts.SenderAddressFieldName]),
-            new(nameof(EmailErrorCodeType.Required), [EmailConsts.RecipientAddressFieldName]),
-            new(nameof(EmailErrorCodeType.MarkupIsNotAllowed), [EmailConsts.SubjectFieldName]),
-            new(nameof(EmailErrorCodeType.UnusableContent), [EmailConsts.BodyFieldName]),
-            new("Error", [])
-        });
+        _emailService
+            .SendFrom(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<CancellationToken>()
+            )
+            .Returns(new List<ValidationResult>
+            {
+                new(nameof(EmailErrorCodeType.InvalidEmailAddress), [EmailConsts.SenderAddressFieldName]),
+                new(nameof(EmailErrorCodeType.Required), [EmailConsts.RecipientAddressFieldName]),
+                new(nameof(EmailErrorCodeType.MarkupIsNotAllowed), [EmailConsts.SubjectFieldName]),
+                new(nameof(EmailErrorCodeType.UnusableContent), [EmailConsts.BodyFieldName]),
+                new("Error", [])
+            });
 
         string[] expectedErrorMessages =
         [
@@ -138,12 +140,14 @@
     [Fact]
     public void Contact_Should_Submit_Form_And_Render_Service_Validation_Messages_When_Error_Occurs()
     {
-        _emailService.SendFrom(
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<CancellationToken>()
-        ).Returns(new InvalidOperationException(nameof(EmailErrorCodeType.FailedToSend)));
+        _emailService
+            .SendFrom(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<CancellationToken>()
+            )
+            .Returns(new InvalidOperationException(nameof(EmailErrorCodeType.FailedToSend)));
 
         string[] expectedErrorMessages =
         [
@@ -178,12 +182,14 @@
     [Fact]
     public void Contact_Should_Submit_Form_And_Render_Generic_Error_When_Service_Returns_False()
     {
-        _emailService.SendFrom(
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<CancellationToken>()
-        ).Returns(false);
+        _emailService
+            .SendFrom(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<CancellationToken>()
+            )
+            .Returns(false);
 
         string[] expectedErrorMessages =
         [
@@ -218,12 +224,14 @@
     [Fact]
     public void Contact_Should_Submit_Form_And_Render_Success_Message()
     {
-        _emailService.SendFrom(
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<string>(),
-            Arg.Any<CancellationToken>()
-        ).Returns(true);
+        _emailService
+            .SendFrom(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<CancellationToken>()
+            )
+            .Returns(true);
 
         var cut = RenderComponent<Contact>();
 

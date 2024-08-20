@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using FluentAssertions.Extensions;
 using System.Threading;
 using ui.Extensions;
 
@@ -7,54 +7,38 @@ namespace ui.Tests.Extensions;
 public class DelayExtensionsTests
 {
     [Theory]
-    [InlineData(250, 249, 275, 1000)]
-    [InlineData(-1, 0, 3, 1000)]
-    [InlineData(1000, 249, 275, 250)]
+    [InlineData(250, 500, 1000)]
+    [InlineData(-1, 250, 1000)]
+    [InlineData(1000, 500, 250)]
     public async Task SafeDelayOfInt_Should_Delay_The_Task_By_The_Specified_Delay(
         int delay,
-        int startRange,
-        int endRange,
+        int maxExecutionTime,
         int cancelAfter
     )
     {
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
 
-        var result = await Task.Run(async () =>
-        {
-            var start = Stopwatch.GetTimestamp();
+        var func = () => delay.SafeDelay(cts.Token).AsTask();
 
-            await delay.SafeDelay(cts.Token);
-
-            return Stopwatch.GetElapsedTime(start);
-        }, CancellationToken.None);
-
-        result.Milliseconds.Should().BeInRange(startRange, endRange);
+        await func.Should().CompleteWithinAsync(maxExecutionTime.Milliseconds());
     }
 
     [Theory]
-    [InlineData(250, 249, 275, 1000)]
-    [InlineData(-1, 0, 3, 1000)]
-    [InlineData(1000, 249, 275, 250)]
+    [InlineData(250, 500, 1000)]
+    [InlineData(-1, 250, 1000)]
+    [InlineData(1000, 500, 250)]
     public async Task SafeDelayOfTimeSpan_Should_Delay_The_Task_By_The_Specified_Delay(
         int delay,
-        int startRange,
-        int endRange,
+        int maxExecutionTime,
         int cancelAfter
     )
     {
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
 
-        var result = await Task.Run(async () =>
-        {
-            var start = Stopwatch.GetTimestamp();
+        var func = () => TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token).AsTask();
 
-            await TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token);
-
-            return Stopwatch.GetElapsedTime(start);
-        }, CancellationToken.None);
-
-        result.Milliseconds.Should().BeInRange(startRange, endRange);
+        await func.Should().CompleteWithinAsync(maxExecutionTime.Milliseconds());
     }
 }

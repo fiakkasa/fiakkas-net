@@ -33,7 +33,11 @@ public class EmailService(
                 return validationResults;
             }
 
-            var message = await BuildMessage(emailConfig, senderAddress, recipientAddress, subject, body,
+            var message = await BuildMessage(emailConfig,
+                senderAddress,
+                recipientAddress,
+                subject,
+                body,
                 cancellationToken);
 
             await smtp.Send(message, cancellationToken);
@@ -62,8 +66,13 @@ public class EmailService(
     {
         try
         {
-            return await Send(senderAddress, optionsSnapshot.Value.DefaultRecipientAddress, subject, body,
-                cancellationToken);
+            return await Send(
+                senderAddress,
+                optionsSnapshot.Value.DefaultRecipientAddress,
+                subject,
+                body,
+                cancellationToken
+            );
         }
         catch (Exception ex)
         {
@@ -87,8 +96,13 @@ public class EmailService(
     {
         try
         {
-            return await Send(optionsSnapshot.Value.DefaultSenderAddress, recipientAddress, subject, body,
-                cancellationToken);
+            return await Send(
+                optionsSnapshot.Value.DefaultSenderAddress,
+                recipientAddress,
+                subject,
+                body,
+                cancellationToken
+            );
         }
         catch (Exception ex)
         {

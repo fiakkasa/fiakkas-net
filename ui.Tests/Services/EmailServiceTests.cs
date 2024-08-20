@@ -58,7 +58,8 @@ public class EmailServiceTests
 
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);
         var sendCall =
-            _smtpService.ReceivedCalls()
+            _smtpService
+                .ReceivedCalls()
                 .Select(x => x.GetOriginalArguments())
                 .FirstOrDefault()
                 ?.OfType<MailMessage>()

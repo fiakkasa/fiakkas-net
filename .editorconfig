@@ -22,7 +22,6 @@ indent_style = space
 tab_width = 4
 
 # New line preferences
-# end_of_line = crlf
 insert_final_newline = true
 
 #### .NET Coding Conventions ####
@@ -279,3 +278,9 @@ resharper_csharp_max_array_initializer_elements_on_line = 1
 resharper_csharp_place_attribute_on_same_line = false
 resharper_csharp_place_field_attribute_on_same_line = false
 resharper_csharp_wrap_object_and_collection_initializer_style = chop_always
+resharper_csharp_wrap_primary_constructor_parameters_style = chop_if_long
+resharper_csharp_wrap_arguments_style = chop_if_long
+resharper_csharp_wrap_chained_method_calls = chop_if_long
+resharper_csharp_wrap_before_first_method_call = true
+resharper_csharp_wrap_after_property_in_chained_method_calls = true
+resharper_csharp_indent_raw_literal_string = do_not_change

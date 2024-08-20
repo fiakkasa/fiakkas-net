@@ -48,15 +48,23 @@ public class CorsExtensionsTests
         );
 
         service.Should().NotBeNull();
-        results.Should().AllSatisfy(x =>
-        {
-            x.StatusCode.Should().Be(HttpStatusCode.NoContent);
-            x.Headers.Should().ContainSingle(h => h.Key == "Access-Control-Allow-Origin" && h.Value.First() == "*");
-            x.Headers.Should().ContainSingle(h => h.Key == "Access-Control-Allow-Headers" && h.Value.First() == "*");
-            x.Headers.Should().ContainSingle(h =>
-                h.Key == "Access-Control-Allow-Methods"
-                && h.Value.First() == HttpMethods.Post
-            );
-        });
+        results
+            .Should()
+            .AllSatisfy(x =>
+            {
+                x.StatusCode.Should().Be(HttpStatusCode.NoContent);
+                x.Headers.Should().ContainSingle(h => h.Key == "Access-Control-Allow-Origin" && h.Value.First() == "*");
+                x
+                    .Headers
+                    .Should()
+                    .ContainSingle(h => h.Key == "Access-Control-Allow-Headers" && h.Value.First() == "*");
+                x
+                    .Headers
+                    .Should()
+                    .ContainSingle(h =>
+                        h.Key == "Access-Control-Allow-Methods"
+                        && h.Value.First() == HttpMethods.Post
+                    );
+            });
     }
 }
