@@ -20,7 +20,7 @@ public class DelayExtensionsTests
         cts.CancelAfter(cancelAfter);
 
         var func = () => delay.SafeDelay(cts.Token).AsTask();
-        
+
         await func.Should().CompleteWithinAsync(maxExecutionTime.Milliseconds());
     }
 
@@ -36,7 +36,7 @@ public class DelayExtensionsTests
     {
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
-        
+
         var func = () => TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token).AsTask();
 
         await func.Should().CompleteWithinAsync(maxExecutionTime.Milliseconds());

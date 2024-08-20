@@ -9,12 +9,13 @@
 
         cut.FindComponent<UniversalTitle>();
         var headContent = cut.FindComponent<HeadContent>();
+        var expectedHeadRenderedFragment = Render(headContent.Instance.ChildContent!);
 
         var title = cut.FindAll("h1.page-header");
 
         title.Should().BeEmpty();
         headContent.Instance.ChildContent.Should().NotBeNull();
-        Render(headContent.Instance.ChildContent!).MarkupMatches(@<meta name="robots" content="noindex"/>);
+        expectedHeadRenderedFragment.MarkupMatches(@<meta name="robots" content="noindex"/>);
         cut.Markup.MatchSnapshot();
     }
 
