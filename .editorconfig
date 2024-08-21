@@ -213,15 +213,25 @@ dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
-## Define the 'private_fields_underscored' naming rule
-dotnet_naming_rule.private_fields_underscored.severity = suggestion
-dotnet_naming_rule.private_fields_underscored.symbols = private_fields
-dotnet_naming_rule.private_fields_underscored.style = underscored
+## Define the 'private_fields_should_be_underscored' naming rule
+dotnet_naming_rule.private_fields_should_be_underscored.severity = suggestion
+dotnet_naming_rule.private_fields_should_be_underscored.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_underscored.style = underscored
 
-## Define the 'private_static_fields_none' naming rule
-dotnet_naming_rule.private_static_fields_none.severity = suggestion
-dotnet_naming_rule.private_static_fields_none.symbols = private_static_fields
-dotnet_naming_rule.private_static_fields_none.style = underscored
+## Define the 'private_static_fields_should_be_underscored' naming rule
+dotnet_naming_rule.private_static_fields_should_be_underscored.severity = suggestion
+dotnet_naming_rule.private_static_fields_should_be_underscored.symbols = private_static_fields
+dotnet_naming_rule.private_static_fields_should_be_underscored.style = underscored
+
+## Define the 'private_constants_should_be_underscored' naming rule
+dotnet_naming_rule.private_constants_should_be_underscored.severity = suggestion
+dotnet_naming_rule.private_constants_should_be_underscored.symbols = private_constants
+dotnet_naming_rule.private_constants_should_be_underscored.style = underscored
+
+## Define the 'public_constants_should_be_pascal_case' naming rule
+dotnet_naming_rule.public_constants_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.public_constants_should_be_pascal_case.symbols = public_constants
+dotnet_naming_rule.public_constants_should_be_pascal_case.style = pascal_case
 
 # Symbol specifications
 
@@ -237,7 +247,7 @@ dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, meth
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.non_field_members.required_modifiers =
 
-## Define the 'private_fields' symbol group:
+## Define the 'private_fields' symbol group
 dotnet_naming_symbols.private_fields.applicable_kinds = field
 dotnet_naming_symbols.private_fields.applicable_accessibilities = private
 
@@ -245,6 +255,16 @@ dotnet_naming_symbols.private_fields.applicable_accessibilities = private
 dotnet_naming_symbols.private_static_fields.applicable_kinds = field
 dotnet_naming_symbols.private_static_fields.applicable_accessibilities = private
 dotnet_naming_symbols.private_static_fields.required_modifiers = static
+
+## Define the 'private_constants' symbol group
+dotnet_naming_symbols.private_constants.applicable_kinds = field
+dotnet_naming_symbols.private_constants.applicable_accessibilities = private
+dotnet_naming_symbols.private_constants.required_modifiers = const
+
+## Define the 'public_constants' symbol group
+dotnet_naming_symbols.public_constants.applicable_kinds = field
+dotnet_naming_symbols.public_constants.applicable_accessibilities = public
+dotnet_naming_symbols.public_constants.required_modifiers = const
 
 # Naming styles
 
