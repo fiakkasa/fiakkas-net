@@ -40,8 +40,8 @@ Before running ensure that the node modules are installed, `npm i`.
 
 - VS Code: use the included profile
 - cli:
-  - publish the api: `dotnet publish ../api/api.csproj -o ./publish`
-  - run: `node index.js` or `npm start`.
+    - publish the api: `dotnet publish ../api/api.csproj -o ./publish`
+    - run: `node index.js` or `npm start`.
 
 ## References
 
