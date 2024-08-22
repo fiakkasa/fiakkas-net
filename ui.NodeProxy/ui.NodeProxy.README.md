@@ -2,8 +2,8 @@
 
 ## Overview
 
-The main goal is to be able to run the .NET UI through a Node proxy using an in process instantiation in environment where
-only Node is supported with limited access to the underlying infra.
+The main goal is to be able to run the .NET UI through a Node proxy using an in process instantiation in environment
+where only Node is supported with limited access to the underlying infra.
 
 The solution was tested using Node v20.12.2 and .NET 8.
 
