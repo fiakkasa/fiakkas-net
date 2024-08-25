@@ -1,10 +1,10 @@
 :root {
-  --full-screen-loader-background: no-repeat 50% 50% #010101;
+  --full-screen-loader-background: no-repeat 50% 50%;
+  --full-screen-loader-background-color: #010101;
   --full-screen-loader-size: 96px auto;
   --full-screen-loader-message-color: #aaaaaa;
   --full-screen-loader-message-font-weight: 100;
   --full-screen-loader-message-text-shadow: -1px 0 0 #555555;
-  --full-screen-loader-message-box-shadow: 1px 0 0 #555555;
 }
 
 .full-screen-loader {
@@ -16,6 +16,7 @@
   width: 100vw;
   opacity: 1;
   background: var(--full-screen-loader-background);
+  background-color: var(--full-screen-loader-background-color);
   background-size: var(--full-screen-loader-size);
   background-image: url('favicon.png');
   overflow: hidden;
@@ -45,10 +46,8 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --full-screen-loader-background: no-repeat 50% 50% #fefefe;
-    --full-screen-loader-size: 96px auto;
+    --full-screen-loader-background-color: #fefefe;
     --full-screen-loader-message-color: #555;
-    --full-screen-loader-message-font-weight: 100;
     --full-screen-loader-message-text-shadow: -1px 0 0 #aaa;
   }
 }
