@@ -15,11 +15,12 @@ window.addEventListener('load', () => {
     };
     const transitionFullScreenLoader = () =>
         new Promise((resolve, _) => {
-            const delay = 600;
+            const delay = 1000;
 
             try {
                 const fullScreenLoaderElement = document.querySelector('.full-screen-loader');
                 fullScreenLoaderElement.style.transitionDuration = `${delay}ms`;
+                fullScreenLoaderElement.style.transitionDelay = `${~~Math.round(delay * .334)}ms`;
                 fullScreenLoaderElement.classList.add('done');
             } catch {
             }
