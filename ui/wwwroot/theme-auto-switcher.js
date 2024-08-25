@@ -1,18 +1,16 @@
-let themeModeSwitcherInterval;
-let fullScreenLoaderTimeout;
+let _darkModePreferenceQuery;
+let _fullScreenLoaderTimeout;
+
+const setColorModePreference = (isDark) => {
+    try {
+        let mode = isDark ? 'dark' : 'light';
+        document.body.setAttribute('data-bs-theme', mode);
+    } catch {
+    }
+};
+
 window.addEventListener('load', () => {
-    const isHidden = elem => {
-        const styles = window.getComputedStyle(elem);
-        return styles.display === 'none' || styles.visibility === 'hidden';
-    };
-    const pivotElement = document.querySelector('.prefers-light');
-    const setMode = () => {
-        try {
-            let mode = isHidden(pivotElement) ? 'dark' : 'light';
-            document.body.setAttribute('data-bs-theme', mode);
-        } catch {
-        }
-    };
+    _darkModePreferenceQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const transitionFullScreenLoader = () =>
         new Promise((resolve, _) => {
             const delay = 1000;
@@ -25,7 +23,7 @@ window.addEventListener('load', () => {
             } catch {
             }
 
-            fullScreenLoaderTimeout = setTimeout(() => resolve(true), delay - 1);
+            _fullScreenLoaderTimeout = setTimeout(() => resolve(true), delay - 1);
         });
     const removeFullScreenLoader = async () => {
         try {
@@ -33,19 +31,17 @@ window.addEventListener('load', () => {
         } catch {
         }
     }
-    const intervalDelay = 30000;
-
-    setMode();
-    themeModeSwitcherInterval = setInterval(setMode, intervalDelay);
+    setColorModePreference(_darkModePreferenceQuery.matches);
+    _darkModePreferenceQuery.addEventListener("change", e =>  setColorModePreference(e.matches));
     transitionFullScreenLoader().finally(removeFullScreenLoader);
 });
 window.addEventListener('unload', () => {
     try {
-        themeModeSwitcherInterval && clearInterval(themeModeSwitcherInterval);
+        _darkModePreferenceQuery && _darkModePreferenceQuery.removeEventListener('change', e =>  setColorModePreference(e.matches));
     } catch {
     }
     try {
-        fullScreenLoaderTimeout && clearTimeout(fullScreenLoaderTimeout);
+        _fullScreenLoaderTimeout && clearTimeout(_fullScreenLoaderTimeout);
     } catch {
     }
 });
