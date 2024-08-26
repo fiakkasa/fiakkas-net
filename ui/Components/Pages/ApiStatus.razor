@@ -39,7 +39,7 @@
             {
                 @foreach (var item in healthEntries)
                 {
-                    <tr>
+                    <tr @key="item.Key">
                         <th>
                             <i class="bi bi-chevron-compact-right"></i> @item.Key Health:
                         </th>

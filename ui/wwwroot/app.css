@@ -7,7 +7,8 @@ html {
   overflow: hidden;
 }
 
-.app-container {
+nav,
+.main-inner-container {
   max-width: 1120px;
 }
 
@@ -39,10 +40,4 @@ textarea {
 
 ::placeholder {
   opacity: .667 !important;
-}
-
-@media (min-width: 1121px) {
-  nav {
-    border-radius: var(--bs-border-radius-pill) !important;
-  }
 }
