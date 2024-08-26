@@ -1,0 +1,130 @@
+@page "/portfolio"
+@attribute [StreamRendering]
+@inject IFiakkasNetApi Api
+@inject ILogger<Portfolio> Logger
+@implements IDisposable
+
+<UniversalTitle Title="Portfolio">
+    <button type="button"
+            class="btn btn-outline-primary rounded-circle p-0 px-1"
+            title="Refresh" disabled="@Loading"
+            @onclick="Refresh">
+        <i class="bi bi-arrow-clockwise"></i>
+    </button>
+</UniversalTitle>
+
+<ContentFlow IsLoading="@Loading"
+             HasError="@HasError"
+             HasData="@(Model?.PortfolioItems?.Nodes is { Count: > 0 })">
+    <div class="d-flex flex-column gap-2">
+        @foreach (
+            var yearSection in
+            Model!.PortfolioItems!.Nodes!
+                .GroupBy(x => x.Year)
+                .Select(groupedByYear =>
+                    new
+                    {
+                        groupedByYear.Key,
+                        Value = groupedByYear
+                            .Where(x => x.Category is { Title.Length: > 0 })
+                            .GroupBy(x => x.Category!.Title)
+                            .Select(x =>
+                                new
+                                {
+                                    x.Key,
+                                    Value = x
+                                }
+                            )
+                    }
+                )
+        )
+        {
+            <div class="year-section card" @key="yearSection.Key">
+                <div class="card-body">
+                    <h3 class="year-title card-title">
+                        @yearSection.Key
+                    </h3>
+                    <div class="items-of-year row gap-2">
+                        @foreach (var categorySection in yearSection.Value)
+                        {
+                            <div class="category-section col-12 col-md" @key="categorySection.Key">
+                                <h4 class="category-title">
+                                    @categorySection.Key
+                                </h4>
+                                <div class="items-of-category d-flex flex-column gap-2">
+                                    @foreach (var categoryItem in categorySection.Value)
+                                    {
+                                        <div class="category-item d-flex flex-column gap-1" @key="categoryItem.Id">
+                                            <div>@categoryItem.Title</div>
+                                            <div class="small">@categoryItem.TechnologiesSummary</div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</ContentFlow>
+
+
+@code {
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    internal bool Loading { get; private set; } = true;
+    internal bool HasError { get; private set; }
+    internal IGetPortfolioItemsResult? Model { get; private set; }
+
+    private async Task Refresh()
+    {
+        if (Loading) return;
+
+        await SetData();
+    }
+
+    private async Task SetData()
+    {
+        try
+        {
+            Loading = true;
+            HasError = false;
+            Model = default;
+
+            StateHasChanged();
+
+            var result = await Api.GetPortfolioItems.ExecuteAsync(
+                null,
+                null,
+                1000,
+                null,
+                null,
+                null,
+                cancellationToken: _cancellationTokenSource.Token
+            );
+
+            result.EnsureNoErrors();
+
+            Model = result.Data;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to retrieve data with message: {Message}", ex.Message);
+            Model = default;
+            HasError = true;
+        }
+
+        Loading = false;
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync() => await SetData();
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
+    }
+
+}
