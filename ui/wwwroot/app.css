@@ -9,7 +9,7 @@ html {
 
 nav,
 .main-inner-container {
-  max-width: 1120px;
+  max-width: 1280px;
 }
 
 .menu-button:not(.active-menu-button) {
@@ -40,4 +40,8 @@ textarea {
 
 ::placeholder {
   opacity: .667 !important;
+}
+
+.striped-container > .striped-item:nth-child(odd) {
+  background-color: var(--bs-tertiary-bg);
 }

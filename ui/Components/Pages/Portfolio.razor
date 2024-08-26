@@ -15,29 +15,9 @@
 
 <ContentFlow IsLoading="@Loading"
              HasError="@HasError"
-             HasData="@(Model?.PortfolioItems?.Nodes is { Count: > 0 })">
+             HasData="@(Model is { Length: > 0 })">
     <div class="d-flex flex-column gap-2">
-        @foreach (
-            var yearSection in
-            Model!.PortfolioItems!.Nodes!
-                .GroupBy(x => x.Year)
-                .Select(groupedByYear =>
-                    new
-                    {
-                        groupedByYear.Key,
-                        Value = groupedByYear
-                            .Where(x => x.Category is { Title.Length: > 0 })
-                            .GroupBy(x => x.Category!.Title)
-                            .Select(x =>
-                                new
-                                {
-                                    x.Key,
-                                    Value = x
-                                }
-                            )
-                    }
-                )
-        )
+        @foreach (var yearSection in Model!)
         {
             <div class="year-section card" @key="yearSection.Key">
                 <div class="card-body">
@@ -47,16 +27,56 @@
                     <div class="items-of-year row gap-2">
                         @foreach (var categorySection in yearSection.Value)
                         {
-                            <div class="category-section col-12 col-md" @key="categorySection.Key">
-                                <h4 class="category-title">
+                            <div class="category-section col-12 col-xl" @key="categorySection.Key">
+                                <h4 class="category-title card-title">
                                     @categorySection.Key
                                 </h4>
-                                <div class="items-of-category d-flex flex-column gap-2">
+                                <div class="items-of-category striped-container d-flex flex-column gap-1">
                                     @foreach (var categoryItem in categorySection.Value)
                                     {
-                                        <div class="category-item d-flex flex-column gap-1" @key="categoryItem.Id">
-                                            <div>@categoryItem.Title</div>
-                                            <div class="small">@categoryItem.TechnologiesSummary</div>
+                                        <div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1" @key="categoryItem.Id">
+                                            <div>
+                                                @if (categoryItem.Href is not null)
+                                                {
+                                                    <a href="@categoryItem.Href" target="_blank" class="text-decoration-none">
+                                                        @categoryItem.Title
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        @categoryItem.Title
+                                                    </span>
+                                                }
+                                            </div>
+
+                                            @if (categoryItem.Customer is { Title.Length: > 0 })
+                                            {
+                                                <div class="small d-flex gap-2">
+                                                    <i class="bi bi-person-rolodex flex-shrink-0"></i>
+                                                    @if (categoryItem.Customer.Href is not null)
+                                                    {
+                                                        <a href="@categoryItem.Customer.Href" target="_blank" class="text-decoration-none">
+                                                            @categoryItem.Customer.Title
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>
+                                                            @categoryItem.Customer.Title
+                                                        </span>
+                                                    }
+                                                </div>
+                                            }
+                                            @if (categoryItem.TechnologiesSummary.Length > 0)
+                                            {
+                                                <div class="small d-flex gap-2 fst-italic fw-light">
+                                                    <i class="bi bi-tools flex-shrink-0"></i>
+                                                    <span>
+                                                        @categoryItem.TechnologiesSummary
+                                                    </span>
+                                                </div>
+                                            }
                                         </div>
                                     }
                                 </div>
@@ -72,9 +92,10 @@
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+    private const int _pageSize = 1_000;
     internal bool Loading { get; private set; } = true;
     internal bool HasError { get; private set; }
-    internal IGetPortfolioItemsResult? Model { get; private set; }
+    internal KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]? Model { get; private set; }
 
     private async Task Refresh()
     {
@@ -96,7 +117,7 @@
             var result = await Api.GetPortfolioItems.ExecuteAsync(
                 null,
                 null,
-                1000,
+                _pageSize,
                 null,
                 null,
                 null,
@@ -105,7 +126,23 @@
 
             result.EnsureNoErrors();
 
-            Model = result.Data;
+            Model =
+                result
+                    .Data!
+                    .PortfolioItems!
+                    .Nodes!
+                    .GroupBy(x => x.Year)
+                    .Select(groupedByYear =>
+                        KeyValuePair.Create(
+                            groupedByYear.Key,
+                            groupedByYear
+                                .Where(x => x.Category is { Title.Length: > 0 })
+                                .GroupBy(x => x.Category!.Title)
+                                .Select(x => KeyValuePair.Create(x.Key, x.ToArray()))
+                                .ToArray()
+                        )
+                    )
+                    .ToArray();
         }
         catch (Exception ex)
         {
