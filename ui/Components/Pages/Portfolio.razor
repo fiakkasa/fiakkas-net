@@ -15,7 +15,7 @@
 
 <ContentFlow IsLoading="@Loading"
              HasError="@HasError"
-             HasData="@(Model is { Length: > 0 })">
+             HasData="@(Model.Length > 0)">
     <div class="d-flex flex-column gap-2">
         @foreach (var yearSection in Model!)
         {
@@ -95,7 +95,7 @@
     private const int _pageSize = 1_000;
     internal bool Loading { get; private set; } = true;
     internal bool HasError { get; private set; }
-    internal KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]? Model { get; private set; }
+    internal KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[] Model { get; private set; } = [];
 
     private async Task Refresh()
     {
@@ -110,7 +110,7 @@
         {
             Loading = true;
             HasError = false;
-            Model = default;
+            Model = [];
 
             StateHasChanged();
 
@@ -128,10 +128,10 @@
 
             Model =
                 result
-                    .Data!
-                    .PortfolioItems!
-                    .Nodes!
-                    .GroupBy(x => x.Year)
+                    .Data
+                    ?.PortfolioItems
+                    ?.Nodes
+                    ?.GroupBy(x => x.Year)
                     .Select(groupedByYear =>
                         KeyValuePair.Create(
                             groupedByYear.Key,
@@ -142,12 +142,12 @@
                                 .ToArray()
                         )
                     )
-                    .ToArray();
+                    .ToArray() ?? [];
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "Failed to retrieve data with message: {Message}", ex.Message);
-            Model = default;
+            Model = [];
             HasError = true;
         }
 
