@@ -1,0 +1,19 @@
+﻿<nav class="nav-menu d-flex gap-1 align-items-center test"><div class="nav-menu-sections-container ms-4 ms-md-0 flex-fill d-flex gap-1 flex-column flex-md-row justify-content-center justify-content-md-between flex-wrap"><div class="nav-menu-primary-section d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap"><a href="" title="Home" class="navbar-brand order-3 order-md-1 border border-primary-subtle rounded-circle" aria-current="page"><img src="favicon.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top"></a>
+            <a href="portfolio" class="btn menu-button btn-outline-primary order-2">
+                Portfolio
+            </a>
+            <a href="contact" class="btn menu-button btn-outline-primary order-4">
+                Contact
+            </a></div>
+
+        <div class="nav-menu-collapsible-section d-none d-md-flex d-flex gap-2 justify-content-center justify-content-md-start align-items-center flex-wrap"><a href="api-status" title="API Status" class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2"><i class="bi bi-clipboard2-pulse-fill"></i></a>
+            <a href="https://twitter.com/fiakkasa" target="_blank" class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="X (Twitter)"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://cy.linkedin.com/in/fiakkasa" target="_blank" class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="Linked In"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.nuget.org/profiles/fiakkasa" target="_blank" class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="Nuget"><i class="bi bi-nuget"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-circle" viewBox="0 0 50 50"><g stroke-width="2" stroke="currentColor" fill="none" fill-rule="evenodd"><rect x="9.654" y="9.654" width="39.346" height="39.346" rx="10"></rect>
+                            <circle cx="4.327" cy="4.327" r="3.327"></circle>
+                            <circle cx="19.231" cy="19.231" r="3.808"></circle>
+                            <circle cx="36.538" cy="36.538" r="6.692"></circle></g></svg></i></a>
+            <a href="https://www.npmjs.com/~fiakkasa" target="_blank" class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="NPM"><i class="bi bi-npm"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-npm" viewBox="0 0 32 32"><path d="M 0 10 L 0 21 L 9 21 L 9 23 L 16 23 L 16 21 L 32 21 L 32 10 L 0 10 z M 1.7773438 11.777344 L 8.8886719 11.777344 L 8.890625 11.777344 L 8.890625 19.445312 L 7.1113281 19.445312 L 7.1113281 13.556641 L 5.3339844 13.556641 L 5.3339844 19.445312 L 1.7773438 19.445312 L 1.7773438 11.777344 z M 10.667969 11.777344 L 17.777344 11.777344 L 17.779297 11.777344 L 17.779297 19.443359 L 14.222656 19.443359 L 14.222656 21.222656 L 10.667969 21.222656 L 10.667969 11.777344 z M 19.556641 11.777344 L 30.222656 11.777344 L 30.224609 11.777344 L 30.224609 19.445312 L 28.445312 19.445312 L 28.445312 13.556641 L 26.667969 13.556641 L 26.667969 19.445312 L 24.890625 19.445312 L 24.890625 13.556641 L 23.111328 13.556641 L 23.111328 19.445312 L 19.556641 19.445312 L 19.556641 11.777344 z M 14.222656 13.556641 L 14.222656 17.667969 L 16 17.667969 L 16 13.556641 L 14.222656 13.556641 z"></path></svg></i></a>
+            <a href="https://github.com/fiakkasa" target="_blank" class="btn menu-button btn-lg btn-outline-primary rounded-circle p-1 px-2" title="GitHub"><i class="bi bi-github"></i></a></div></div>
+
+    <button type="button" class="nav-menu-expand-collapse d-md-none flex-shrink-0 btn btn-sm btn-outline-primary p-0 px-1 rounded-circle" blazor:onclick="1"><i class="bi bi-chevron-up"></i></button></nav>

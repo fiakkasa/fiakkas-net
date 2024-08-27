@@ -1,0 +1,167 @@
+@page "/portfolio"
+@attribute [StreamRendering]
+@inject IFiakkasNetApi Api
+@inject ILogger<Portfolio> Logger
+@implements IDisposable
+
+<UniversalTitle Title="Portfolio">
+    <button type="button"
+            class="btn btn-outline-primary rounded-circle p-0 px-1"
+            title="Refresh" disabled="@Loading"
+            @onclick="Refresh">
+        <i class="bi bi-arrow-clockwise"></i>
+    </button>
+</UniversalTitle>
+
+<ContentFlow IsLoading="@Loading"
+             HasError="@HasError"
+             HasData="@(Model.Length > 0)">
+    <div class="d-flex flex-column gap-2">
+        @foreach (var yearSection in Model!)
+        {
+            <div class="year-section card" @key="yearSection.Key">
+                <div class="card-body">
+                    <h3 class="year-title card-title">
+                        @yearSection.Key
+                    </h3>
+                    <div class="items-of-year row gap-2">
+                        @foreach (var categorySection in yearSection.Value)
+                        {
+                            <div class="category-section col-12 col-xl" @key="categorySection.Key">
+                                <h4 class="category-title card-title">
+                                    @categorySection.Key
+                                </h4>
+                                <div class="items-of-category striped-container d-flex flex-column gap-1">
+                                    @foreach (var categoryItem in categorySection.Value)
+                                    {
+                                        <div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1" @key="categoryItem.Id">
+                                            <div>
+                                                @if (categoryItem.Href is not null)
+                                                {
+                                                    <a href="@categoryItem.Href" target="_blank" class="text-decoration-none">
+                                                        @categoryItem.Title
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        @categoryItem.Title
+                                                    </span>
+                                                }
+                                            </div>
+
+                                            @if (categoryItem.Customer is { Title.Length: > 0 })
+                                            {
+                                                <div class="small d-flex gap-2">
+                                                    <i class="bi bi-person-rolodex flex-shrink-0"></i>
+                                                    @if (categoryItem.Customer.Href is not null)
+                                                    {
+                                                        <a href="@categoryItem.Customer.Href" target="_blank" class="text-decoration-none">
+                                                            @categoryItem.Customer.Title
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>
+                                                            @categoryItem.Customer.Title
+                                                        </span>
+                                                    }
+                                                </div>
+                                            }
+                                            @if (categoryItem.TechnologiesSummary.Length > 0)
+                                            {
+                                                <div class="small d-flex gap-2 fst-italic fw-light">
+                                                    <i class="bi bi-tools flex-shrink-0"></i>
+                                                    <span>
+                                                        @categoryItem.TechnologiesSummary
+                                                    </span>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</ContentFlow>
+
+
+@code {
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    private const int _pageSize = 1_000;
+    internal bool Loading { get; private set; } = true;
+    internal bool HasError { get; private set; }
+    internal KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[] Model { get; private set; } = [];
+
+    private async Task Refresh()
+    {
+        if (Loading) return;
+
+        await SetData();
+    }
+
+    private async Task SetData()
+    {
+        try
+        {
+            Loading = true;
+            HasError = false;
+            Model = [];
+
+            StateHasChanged();
+
+            var result = await Api.GetPortfolioItems.ExecuteAsync(
+                null,
+                null,
+                _pageSize,
+                null,
+                null,
+                null,
+                _cancellationTokenSource.Token
+            );
+
+            result.EnsureNoErrors();
+
+            Model =
+                result
+                    .Data
+                    ?.PortfolioItems
+                    ?.Nodes
+                    ?.GroupBy(x => x.Year)
+                    .Select(groupedByYear =>
+                        KeyValuePair.Create(
+                            groupedByYear.Key,
+                            groupedByYear
+                                .Where(x => x.Category is { Title.Length: > 0 })
+                                .GroupBy(x => x.Category!.Title)
+                                .Select(x => KeyValuePair.Create(x.Key, x.ToArray()))
+                                .ToArray()
+                        )
+                    )
+                    .ToArray() ?? [];
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to retrieve data with message: {Message}", ex.Message);
+            Model = [];
+            HasError = true;
+        }
+
+        Loading = false;
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync() => await SetData();
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
+    }
+
+}

@@ -31,4 +31,24 @@
         <ProjectReference Include="..\ui\ui.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_Template_When_Data_Is_Present.snap" />
+      <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_Loading_When_Data_Is_In_Transit.snap" />
+      <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_GenericNodata_When_Data_Is_Not_Present.snap" />
+      <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_GenericError_When_Error.snap" />
+      <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Prevent_Refresh_When_Loading.snap" />
+      <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Allow_Refresh_When_Not_Loading.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_two_items.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_three_items.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_TechItems.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Hrefs.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Customer_TechItems.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Customer.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory_TechItems.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory_Customer.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_All.snap" />
+      <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item.snap" />
+    </ItemGroup>
+
 </Project>

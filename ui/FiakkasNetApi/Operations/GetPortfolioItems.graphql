@@ -1,0 +1,55 @@
+query GetPortfolioItems(
+  $where: PortfolioItemFilterInput,
+  $order: [PortfolioItemSortInput!],
+  $first: Int,
+  $last: Int,
+  $after: String,
+  $before: String
+) {
+  portfolioItems(
+    where: $where,
+    order: $order,
+    first: $first,
+    last: $last,
+    after: $after,
+    before: $before
+  ) {
+    totalCount
+    nodes {
+      createdAt
+      href
+      id
+      technologiesSummary
+      title
+      updatedAt
+      version
+      year
+      category {
+        createdAt
+        id
+        title
+        updatedAt
+        version
+      }
+      customer {
+        createdAt
+        href
+        id
+        title
+        updatedAt
+        version
+      }
+      technologyCategories {
+        totalCount
+        nodes {
+          createdAt
+          href
+          id
+          title
+          updatedAt
+          version
+        }
+      }
+    }
+  }
+}

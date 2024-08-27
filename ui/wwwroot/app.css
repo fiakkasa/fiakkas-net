@@ -7,8 +7,9 @@ html {
   overflow: hidden;
 }
 
-.app-container {
-  max-width: 1120px;
+nav,
+.main-inner-container {
+  max-width: 1280px;
 }
 
 .menu-button:not(.active-menu-button) {
@@ -41,8 +42,6 @@ textarea {
   opacity: .667 !important;
 }
 
-@media (min-width: 1121px) {
-  nav {
-    border-radius: var(--bs-border-radius-pill) !important;
-  }
+.striped-container > .striped-item:nth-child(odd) {
+  background-color: var(--bs-tertiary-bg);
 }
