@@ -32,12 +32,12 @@ window.addEventListener('load', () => {
         }
     }
     setColorModePreference(_darkModePreferenceQuery.matches);
-    _darkModePreferenceQuery.addEventListener("change", e =>  setColorModePreference(e.matches));
+    _darkModePreferenceQuery.addEventListener("change", e => setColorModePreference(e.matches));
     transitionFullScreenLoader().finally(removeFullScreenLoader);
 });
 window.addEventListener('unload', () => {
     try {
-        _darkModePreferenceQuery && _darkModePreferenceQuery.removeEventListener('change', e =>  setColorModePreference(e.matches));
+        _darkModePreferenceQuery && _darkModePreferenceQuery.removeEventListener('change', e => setColorModePreference(e.matches));
     } catch {
     }
     try {

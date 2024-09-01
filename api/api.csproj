@@ -8,14 +8,14 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <ContainerRepository>fiakkas-net-api</ContainerRepository>
-        <Version>3.0.5</Version>
-        <ContainerImageTags>3.0.5;latest</ContainerImageTags>
+        <Version>3.0.6</Version>
+        <ContainerImageTags>3.0.6;latest</ContainerImageTags>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1"/>
         <PackageReference Include="GraphHealthChecks" Version="2.0.1"/>
-        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="7.7.1"/>
+        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.0.2"/>
         <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.11"/>
         <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="13.9.11"/>
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.2"/>
