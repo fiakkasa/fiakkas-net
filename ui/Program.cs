@@ -8,6 +8,7 @@ var isDev = builder.Environment.IsDevelopment();
 builder.Host.AddUiLoggingProvider();
 
 services.AddUiConfig();
+services.AddUiCache();
 services.AddHtmlParser();
 
 // Add services to the container.

@@ -1,54 +1,66 @@
 @inherits TestContext
 
 @code {
+    private static readonly DateTimeOffset _date = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+    private readonly IFiakkasNetApi _api = Substitute.For<IFiakkasNetApi>();
+    private readonly IOperationResult<IGetSystemStatusResult> _apiResult = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
     private readonly ILogger<ApiStatus> _logger = Substitute.For<ILogger<ApiStatus>>();
 
     public ApiStatusTests()
     {
         ComponentFactories.AddStub<PageTitle>();
+        _apiResult.Data.Returns(default(IGetSystemStatusResult?));
+        Services.AddSingleton(_api);
         Services.AddSingleton(_logger);
     }
 
-    [Fact]
-    public void Api_Status_Should_Render_Template_When_Data_Is_Present()
-    {
-        var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
-        var data = new GetSystemStatusResult(
+    private Task<IOperationResult<IGetSystemStatusResult>> GetMethodCall() =>
+        _api
+            .GetSystemStatus
+            .ExecuteAsync(Arg.Any<CancellationToken>());
+
+    private GetSystemStatusResult DataFactory(bool includeHealthEntries = false) =>
+        new(
             new GetSystemStatus_SystemStatus_SystemInfoItem(
-                new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
+                _date,
                 TimeSpan.FromMinutes(1),
                 "1.0.0",
                 new GetSystemStatus_SystemStatus_Health_HealthReportSummary(
                     HealthStatus.Healthy,
                     TimeSpan.FromSeconds(30),
-                    [
-                        new GetSystemStatus_SystemStatus_Health_Entries_KeyValuePairOfStringAndHealthReportItem(
-                            "Service",
-                            new GetSystemStatus_SystemStatus_Health_Entries_Value_HealthReportItem(
-                                "Description",
-                                TimeSpan.FromSeconds(30),
-                                HealthStatus.Healthy,
-                                null
+                    includeHealthEntries switch
+                    {
+                        true =>
+                        [
+                            new GetSystemStatus_SystemStatus_Health_Entries_KeyValuePairOfStringAndHealthReportItem(
+                                "Service",
+                                new GetSystemStatus_SystemStatus_Health_Entries_Value_HealthReportItem(
+                                    "Description",
+                                    TimeSpan.FromSeconds(30),
+                                    HealthStatus.Healthy,
+                                    null
+                                )
                             )
-                        )
-                    ]
+                        ],
+                        _ => null
+                    }
                 )
             )
         );
-        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
-        result.Data.Returns(data);
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
-            .Returns(taskSource.Task);
-        Services.AddSingleton(api);
+
+    [Fact]
+    public void Api_Status_Should_Render_Template_When_Data_Is_Present()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
+        var data = DataFactory(true);
+        _apiResult.Data.Returns(data);
+        GetMethodCall().Returns(taskSource.Task);
 
         var cut = RenderComponent<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
 
-        taskSource.SetResult(result);
+        taskSource.SetResult(_apiResult);
 
         cut.WaitForAssertion(() => cut.Find("table.table"));
 
@@ -59,32 +71,15 @@
     public void Api_Status_Should_Render_Template_When_Data_Is_Present_With_No_Health_Entries()
     {
         var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
-        var data = new GetSystemStatusResult(
-            new GetSystemStatus_SystemStatus_SystemInfoItem(
-                new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero),
-                TimeSpan.FromMinutes(1),
-                "1.0.0",
-                new GetSystemStatus_SystemStatus_Health_HealthReportSummary(
-                    HealthStatus.Healthy,
-                    TimeSpan.FromSeconds(30),
-                    null
-                )
-            )
-        );
-        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
-        result.Data.Returns(data);
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
-            .Returns(taskSource.Task);
-        Services.AddSingleton(api);
+        var data = DataFactory(false);
+        _apiResult.Data.Returns(data);
+        GetMethodCall().Returns(taskSource.Task);
 
         var cut = RenderComponent<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
 
-        taskSource.SetResult(result);
+        taskSource.SetResult(_apiResult);
 
         cut.WaitForAssertion(() => cut.Find("table.table"));
 
@@ -95,14 +90,7 @@
     public void Api_Status_Should_Render_Loading_When_Data_Is_In_Transit()
     {
         var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
-        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
-        result.Data.Returns(default(IGetSystemStatusResult?));
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
-            .Returns(taskSource.Task);
-        Services.AddSingleton(api);
+        GetMethodCall().Returns(taskSource.Task);
 
         var cut = RenderComponent<ApiStatus>();
 
@@ -110,24 +98,18 @@
 
         cut.Markup.MatchSnapshot();
 
-        taskSource.SetResult(result);
+        taskSource.SetResult(_apiResult);
     }
 
     [Fact]
     public void Api_Status_Should_Prevent_Refresh_When_Loading()
     {
         var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
-        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
-        result.Data.Returns(default(IGetSystemStatusResult?));
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
+        GetMethodCall()
             .Returns(
-                Task.FromResult(result),
+                Task.FromResult(_apiResult),
                 taskSource.Task
             );
-        Services.AddSingleton(api);
 
         var cut = RenderComponent<ApiStatus>();
         var refreshButton = cut.Find("button");
@@ -154,24 +136,18 @@
 
         cut.Markup.MatchSnapshot();
 
-        taskSource.SetResult(result);
+        taskSource.SetResult(_apiResult);
     }
 
     [Fact]
     public void Api_Status_Should_Allow_Refresh_When_Not_Loading()
     {
         var taskSourceAfter = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
-        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
-        result.Data.Returns(default(IGetSystemStatusResult?));
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
+        GetMethodCall()
             .Returns(
-                Task.FromResult(result),
+                Task.FromResult(_apiResult),
                 taskSourceAfter.Task
             );
-        Services.AddSingleton(api);
 
         var cut = RenderComponent<ApiStatus>();
         var refreshButton = cut.Find("button");
@@ -190,7 +166,7 @@
             cut.Instance.Loading.Should().BeTrue();
         });
 
-        taskSourceAfter.SetResult(result);
+        taskSourceAfter.SetResult(_apiResult);
 
         cut.WaitForAssertion(() =>
         {
@@ -204,14 +180,7 @@
     [Fact]
     public void Api_Status_Should_Render_GenericNodata_When_Data_Is_Not_Present()
     {
-        var result = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
-        result.Data.Returns(default(IGetSystemStatusResult?));
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
-            .Returns(Task.FromResult(result));
-        Services.AddSingleton(api);
+        GetMethodCall().Returns(Task.FromResult(_apiResult));
 
         var cut = RenderComponent<ApiStatus>();
 
@@ -223,12 +192,7 @@
     [Fact]
     public void Api_Status_Should_Render_GenericError_When_Error()
     {
-        var api = Substitute.For<IFiakkasNetApi>();
-        api
-            .GetSystemStatus
-            .ExecuteAsync(Arg.Any<CancellationToken>())
-            .ThrowsAsync(new Exception("Splash!"));
-        Services.AddSingleton(api);
+        GetMethodCall().ThrowsAsync(new Exception("Splash!"));
 
         var cut = RenderComponent<ApiStatus>();
 

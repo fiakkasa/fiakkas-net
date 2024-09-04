@@ -1,6 +1,7 @@
 @page "/portfolio"
 @attribute [StreamRendering]
 @inject IFiakkasNetApi Api
+@inject IAppCache Cache
 @inject ILogger<Portfolio> Logger
 @implements IDisposable
 
@@ -91,6 +92,8 @@
 
 
 @code {
+    private readonly string _cacheKey = "portfolio_data";
+    private readonly TimeSpan _cacheDuration = TimeSpan.FromHours(1);
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private const int _pageSize = 1_000;
     internal bool Loading { get; private set; } = true;
@@ -101,13 +104,47 @@
     {
         if (Loading) return;
 
-        await SetData();
+        await SetData(false);
     }
 
-    private async Task SetData()
+    private static KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[] ResultToModel(
+        IOperationResult<IGetPortfolioItemsResult> result
+    ) =>
+        result
+            .Data
+            ?.PortfolioItems
+            ?.Nodes
+            ?.GroupBy(x => x.Year)
+            .Select(groupedByYear =>
+                KeyValuePair.Create(
+                    groupedByYear.Key,
+                    groupedByYear
+                        .Where(x => x.Category is { Title.Length: > 0 })
+                        .GroupBy(x => x.Category!.Title)
+                        .Select(x => KeyValuePair.Create(x.Key, x.ToArray()))
+                        .ToArray()
+                )
+            )
+            .ToArray() ?? [];
+
+    private async Task SetData(bool useCache = true)
     {
         try
         {
+            if (
+                useCache
+                && Cache.TryGetValue<KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]>(
+                    _cacheKey,
+                    out var cachedModel
+                )
+            )
+            {
+                Model = cachedModel;
+                return;
+            }
+
+            Cache.Remove(_cacheKey);
+
             Loading = true;
             HasError = false;
             Model = [];
@@ -126,23 +163,12 @@
 
             result.EnsureNoErrors();
 
-            Model =
-                result
-                    .Data
-                    ?.PortfolioItems
-                    ?.Nodes
-                    ?.GroupBy(x => x.Year)
-                    .Select(groupedByYear =>
-                        KeyValuePair.Create(
-                            groupedByYear.Key,
-                            groupedByYear
-                                .Where(x => x.Category is { Title.Length: > 0 })
-                                .GroupBy(x => x.Category!.Title)
-                                .Select(x => KeyValuePair.Create(x.Key, x.ToArray()))
-                                .ToArray()
-                        )
-                    )
-                    .ToArray() ?? [];
+            Model = ResultToModel(result);
+
+            if (Model.Length > 0)
+            {
+                Cache.Add(_cacheKey, Model, _cacheDuration);
+            }
         }
         catch (Exception ex)
         {
@@ -150,10 +176,12 @@
             Model = [];
             HasError = true;
         }
+        finally
+        {
+            Loading = false;
 
-        Loading = false;
-
-        StateHasChanged();
+            StateHasChanged();
+        }
     }
 
     protected override async Task OnInitializedAsync() => await SetData();

@@ -1,0 +1,335 @@
+@inherits TestContext
+
+@code {
+    private static readonly DateTimeOffset _date = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+    private readonly IFiakkasNetApi _api = Substitute.For<IFiakkasNetApi>();
+    private readonly IOperationResult<IGetPortfolioItemsResult> _apiResult = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+    private readonly IAppCache _cache = Substitute.For<IAppCache>();
+    private readonly ILogger<Portfolio> _logger = Substitute.For<ILogger<Portfolio>>();
+
+    public PortfolioTests()
+    {
+        _apiResult.Data.Returns(default(IGetPortfolioItemsResult?));
+        Services.AddSingleton(_api);
+        Services.AddSingleton(_cache);
+        Services.AddSingleton(_logger);
+    }
+
+    private Task<IOperationResult<IGetPortfolioItemsResult>> GetMethodCall() =>
+        _api
+            .GetPortfolioItems
+            .ExecuteAsync(
+                Arg.Any<PortfolioItemFilterInput?>(),
+                Arg.Any<IReadOnlyList<PortfolioItemSortInput>?>(),
+                Arg.Any<int?>(),
+                Arg.Any<int?>(),
+                Arg.Any<string?>(),
+                Arg.Any<string?>(),
+                Arg.Any<CancellationToken>()
+            );
+
+    private static GetPortfolioItemsResult DataFactory() =>
+        new(
+            new GetPortfolioItems_PortfolioItems_PortfolioItemsConnection(
+                6,
+                Enumerable
+                    .Range(1, 6)
+                    .Select((_, i) =>
+                        new GetPortfolioItems_PortfolioItems_Nodes_PortfolioItem(
+                            _date,
+                            i switch
+                            {
+                                // case: uri present
+                                > 2 => new Uri($"/portfolio-item-{i}", UriKind.Relative),
+                                _ => null
+                            },
+                            $"portfolio-item-id-{i}",
+                            i switch
+                            {
+                                // case: tech items present
+                                // match: tech items collection
+                                > 3 => string.Join(
+                                    ", ",
+                                    $"Information-Technology-Category-Title-{i}",
+                                    $"Software-Development-Category-Title-{i}",
+                                    $"Unknown-Technology-Category-Title-{i}"),
+                                _ => string.Empty
+                            },
+                            $"Portfolio-Item-Title-{i}",
+                            null,
+                            0,
+                            2024,
+                            i switch
+                            {
+                                // case: category is resolved
+                                > 0 => new GetPortfolioItems_PortfolioItems_Nodes_Category_PortfolioCategory(
+                                    _date,
+                                    $"category-id-{i}",
+                                    i switch
+                                    {
+                                        // mimic 2 categories
+                                        > 1 => $"Category-Title-{i % 2}",
+                                        _ => string.Empty
+                                    },
+                                    null,
+                                    0
+                                ),
+                                _ => null
+                            },
+                            i switch
+                            {
+                                // case: customer is resolved
+                                > 2 => new GetPortfolioItems_PortfolioItems_Nodes_Customer_Customer(
+                                    _date,
+                                    i switch
+                                    {
+                                        // case: uri present
+                                        > 4 => new Uri($"/customer-{i}", UriKind.Relative),
+                                        _ => null
+                                    },
+                                    $"customer-id-{i}",
+                                    i switch
+                                    {
+                                        // case: title present
+                                        > 3 => $"Customer-Title-{i}",
+                                        _ => string.Empty
+                                    },
+                                    null,
+                                    0
+                                ),
+                                _ => null
+                            },
+                            i switch
+                            {
+                                // case: tech items collection present
+                                > 3 => new GetPortfolioItems_PortfolioItems_Nodes_TechnologyCategories_TechnologyCategoriesConnection(
+                                    3,
+                                    [
+                                        new GetPortfolioItems_PortfolioItems_Nodes_TechnologyCategories_Nodes_InformationTechnologyCategory(
+                                            _date,
+                                            new Uri($"/information-technology-category-{i}", UriKind.Relative),
+                                            $"/information-technology-category-id-{i}",
+                                            $"Information-Technology-Category-Title-{i}",
+                                            null,
+                                            0
+                                        ),
+                                        new GetPortfolioItems_PortfolioItems_Nodes_TechnologyCategories_Nodes_SoftwareDevelopmentCategory(
+                                            _date,
+                                            new Uri($"/software-development-category-{i}", UriKind.Relative),
+                                            $"/software-development-category-id-{i}",
+                                            $"Software-Development-Category-Title-{i}",
+                                            null,
+                                            0
+                                        ),
+                                        new GetPortfolioItems_PortfolioItems_Nodes_TechnologyCategories_Nodes_UnknownTechnologyCategory(
+                                            _date,
+                                            new Uri($"/unknown-technology-category-{i}", UriKind.Relative),
+                                            $"/unknown-technology-category-id-{i}",
+                                            $"Unknown-Technology-Category-Title-{i}",
+                                            null,
+                                            0
+                                        )
+                                    ]
+                                ),
+                                _ => null
+                            }
+                        )
+                    )
+                    .ToArray()
+            )
+        );
+
+    [Fact]
+    public void Portfolio_Should_Render_Template_When_Data_Is_Present()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        var data = DataFactory();
+        _apiResult.Data.Returns(data);
+        GetMethodCall().Returns(taskSource.Task);
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
+
+        taskSource.SetResult(_apiResult);
+
+        cut.WaitForAssertion(() => cut.Find(".year-section"));
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_Template_When_Cached_Data_Is_Present()
+    {
+        var data = DataFactory();
+        _apiResult.Data.Returns(data);
+
+        GetMethodCall().Returns(Task.FromResult(_apiResult));
+
+        var firstRenderCut = RenderComponent<Portfolio>();
+        var firstRenderModel = firstRenderCut.Instance.Model;
+
+        _cache
+            .TryGetValue(
+                Arg.Any<string>(),
+                out Arg.Any<KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]>()
+            )
+            .Returns(x =>
+            {
+                x[1] = firstRenderModel;
+                return true;
+            });
+
+        _apiResult.Data.ReturnsNull();
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.Find(".year-section"));
+
+        cut.Markup.MatchSnapshot();
+
+        cut.Markup.MarkupMatches(firstRenderCut);
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_Loading_When_Data_Is_In_Transit()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        GetMethodCall().Returns(taskSource.Task);
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
+
+        cut.Markup.MatchSnapshot();
+
+        taskSource.SetResult(_apiResult);
+    }
+
+    [Fact]
+    public void Portfolio_Should_Prevent_Refresh_When_Loading()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        GetMethodCall()
+            .Returns(
+                Task.FromResult(_apiResult),
+                taskSource.Task
+            );
+
+        var cut = RenderComponent<Portfolio>();
+        var refreshButton = cut.Find("button");
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeNull();
+            cut.Instance.Loading.Should().BeFalse();
+        });
+
+        refreshButton.Click();
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().NotBeNull();
+            cut.Instance.Loading.Should().BeTrue();
+        });
+
+        refreshButton.RemoveAttribute("disabled");
+
+        refreshButton.Click();
+
+        cut.WaitForAssertion(() => cut.Instance.Loading.Should().BeTrue());
+
+        cut.Markup.MatchSnapshot();
+
+        taskSource.SetResult(_apiResult);
+    }
+
+    [Fact]
+    public void Portfolio_Should_Allow_Refresh_When_Not_Loading()
+    {
+        var taskSourceAfter = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        GetMethodCall()
+            .Returns(
+                Task.FromResult(_apiResult),
+                taskSourceAfter.Task
+            );
+
+        var cut = RenderComponent<Portfolio>();
+        var refreshButton = cut.Find("button");
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeNull();
+            cut.Instance.Loading.Should().BeFalse();
+        });
+
+        refreshButton.Click();
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeEmpty();
+            cut.Instance.Loading.Should().BeTrue();
+        });
+
+        taskSourceAfter.SetResult(_apiResult);
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeNull();
+            cut.Instance.Loading.Should().BeFalse();
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_GenericNodata_When_Data_Is_Not_Present()
+    {
+        GetMethodCall().Returns(Task.FromResult(_apiResult));
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_GenericNodata_When_PortfolioItems_Is_Null()
+    {
+        _apiResult.Data.Returns(new GetPortfolioItemsResult(null));
+        GetMethodCall().Returns(Task.FromResult(_apiResult));
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_GenericNodata_When_Nodes_Is_Null()
+    {
+        _apiResult.Data.Returns(new GetPortfolioItemsResult(new GetPortfolioItems_PortfolioItems_PortfolioItemsConnection(0, null)));
+        GetMethodCall().Returns(Task.FromResult(_apiResult));
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_GenericError_When_Error()
+    {
+        GetMethodCall().ThrowsAsync(new Exception("Splash!"));
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() => cut.FindComponent<GenericError>());
+
+        cut.Markup.MatchSnapshot();
+    }
+
+}
