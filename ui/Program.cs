@@ -19,9 +19,13 @@ services
 services.AddFiakkasNetApiClient();
 services.AddEmailService();
 
+services.AddResponseCompression();
+
 var app = builder.Build();
 
 app.UseStatusCodePagesWithRedirects("/404");
+
+app.UseResponseCompression();
 
 // Configure the HTTP request pipeline.
 if (!isDev)

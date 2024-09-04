@@ -131,6 +131,12 @@
     {
         try
         {
+            Loading = true;
+            HasError = false;
+            Model = [];
+
+            StateHasChanged();
+
             if (
                 useCache
                 && Cache.TryGetValue<KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]>(
@@ -139,17 +145,14 @@
                 )
             )
             {
+                await 250.SafeDelay(_cancellationTokenSource.Token);
+
                 Model = cachedModel;
+
                 return;
             }
 
             Cache.Remove(_cacheKey);
-
-            Loading = true;
-            HasError = false;
-            Model = [];
-
-            StateHasChanged();
 
             var result = await Api.GetPortfolioItems.ExecuteAsync(
                 null,
