@@ -3,14 +3,14 @@
   "isRoot": true,
   "tools": {
     "dotnet-reportgenerator-globaltool": {
-      "version": "5.3.8",
+      "version": "5.3.9",
       "commands": [
         "reportgenerator"
       ],
       "rollForward": false
     },
     "strawberryshake.tools": {
-      "version": "13.9.8",
+      "version": "13.9.11",
       "commands": [
         "dotnet-graphql"
       ],
