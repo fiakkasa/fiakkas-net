@@ -13,39 +13,39 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1" />
-        <PackageReference Include="GraphHealthChecks" Version="2.0.1" />
-        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.0.2" />
-        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.12" />
-        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="13.9.12" />
-        <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
-        <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0" />
-        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.1.1" />
-        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
-        <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
-        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
-        <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
-        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1"/>
+        <PackageReference Include="GraphHealthChecks" Version="2.0.1"/>
+        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.0.2"/>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.12"/>
+        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="13.9.12"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.2"/>
+        <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0"/>
+        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.1.1"/>
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1"/>
+        <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0"/>
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0"/>
+        <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0"/>
+        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\api.Achievements\api.Achievements.csproj" />
-        <ProjectReference Include="..\api.Application\api.Application.csproj" />
-        <ProjectReference Include="..\api.Categories\api.Categories.csproj" />
-        <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj" />
-        <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
-        <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj" />
-        <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
-        <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
-        <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-        <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
-        <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
+        <ProjectReference Include="..\api.Achievements\api.Achievements.csproj"/>
+        <ProjectReference Include="..\api.Application\api.Application.csproj"/>
+        <ProjectReference Include="..\api.Categories\api.Categories.csproj"/>
+        <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj"/>
+        <ProjectReference Include="..\api.Customers\api.Customers.csproj"/>
+        <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj"/>
+        <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj"/>
+        <ProjectReference Include="..\api.Languages\api.Languages.csproj"/>
+        <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj"/>
+        <ProjectReference Include="..\api.Shared\api.Shared.csproj"/>
+        <ProjectReference Include="..\api.TextItems\api.TextItems.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="api.Tests" />
+        <InternalsVisibleTo Include="api.Tests"/>
     </ItemGroup>
 
 </Project>
