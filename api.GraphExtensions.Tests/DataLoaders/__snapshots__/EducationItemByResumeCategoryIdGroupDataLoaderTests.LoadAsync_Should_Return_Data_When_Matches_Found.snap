@@ -6,7 +6,7 @@
         "Start": "2024-01-01",
         "End": null
       },
-      "Title": "",
+      "Title": "Title",
       "Href": "/test",
       "Location": "Location",
       "Description": "Description",
@@ -24,7 +24,7 @@
         "Start": "2024-01-01",
         "End": null
       },
-      "Title": "",
+      "Title": "Title",
       "Href": "/test",
       "Location": "Location",
       "Description": "Description",
