@@ -14,6 +14,7 @@ public static class EducationItemMappers
             Version = x.Version,
             CategoryId = x.CategoryId,
             TimePeriod = x.TimePeriod,
+            Title = x.Title,
             Href = x.Href,
             Location = x.Location,
             Description = x.Description,
