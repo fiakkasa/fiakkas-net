@@ -8,8 +8,8 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <ContainerRepository>fiakkas-net-ui</ContainerRepository>
-        <Version>1.0.13</Version>
-        <ContainerImageTags>1.0.13;latest</ContainerImageTags>
+        <Version>1.0.14</Version>
+        <ContainerImageTags>1.0.14;latest</ContainerImageTags>
     </PropertyGroup>
 
     <ItemGroup>
