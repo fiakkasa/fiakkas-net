@@ -1,20 +1,25 @@
-let _darkModePreferenceQuery;
+const _darkModePreferenceQuery = window.matchMedia('(prefers-color-scheme: dark)');
 let _fullScreenLoaderTimeout;
 
-const setColorModePreference = (isDark) => {
+const setColorModePreference = e => {
     try {
-        let mode = isDark ? 'dark' : 'light';
+        let mode = !!e?.matches ? 'dark' : 'light';
+
+        if (document.body.getAttribute('data-bs-theme') === mode) {
+            return;
+        }
+
         document.body.setAttribute('data-bs-theme', mode);
     } catch {
     }
 };
 
+window.autoSetColorModePreference = () => setColorModePreference(_darkModePreferenceQuery);
+
 window.addEventListener('load', () => {
-    _darkModePreferenceQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const transitionFullScreenLoader = () =>
         new Promise((resolve, _) => {
             const delay = 1000;
-
             try {
                 const fullScreenLoaderElement = document.querySelector('.full-screen-loader');
                 fullScreenLoaderElement.style.transitionDuration = `${delay}ms`;
@@ -31,13 +36,13 @@ window.addEventListener('load', () => {
         } catch {
         }
     }
-    setColorModePreference(_darkModePreferenceQuery.matches);
-    _darkModePreferenceQuery.addEventListener("change", e => setColorModePreference(e.matches));
+    setColorModePreference(_darkModePreferenceQuery);
+    _darkModePreferenceQuery.addEventListener('change', setColorModePreference);
     transitionFullScreenLoader().finally(removeFullScreenLoader);
 });
 window.addEventListener('unload', () => {
     try {
-        _darkModePreferenceQuery && _darkModePreferenceQuery.removeEventListener('change', e => setColorModePreference(e.matches));
+        _darkModePreferenceQuery?.removeEventListener('change', setColorModePreference);
     } catch {
     }
     try {
