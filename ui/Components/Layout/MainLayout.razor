@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@implements IDisposable
 @attribute [ExcludeFromCodeCoverage]
 
 <div class="app-container position-relative h-100 w-100 d-flex flex-column overflow-hidden">
@@ -35,4 +37,24 @@
     private ErrorBoundary? _errorBoundary;
 
     protected override void OnParametersSet() => _errorBoundary?.Recover();
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += LocationChanged;
+        base.OnInitialized();
+    }
+
+    private async void LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("autoSetColorModePreference");
+        }
+        catch
+        {
+            // Ignore
+        }
+    }
+
+    public void Dispose() => NavigationManager.LocationChanged -= LocationChanged;
 }
