@@ -8,8 +8,8 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <ContainerRepository>fiakkas-net-ui</ContainerRepository>
-        <Version>1.0.14</Version>
-        <ContainerImageTags>1.0.14;latest</ContainerImageTags>
+        <Version>1.0.15</Version>
+        <ContainerImageTags>1.0.15;latest</ContainerImageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,7 +28,7 @@
         <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2"/>
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
-        <PackageReference Include="StrawberryShake.Blazor" Version="13.9.12"/>
+        <PackageReference Include="StrawberryShake.Blazor" Version="13.9.13"/>
     </ItemGroup>
 
     <ItemGroup>
