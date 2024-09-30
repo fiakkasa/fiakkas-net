@@ -76,7 +76,10 @@ Consider using the `data.sample.json` file as a starting point.
 {
   "UiConfig": {
     "Title": "UI",
-    "Separator": " - "
+    "Separator": " - ",
+    "Description": "Description",
+    "Keywords": "Keywords",
+    "Author": "Author"
   },
   "FiakkasNetApiConfig": {
     "BaseUrl": null

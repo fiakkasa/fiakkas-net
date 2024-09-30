@@ -42,7 +42,10 @@ public class ProgramTests
                     {
                       "UiConfig": {
                         "Title": "UI",
-                        "Separator": " - "
+                        "Separator": " - ",
+                        "Description": "Description",
+                        "Keywords": "Keywords",
+                        "Author": "Author"
                       },
                       "FiakkasNetApiConfig": {
                         "BaseUrl": "https://test.com"
