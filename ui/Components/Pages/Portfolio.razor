@@ -121,6 +121,7 @@
                     groupedByYear
                         .Where(x => x.Category is { Title.Length: > 0 })
                         .GroupBy(x => x.Category!.Title)
+                        .OrderBy(x => x.Key)
                         .Select(x => KeyValuePair.Create(x.Key, x.ToArray()))
                         .ToArray()
                 )
