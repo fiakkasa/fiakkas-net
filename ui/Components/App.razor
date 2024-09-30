@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@inject ILogger<App> Logger
+@inject IOptions<UiConfig> Options
+@attribute [ExcludeFromCodeCoverage]
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,19 +15,37 @@
     <link rel="stylesheet" href="app.css"/>
     <link rel="stylesheet" href="ui.styles.css"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
-    <meta name="description"
-          content="I am a software developer and an IT Specialist with experience in the commercial and the academic sector. Currently, I concentrate on software development using open source tools and IT support. I am always interested in projects that raise the bar for the end user."/>
-    <meta name="keywords"
-          content="cyprus, limassol, c#, php, graphql, odata, entity framework, asp.net, blazor, typescript, javascript, jquery, angular, react, json, css, less, sass, html 5, xhtml, html, vb.net, visual basic.net, mysql, mssql, mongodb, java, wordpress, object oriented programming, object oriented design, web development, oss author"/>
-    <meta name="author" content="Adamos Fiakkas"/>
+    <meta name="description" content="@_uiConfig.Description"/>
+    <meta name="keywords" content="@_uiConfig.Keywords"/>
+    <meta name="author" content="@_uiConfig.Author"/>
+    <script src="theme-auto-switcher.js?t=@_timestamp"></script>
     <HeadOutlet @rendermode="InteractiveServer"/>
-    <script src="theme-auto-switcher.js"></script>
 </head>
 
 <body>
-<div class="full-screen-loader" data-message="Adamos Fiakkas"></div>
+<div class="full-screen-loader" data-message="@_uiConfig.Title"></div>
 <Routes @rendermode="InteractiveServer"/>
 <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>
+
+@code {
+    private UiConfig _uiConfig = new();
+    private readonly long _timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            _uiConfig = Options.Value;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to acquire options with message: {Message}", ex.Message);
+        }
+
+        base.OnInitialized();
+    }
+
+}

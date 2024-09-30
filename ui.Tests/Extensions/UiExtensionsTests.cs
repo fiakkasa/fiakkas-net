@@ -11,7 +11,10 @@ public class UiExtensionsTests
         var expected = new UiConfig
         {
             Title = "Title",
-            Separator = " - "
+            Separator = " - ",
+            Description = "Description",
+            Keywords = "Keywords",
+            Author = "Author"
         };
         var serviceProvider =
             new ServiceCollection()
