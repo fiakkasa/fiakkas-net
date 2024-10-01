@@ -115,6 +115,7 @@
             ?.PortfolioItems
             ?.Nodes
             ?.GroupBy(x => x.Year)
+            ?.OrderByDescending(x => x.Key)
             .Select(groupedByYear =>
                 KeyValuePair.Create(
                     groupedByYear.Key,

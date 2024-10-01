@@ -24,7 +24,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.13"/>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.14"/>
     </ItemGroup>
 
     <ItemGroup>
