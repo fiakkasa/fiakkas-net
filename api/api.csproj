@@ -16,8 +16,8 @@
         <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1"/>
         <PackageReference Include="GraphHealthChecks" Version="2.0.1"/>
         <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.0.2"/>
-        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.13"/>
-        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="13.9.13"/>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.14"/>
+        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="13.9.14"/>
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.2"/>
         <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0"/>
         <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.1.1"/>
