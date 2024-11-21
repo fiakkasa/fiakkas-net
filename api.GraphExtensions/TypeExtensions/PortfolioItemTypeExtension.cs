@@ -28,18 +28,23 @@ public sealed class PortfolioItemTypeExtension
     {
         var result = await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken);
 
-        return result.SelectMany(x => x);
+        return result.OfType<IPolymorphicTechnologyCategory[]>().SelectMany(x => x);
     }
 
     public async ValueTask<string> GetTechnologiesSummary(
         [Parent] PortfolioItem parent,
         [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken
-    ) => string.Join(
-        ", ",
-        (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
-        .SelectMany(x => x)
-        .OfType<IPolymorphicTechnologyCategory>()
-        .Select(x => x.Title)
-    );
+    )
+    {
+        var result = await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken);
+
+        return string.Join(
+            ", ",
+            result
+                .OfType<IPolymorphicTechnologyCategory[]>()
+                .SelectMany(x => x)
+                .Select(x => x.Title)
+        );
+    }
 }

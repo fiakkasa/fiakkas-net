@@ -54,7 +54,6 @@ public class GraphQLExtensionsTests
                 query = "{ text }"
             })
         };
-        queryRequest.Headers.Add("GraphQL-Tracing", "1");
         var queryResponse = await client.SendAsync(queryRequest);
         var queryResult = await queryResponse.Content.ReadFromJsonAsync<JsonDocument>();
 
@@ -69,7 +68,6 @@ public class GraphQLExtensionsTests
         queryResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         queryResult.Should().NotBeNull();
         queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
-        queryResult.RootElement.GetProperty("extensions").GetProperty("tracing").GetRawText().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -106,7 +104,6 @@ public class GraphQLExtensionsTests
                 query = "{ text }"
             })
         };
-        queryRequest.Headers.Add("GraphQL-Tracing", "1");
         var queryResponse = await client.SendAsync(queryRequest);
         var queryResult = await queryResponse.Content.ReadFromJsonAsync<JsonDocument>();
 
@@ -146,5 +143,9 @@ public class GraphQLExtensionsTests
         [UseSorting]
         [UseFiltering]
         public static IEnumerable<Message> GetMessages() => _messages;
+
+        [NodeResolver]
+        public static Message? GetMessageById(Guid id) =>
+            Array.Find(_messages, m => m.Id == id);
     }
 }

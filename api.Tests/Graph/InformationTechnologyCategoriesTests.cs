@@ -36,7 +36,7 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -62,7 +62,7 @@ public class InformationTechnologyCategoriesTests(GraphFixture fixture) : IClass
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

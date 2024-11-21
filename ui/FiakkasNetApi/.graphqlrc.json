@@ -6,6 +6,7 @@
       "name": "FiakkasNetApi",
       "namespace": "ui.GraphQL",
       "url": "http://localhost:5069/graphql",
+      "dependencyInjection": true,
       "records": {
         "inputs": false,
         "entities": false

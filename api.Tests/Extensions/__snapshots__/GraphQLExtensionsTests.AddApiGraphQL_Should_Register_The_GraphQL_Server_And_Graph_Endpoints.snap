@@ -44,7 +44,7 @@ type AchievementsConnection {
   "A flattened list of the nodes."
   nodes: [Achievement!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -64,7 +64,7 @@ type AssociatedCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [PolymorphicCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -84,7 +84,7 @@ type CategoriesConnection {
   "A flattened list of the nodes."
   nodes: [PolymorphicCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -117,7 +117,7 @@ type ContactItemsConnection {
   "A flattened list of the nodes."
   nodes: [ContactItem!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -135,9 +135,9 @@ type Customer implements Node {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
-  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): PortfolioTechnologyCategoriesConnection
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput @cost(weight: "10") order: [PortfolioCategorySortInput!] @cost(weight: "10")): PortfolioCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput @cost(weight: "10") order: [PortfolioItemSortInput!] @cost(weight: "10")): PortfolioItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput @cost(weight: "10") order: [IPolymorphicTechnologyCategorySortInput!] @cost(weight: "10")): PortfolioTechnologyCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
   internalId: UUID!
 }
 
@@ -150,7 +150,7 @@ type CustomersConnection {
   "A flattened list of the nodes."
   nodes: [Customer!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -173,7 +173,7 @@ type EducationItem implements Node {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  category: ResumeCategory
+  category: ResumeCategory @cost(weight: "10")
   internalId: UUID!
 }
 
@@ -186,7 +186,7 @@ type EducationItemsConnection {
   "A flattened list of the nodes."
   nodes: [EducationItem!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -219,7 +219,7 @@ type InformationTechnologyCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [InformationTechnologyCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -238,9 +238,9 @@ type InformationTechnologyCategory implements PolymorphicCategory & PolymorphicT
   updatedAt: DateTime
   version: Long!
   internalId: UUID!
-  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
-  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput @cost(weight: "10") order: [PortfolioCategorySortInput!] @cost(weight: "10")): PortfolioCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput @cost(weight: "10") order: [CustomerSortInput!] @cost(weight: "10")): PortfolioCustomersConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput @cost(weight: "10") order: [PortfolioItemSortInput!] @cost(weight: "10")): PortfolioItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
 }
 
 type KeyValuePairOfStringAndHealthReportItem {
@@ -267,7 +267,7 @@ type LanguagesConnection {
   "A flattened list of the nodes."
   nodes: [Language!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -287,7 +287,7 @@ type OtherCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [OtherCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -328,7 +328,7 @@ type PortfolioCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [PortfolioCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -346,9 +346,9 @@ type PortfolioCategory implements PolymorphicCategory & Node {
   updatedAt: DateTime
   version: Long!
   internalId: UUID!
-  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): CustomersConnection
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): TechnologyCategoriesConnection
+  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput @cost(weight: "10") order: [CustomerSortInput!] @cost(weight: "10")): CustomersConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput @cost(weight: "10") order: [PortfolioItemSortInput!] @cost(weight: "10")): PortfolioItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput @cost(weight: "10") order: [IPolymorphicTechnologyCategorySortInput!] @cost(weight: "10")): TechnologyCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
 }
 
 "A connection to a list of items."
@@ -360,7 +360,7 @@ type PortfolioCustomersConnection {
   "A flattened list of the nodes."
   nodes: [Customer!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -383,10 +383,10 @@ type PortfolioItem implements Node {
   updatedAt: DateTime
   version: Long!
   internalId: UUID!
-  category: PortfolioCategory
-  customer: Customer
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput order: [IPolymorphicTechnologyCategorySortInput!]): TechnologyCategoriesConnection
-  technologiesSummary: String!
+  category: PortfolioCategory @cost(weight: "10")
+  customer: Customer @cost(weight: "10")
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicTechnologyCategoryFilterInput @cost(weight: "10") order: [IPolymorphicTechnologyCategorySortInput!] @cost(weight: "10")): TechnologyCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  technologiesSummary: String! @cost(weight: "10")
 }
 
 "A connection to a list of items."
@@ -398,7 +398,7 @@ type PortfolioItemsConnection {
   "A flattened list of the nodes."
   nodes: [PortfolioItem!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -418,7 +418,7 @@ type PortfolioTechnologyCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [PolymorphicTechnologyCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -431,39 +431,39 @@ type PortfolioTechnologyCategoriesEdge {
 
 type Query {
   "Fetches an object given its ID."
-  node("ID of the object." id: ID!): Node
+  node("ID of the object." id: ID!): Node @cost(weight: "10")
   "Lookup nodes by a list of IDs."
-  nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  achievements("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [AchievementSortInput!] where: AchievementFilterInput): AchievementsConnection
-  achievementById(id: ID!): Achievement
-  health: HealthReportSummary!
-  systemStatus: SystemInfoItem!
-  categories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicCategorySortInput!] where: IPolymorphicCategoryFilterInput): CategoriesConnection
-  unknownCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [UnknownCategorySortInput!] where: UnknownCategoryFilterInput): UnknownCategoriesConnection
-  unknownCategoryById(id: ID!): UnknownCategory
-  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioCategorySortInput!] where: PortfolioCategoryFilterInput): PortfolioCategoriesConnection
-  portfolioCategoryById(id: ID!): PortfolioCategory
-  resumeCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ResumeCategorySortInput!] where: ResumeCategoryFilterInput): ResumeCategoriesConnection
-  resumeCategoryById(id: ID!): ResumeCategory
-  softwareDevelopmentCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [SoftwareDevelopmentCategorySortInput!] where: SoftwareDevelopmentCategoryFilterInput): SoftwareDevelopmentCategoriesConnection
-  softwareDevelopmentCategoryById(id: ID!): SoftwareDevelopmentCategory
-  informationTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [InformationTechnologyCategorySortInput!] where: InformationTechnologyCategoryFilterInput): InformationTechnologyCategoriesConnection
-  informationTechnologyCategoryById(id: ID!): InformationTechnologyCategory
-  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicTechnologyCategorySortInput!] where: IPolymorphicTechnologyCategoryFilterInput): TechnologyCategoriesConnection
-  otherCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [OtherCategorySortInput!] where: OtherCategoryFilterInput): OtherCategoriesConnection
-  otherCategoryById(id: ID!): OtherCategory
-  contactItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ContactItemSortInput!] where: ContactItemFilterInput): ContactItemsConnection
-  contactItemById(id: ID!): ContactItem
-  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [CustomerSortInput!] where: CustomerFilterInput): CustomersConnection
-  customerById(id: ID!): Customer
-  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [EducationItemSortInput!] where: EducationItemFilterInput): EducationItemsConnection
-  educationItemById(id: ID!): EducationItem
-  languages("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [LanguageSortInput!] where: LanguageFilterInput): LanguagesConnection
-  languageById(id: ID!): Language
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioItemSortInput!] where: PortfolioItemFilterInput): PortfolioItemsConnection
-  portfolioItemById(id: ID!): PortfolioItem
-  textItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [TextItemSortInput!] where: TextItemFilterInput): TextItemsConnection
-  textItemById(id: ID!): TextItem
+  nodes("The list of node IDs." ids: [ID!]!): [Node]! @cost(weight: "10")
+  achievements("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [AchievementSortInput!] @cost(weight: "10") where: AchievementFilterInput @cost(weight: "10")): AchievementsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  achievementById(id: ID!): Achievement @cost(weight: "10")
+  health: HealthReportSummary! @cost(weight: "10")
+  systemStatus: SystemInfoItem! @cost(weight: "10")
+  categories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicCategorySortInput!] @cost(weight: "10") where: IPolymorphicCategoryFilterInput @cost(weight: "10")): CategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  unknownCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [UnknownCategorySortInput!] @cost(weight: "10") where: UnknownCategoryFilterInput @cost(weight: "10")): UnknownCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  unknownCategoryById(id: ID!): UnknownCategory @cost(weight: "10")
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioCategorySortInput!] @cost(weight: "10") where: PortfolioCategoryFilterInput @cost(weight: "10")): PortfolioCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioCategoryById(id: ID!): PortfolioCategory @cost(weight: "10")
+  resumeCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ResumeCategorySortInput!] @cost(weight: "10") where: ResumeCategoryFilterInput @cost(weight: "10")): ResumeCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  resumeCategoryById(id: ID!): ResumeCategory @cost(weight: "10")
+  softwareDevelopmentCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [SoftwareDevelopmentCategorySortInput!] @cost(weight: "10") where: SoftwareDevelopmentCategoryFilterInput @cost(weight: "10")): SoftwareDevelopmentCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  softwareDevelopmentCategoryById(id: ID!): SoftwareDevelopmentCategory @cost(weight: "10")
+  informationTechnologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [InformationTechnologyCategorySortInput!] @cost(weight: "10") where: InformationTechnologyCategoryFilterInput @cost(weight: "10")): InformationTechnologyCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  informationTechnologyCategoryById(id: ID!): InformationTechnologyCategory @cost(weight: "10")
+  technologyCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [IPolymorphicTechnologyCategorySortInput!] @cost(weight: "10") where: IPolymorphicTechnologyCategoryFilterInput @cost(weight: "10")): TechnologyCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  otherCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [OtherCategorySortInput!] @cost(weight: "10") where: OtherCategoryFilterInput @cost(weight: "10")): OtherCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  otherCategoryById(id: ID!): OtherCategory @cost(weight: "10")
+  contactItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [ContactItemSortInput!] @cost(weight: "10") where: ContactItemFilterInput @cost(weight: "10")): ContactItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  contactItemById(id: ID!): ContactItem @cost(weight: "10")
+  customers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [CustomerSortInput!] @cost(weight: "10") where: CustomerFilterInput @cost(weight: "10")): CustomersConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  customerById(id: ID!): Customer @cost(weight: "10")
+  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [EducationItemSortInput!] @cost(weight: "10") where: EducationItemFilterInput @cost(weight: "10")): EducationItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  educationItemById(id: ID!): EducationItem @cost(weight: "10")
+  languages("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [LanguageSortInput!] @cost(weight: "10") where: LanguageFilterInput @cost(weight: "10")): LanguagesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  languageById(id: ID!): Language @cost(weight: "10")
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [PortfolioItemSortInput!] @cost(weight: "10") where: PortfolioItemFilterInput @cost(weight: "10")): PortfolioItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioItemById(id: ID!): PortfolioItem @cost(weight: "10")
+  textItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String order: [TextItemSortInput!] @cost(weight: "10") where: TextItemFilterInput @cost(weight: "10")): TextItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  textItemById(id: ID!): TextItem @cost(weight: "10")
 }
 
 "A connection to a list of items."
@@ -475,7 +475,7 @@ type ResumeCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [ResumeCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -493,9 +493,9 @@ type ResumeCategory implements PolymorphicCategory & Node {
   createdAt: DateTime!
   updatedAt: DateTime
   version: Long!
-  associatedCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicCategoryFilterInput order: [IPolymorphicCategorySortInput!]): AssociatedCategoriesConnection
+  associatedCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: IPolymorphicCategoryFilterInput @cost(weight: "10") order: [IPolymorphicCategorySortInput!] @cost(weight: "10")): AssociatedCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
   internalId: UUID!
-  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: EducationItemFilterInput order: [EducationItemSortInput!]): EducationItemsConnection
+  educationItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: EducationItemFilterInput @cost(weight: "10") order: [EducationItemSortInput!] @cost(weight: "10")): EducationItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
 }
 
 "A connection to a list of items."
@@ -507,7 +507,7 @@ type SoftwareDevelopmentCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [SoftwareDevelopmentCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -526,16 +526,16 @@ type SoftwareDevelopmentCategory implements PolymorphicCategory & PolymorphicTec
   updatedAt: DateTime
   version: Long!
   internalId: UUID!
-  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
-  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput @cost(weight: "10") order: [PortfolioCategorySortInput!] @cost(weight: "10")): PortfolioCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput @cost(weight: "10") order: [CustomerSortInput!] @cost(weight: "10")): PortfolioCustomersConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput @cost(weight: "10") order: [PortfolioItemSortInput!] @cost(weight: "10")): PortfolioItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
 }
 
 type SystemInfoItem {
   version: String!
   startupTime: DateTime!
   upTime: TimeSpan!
-  health: HealthReportSummary!
+  health: HealthReportSummary! @cost(weight: "10")
 }
 
 "A connection to a list of items."
@@ -547,7 +547,7 @@ type TechnologyCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [PolymorphicTechnologyCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -578,7 +578,7 @@ type TextItemsConnection {
   "A flattened list of the nodes."
   nodes: [TextItem!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -603,7 +603,7 @@ type UnknownCategoriesConnection {
   "A flattened list of the nodes."
   nodes: [UnknownCategory!]
   "Identifies the total count of items in the connection."
-  totalCount: Int!
+  totalCount: Int! @cost(weight: "10")
 }
 
 "An edge in a connection."
@@ -631,9 +631,9 @@ type UnknownTechnologyCategory implements Node & PolymorphicTechnologyCategory {
   updatedAt: DateTime
   version: Long!
   internalId: UUID!
-  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput order: [PortfolioCategorySortInput!]): PortfolioCategoriesConnection
-  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput order: [CustomerSortInput!]): PortfolioCustomersConnection
-  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput order: [PortfolioItemSortInput!]): PortfolioItemsConnection
+  portfolioCategories("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioCategoryFilterInput @cost(weight: "10") order: [PortfolioCategorySortInput!] @cost(weight: "10")): PortfolioCategoriesConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioCustomers("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: CustomerFilterInput @cost(weight: "10") order: [CustomerSortInput!] @cost(weight: "10")): PortfolioCustomersConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
+  portfolioItems("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PortfolioItemFilterInput @cost(weight: "10") order: [PortfolioItemSortInput!] @cost(weight: "10")): PortfolioItemsConnection @listSize(assumedSize: 1000, slicingArguments: [ "first", "last" ], sizedFields: [ "edges", "nodes" ], requireOneSlicingArgument: false) @cost(weight: "10")
 }
 
 input AchievementFilterInput {
@@ -648,18 +648,18 @@ input AchievementFilterInput {
 }
 
 input AchievementSortInput {
-  content: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  content: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input CategoryTypeOperationFilterInput {
-  eq: CategoryType
-  neq: CategoryType
-  in: [CategoryType!]
-  nin: [CategoryType!]
+  eq: CategoryType @cost(weight: "10")
+  neq: CategoryType @cost(weight: "10")
+  in: [CategoryType!] @cost(weight: "10")
+  nin: [CategoryType!] @cost(weight: "10")
 }
 
 input ContactItemFilterInput {
@@ -677,15 +677,15 @@ input ContactItemFilterInput {
 }
 
 input ContactItemSortInput {
-  key: SortEnumType
-  icon: SortEnumType
-  title: SortEnumType
-  description: SortEnumType
-  href: UriSortInput
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  key: SortEnumType @cost(weight: "10")
+  icon: SortEnumType @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  description: SortEnumType @cost(weight: "10")
+  href: UriSortInput @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input CustomerFilterInput {
@@ -700,42 +700,42 @@ input CustomerFilterInput {
 }
 
 input CustomerSortInput {
-  title: SortEnumType
-  href: UriSortInput
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  title: SortEnumType @cost(weight: "10")
+  href: UriSortInput @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input DateOperationFilterInput {
-  eq: Date
-  neq: Date
-  in: [Date]
-  nin: [Date]
-  gt: Date
-  ngt: Date
-  gte: Date
-  ngte: Date
-  lt: Date
-  nlt: Date
-  lte: Date
-  nlte: Date
+  eq: Date @cost(weight: "10")
+  neq: Date @cost(weight: "10")
+  in: [Date] @cost(weight: "10")
+  nin: [Date] @cost(weight: "10")
+  gt: Date @cost(weight: "10")
+  ngt: Date @cost(weight: "10")
+  gte: Date @cost(weight: "10")
+  ngte: Date @cost(weight: "10")
+  lt: Date @cost(weight: "10")
+  nlt: Date @cost(weight: "10")
+  lte: Date @cost(weight: "10")
+  nlte: Date @cost(weight: "10")
 }
 
 input DateTimeOperationFilterInput {
-  eq: DateTime
-  neq: DateTime
-  in: [DateTime]
-  nin: [DateTime]
-  gt: DateTime
-  ngt: DateTime
-  gte: DateTime
-  ngte: DateTime
-  lt: DateTime
-  nlt: DateTime
-  lte: DateTime
-  nlte: DateTime
+  eq: DateTime @cost(weight: "10")
+  neq: DateTime @cost(weight: "10")
+  in: [DateTime] @cost(weight: "10")
+  nin: [DateTime] @cost(weight: "10")
+  gt: DateTime @cost(weight: "10")
+  ngt: DateTime @cost(weight: "10")
+  gte: DateTime @cost(weight: "10")
+  ngte: DateTime @cost(weight: "10")
+  lt: DateTime @cost(weight: "10")
+  nlt: DateTime @cost(weight: "10")
+  lte: DateTime @cost(weight: "10")
+  nlte: DateTime @cost(weight: "10")
 }
 
 input EducationItemFilterInput {
@@ -755,16 +755,16 @@ input EducationItemFilterInput {
 }
 
 input EducationItemSortInput {
-  categoryId: SortEnumType
-  timePeriod: TimePeriodSortInput
-  title: SortEnumType
-  href: UriSortInput
-  location: SortEnumType
-  description: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  categoryId: SortEnumType @cost(weight: "10")
+  timePeriod: TimePeriodSortInput @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  href: UriSortInput @cost(weight: "10")
+  location: SortEnumType @cost(weight: "10")
+  description: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input IPolymorphicCategoryFilterInput {
@@ -778,11 +778,11 @@ input IPolymorphicCategoryFilterInput {
 }
 
 input IPolymorphicCategorySortInput {
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
-  title: SortEnumType
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
 }
 
 input IPolymorphicTechnologyCategoryFilterInput {
@@ -797,12 +797,12 @@ input IPolymorphicTechnologyCategoryFilterInput {
 }
 
 input IPolymorphicTechnologyCategorySortInput {
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
-  title: SortEnumType
-  href: UriSortInput
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  href: UriSortInput @cost(weight: "10")
 }
 
 input InformationTechnologyCategoryFilterInput {
@@ -817,27 +817,27 @@ input InformationTechnologyCategoryFilterInput {
 }
 
 input InformationTechnologyCategorySortInput {
-  href: UriSortInput
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  href: UriSortInput @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input IntOperationFilterInput {
-  eq: Int
-  neq: Int
-  in: [Int]
-  nin: [Int]
-  gt: Int
-  ngt: Int
-  gte: Int
-  ngte: Int
-  lt: Int
-  nlt: Int
-  lte: Int
-  nlte: Int
+  eq: Int @cost(weight: "10")
+  neq: Int @cost(weight: "10")
+  in: [Int] @cost(weight: "10")
+  nin: [Int] @cost(weight: "10")
+  gt: Int @cost(weight: "10")
+  ngt: Int @cost(weight: "10")
+  gte: Int @cost(weight: "10")
+  ngte: Int @cost(weight: "10")
+  lt: Int @cost(weight: "10")
+  nlt: Int @cost(weight: "10")
+  lte: Int @cost(weight: "10")
+  nlte: Int @cost(weight: "10")
 }
 
 input LanguageFilterInput {
@@ -852,55 +852,55 @@ input LanguageFilterInput {
 }
 
 input LanguageSortInput {
-  proficiency: SortEnumType
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  proficiency: SortEnumType @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input ListCategoryTypeOperationFilterInput {
-  all: CategoryTypeOperationFilterInput
-  none: CategoryTypeOperationFilterInput
-  some: CategoryTypeOperationFilterInput
-  any: Boolean
+  all: CategoryTypeOperationFilterInput @cost(weight: "10")
+  none: CategoryTypeOperationFilterInput @cost(weight: "10")
+  some: CategoryTypeOperationFilterInput @cost(weight: "10")
+  any: Boolean @cost(weight: "10")
 }
 
 input ListIntOperationFilterInput {
-  all: IntOperationFilterInput
-  none: IntOperationFilterInput
-  some: IntOperationFilterInput
-  any: Boolean
+  all: IntOperationFilterInput @cost(weight: "10")
+  none: IntOperationFilterInput @cost(weight: "10")
+  some: IntOperationFilterInput @cost(weight: "10")
+  any: Boolean @cost(weight: "10")
 }
 
 input ListStringOperationFilterInput {
-  all: StringOperationFilterInput
-  none: StringOperationFilterInput
-  some: StringOperationFilterInput
-  any: Boolean
+  all: StringOperationFilterInput @cost(weight: "10")
+  none: StringOperationFilterInput @cost(weight: "10")
+  some: StringOperationFilterInput @cost(weight: "10")
+  any: Boolean @cost(weight: "10")
 }
 
 input ListUuidOperationFilterInput {
-  all: UuidOperationFilterInput
-  none: UuidOperationFilterInput
-  some: UuidOperationFilterInput
-  any: Boolean
+  all: UuidOperationFilterInput @cost(weight: "10")
+  none: UuidOperationFilterInput @cost(weight: "10")
+  some: UuidOperationFilterInput @cost(weight: "10")
+  any: Boolean @cost(weight: "10")
 }
 
 input LongOperationFilterInput {
-  eq: Long
-  neq: Long
-  in: [Long]
-  nin: [Long]
-  gt: Long
-  ngt: Long
-  gte: Long
-  ngte: Long
-  lt: Long
-  nlt: Long
-  lte: Long
-  nlte: Long
+  eq: Long @cost(weight: "10")
+  neq: Long @cost(weight: "10")
+  in: [Long] @cost(weight: "10")
+  nin: [Long] @cost(weight: "10")
+  gt: Long @cost(weight: "10")
+  ngt: Long @cost(weight: "10")
+  gte: Long @cost(weight: "10")
+  ngte: Long @cost(weight: "10")
+  lt: Long @cost(weight: "10")
+  nlt: Long @cost(weight: "10")
+  lte: Long @cost(weight: "10")
+  nlte: Long @cost(weight: "10")
 }
 
 input OtherCategoryFilterInput {
@@ -914,11 +914,11 @@ input OtherCategoryFilterInput {
 }
 
 input OtherCategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input PortfolioCategoryFilterInput {
@@ -932,11 +932,11 @@ input PortfolioCategoryFilterInput {
 }
 
 input PortfolioCategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input PortfolioItemFilterInput {
@@ -955,22 +955,22 @@ input PortfolioItemFilterInput {
 }
 
 input PortfolioItemSortInput {
-  year: SortEnumType
-  categoryId: SortEnumType
-  title: SortEnumType
-  href: UriSortInput
-  customerId: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  year: SortEnumType @cost(weight: "10")
+  categoryId: SortEnumType @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  href: UriSortInput @cost(weight: "10")
+  customerId: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input ProficiencyTypeOperationFilterInput {
-  eq: ProficiencyType
-  neq: ProficiencyType
-  in: [ProficiencyType!]
-  nin: [ProficiencyType!]
+  eq: ProficiencyType @cost(weight: "10")
+  neq: ProficiencyType @cost(weight: "10")
+  in: [ProficiencyType!] @cost(weight: "10")
+  nin: [ProficiencyType!] @cost(weight: "10")
 }
 
 input ResumeCategoryFilterInput {
@@ -985,11 +985,11 @@ input ResumeCategoryFilterInput {
 }
 
 input ResumeCategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input SoftwareDevelopmentCategoryFilterInput {
@@ -1004,27 +1004,27 @@ input SoftwareDevelopmentCategoryFilterInput {
 }
 
 input SoftwareDevelopmentCategorySortInput {
-  href: UriSortInput
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  href: UriSortInput @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input StringOperationFilterInput {
   and: [StringOperationFilterInput!]
   or: [StringOperationFilterInput!]
-  eq: String
-  neq: String
-  contains: String
-  ncontains: String
-  in: [String]
-  nin: [String]
-  startsWith: String
-  nstartsWith: String
-  endsWith: String
-  nendsWith: String
+  eq: String @cost(weight: "10")
+  neq: String @cost(weight: "10")
+  contains: String @cost(weight: "20")
+  ncontains: String @cost(weight: "20")
+  in: [String] @cost(weight: "10")
+  nin: [String] @cost(weight: "10")
+  startsWith: String @cost(weight: "20")
+  nstartsWith: String @cost(weight: "20")
+  endsWith: String @cost(weight: "20")
+  nendsWith: String @cost(weight: "20")
 }
 
 input TextItemFilterInput {
@@ -1040,13 +1040,13 @@ input TextItemFilterInput {
 }
 
 input TextItemSortInput {
-  key: SortEnumType
-  title: SortEnumType
-  content: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  key: SortEnumType @cost(weight: "10")
+  title: SortEnumType @cost(weight: "10")
+  content: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input TimePeriodFilterInput {
@@ -1057,8 +1057,8 @@ input TimePeriodFilterInput {
 }
 
 input TimePeriodSortInput {
-  start: SortEnumType
-  end: SortEnumType
+  start: SortEnumType @cost(weight: "10")
+  end: SortEnumType @cost(weight: "10")
 }
 
 input UnknownCategoryFilterInput {
@@ -1072,65 +1072,65 @@ input UnknownCategoryFilterInput {
 }
 
 input UnknownCategorySortInput {
-  title: SortEnumType
-  id: SortEnumType
-  createdAt: SortEnumType
-  updatedAt: SortEnumType
-  version: SortEnumType
+  title: SortEnumType @cost(weight: "10")
+  id: SortEnumType @cost(weight: "10")
+  createdAt: SortEnumType @cost(weight: "10")
+  updatedAt: SortEnumType @cost(weight: "10")
+  version: SortEnumType @cost(weight: "10")
 }
 
 input UriSortInput {
-  absolutePath: SortEnumType
-  absoluteUri: SortEnumType
-  localPath: SortEnumType
-  authority: SortEnumType
-  hostNameType: SortEnumType
-  isDefaultPort: SortEnumType
-  isFile: SortEnumType
-  isLoopback: SortEnumType
-  pathAndQuery: SortEnumType
-  isUnc: SortEnumType
-  host: SortEnumType
-  port: SortEnumType
-  query: SortEnumType
-  fragment: SortEnumType
-  scheme: SortEnumType
-  originalString: SortEnumType
-  dnsSafeHost: SortEnumType
-  idnHost: SortEnumType
-  isAbsoluteUri: SortEnumType
-  userEscaped: SortEnumType
-  userInfo: SortEnumType
+  absolutePath: SortEnumType @cost(weight: "10")
+  absoluteUri: SortEnumType @cost(weight: "10")
+  localPath: SortEnumType @cost(weight: "10")
+  authority: SortEnumType @cost(weight: "10")
+  hostNameType: SortEnumType @cost(weight: "10")
+  isDefaultPort: SortEnumType @cost(weight: "10")
+  isFile: SortEnumType @cost(weight: "10")
+  isLoopback: SortEnumType @cost(weight: "10")
+  pathAndQuery: SortEnumType @cost(weight: "10")
+  isUnc: SortEnumType @cost(weight: "10")
+  host: SortEnumType @cost(weight: "10")
+  port: SortEnumType @cost(weight: "10")
+  query: SortEnumType @cost(weight: "10")
+  fragment: SortEnumType @cost(weight: "10")
+  scheme: SortEnumType @cost(weight: "10")
+  originalString: SortEnumType @cost(weight: "10")
+  dnsSafeHost: SortEnumType @cost(weight: "10")
+  idnHost: SortEnumType @cost(weight: "10")
+  isAbsoluteUri: SortEnumType @cost(weight: "10")
+  userEscaped: SortEnumType @cost(weight: "10")
+  userInfo: SortEnumType @cost(weight: "10")
 }
 
 input UrlOperationFilterInput {
-  eq: URL
-  neq: URL
-  in: [URL]
-  nin: [URL]
-  gt: URL
-  ngt: URL
-  gte: URL
-  ngte: URL
-  lt: URL
-  nlt: URL
-  lte: URL
-  nlte: URL
+  eq: URL @cost(weight: "10")
+  neq: URL @cost(weight: "10")
+  in: [URL] @cost(weight: "10")
+  nin: [URL] @cost(weight: "10")
+  gt: URL @cost(weight: "10")
+  ngt: URL @cost(weight: "10")
+  gte: URL @cost(weight: "10")
+  ngte: URL @cost(weight: "10")
+  lt: URL @cost(weight: "10")
+  nlt: URL @cost(weight: "10")
+  lte: URL @cost(weight: "10")
+  nlte: URL @cost(weight: "10")
 }
 
 input UuidOperationFilterInput {
-  eq: UUID
-  neq: UUID
-  in: [UUID]
-  nin: [UUID]
-  gt: UUID
-  ngt: UUID
-  gte: UUID
-  ngte: UUID
-  lt: UUID
-  nlt: UUID
-  lte: UUID
-  nlte: UUID
+  eq: UUID @cost(weight: "10")
+  neq: UUID @cost(weight: "10")
+  in: [UUID] @cost(weight: "10")
+  nin: [UUID] @cost(weight: "10")
+  gt: UUID @cost(weight: "10")
+  ngt: UUID @cost(weight: "10")
+  gte: UUID @cost(weight: "10")
+  ngte: UUID @cost(weight: "10")
+  lt: UUID @cost(weight: "10")
+  nlt: UUID @cost(weight: "10")
+  lte: UUID @cost(weight: "10")
+  nlte: UUID @cost(weight: "10")
 }
 
 enum CategoryType {
@@ -1161,6 +1161,15 @@ enum SortEnumType {
   ASC
   DESC
 }
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"The purpose of the `@listSize` directive is to either inform the static analysis about the size of returned lists (if that information is statically available), or to point the analysis to where to find that information."
+directive @listSize("The `assumedSize` argument can be used to statically define the maximum length of a list returned by a field." assumedSize: Int "The `slicingArguments` argument can be used to define which of the field's arguments with numeric type are slicing arguments, so that their value determines the size of the list returned by that field. It may specify a list of multiple slicing arguments." slicingArguments: [String!] "The `sizedFields` argument can be used to define that the value of the `assumedSize` argument or of a slicing argument does not affect the size of a list returned by a field itself, but that of a list returned by one of its sub-fields." sizedFields: [String!] "The `requireOneSlicingArgument` argument can be used to inform the static analysis that it should expect that exactly one of the defined slicing arguments is present in a query. If that is not the case (i.e., if none or multiple slicing arguments are present), the static analysis may throw an error." requireOneSlicingArgument: Boolean! = true) on FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
 
 "The `Date` scalar represents an ISO-8601 compliant date type."
 scalar Date

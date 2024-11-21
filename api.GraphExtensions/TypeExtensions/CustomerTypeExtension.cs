@@ -8,7 +8,7 @@ public sealed class CustomerTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<PortfolioCategory[]> GetPortfolioCategories(
+    public async ValueTask<PortfolioCategory[]?> GetPortfolioCategories(
         [Parent] Customer parent,
         [Service] PortfolioCategoryByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
@@ -18,7 +18,7 @@ public sealed class CustomerTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<PortfolioItem[]> GetPortfolioItems(
+    public async ValueTask<PortfolioItem[]?> GetPortfolioItems(
         [Parent] Customer parent,
         [Service] PortfolioItemByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken
@@ -28,7 +28,7 @@ public sealed class CustomerTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<IPolymorphicTechnologyCategory[]> GetPortfolioTechnologyCategories(
+    public async ValueTask<IPolymorphicTechnologyCategory[]?> GetPortfolioTechnologyCategories(
         [Parent] Customer parent,
         [Service] PortfolioTechnologyCategoryByCustomerIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken

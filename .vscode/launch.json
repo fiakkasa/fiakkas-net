@@ -7,7 +7,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-api",
-      "program": "${workspaceFolder}/api/bin/Debug/net8.0/api",
+      "program": "${workspaceFolder}/api/bin/Debug/net9.0/api",
       "args": [],
       "cwd": "${workspaceFolder}/api",
       "stopAtEntry": false,
@@ -41,7 +41,7 @@
         "PORT": "3000",
         "DOTNET_PROTOCOL": "http",
         "DOTNET_PORT": "5069",
-        "DOTNET_API_FOLDER_PATH": "${workspaceFolder}/api/bin/Debug/net8.0/publish",
+        "DOTNET_API_FOLDER_PATH": "${workspaceFolder}/api/bin/Debug/net9.0/publish",
         "DOTNET_API_EXECUTABLE_NAME": "api",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -51,7 +51,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-ui",
-      "program": "${workspaceFolder}/ui/bin/Debug/net8.0/ui",
+      "program": "${workspaceFolder}/ui/bin/Debug/net9.0/ui",
       "args": [],
       "cwd": "${workspaceFolder}/ui",
       "stopAtEntry": false,
@@ -85,7 +85,7 @@
         "PORT": "3001",
         "DOTNET_PROTOCOL": "http",
         "DOTNET_PORT": "5296",
-        "DOTNET_UI_FOLDER_PATH": "${workspaceFolder}/ui/bin/Debug/net8.0/publish",
+        "DOTNET_UI_FOLDER_PATH": "${workspaceFolder}/ui/bin/Debug/net9.0/publish",
         "DOTNET_UI_EXECUTABLE_NAME": "ui",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -17,6 +17,6 @@ public sealed class ICategoryAssociatedCategoryTypesTypeExtension
     {
         var result = await dataLoader.LoadAsync(parent.AssociatedCategoryTypes, cancellationToken);
 
-        return result.SelectMany(x => x);
+        return result.OfType<IPolymorphicCategory[]>().SelectMany(x => x);
     }
 }

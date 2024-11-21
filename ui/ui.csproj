@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>3e68c507-07ec-4a2a-a7e8-5299c9e2b153</UserSecretsId>
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <ContainerRepository>fiakkas-net-ui</ContainerRepository>
-        <Version>1.0.20</Version>
-        <ContainerImageTags>1.0.20;latest</ContainerImageTags>
+        <Version>2.0.0</Version>
+        <ContainerImageTags>2.0.0;latest</ContainerImageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,7 +28,7 @@
         <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4"/>
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
-        <PackageReference Include="StrawberryShake.Blazor" Version="13.9.14"/>
+        <PackageReference Include="StrawberryShake.Blazor" Version="14.1.0"/>
     </ItemGroup>
 
     <ItemGroup>

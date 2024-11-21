@@ -58,5 +58,8 @@ public class RegistrationExtensionsTests
         public static IEnumerable<PortfolioCategory> PortfolioCategories => [];
         public static IEnumerable<PortfolioItem> PortfolioItems => [];
         public static IEnumerable<ResumeCategory> ResumeCategories => [];
+
+        [NodeResolver]
+        public static MockTechnologyCategory? GetMockTechnologyCategoryById(Guid id) => default;
     }
 }

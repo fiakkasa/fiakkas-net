@@ -3,7 +3,7 @@
     "nodes": [
       {
         "__typename": "Achievement",
-        "id": "QWNoaWV2ZW1lbnQKZ2Q0NjA1YjBjNThiYzQ5YWNiY2ZkMTBhMjRhMjAzYWRk",
+        "id": "QWNoaWV2ZW1lbnQ6DFtg1LxYrEm8/RCiSiA63Q==",
         "content": "Content",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "d4605b0c-58bc-49ac-bcfd-10a24a203add",
@@ -16,7 +16,7 @@
       },
       {
         "__typename": "ContactItem",
-        "id": "Q29udGFjdEl0ZW0KZ2ViZjIyNGE4N2ZmMzQ3Yjk4ODJiZGQ0MWVjN2Y1YTA1",
+        "id": "Q29udGFjdEl0ZW06qCTy6/N/uUeIK91B7H9aBQ==",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "description": "Content",
         "href": "/test",
@@ -29,7 +29,7 @@
       },
       {
         "__typename": "Customer",
-        "id": "Q3VzdG9tZXIKZzE4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
+        "id": "Q3VzdG9tZXI65IPkGGFpJUuIqdHQpRYRCQ==",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "href": "/test",
         "internalId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
@@ -39,7 +39,7 @@
       },
       {
         "__typename": "EducationItem",
-        "id": "RWR1Y2F0aW9uSXRlbQpnMzg4OThjNjIxNjFlNDBmMjhhOWYzOWJmMWZmNDYyMjQ=",
+        "id": "RWR1Y2F0aW9uSXRlbTpijIk4HhbyQIqfOb8f9GIk",
         "categoryId": "eb9d6258-99c4-46bd-bd44-23d35b19965d",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "description": "Description",
@@ -55,7 +55,7 @@
       },
       {
         "__typename": "InformationTechnologyCategory",
-        "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
+        "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnk6mj7EbCsxI0m4kOlmuBaO7g==",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "href": "/test",
         "internalId": "6cc43e9a-312b-4923-b890-e966b8168eee",
@@ -65,7 +65,7 @@
       },
       {
         "__typename": "Language",
-        "id": "TGFuZ3VhZ2UKZzAyYTNiZTliM2YwNDRiNGE4OTQ1ZTg0ZmVmNTM3YjU4",
+        "id": "TGFuZ3VhZ2U6m76jAgQ/SkuJRehP71N7WA==",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "02a3be9b-3f04-4b4a-8945-e84fef537b58",
         "proficiency": "NATIVE",
@@ -75,7 +75,7 @@
       },
       {
         "__typename": "OtherCategory",
-        "id": "T3RoZXJDYXRlZ29yeQpnOWZkOTFmOGEyYTQ0NDUyMGE1YjE4YWExYzNjMjkxMzM=",
+        "id": "T3RoZXJDYXRlZ29yeTqKH9mfRCogRaWxiqHDwpEz",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "9fd91f8a-2a44-4520-a5b1-8aa1c3c29133",
         "title": "Title",
@@ -84,7 +84,7 @@
       },
       {
         "__typename": "PortfolioCategory",
-        "id": "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
+        "id": "UG9ydGZvbGlvQ2F0ZWdvcnk65IPkOGFpJUuIqdHQpRYRCQ==",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
         "title": "Title",
@@ -93,7 +93,7 @@
       },
       {
         "__typename": "PortfolioItem",
-        "id": "UG9ydGZvbGlvSXRlbQpnMjhlNDgzZTQ2OTYxNGIyNTg4YTlkMWQwYTUxNjExMDk=",
+        "id": "UG9ydGZvbGlvSXRlbTrkg+QoYWklS4ip0dClFhEJ",
         "categoryId": "38e483e4-6961-4b25-88a9-d1d0a5161109",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "customerId": "18e483e4-6961-4b25-88a9-d1d0a5161109",
@@ -110,7 +110,7 @@
       },
       {
         "__typename": "ResumeCategory",
-        "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
+        "id": "UmVzdW1lQ2F0ZWdvcnk6WGKd68SZvUa9RCPTWxmWXQ==",
         "associatedCategoryTypes": [
           "SOFTWARE_DEVELOPMENT"
         ],
@@ -122,7 +122,7 @@
       },
       {
         "__typename": "SoftwareDevelopmentCategory",
-        "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
+        "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5Ovkrg8rLtzFMv40A+Honb+M=",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "href": "/test",
         "internalId": "ca832bf9-b7cb-4c31-bf8d-00f87a276fe3",
@@ -132,7 +132,7 @@
       },
       {
         "__typename": "TextItem",
-        "id": "VGV4dEl0ZW0KZzQ4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
+        "id": "VGV4dEl0ZW065IPkSGFpJUuIqdHQpRYRCQ==",
         "content": "Content",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "48e483e4-6961-4b25-88a9-d1d0a5161109",
@@ -143,7 +143,7 @@
       },
       {
         "__typename": "UnknownCategory",
-        "id": "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==",
+        "id": "VW5rbm93bkNhdGVnb3J5Op2H9ckYQKBJm3G0ed1d5/8=",
         "createdAt": "2024-01-01T00:00:00.000Z",
         "internalId": "c9f5879d-4018-49a0-9b71-b479dd5de7ff",
         "title": "Title",

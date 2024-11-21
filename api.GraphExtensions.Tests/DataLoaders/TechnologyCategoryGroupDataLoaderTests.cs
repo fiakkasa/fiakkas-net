@@ -50,7 +50,7 @@ public class TechnologyCategoryGroupDataLoaderTests
                 CancellationToken.None);
 
         result.Should().HaveCount(2);
-        result.All(x => x.Length == 1).Should().BeTrue();
+        result.All(x => x is { Length: 1 }).Should().BeTrue();
         result.MatchSnapshot();
     }
 

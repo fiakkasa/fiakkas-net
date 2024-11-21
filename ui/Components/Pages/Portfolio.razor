@@ -35,11 +35,13 @@
                                 <div class="items-of-category striped-container d-flex flex-column gap-1">
                                     @foreach (var categoryItem in categorySection.Value)
                                     {
-                                        <div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1" @key="categoryItem.Id">
+                                        <div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1"
+                                             @key="categoryItem.Id">
                                             <div>
                                                 @if (categoryItem.Href is not null)
                                                 {
-                                                    <a href="@categoryItem.Href" target="_blank" class="text-decoration-none">
+                                                    <a href="@categoryItem.Href" target="_blank"
+                                                       class="text-decoration-none">
                                                         @categoryItem.Title
                                                     </a>
                                                 }
@@ -57,7 +59,8 @@
                                                     <i class="bi bi-person-rolodex flex-shrink-0"></i>
                                                     @if (categoryItem.Customer.Href is not null)
                                                     {
-                                                        <a href="@categoryItem.Customer.Href" target="_blank" class="text-decoration-none">
+                                                        <a href="@categoryItem.Customer.Href" target="_blank"
+                                                           class="text-decoration-none">
                                                             @categoryItem.Customer.Title
                                                         </a>
                                                     }

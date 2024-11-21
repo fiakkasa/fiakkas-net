@@ -77,7 +77,7 @@ public class CategoriesTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
