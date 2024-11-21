@@ -35,11 +35,16 @@ public sealed class PortfolioItemTypeExtension
         [Parent] PortfolioItem parent,
         [Service] TechnologyCategoryGroupDataLoader dataLoader,
         CancellationToken cancellationToken
-    ) => string.Join(
-        ", ",
-        (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
-            .OfType<IPolymorphicTechnologyCategory[]>()
-            .SelectMany(x => x)
-            .Select(x => x.Title)
-    );
+    )
+    {
+        var result = await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken);
+
+        return string.Join(
+            ", ",
+            result
+                .OfType<IPolymorphicTechnologyCategory[]>()
+                .SelectMany(x => x)
+                .Select(x => x.Title)
+        );
+    }
 }
