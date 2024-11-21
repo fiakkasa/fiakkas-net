@@ -8,7 +8,7 @@ public sealed class ResumeCategoryTypeExtension
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public async ValueTask<EducationItem[]> GetEducationItems(
+    public async ValueTask<EducationItem[]?> GetEducationItems(
         [Parent] ResumeCategory parent,
         [Service] EducationItemByResumeCategoryIdGroupDataLoader dataLoader,
         CancellationToken cancellationToken

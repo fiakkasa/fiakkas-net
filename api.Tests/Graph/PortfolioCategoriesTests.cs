@@ -37,7 +37,7 @@ public partial class SoftwareDevelopmentCategoriesTests
                 }
                 """);
 
-            var fn = result.ExpectQueryResult;
+            var fn = result.ExpectOperationResult;
             fn.Should().NotThrow();
             fn().Errors.Should().BeNullOrEmpty();
             result.ToJson().MatchSnapshot();
@@ -62,7 +62,7 @@ public partial class SoftwareDevelopmentCategoriesTests
                 }
                 """);
 
-            var fn = result.ExpectQueryResult;
+            var fn = result.ExpectOperationResult;
             fn.Should().NotThrow();
             fn().Errors.Should().BeNullOrEmpty();
             result.ToJson().MatchSnapshot();

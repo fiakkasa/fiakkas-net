@@ -33,7 +33,7 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -59,7 +59,7 @@ public class ResumeCategoriesTests(GraphFixture fixture) : IClassFixture<GraphFi
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

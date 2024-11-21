@@ -28,7 +28,7 @@ public sealed class PortfolioItemTypeExtension
     {
         var result = await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken);
 
-        return result.SelectMany(x => x);
+        return result.OfType<IPolymorphicTechnologyCategory[]>().SelectMany(x => x);
     }
 
     public async ValueTask<string> GetTechnologiesSummary(
@@ -38,8 +38,9 @@ public sealed class PortfolioItemTypeExtension
     ) => string.Join(
         ", ",
         (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
-        .SelectMany(x => x)
-        .OfType<IPolymorphicTechnologyCategory>()
-        .Select(x => x.Title)
+            .OfType<IPolymorphicTechnologyCategory[]>()
+            .SelectMany(x => x)
+            .OfType<IPolymorphicTechnologyCategory>()
+            .Select(x => x.Title)
     );
 }

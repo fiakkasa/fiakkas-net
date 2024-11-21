@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
         <InvariantGlobalization>true</InvariantGlobalization>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="bunit" Version="1.33.3"/>
-        <PackageReference Include="FluentAssertions" Version="6.12.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10"/>
-        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.10"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1"/>
-        <PackageReference Include="NSubstitute" Version="5.1.0"/>
-        <PackageReference Include="Snapshooter.Xunit" Version="0.14.1"/>
-        <PackageReference Include="System.Linq.Async" Version="6.0.1"/>
-        <PackageReference Include="xunit" Version="2.9.2"/>
+        <PackageReference Include="bunit" Version="1.36.0" />
+        <PackageReference Include="FluentAssertions" Version="6.12.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="9.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+        <PackageReference Include="NSubstitute" Version="5.3.0" />
+        <PackageReference Include="Snapshooter.Xunit" Version="0.14.1" />
+        <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+        <PackageReference Include="xunit" Version="2.9.2" />
         <PackageReference Include="coverlet.msbuild" Version="6.0.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -28,27 +28,27 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ui\ui.csproj"/>
+        <ProjectReference Include="..\ui\ui.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_Template_When_Data_Is_Present.snap"/>
-        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_Loading_When_Data_Is_In_Transit.snap"/>
-        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_GenericNodata_When_Data_Is_Not_Present.snap"/>
-        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_GenericError_When_Error.snap"/>
-        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Prevent_Refresh_When_Loading.snap"/>
-        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Allow_Refresh_When_Not_Loading.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_two_items.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_three_items.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_TechItems.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Hrefs.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Customer_TechItems.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Customer.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory_TechItems.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory_Customer.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_All.snap"/>
-        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item.snap"/>
+        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_Template_When_Data_Is_Present.snap" />
+        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_Loading_When_Data_Is_In_Transit.snap" />
+        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_GenericNodata_When_Data_Is_Not_Present.snap" />
+        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Render_GenericError_When_Error.snap" />
+        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Prevent_Refresh_When_Loading.snap" />
+        <None Remove="Components\Pages\__snapshots__\PortfolioTests.Portfolio_Should_Allow_Refresh_When_Not_Loading.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_two_items.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_three_items.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_TechItems.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Hrefs.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Customer_TechItems.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_Customer.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory_TechItems.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory_Customer.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_PortfolioCategory.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item_skip_All.snap" />
+        <None Remove="Components\Pages\__snapshots__\Portfolio_Should_Render_Template_When_Data_Is_Partially_Present_single_item.snap" />
     </ItemGroup>
 
 </Project>

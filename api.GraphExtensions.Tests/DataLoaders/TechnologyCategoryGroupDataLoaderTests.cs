@@ -2,6 +2,7 @@ using api.Categories.Enums;
 using api.Categories.Interfaces;
 using api.Categories.Models;
 using api.GraphExtensions.DataLoaders;
+using System.IO.Compression;
 
 namespace api.GraphExtensions.Tests.DataLoaders;
 
@@ -50,7 +51,7 @@ public class TechnologyCategoryGroupDataLoaderTests
                 CancellationToken.None);
 
         result.Should().HaveCount(2);
-        result.All(x => x.Length == 1).Should().BeTrue();
+        result.All(x => x is { Length: 1}).Should().BeTrue();
         result.MatchSnapshot();
     }
 

@@ -30,7 +30,7 @@ public class ContactItemsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();
@@ -59,7 +59,7 @@ public class ContactItemsTests(GraphFixture fixture) : IClassFixture<GraphFixtur
             }
             """);
 
-        var fn = result.ExpectQueryResult;
+        var fn = result.ExpectOperationResult;
         fn.Should().NotThrow();
         fn().Errors.Should().BeNullOrEmpty();
         result.ToJson().MatchSnapshot();

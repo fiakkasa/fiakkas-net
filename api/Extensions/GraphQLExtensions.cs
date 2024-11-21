@@ -40,22 +40,18 @@ public static class GraphQLExtensions
             .AddGraphQLServer()
             .InitializeOnStartup()
             .AddMaxExecutionDepthRule(Consts.GraphQLMaxExecutionDepthRule, isDev)
-            .AllowIntrospection(isDev)
-            .AddApolloTracing(isDev switch
-            {
-                true => TracingPreference.OnDemand,
-                _ => TracingPreference.Never
-            })
+            .DisableIntrospection(!isDev)
             .AddFiltering()
             .AddSorting()
-            .SetPagingOptions(new()
-            {
-                MaxPageSize = Consts.GraphQLPagingMaxPageSize,
-                DefaultPageSize = Consts.GraphQLPagingDefaultPageSize,
-                IncludeTotalCount = Consts.GraphQLPagingIncludeTotalCount
-            })
             .ModifyOptions(options => options.StripLeadingIFromInterface = true)
             .ModifyRequestOptions(options => options.IncludeExceptionDetails = isDev)
+            .ModifyCostOptions(costOptions => costOptions.EnforceCostLimits = false)
+            .ModifyPagingOptions(pagingOptions =>
+            {
+                pagingOptions.MaxPageSize = Consts.GraphQLPagingMaxPageSize;
+                pagingOptions.DefaultPageSize = Consts.GraphQLPagingDefaultPageSize;
+                pagingOptions.IncludeTotalCount = Consts.GraphQLPagingIncludeTotalCount;
+            })
             .AddGlobalObjectIdentification()
             .AddQueryType()
             .TrimTypes();

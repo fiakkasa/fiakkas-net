@@ -6,7 +6,7 @@
         {
           "__typename": "UnknownCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "VW5rbm93bkNhdGVnb3J5CmdjOWY1ODc5ZDQwMTg0OWEwOWI3MWI0NzlkZDVkZTdmZg==",
+          "id": "VW5rbm93bkNhdGVnb3J5Op2H9ckYQKBJm3G0ed1d5/8=",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
@@ -15,7 +15,7 @@
         {
           "__typename": "PortfolioCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "UG9ydGZvbGlvQ2F0ZWdvcnkKZzM4ZTQ4M2U0Njk2MTRiMjU4OGE5ZDFkMGE1MTYxMTA5",
+          "id": "UG9ydGZvbGlvQ2F0ZWdvcnk65IPkOGFpJUuIqdHQpRYRCQ==",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
@@ -24,7 +24,7 @@
         {
           "__typename": "ResumeCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "UmVzdW1lQ2F0ZWdvcnkKZ2ViOWQ2MjU4OTljNDQ2YmRiZDQ0MjNkMzViMTk5NjVk",
+          "id": "UmVzdW1lQ2F0ZWdvcnk6WGKd68SZvUa9RCPTWxmWXQ==",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
@@ -36,7 +36,7 @@
         {
           "__typename": "SoftwareDevelopmentCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5CmdjYTgzMmJmOWI3Y2I0YzMxYmY4ZDAwZjg3YTI3NmZlMw==",
+          "id": "U29mdHdhcmVEZXZlbG9wbWVudENhdGVnb3J5Ovkrg8rLtzFMv40A+Honb+M=",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
@@ -46,7 +46,7 @@
         {
           "__typename": "InformationTechnologyCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnkKZzZjYzQzZTlhMzEyYjQ5MjNiODkwZTk2NmI4MTY4ZWVl",
+          "id": "SW5mb3JtYXRpb25UZWNobm9sb2d5Q2F0ZWdvcnk6mj7EbCsxI0m4kOlmuBaO7g==",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
@@ -56,7 +56,7 @@
         {
           "__typename": "OtherCategory",
           "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "T3RoZXJDYXRlZ29yeQpnOWZkOTFmOGEyYTQ0NDUyMGE1YjE4YWExYzNjMjkxMzM=",
+          "id": "T3RoZXJDYXRlZ29yeTqKH9mfRCogRaWxiqHDwpEz",
           "title": "Title",
           "updatedAt": null,
           "version": 1,
