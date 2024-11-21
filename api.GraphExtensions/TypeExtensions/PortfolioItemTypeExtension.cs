@@ -40,7 +40,6 @@ public sealed class PortfolioItemTypeExtension
         (await dataLoader.LoadAsync(parent.TechnologyIds, cancellationToken))
             .OfType<IPolymorphicTechnologyCategory[]>()
             .SelectMany(x => x)
-            .OfType<IPolymorphicTechnologyCategory>()
             .Select(x => x.Title)
     );
 }

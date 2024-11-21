@@ -145,7 +145,7 @@ public class GraphQLExtensionsTests
         public static IEnumerable<Message> GetMessages() => _messages;
 
         [NodeResolver]
-        public static Message? GetMessageById(Guid id) => 
+        public static Message? GetMessageById(Guid id) =>
             Array.Find(_messages, m => m.Id == id);
     }
 }

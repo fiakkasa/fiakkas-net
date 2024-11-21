@@ -43,11 +43,11 @@ public static class GraphQLExtensions
             .DisableIntrospection(!isDev)
             .AddFiltering()
             .AddSorting()
-            .ModifyOptions(options => 
+            .ModifyOptions(options =>
                 options.StripLeadingIFromInterface = Consts.GraphQLOptionsStripLeadingIFromInterface
             )
             .ModifyRequestOptions(options => options.IncludeExceptionDetails = isDev)
-            .ModifyCostOptions(costOptions => 
+            .ModifyCostOptions(costOptions =>
                 costOptions.EnforceCostLimits = Consts.GraphQLCostEnforceCostLimits
             )
             .ModifyPagingOptions(pagingOptions =>

@@ -95,7 +95,12 @@
             </div>
         );
 
-        var cut = Render(@<ContentFlow HasError="true" GenericErrorMessage="Error Message" GenericErrorCssClass="custom-error"/>);
+        var cut = 
+            Render(
+                @<ContentFlow HasError="true" 
+                              GenericErrorMessage="Error Message"
+                              GenericErrorCssClass="custom-error"/>
+            );
 
         var result = cut.Find("div.custom-error");
 

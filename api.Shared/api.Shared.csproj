@@ -7,21 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="HotChocolate" Version="14.1.0" />
-        <PackageReference Include="HotChocolate.Data" Version="14.1.0" />
-        <PackageReference Include="HotChocolate.Types.Analyzers" Version="14.1.0" />
+        <PackageReference Include="HotChocolate" Version="14.1.0"/>
+        <PackageReference Include="HotChocolate.Data" Version="14.1.0"/>
+        <PackageReference Include="HotChocolate.Types.Analyzers" Version="14.1.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\api.Shared.Types\api.Shared.Types.csproj" />
+        <ProjectReference Include="..\api.Shared.Types\api.Shared.Types.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="api.Shared.Tests" />
+        <InternalsVisibleTo Include="api.Shared.Tests"/>
     </ItemGroup>
 
 </Project>
