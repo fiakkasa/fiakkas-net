@@ -43,9 +43,13 @@ public static class GraphQLExtensions
             .DisableIntrospection(!isDev)
             .AddFiltering()
             .AddSorting()
-            .ModifyOptions(options => options.StripLeadingIFromInterface = true)
+            .ModifyOptions(options => 
+                options.StripLeadingIFromInterface = Consts.GraphQLOptionsStripLeadingIFromInterface
+            )
             .ModifyRequestOptions(options => options.IncludeExceptionDetails = isDev)
-            .ModifyCostOptions(costOptions => costOptions.EnforceCostLimits = false)
+            .ModifyCostOptions(costOptions => 
+                costOptions.EnforceCostLimits = Consts.GraphQLCostEnforceCostLimits
+            )
             .ModifyPagingOptions(pagingOptions =>
             {
                 pagingOptions.MaxPageSize = Consts.GraphQLPagingMaxPageSize;
