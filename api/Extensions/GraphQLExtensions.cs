@@ -73,7 +73,8 @@ public static class GraphQLExtensions
             {
                 Tool =
                 {
-                    Enable = isDev
+                    Enable = isDev,
+                    DisableTelemetry = true
                 },
                 EnableSchemaRequests = isDev,
                 EnableGetRequests = false,
