@@ -171,6 +171,7 @@ In addition, a number of enrichers are present and enabled by default:
   "Serilog": {
     "Using": ["Serilog.Sinks.Console", "Serilog.Sinks.File"],
     "Enrich": [
+      "FromLogContext",
       "WithClientIp",
       {
         "Name": "WithRequestHeader",

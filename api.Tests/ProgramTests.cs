@@ -54,6 +54,7 @@ public class ProgramTests
                           "Serilog.Sinks.Console"
                         ],
                         "Enrich": [
+                          "FromLogContext",
                           "WithClientIp",
                           {
                             "Name": "WithRequestHeader",
