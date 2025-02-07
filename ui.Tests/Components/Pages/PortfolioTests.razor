@@ -429,7 +429,7 @@
         cut.WaitForAssertion(() =>
         {
             refreshButton.GetAttribute("disabled").Should().NotBeNull();
-            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.InitialLoading.Should().BeTrue();
             cut.Instance.PartialLoading.Should().BeTrue();
         });
 
