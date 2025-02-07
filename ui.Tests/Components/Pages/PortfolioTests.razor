@@ -28,13 +28,24 @@
                 Arg.Any<CancellationToken>()
             );
 
-    private static GetPortfolioItemsResult DataFactory() =>
+    private static GetPortfolioItemsResult DataFactory(
+        int start = 0,
+        int count = 50,
+        int totalCount = 50,
+        bool hasNextPage = false
+    ) =>
         new(
             new GetPortfolioItems_PortfolioItems_PortfolioItemsConnection(
-                6,
+                totalCount,
+                new GetPortfolioItems_PortfolioItems_PageInfo_PageInfo(
+                    hasNextPage,
+                    start > 0,
+                    $"start-cursor-{start}",
+                    $"end-cursor-{start + count}"
+                ),
                 Enumerable
-                    .Range(1, 6)
-                    .Select((_, i) =>
+                    .Range(start, count)
+                    .Select((i, index) =>
                         new GetPortfolioItems_PortfolioItems_Nodes_PortfolioItem(
                             _date,
                             i switch
@@ -140,25 +151,6 @@
         );
 
     [Fact]
-    public void Portfolio_Should_Render_Template_When_Data_Is_Present()
-    {
-        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
-        var data = DataFactory();
-        _apiResult.Data.Returns(data);
-        GetMethodCall().Returns(taskSource.Task);
-
-        var cut = RenderComponent<Portfolio>();
-
-        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
-
-        taskSource.SetResult(_apiResult);
-
-        cut.WaitForAssertion(() => cut.Find(".year-section"));
-
-        cut.Markup.MatchSnapshot();
-    }
-
-    [Fact]
     public void Portfolio_Should_Render_Template_When_Cached_Data_Is_Present()
     {
         var data = DataFactory();
@@ -172,7 +164,7 @@
         _cache
             .TryGetValue(
                 Arg.Any<string>(),
-                out Arg.Any<KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]>()
+                out Arg.Any<HashSet<IGetPortfolioItems_PortfolioItems_Nodes>>()
             )
             .Returns(x =>
             {
@@ -192,14 +184,167 @@
     }
 
     [Fact]
-    public void Portfolio_Should_Render_Loading_When_Data_Is_In_Transit()
+    public void Portfolio_Should_Render_Template_When_Data_Is_Present()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        var initialDataBatch = DataFactory(0, 50, 100, true);
+        var secondDataBatch = DataFactory(50, 50, 100, false);
+        var apiResultInitial = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+        var apiResultSecond = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+
+        apiResultInitial.Data.Returns(initialDataBatch);
+        apiResultSecond.Data.Returns(secondDataBatch);
+
+        GetMethodCall()
+            .Returns(
+                Task.FromResult(apiResultInitial),
+                taskSource.Task
+            );
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        taskSource.SetResult(apiResultSecond);
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.Find(".year-section");
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_Template_With_Data_Permitted_By_Limit_When_Data_Is_Present()
+    {
+        var operations =
+            Enumerable
+                .Range(0, 10)
+                .Select((_, i) =>
+                    {
+                        var operation = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+                        operation.Data.Returns(DataFactory(i * 50, 50, 173, true));
+
+                        return operation;
+                    }
+                )
+                .ToArray();
+        GetMethodCall()
+            .Returns(
+                operations[0],
+                operations.Skip(1).ToArray()
+            );
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.Find(".year-section");
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
+        });
+
+        cut.Instance.Model.Should().HaveCount(count => count <= 200);
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_Template_With_Acquired_Data_When_One_Subsequent_Batch_Of_Data_Does_Not_Meet_Criteria()
+    {
+        var operations =
+            Enumerable
+                .Range(0, 3)
+                .Select((_, i) =>
+                    {
+                        var operation = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+
+                        if (i < 2)
+                        {
+                            operation.Data.Returns(DataFactory(i * 50, 50, 100, true));
+                        }
+
+                        return operation;
+                    }
+                )
+                .ToArray();
+        GetMethodCall()
+            .Returns(
+                operations[0],
+                operations.Skip(1).ToArray()
+            );
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.Find(".year-section");
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
+        });
+
+        cut.Instance.Model.Should().HaveCount(count => count <= 100);
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Render_Initial_Loading_When_Data_Is_In_Transit()
     {
         var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
         GetMethodCall().Returns(taskSource.Task);
 
         var cut = RenderComponent<Portfolio>();
 
-        cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
 
         cut.Markup.MatchSnapshot();
 
@@ -207,7 +352,104 @@
     }
 
     [Fact]
+    public void Portfolio_Should_Render_Partial_Loading_When_Data_Is_In_Transit()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        var initialDataBatch = DataFactory(0, 50, 100, true);
+        var secondDataBatch = DataFactory(50, 50, 100, false);
+        var apiResultInitial = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+        var apiResultSecond = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+
+        apiResultInitial.Data.Returns(initialDataBatch);
+        apiResultSecond.Data.Returns(secondDataBatch);
+
+        GetMethodCall()
+            .Returns(
+                Task.FromResult(apiResultInitial),
+                taskSource.Task
+            );
+
+        var cut = RenderComponent<Portfolio>();
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        taskSource.SetResult(apiResultSecond);
+
+        cut.WaitForAssertion(() =>
+        {
+            cut.FindComponent<Skeleton>();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
     public void Portfolio_Should_Prevent_Refresh_When_Loading()
+    {
+        var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
+        var data = DataFactory(0, 50, 100, false);
+        var apiResultInitial = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+        var apiResultSecond = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
+
+        apiResultInitial.Data.Returns(data);
+        apiResultSecond.Data.Returns(data);
+
+        GetMethodCall()
+            .Returns(
+                Task.FromResult(apiResultInitial),
+                taskSource.Task
+            );
+
+        var cut = RenderComponent<Portfolio>();
+        var refreshButton = cut.Find("button");
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().NotBeNull();
+            cut.Instance.InitialLoading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeNull();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
+        });
+
+        refreshButton.Click();
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().NotBeNull();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeTrue();
+        });
+
+        refreshButton.RemoveAttribute("disabled");
+        refreshButton.Click();
+
+        taskSource.SetResult(apiResultSecond);
+
+        cut.WaitForAssertion(() =>
+        {
+            refreshButton.GetAttribute("disabled").Should().BeNull();
+            cut.Instance.InitialLoading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
+        });
+
+        cut.Markup.MatchSnapshot();
+    }
+
+    [Fact]
+    public void Portfolio_Should_Allow_Refresh_When_Not_Loading()
     {
         var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
         GetMethodCall()
@@ -222,45 +464,7 @@
         cut.WaitForAssertion(() =>
         {
             refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.Loading.Should().BeFalse();
-        });
-
-        refreshButton.Click();
-
-        cut.WaitForAssertion(() =>
-        {
-            refreshButton.GetAttribute("disabled").Should().NotBeNull();
-            cut.Instance.Loading.Should().BeTrue();
-        });
-
-        refreshButton.RemoveAttribute("disabled");
-
-        refreshButton.Click();
-
-        cut.WaitForAssertion(() => cut.Instance.Loading.Should().BeTrue());
-
-        cut.Markup.MatchSnapshot();
-
-        taskSource.SetResult(_apiResult);
-    }
-
-    [Fact]
-    public void Portfolio_Should_Allow_Refresh_When_Not_Loading()
-    {
-        var taskSourceAfter = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
-        GetMethodCall()
-            .Returns(
-                Task.FromResult(_apiResult),
-                taskSourceAfter.Task
-            );
-
-        var cut = RenderComponent<Portfolio>();
-        var refreshButton = cut.Find("button");
-
-        cut.WaitForAssertion(() =>
-        {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.Loading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
         });
 
         refreshButton.Click();
@@ -268,15 +472,15 @@
         cut.WaitForAssertion(() =>
         {
             refreshButton.GetAttribute("disabled").Should().BeEmpty();
-            cut.Instance.Loading.Should().BeTrue();
+            cut.Instance.PartialLoading.Should().BeTrue();
         });
 
-        taskSourceAfter.SetResult(_apiResult);
+        taskSource.SetResult(_apiResult);
 
         cut.WaitForAssertion(() =>
         {
             refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.Loading.Should().BeFalse();
+            cut.Instance.PartialLoading.Should().BeFalse();
         });
 
         cut.Markup.MatchSnapshot();
@@ -310,7 +514,15 @@
     [Fact]
     public void Portfolio_Should_Render_GenericNodata_When_Nodes_Is_Null()
     {
-        _apiResult.Data.Returns(new GetPortfolioItemsResult(new GetPortfolioItems_PortfolioItems_PortfolioItemsConnection(0, null)));
+        _apiResult.Data.Returns(
+            new GetPortfolioItemsResult(
+                new GetPortfolioItems_PortfolioItems_PortfolioItemsConnection(
+                    0,
+                    new GetPortfolioItems_PortfolioItems_PageInfo_PageInfo(false, false, null, null),
+                    null
+                )
+            )
+        );
         GetMethodCall().Returns(Task.FromResult(_apiResult));
 
         var cut = RenderComponent<Portfolio>();

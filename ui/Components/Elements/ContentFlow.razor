@@ -1,40 +1,46 @@
-@if (IsLoading)
+@switch (IsLoading, HasError, HasData)
 {
-    if (CustomLoadingContent is not null)
-    {
-        @CustomLoadingContent
-    }
-    else
-    {
-        <Skeleton CssClass="@GenericLoadingCssClass"/>
-    }
-}
-else if (HasError)
-{
-    if (CustomErrorContent is not null)
-    {
-        @CustomErrorContent
-    }
-    else
-    {
-        <GenericError Message="@GenericErrorMessage" CssClass="@GenericErrorCssClass">
-            @GenericErrorContent
-        </GenericError>
-    }
-}
-else if (HasData)
-{
-    @ChildContent
-}
-else if (CustomNoDataContent is not null)
-{
-    @CustomNoDataContent
-}
-else
-{
-    <GenericNoData Message="@GenericNoDataMessage" CssClass="@GenericNoDataCssClass">
-        @GenericNoDataContent
-    </GenericNoData>
+    case (true, _, _):
+        if (CustomLoadingContent is not null)
+        {
+            @CustomLoadingContent
+        }
+        else
+        {
+            <Skeleton CssClass="@GenericLoadingCssClass"/>
+        }
+
+        break;
+    case (_, true, _):
+
+        if (CustomErrorContent is not null)
+        {
+            @CustomErrorContent
+        }
+        else
+        {
+            <GenericError Message="@GenericErrorMessage" CssClass="@GenericErrorCssClass">
+                @GenericErrorContent
+            </GenericError>
+        }
+
+        break;
+    case (_, _, true):
+        @ChildContent
+        break;
+    case (_, _, false):
+        if (CustomNoDataContent is not null)
+        {
+            @CustomNoDataContent
+        }
+        else
+        {
+            <GenericNoData Message="@GenericNoDataMessage" CssClass="@GenericNoDataCssClass">
+                @GenericNoDataContent
+            </GenericNoData>
+        }
+
+        break;
 }
 
 @code {

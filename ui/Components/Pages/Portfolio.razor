@@ -8,17 +8,23 @@
 <UniversalTitle Title="Portfolio">
     <button type="button"
             class="btn btn-outline-primary rounded-circle p-0 px-1"
-            title="Refresh" disabled="@Loading"
+            title="Refresh"
+            disabled="@(InitialLoading || PartialLoading)"
             @onclick="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
     </button>
 </UniversalTitle>
 
-<ContentFlow IsLoading="@Loading"
+<ContentFlow IsLoading="InitialLoading"
              HasError="@HasError"
-             HasData="@(Model.Length > 0)">
+             HasData="@(Model.Count > 0)"
+             GenericLoadingCssClass="@_genericLoadingCssClass">
     <div class="d-flex flex-column gap-2">
-        @foreach (var yearSection in Model!)
+        @foreach (
+            var yearSection in Model
+                .GroupBy(x => x.Year)
+                .OrderByDescending(x => x.Key)
+        )
         {
             <div class="year-section card" @key="yearSection.Key">
                 <div class="card-body">
@@ -26,14 +32,25 @@
                         @yearSection.Key
                     </h3>
                     <div class="items-of-year row gap-2">
-                        @foreach (var categorySection in yearSection.Value)
+                        @foreach (
+                            var categorySection in yearSection
+                                .GroupBy(x => new
+                                {
+                                    x.Category!.Id,
+                                    x.Category.Title
+                                })
+                                .OrderBy(cs => cs.Key.Title)
+                        )
                         {
-                            <div class="category-section col-12 col-xl" @key="categorySection.Key">
+                            <div class="category-section col-12 col-xl" @key="categorySection.Key.Id">
                                 <h4 class="category-title card-title">
-                                    @categorySection.Key
+                                    @categorySection.Key.Title
                                 </h4>
                                 <div class="items-of-category striped-container d-flex flex-column gap-1">
-                                    @foreach (var categoryItem in categorySection.Value)
+                                    @foreach (
+                                        var categoryItem in categorySection
+                                            .OrderByDescending(ci => ci.CreatedAt)
+                                    )
                                     {
                                         <div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1"
                                              @key="categoryItem.Id">
@@ -90,53 +107,140 @@
                 </div>
             </div>
         }
+
+        @if (PartialLoading)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <Skeleton CssClass="@_genericLoadingCssClass"/>
+                </div>
+            </div>
+        }
     </div>
+
 </ContentFlow>
 
 
 @code {
-    private readonly string _cacheKey = "portfolio_data";
+    private const string _cacheKey = "portfolio_data";
+    private const string _genericLoadingCssClass = "py-2 lead";
     private readonly TimeSpan _cacheDuration = TimeSpan.FromHours(1);
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private const int _pageSize = 1_000;
-    internal bool Loading { get; private set; } = true;
+    private const int _pageSize = 50;
+    internal bool InitialLoading { get; private set; } = true;
+    internal bool PartialLoading { get; private set; } = true;
     internal bool HasError { get; private set; }
-    internal KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[] Model { get; private set; } = [];
+    internal HashSet<IGetPortfolioItems_PortfolioItems_Nodes> Model { get; private set; } = [];
 
     private async Task Refresh()
     {
-        if (Loading) return;
+        if (PartialLoading)
+        {
+            return;
+        }
 
         await SetData(false);
     }
 
-    private static KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[] ResultToModel(
-        IOperationResult<IGetPortfolioItemsResult> result
-    ) =>
-        result
-            .Data
-            ?.PortfolioItems
-            ?.Nodes
-            ?.GroupBy(x => x.Year)
-            ?.OrderByDescending(x => x.Key)
-            .Select(groupedByYear =>
-                KeyValuePair.Create(
-                    groupedByYear.Key,
-                    groupedByYear
-                        .Where(x => x.Category is { Title.Length: > 0 })
-                        .GroupBy(x => x.Category!.Title)
-                        .OrderBy(x => x.Key)
-                        .Select(x => KeyValuePair.Create(x.Key, x.ToArray()))
-                        .ToArray()
-                )
+    private async Task<IGetPortfolioItems_PortfolioItems?> GetDataChunk(string? after = default)
+    {
+        var result = await Api.GetPortfolioItems.ExecuteAsync(
+            null,
+            null,
+            _pageSize,
+            null,
+            after,
+            null,
+            _cancellationTokenSource.Token
+        );
+
+        result.EnsureNoErrors();
+
+        return result.Data?.PortfolioItems;
+    }
+
+    private async IAsyncEnumerable<IReadOnlyList<IGetPortfolioItems_PortfolioItems_Nodes>> GetData()
+    {
+        var initialResult = await GetDataChunk();
+
+        if (
+            initialResult is not
+            {
+                PageInfo:
+                {
+                    HasNextPage: var hasNextPageInitial,
+                    EndCursor: { Length: > 0 } endCursorInitial
+                },
+                Nodes.Count: > 0,
+                TotalCount: > 0 and var totalCount
+            }
+        )
+        {
+            yield break;
+        }
+
+        yield return initialResult.Nodes;
+
+        if (!hasNextPageInitial)
+        {
+            yield break;
+        }
+
+        var limit = (int)Math.Floor(totalCount / (_pageSize * 1D));
+        var startCursor = endCursorInitial;
+
+        for (var i = 0; i < limit; i++)
+        {
+            var result = await GetDataChunk(startCursor);
+
+            if (
+                result is not
+                {
+                    PageInfo:
+                    {
+                        HasNextPage: var hasNextPage,
+                        EndCursor: { Length: > 0 } endCursor
+                    },
+                    Nodes.Count: > 0
+                }
             )
-            .ToArray() ?? [];
+            {
+                yield break;
+            }
+
+            startCursor = endCursor;
+
+            yield return result.Nodes;
+
+            if (hasNextPage == false)
+            {
+                yield break;
+            }
+        }
+    }
+
+    private void PatchItems(IEnumerable<IGetPortfolioItems_PortfolioItems_Nodes> items)
+    {
+        foreach (var item in items)
+        {
+            Model.Add(item);
+        }
+    }
+
+    private async Task PatchStateUpdate()
+    {
+        await 250.SafeDelay(_cancellationTokenSource.Token);
+
+        InitialLoading = Model.Count == 0;
+
+        StateHasChanged();
+    }
 
     private async Task SetData(bool useCache = true)
     {
         try
         {
-            Loading = true;
+            PartialLoading = true;
             HasError = false;
             Model = [];
 
@@ -144,36 +248,30 @@
 
             if (
                 useCache
-                && Cache.TryGetValue<KeyValuePair<long, KeyValuePair<string, IGetPortfolioItems_PortfolioItems_Nodes[]>[]>[]>(
+                && Cache.TryGetValue<HashSet<IGetPortfolioItems_PortfolioItems_Nodes>>(
                     _cacheKey,
                     out var cachedModel
                 )
             )
             {
-                await 250.SafeDelay(_cancellationTokenSource.Token);
-
-                Model = cachedModel;
+                foreach (var items in cachedModel.Chunk(_pageSize))
+                {
+                    PatchItems(items);
+                    await PatchStateUpdate();
+                }
 
                 return;
             }
 
             Cache.Remove(_cacheKey);
 
-            var result = await Api.GetPortfolioItems.ExecuteAsync(
-                null,
-                null,
-                _pageSize,
-                null,
-                null,
-                null,
-                _cancellationTokenSource.Token
-            );
+            await foreach (var items in GetData().WithCancellation(_cancellationTokenSource.Token))
+            {
+                PatchItems(items.Where(x => x.Category is { Id.Length: > 0, Title.Length: > 0 }));
+                await PatchStateUpdate();
+            }
 
-            result.EnsureNoErrors();
-
-            Model = ResultToModel(result);
-
-            if (Model.Length > 0)
+            if (Model.Count > 0)
             {
                 Cache.Add(_cacheKey, Model, _cacheDuration);
             }
@@ -186,7 +284,8 @@
         }
         finally
         {
-            Loading = false;
+            PartialLoading = false;
+            InitialLoading = false;
 
             StateHasChanged();
         }
