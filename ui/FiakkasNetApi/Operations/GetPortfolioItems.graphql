@@ -15,6 +15,12 @@ query GetPortfolioItems(
     before: $before
   ) {
     totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
     nodes {
       createdAt
       href

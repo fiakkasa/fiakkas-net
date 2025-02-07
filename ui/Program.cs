@@ -33,7 +33,7 @@ if (!isDev)
     app.UseExceptionHandler("/Error", true);
 }
 
-app.UseStaticFiles();
+app.MapStaticAssets();
 app.UseAntiforgery();
 
 // note: add serilog after "noisy" middleware

@@ -590,8 +590,8 @@ type TextItemsEdge {
 }
 
 type TimePeriod {
-  start: Date!
-  end: Date
+  start: LocalDate!
+  end: LocalDate
 }
 
 "A connection to a list of items."
@@ -706,21 +706,6 @@ input CustomerSortInput {
   createdAt: SortEnumType @cost(weight: "10")
   updatedAt: SortEnumType @cost(weight: "10")
   version: SortEnumType @cost(weight: "10")
-}
-
-input DateOperationFilterInput {
-  eq: Date @cost(weight: "10")
-  neq: Date @cost(weight: "10")
-  in: [Date] @cost(weight: "10")
-  nin: [Date] @cost(weight: "10")
-  gt: Date @cost(weight: "10")
-  ngt: Date @cost(weight: "10")
-  gte: Date @cost(weight: "10")
-  ngte: Date @cost(weight: "10")
-  lt: Date @cost(weight: "10")
-  nlt: Date @cost(weight: "10")
-  lte: Date @cost(weight: "10")
-  nlte: Date @cost(weight: "10")
 }
 
 input DateTimeOperationFilterInput {
@@ -888,6 +873,21 @@ input ListUuidOperationFilterInput {
   any: Boolean @cost(weight: "10")
 }
 
+input LocalDateOperationFilterInput {
+  eq: LocalDate @cost(weight: "10")
+  neq: LocalDate @cost(weight: "10")
+  in: [LocalDate] @cost(weight: "10")
+  nin: [LocalDate] @cost(weight: "10")
+  gt: LocalDate @cost(weight: "10")
+  ngt: LocalDate @cost(weight: "10")
+  gte: LocalDate @cost(weight: "10")
+  ngte: LocalDate @cost(weight: "10")
+  lt: LocalDate @cost(weight: "10")
+  nlt: LocalDate @cost(weight: "10")
+  lte: LocalDate @cost(weight: "10")
+  nlte: LocalDate @cost(weight: "10")
+}
+
 input LongOperationFilterInput {
   eq: Long @cost(weight: "10")
   neq: Long @cost(weight: "10")
@@ -1052,8 +1052,8 @@ input TextItemSortInput {
 input TimePeriodFilterInput {
   and: [TimePeriodFilterInput!]
   or: [TimePeriodFilterInput!]
-  start: DateOperationFilterInput
-  end: DateOperationFilterInput
+  start: LocalDateOperationFilterInput
+  end: LocalDateOperationFilterInput
 }
 
 input TimePeriodSortInput {
@@ -1171,11 +1171,11 @@ directive @listSize("The `assumedSize` argument can be used to statically define
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
 
-"The `Date` scalar represents an ISO-8601 compliant date type."
-scalar Date
-
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+"The `LocalDate` scalar type represents a ISO date string, represented as UTF-8 character sequences YYYY-MM-DD. The scalar follows the specification defined in RFC3339"
+scalar LocalDate
 
 "The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
 scalar Long
