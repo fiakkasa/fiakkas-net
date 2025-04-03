@@ -8,7 +8,7 @@ namespace api.EducationItems.DataLoaders;
 public sealed class EducationItemBatchDataLoader(
     IDataRepository<IEducationItem> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<IEducationItem, EducationItem>(
     dataRepository,
     EducationItemMappers.Map,

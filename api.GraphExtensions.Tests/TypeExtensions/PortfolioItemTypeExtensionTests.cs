@@ -29,7 +29,8 @@ public class PortfolioItemTypeExtensionTests
         ]);
         var dataLoader = new PortfolioCategoryBatchDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new PortfolioItemTypeExtension();
 
@@ -63,7 +64,8 @@ public class PortfolioItemTypeExtensionTests
         ]);
         var dataLoader = new CustomerBatchDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new PortfolioItemTypeExtension();
 
@@ -98,7 +100,8 @@ public class PortfolioItemTypeExtensionTests
         ]);
         var dataLoader = new TechnologyCategoryGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new PortfolioItemTypeExtension();
 
@@ -133,7 +136,8 @@ public class PortfolioItemTypeExtensionTests
         ]);
         var dataLoader = new TechnologyCategoryGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new PortfolioItemTypeExtension();
 

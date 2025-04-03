@@ -8,7 +8,7 @@ namespace api.Languages.DataLoaders;
 public sealed class LanguageBatchDataLoader(
     IDataRepository<ILanguage> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<ILanguage, Language>(
     dataRepository,
     LanguageMappers.Map,

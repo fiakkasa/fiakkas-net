@@ -4,7 +4,7 @@ public sealed class PortfolioTechnologyCategoryByPortfolioCategoryIdGroupDataLoa
     IDataRepository<ICategory> categoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : GroupedDataLoader<Guid, IPolymorphicTechnologyCategory>(batchScheduler, options)
 {
     private static readonly Expression<Func<ICategory, bool>> _where = x => CategoryEntityUtils.IsTechnologyCategory(x);

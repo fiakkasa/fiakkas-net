@@ -3,7 +3,7 @@ namespace api.GraphExtensions.DataLoaders;
 public sealed class EducationItemByResumeCategoryIdGroupDataLoader(
     IDataRepository<IEducationItem> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : GroupedDataLoader<Guid, EducationItem>(batchScheduler, options)
 {
     protected override async Task<ILookup<Guid, EducationItem>> LoadGroupedBatchAsync(

@@ -4,7 +4,7 @@ public sealed class CustomerByPortfolioCategoryIdGroupDataLoader(
     IDataRepository<ICustomer> customerDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : GroupedDataLoader<Guid, Customer>(batchScheduler, options)
 {
     protected override async Task<ILookup<Guid, Customer>> LoadGroupedBatchAsync(

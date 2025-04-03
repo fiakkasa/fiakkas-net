@@ -43,9 +43,17 @@ public class AchievementQueriesTests
             Years = [2024]
         };
         var dataRepository = new MockDataRepository<IAchievement>([item]);
-        var dataLoader = new AchievementBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new AchievementBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await AchievementQueries.GetAchievementById(id, dataLoader, default);
+        var result = await AchievementQueries.GetAchievementById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<Achievement>();
@@ -57,9 +65,17 @@ public class AchievementQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<IAchievement>([]);
-        var dataLoader = new AchievementBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new AchievementBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await AchievementQueries.GetAchievementById(id, dataLoader, default);
+        var result = await AchievementQueries.GetAchievementById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

@@ -49,9 +49,17 @@ public class ContactItemQueriesTests
             Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<IContactItem>([item]);
-        var dataLoader = new ContactItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new ContactItemBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await ContactItemQueries.GetContactItemById(id, dataLoader, default);
+        var result = await ContactItemQueries.GetContactItemById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeAssignableTo<ContactItem>();
@@ -63,9 +71,17 @@ public class ContactItemQueriesTests
     {
         var id = new Guid("ebf224a8-7ff3-47b9-882b-dd41ec7f5a05");
         var dataRepository = new MockDataRepository<IContactItem>([]);
-        var dataLoader = new ContactItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new ContactItemBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await ContactItemQueries.GetContactItemById(id, dataLoader, default);
+        var result = await ContactItemQueries.GetContactItemById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

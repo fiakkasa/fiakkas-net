@@ -43,9 +43,16 @@ public class AssociatedCategoryGroupDataLoaderTests
                 Href = new("/test", UriKind.Relative)
             }
         ]);
-        var sut = new AssociatedCategoryGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new AssociatedCategoryGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([CategoryType.SoftwareDevelopment], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [CategoryType.SoftwareDevelopment],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().HaveCount(2);
@@ -57,9 +64,16 @@ public class AssociatedCategoryGroupDataLoaderTests
     {
         var dataRepository = new MockDataRepository<ICategory>();
 
-        var sut = new AssociatedCategoryGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new AssociatedCategoryGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([CategoryType.SoftwareDevelopment], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [CategoryType.SoftwareDevelopment],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().BeEmpty();

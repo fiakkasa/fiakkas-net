@@ -35,7 +35,8 @@ public class ICategoryAssociatedCategoryTypesTypeExtensionTests
         ]);
         var dataLoader = new AssociatedCategoryGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new ICategoryAssociatedCategoryTypesTypeExtension();
 

@@ -8,7 +8,7 @@ namespace api.Categories.DataLoaders;
 public sealed class ResumeCategoryBatchDataLoader(
     IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<ICategory, ResumeCategory>(
     dataRepository,
     CategoryMappers.MapResumeCategory,

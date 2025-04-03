@@ -48,9 +48,16 @@ public class EducationItemByResumeCategoryIdGroupDataLoaderTests
                 Subjects = ["Subject"]
             }
         ]);
-        var sut = new EducationItemByResumeCategoryIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new EducationItemByResumeCategoryIdGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([new("eb9d6258-99c4-46bd-bd44-23d35b19965d")], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [new("eb9d6258-99c4-46bd-bd44-23d35b19965d")],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().HaveCount(2);
@@ -62,9 +69,16 @@ public class EducationItemByResumeCategoryIdGroupDataLoaderTests
     {
         var dataRepository = new MockDataRepository<IEducationItem>([]);
 
-        var sut = new EducationItemByResumeCategoryIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new EducationItemByResumeCategoryIdGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [Guid.NewGuid()],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().BeEmpty();

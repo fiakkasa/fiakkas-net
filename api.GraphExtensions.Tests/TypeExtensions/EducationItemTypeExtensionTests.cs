@@ -26,7 +26,8 @@ public class EducationItemTypeExtensionTests
         ]);
         var dataLoader = new ResumeCategoryBatchDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new EducationItemTypeExtension();
 

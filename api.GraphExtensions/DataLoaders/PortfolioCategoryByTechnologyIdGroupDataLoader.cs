@@ -4,7 +4,7 @@ public sealed class PortfolioCategoryByTechnologyIdGroupDataLoader(
     IDataRepository<ICategory> categoryDataRepository,
     IDataRepository<IPortfolioItem> portfolioDataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : GroupedDataLoader<Guid, PortfolioCategory>(batchScheduler, options)
 {
     private static readonly Expression<Func<ICategory, bool>> _where = x =>

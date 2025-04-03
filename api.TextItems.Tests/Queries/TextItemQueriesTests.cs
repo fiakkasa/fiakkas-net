@@ -45,9 +45,17 @@ public class TextItemQueriesTests
             Content = "Content"
         };
         var dataRepository = new MockDataRepository<ITextItem>([item]);
-        var dataLoader = new TextItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new TextItemBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await TextItemQueries.GetTextItemById(id, dataLoader, default);
+        var result = await TextItemQueries.GetTextItemById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<TextItem>();
@@ -59,9 +67,17 @@ public class TextItemQueriesTests
     {
         var id = new Guid("2f69e973-550b-4769-801a-e757807e6845");
         var dataRepository = new MockDataRepository<ITextItem>([]);
-        var dataLoader = new TextItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new TextItemBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await TextItemQueries.GetTextItemById(id, dataLoader, default);
+        var result = await TextItemQueries.GetTextItemById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

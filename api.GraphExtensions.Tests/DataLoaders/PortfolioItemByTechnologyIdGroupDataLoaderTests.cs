@@ -40,7 +40,8 @@ public class PortfolioItemByTechnologyIdGroupDataLoaderTests
         ]);
         var sut = new PortfolioItemByTechnologyIdGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
 
         var result = await sut.LoadAsync([new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")], CancellationToken.None);
@@ -57,7 +58,8 @@ public class PortfolioItemByTechnologyIdGroupDataLoaderTests
 
         var sut = new PortfolioItemByTechnologyIdGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
 
         var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);

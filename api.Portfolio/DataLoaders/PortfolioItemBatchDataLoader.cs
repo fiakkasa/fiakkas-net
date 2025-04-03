@@ -8,7 +8,7 @@ namespace api.Portfolio.DataLoaders;
 public sealed class PortfolioItemBatchDataLoader(
     IDataRepository<IPortfolioItem> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<IPortfolioItem, PortfolioItem>(
     dataRepository,
     PortfolioItemMappers.Map,

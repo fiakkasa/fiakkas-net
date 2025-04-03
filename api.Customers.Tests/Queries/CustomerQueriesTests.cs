@@ -43,9 +43,17 @@ public class CustomerQueriesTests
             Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<ICustomer>([item]);
-        var dataLoader = new CustomerBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new CustomerBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CustomerQueries.GetCustomerById(id, dataLoader, default);
+        var result = await CustomerQueries.GetCustomerById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<Customer>();
@@ -57,9 +65,17 @@ public class CustomerQueriesTests
     {
         var id = new Guid("18e483e4-6961-4b25-88a9-d1d0a5161109");
         var dataRepository = new MockDataRepository<ICustomer>([]);
-        var dataLoader = new CustomerBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new CustomerBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CustomerQueries.GetCustomerById(id, dataLoader, default);
+        var result = await CustomerQueries.GetCustomerById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

@@ -96,8 +96,7 @@ public class AbstractGenericBatchDataLoaderByIdTests
 
     public sealed class MockBatchDataLoader(
         IDataRepository<IMockItem> dataRepository,
-        IBatchScheduler batchScheduler,
-        DataLoaderOptions? options = null
+        IBatchScheduler batchScheduler
     ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
         dataRepository,
         x => new()
@@ -106,13 +105,12 @@ public class AbstractGenericBatchDataLoaderByIdTests
             Text = x.Text
         },
         batchScheduler,
-        options
+        new()
     );
 
     public sealed class MockWithPredicateBatchDataLoader(
         IDataRepository<IMockItem> dataRepository,
-        IBatchScheduler batchScheduler,
-        DataLoaderOptions? options = null
+        IBatchScheduler batchScheduler
     ) : AbstractGenericBatchDataLoaderById<IMockItem, MockItem>(
         dataRepository,
         x => new()
@@ -121,7 +119,7 @@ public class AbstractGenericBatchDataLoaderByIdTests
             Text = x.Text
         },
         batchScheduler,
-        options,
+        new(),
         (x, keys) => keys.Contains(x.Id) && x.Text == "Hello"
     );
 }

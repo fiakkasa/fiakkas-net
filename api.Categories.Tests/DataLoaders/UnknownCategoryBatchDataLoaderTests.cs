@@ -23,9 +23,16 @@ public class UnknownCategoryBatchDataLoaderTests
             }
         ]);
 
-        var sut = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new UnknownCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([new("eb9d6258-99c4-46bd-bd44-23d35b19965d")], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [new("eb9d6258-99c4-46bd-bd44-23d35b19965d")],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().NotBeNull();
@@ -48,9 +55,16 @@ public class UnknownCategoryBatchDataLoaderTests
             }
         ]);
 
-        var sut = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new UnknownCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [Guid.NewGuid()],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().BeNull();
@@ -62,9 +76,16 @@ public class UnknownCategoryBatchDataLoaderTests
     {
         var dataRepository = new MockDataRepository<ICategory>();
 
-        var sut = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new UnknownCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [Guid.NewGuid()],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().BeNull();

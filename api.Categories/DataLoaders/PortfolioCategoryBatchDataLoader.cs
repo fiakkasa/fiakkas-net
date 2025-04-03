@@ -8,7 +8,7 @@ namespace api.Categories.DataLoaders;
 public sealed class PortfolioCategoryBatchDataLoader(
     IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<ICategory, PortfolioCategory>(
     dataRepository,
     CategoryMappers.MapPortfolioCategory,
