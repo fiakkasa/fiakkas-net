@@ -44,9 +44,17 @@ public class LanguageQueriesTests
             Title = "Title"
         };
         var dataRepository = new MockDataRepository<ILanguage>([item]);
-        var dataLoader = new LanguageBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new LanguageBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await LanguageQueries.GetLanguageById(id, dataLoader, default);
+        var result = await LanguageQueries.GetLanguageById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<Language>();
@@ -58,9 +66,17 @@ public class LanguageQueriesTests
     {
         var id = new Guid("02a3be9b-3f04-4b4a-8945-e84fef537b58");
         var dataRepository = new MockDataRepository<ILanguage>([]);
-        var dataLoader = new LanguageBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new LanguageBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await LanguageQueries.GetLanguageById(id, dataLoader, default);
+        var result = await LanguageQueries.GetLanguageById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

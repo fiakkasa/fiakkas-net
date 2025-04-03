@@ -61,9 +61,17 @@ public class EducationItemQueriesTests
             Subjects = ["Subject"]
         };
         var dataRepository = new MockDataRepository<IEducationItem>([item]);
-        var dataLoader = new EducationItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new EducationItemBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await EducationItemQueries.GetEducationItemById(id, dataLoader, default);
+        var result = await EducationItemQueries.GetEducationItemById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<EducationItem>();
@@ -75,9 +83,17 @@ public class EducationItemQueriesTests
     {
         var id = new Guid("38898c62-161e-40f2-8a9f-39bf1ff46224");
         var dataRepository = new MockDataRepository<IEducationItem>([]);
-        var dataLoader = new EducationItemBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new EducationItemBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await EducationItemQueries.GetEducationItemById(id, dataLoader, default);
+        var result = await EducationItemQueries.GetEducationItemById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

@@ -8,7 +8,7 @@ namespace api.Achievements.DataLoaders;
 public sealed class AchievementBatchDataLoader(
     IDataRepository<IAchievement> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<IAchievement, Achievement>(
     dataRepository,
     AchievementMappers.Map,

@@ -46,7 +46,8 @@ public class ITechnologyCategoryTypeExtensionTests
         var dataLoader = new PortfolioCategoryByTechnologyIdGroupDataLoader(
             categoryDataRepository,
             portfolioDataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new ITechnologyCategoryTypeExtension();
 
@@ -97,7 +98,8 @@ public class ITechnologyCategoryTypeExtensionTests
         var dataLoader = new CustomerByTechnologyIdGroupDataLoader(
             customerDataRepository,
             portfolioDataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new ITechnologyCategoryTypeExtension();
 
@@ -135,7 +137,8 @@ public class ITechnologyCategoryTypeExtensionTests
         ]);
         var dataLoader = new PortfolioItemByTechnologyIdGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new ITechnologyCategoryTypeExtension();
 

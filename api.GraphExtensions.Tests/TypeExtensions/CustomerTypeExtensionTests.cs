@@ -44,7 +44,8 @@ public class CustomerTypeExtensionTests
         var dataLoader = new PortfolioCategoryByCustomerIdGroupDataLoader(
             categoryDataRepository,
             portfolioDataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new CustomerTypeExtension();
 
@@ -96,7 +97,8 @@ public class CustomerTypeExtensionTests
         var dataLoader = new PortfolioTechnologyCategoryByCustomerIdGroupDataLoader(
             categoryDataRepository,
             portfolioDataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new CustomerTypeExtension();
 
@@ -134,7 +136,8 @@ public class CustomerTypeExtensionTests
         ]);
         var dataLoader = new PortfolioItemByCustomerIdGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new CustomerTypeExtension();
 

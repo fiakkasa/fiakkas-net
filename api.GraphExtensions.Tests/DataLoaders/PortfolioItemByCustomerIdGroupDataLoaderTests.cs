@@ -38,7 +38,11 @@ public class PortfolioItemByCustomerIdGroupDataLoaderTests
                 CustomerId = new("18e483e4-6961-4b25-88a9-d1d0a5161109")
             }
         ]);
-        var sut = new PortfolioItemByCustomerIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new PortfolioItemByCustomerIdGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
         var result = await sut.LoadAsync([new("18e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
 
@@ -52,7 +56,11 @@ public class PortfolioItemByCustomerIdGroupDataLoaderTests
     {
         var dataRepository = new MockDataRepository<IPortfolioItem>();
 
-        var sut = new PortfolioItemByCustomerIdGroupDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var sut = new PortfolioItemByCustomerIdGroupDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
         var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 

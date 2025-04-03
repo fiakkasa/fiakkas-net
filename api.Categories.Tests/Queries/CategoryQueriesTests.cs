@@ -126,9 +126,17 @@ public class CategoryQueriesTests
             Title = "Title"
         };
         var dataRepository = new MockDataRepository<ICategory>([item]);
-        var dataLoader = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new UnknownCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetUnknownCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetUnknownCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<UnknownCategory>();
@@ -140,9 +148,17 @@ public class CategoryQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<ICategory>([]);
-        var dataLoader = new UnknownCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new UnknownCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetUnknownCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetUnknownCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }
@@ -193,9 +209,17 @@ public class CategoryQueriesTests
             Title = "Title"
         };
         var dataRepository = new MockDataRepository<ICategory>([item]);
-        var dataLoader = new PortfolioCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new PortfolioCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetPortfolioCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetPortfolioCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<PortfolioCategory>();
@@ -207,7 +231,11 @@ public class CategoryQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<ICategory>([]);
-        var dataLoader = new PortfolioCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new PortfolioCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
         var result = await CategoryQueries.GetPortfolioCategoryById(id, dataLoader, default);
 
@@ -262,7 +290,11 @@ public class CategoryQueriesTests
             AssociatedCategoryTypes = [CategoryType.SoftwareDevelopment]
         };
         var dataRepository = new MockDataRepository<ICategory>([item]);
-        var dataLoader = new ResumeCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new ResumeCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
         var result = await CategoryQueries.GetResumeCategoryById(id, dataLoader, default);
 
@@ -276,9 +308,17 @@ public class CategoryQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<ICategory>([]);
-        var dataLoader = new ResumeCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new ResumeCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetResumeCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetResumeCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }
@@ -331,9 +371,17 @@ public class CategoryQueriesTests
             Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<ICategory>([item]);
-        var dataLoader = new SoftwareDevelopmentCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new SoftwareDevelopmentCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetSoftwareDevelopmentCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetSoftwareDevelopmentCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeAssignableTo<SoftwareDevelopmentCategory>();
@@ -345,7 +393,11 @@ public class CategoryQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<ICategory>([]);
-        var dataLoader = new SoftwareDevelopmentCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new SoftwareDevelopmentCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
         var result = await CategoryQueries.GetSoftwareDevelopmentCategoryById(id, dataLoader, default);
 
@@ -400,9 +452,17 @@ public class CategoryQueriesTests
             Href = new("/test", UriKind.Relative)
         };
         var dataRepository = new MockDataRepository<ICategory>([item]);
-        var dataLoader = new InformationTechnologyCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new InformationTechnologyCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetInformationTechnologyCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetInformationTechnologyCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<InformationTechnologyCategory>();
@@ -414,9 +474,17 @@ public class CategoryQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<ICategory>([]);
-        var dataLoader = new InformationTechnologyCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new InformationTechnologyCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetInformationTechnologyCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetInformationTechnologyCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }
@@ -510,9 +578,17 @@ public class CategoryQueriesTests
             Title = "Title"
         };
         var dataRepository = new MockDataRepository<ICategory>([item]);
-        var dataLoader = new OtherCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new OtherCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetOtherCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetOtherCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().NotBeNull();
         result.Should().BeOfType<OtherCategory>();
@@ -524,9 +600,17 @@ public class CategoryQueriesTests
     {
         var id = new Guid("d4605b0c-58bc-49ac-bcfd-10a24a203add");
         var dataRepository = new MockDataRepository<ICategory>([]);
-        var dataLoader = new OtherCategoryBatchDataLoader(dataRepository, AutoBatchScheduler.Default);
+        var dataLoader = new OtherCategoryBatchDataLoader(
+            dataRepository,
+            AutoBatchScheduler.Default,
+            new()
+        );
 
-        var result = await CategoryQueries.GetOtherCategoryById(id, dataLoader, default);
+        var result = await CategoryQueries.GetOtherCategoryById(
+            id,
+            dataLoader,
+            default
+        );
 
         result.Should().BeNull();
     }

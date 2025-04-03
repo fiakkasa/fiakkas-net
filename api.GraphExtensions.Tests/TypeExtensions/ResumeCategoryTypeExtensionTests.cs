@@ -33,7 +33,8 @@ public class ResumeCategoryTypeExtensionTests
         ]);
         var dataLoader = new EducationItemByResumeCategoryIdGroupDataLoader(
             dataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
         var sut = new ResumeCategoryTypeExtension();
 

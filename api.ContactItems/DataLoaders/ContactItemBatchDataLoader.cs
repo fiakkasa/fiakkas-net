@@ -8,7 +8,7 @@ namespace api.ContactItems.DataLoaders;
 public sealed class ContactItemBatchDataLoader(
     IDataRepository<IContactItem> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<IContactItem, ContactItem>(
     dataRepository,
     ContactItemMappers.Map,

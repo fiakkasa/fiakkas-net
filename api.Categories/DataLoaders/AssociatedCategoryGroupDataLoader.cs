@@ -7,7 +7,7 @@ namespace api.Categories.DataLoaders;
 public sealed class AssociatedCategoryGroupDataLoader(
     IDataRepository<ICategory> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : GroupedDataLoader<CategoryType, IPolymorphicCategory>(batchScheduler, options)
 {
     protected override async Task<ILookup<CategoryType, IPolymorphicCategory>> LoadGroupedBatchAsync(

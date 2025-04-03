@@ -64,10 +64,14 @@ public class CustomerByPortfolioCategoryIdGroupDataLoaderTests
         var sut = new CustomerByPortfolioCategoryIdGroupDataLoader(
             customerDataRepository,
             portfolioItemDataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
 
-        var result = await sut.LoadAsync([new("38e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [new("38e483e4-6961-4b25-88a9-d1d0a5161109")],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().HaveCount(2);
@@ -83,10 +87,14 @@ public class CustomerByPortfolioCategoryIdGroupDataLoaderTests
         var sut = new CustomerByPortfolioCategoryIdGroupDataLoader(
             customerDataRepository,
             portfolioItemDataRepository,
-            AutoBatchScheduler.Default
+            AutoBatchScheduler.Default,
+            new()
         );
 
-        var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
+        var result = await sut.LoadAsync(
+            [Guid.NewGuid()],
+            CancellationToken.None
+        );
 
         result.Should().ContainSingle();
         result[0].Should().BeEmpty();

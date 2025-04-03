@@ -6,7 +6,7 @@ public abstract class AbstractGenericBatchDataLoaderById<TEntity, TMapped>(
     IDataRepository<TEntity> dataRepository,
     Func<TEntity, TMapped> mapper,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = default,
+    DataLoaderOptions options,
     Func<TEntity, IReadOnlyList<Guid>, bool>? predicate = default
 ) : BatchDataLoader<Guid, TMapped>(batchScheduler, options ?? new())
     where TEntity : IBaseId

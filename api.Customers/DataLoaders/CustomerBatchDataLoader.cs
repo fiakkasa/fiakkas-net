@@ -8,7 +8,7 @@ namespace api.Customers.DataLoaders;
 public sealed class CustomerBatchDataLoader(
     IDataRepository<ICustomer> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<ICustomer, Customer>(
     dataRepository,
     CustomerMappers.Map,

@@ -14,6 +14,8 @@
         - [UI Configuration](#ui-configuration)
         - [UI to API GraphQL Client](#ui-to-api-graphql-client)
             - [Init Strawberry Shake](#init-strawberry-shake)
+            - [Update Strawberry Shake](#update-strawberry-shake)
+            - [Define GraphQL Operations](#define-graphql-operations)
         - [Running the UI](#running-the-ui)
             - [Try it out!](#try-it-out-1)
     - [Testing](#testing)
@@ -106,8 +108,64 @@ Consider using the `data.sample.json` file as a starting point.
 #### Init Strawberry Shake
 
 ```bash
+cd ui
 dotnet graphql init http://localhost:5069/graphql -n FiakkasNetApi -p ./FiakkasNetApi
 ```
+
+set under extensions:
+
+```json
+{
+  "namespace": "ui.GraphQL",
+  "dependencyInjection": true
+}
+```
+
+ex.
+
+```json
+{
+  "schema": "schema.graphql",
+  "documents": "**/*.graphql",
+  "extensions": {
+    "strawberryShake": {
+      "name": "FiakkasNetApi",
+      "namespace": "ui.GraphQL",
+      "url": "http://localhost:5069/graphql",
+      "dependencyInjection": true,
+      "records": {
+        "inputs": false,
+        "entities": false
+      },
+      "transportProfiles": [
+        {
+          "default": "Http",
+          "subscription": "WebSocket"
+        }
+      ]
+    }
+  }
+}
+```
+
+#### Update Strawberry Shake
+
+```bash
+cd ui/FiakkasNetApi
+dotnet graphql update
+```
+
+#### Define GraphQL Operations
+
+create a folder to save and define GraphQL operations with the extension `.graphql`.
+
+ex.
+
+- Operations
+    - GetPortfolioItems.graphql
+    - GetSystemStatus.graphql
+
+compile the code!
 
 ### Running the UI
 
@@ -264,7 +322,7 @@ The schema can be exported by running the api with the following command:
 - Serilog.Settings.Configuration: https://github.com/serilog/serilog-settings-configuration
 - Serilog.Sinks.Console: https://github.com/serilog/serilog-sinks-console
 - Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
-- StrawberryShake: https://chillicream.com/docs/strawberryshake/v13/get-started/console
+- StrawberryShake: https://chillicream.com/docs/strawberryshake/v15/get-started/console
 - Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - VS Code: https://code.visualstudio.com
 - XUnit: https://xunit.net

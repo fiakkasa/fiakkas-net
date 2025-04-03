@@ -8,7 +8,7 @@ namespace api.TextItems.DataLoaders;
 public sealed class TextItemBatchDataLoader(
     IDataRepository<ITextItem> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : AbstractGenericBatchDataLoaderById<ITextItem, TextItem>(
     dataRepository,
     TextItemMappers.Map,

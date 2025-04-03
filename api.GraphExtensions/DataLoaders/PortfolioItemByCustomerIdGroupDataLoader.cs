@@ -3,7 +3,7 @@ namespace api.GraphExtensions.DataLoaders;
 public sealed class PortfolioItemByCustomerIdGroupDataLoader(
     IDataRepository<IPortfolioItem> dataRepository,
     IBatchScheduler batchScheduler,
-    DataLoaderOptions? options = null
+    DataLoaderOptions options
 ) : GroupedDataLoader<Guid, PortfolioItem>(batchScheduler, options)
 {
     protected override async Task<ILookup<Guid, PortfolioItem>> LoadGroupedBatchAsync(
