@@ -7,6 +7,7 @@ var isDev = builder.Environment.IsDevelopment();
 
 builder.Host.AddAppLoggingProvider();
 
+services.AddValidatedOptions<ForwardedHeadersConfig>();
 services.AddUiConfig();
 services.AddUiCache();
 services.AddHtmlParser();
@@ -22,6 +23,8 @@ services.AddEmailService();
 services.AddResponseCompression();
 
 var app = builder.Build();
+
+app.UseAppForwardedHeaders();
 
 app.UseStatusCodePagesWithRedirects("/404");
 

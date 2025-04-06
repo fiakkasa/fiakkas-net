@@ -33,8 +33,8 @@ public class EducationItemQueriesTests
 
         var result = EducationItemQueries.GetEducationItems(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<EducationItem>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<EducationItem>>(result);
         result.MatchSnapshot();
     }
 
@@ -73,8 +73,8 @@ public class EducationItemQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<EducationItem>();
+        Assert.NotNull(result);
+        Assert.IsType<EducationItem>(result);
         result.MatchSnapshot();
     }
 
@@ -95,6 +95,6 @@ public class EducationItemQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

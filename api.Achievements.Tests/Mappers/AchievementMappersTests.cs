@@ -21,7 +21,7 @@ public class AchievementMappersTests
 
         var result = item.Map();
 
-        result.Should().BeOfType<Achievement>();
+        Assert.IsType<Achievement>(result);
         result.MatchSnapshot();
     }
 

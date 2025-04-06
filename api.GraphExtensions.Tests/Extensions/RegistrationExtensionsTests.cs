@@ -31,7 +31,7 @@ public class RegistrationExtensionsTests
 
         var schema = result.Print();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
     }
 

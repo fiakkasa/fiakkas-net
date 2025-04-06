@@ -46,8 +46,8 @@ public class PortfolioItemByCustomerIdGroupDataLoaderTests
 
         var result = await sut.LoadAsync([new("18e483e4-6961-4b25-88a9-d1d0a5161109")], CancellationToken.None);
 
-        result.Should().ContainSingle();
-        result[0].Should().HaveCount(2);
+        Assert.Single(result);
+        Assert.Equal(2, result[0]?.Length);
         result.MatchSnapshot();
     }
 
@@ -64,8 +64,8 @@ public class PortfolioItemByCustomerIdGroupDataLoaderTests
 
         var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
-        result.Should().ContainSingle();
-        result[0].Should().BeEmpty();
+        Assert.Single(result);
+        Assert.Empty(result[0]!);
         result.MatchSnapshot();
     }
 }

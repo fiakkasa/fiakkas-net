@@ -25,8 +25,8 @@ public class LanguageQueriesTests
 
         var result = LanguageQueries.GetLanguages(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<Language>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<Language>>(result);
         result.MatchSnapshot();
     }
 
@@ -56,8 +56,8 @@ public class LanguageQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<Language>();
+        Assert.NotNull(result);
+        Assert.IsType<Language>(result);
         result.MatchSnapshot();
     }
 
@@ -78,6 +78,6 @@ public class LanguageQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

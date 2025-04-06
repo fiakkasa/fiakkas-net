@@ -29,7 +29,8 @@ public class HealthTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
+        
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 }

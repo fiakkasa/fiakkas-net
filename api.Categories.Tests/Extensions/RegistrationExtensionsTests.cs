@@ -25,8 +25,8 @@ public class RegistrationExtensionsTests
         var dataRepository = serviceProvider.GetService<IDataRepository<ICategory>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<CategoriesDataConfig>>();
 
-        dataRepository.Should().NotBeNull();
-        options.Should().NotBeNull();
+        Assert.NotNull(dataRepository);
+        Assert.NotNull(options);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class RegistrationExtensionsTests
 
         var schema = result.Print();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
     }
 }

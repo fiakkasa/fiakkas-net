@@ -19,10 +19,12 @@ public class HealthReportItemTests
 
         var result = (HealthReportItem)healthReportEntry;
 
-        result.Status.Should().Be(healthReportEntry.Status);
-        result.Duration.Should().Be(healthReportEntry.Duration);
-        result.Description.Should().Be(healthReportEntry.Description);
-        result.Tags.Should().BeEquivalentTo(healthReportEntry.Tags);
+
+        Assert.Equal(HealthStatus.Healthy, result.Status);
+        Assert.Equivalent(duration, result.Duration, true);
+        Assert.Equal(healthReportEntry.Description, result.Description);
+        Assert.Equal(1, result.Tags?.Count());
+        Assert.Equal(healthReportEntry.Tags.First(), result.Tags?.FirstOrDefault());
 
         result.MatchSnapshot();
     }

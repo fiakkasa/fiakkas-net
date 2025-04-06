@@ -20,7 +20,7 @@ public class HealthQueriesTests
 
         var result = await HealthQueries.GetHealth(service, CancellationToken.None);
 
-        result.Status.Should().Be(HealthStatus.Healthy);
+        Assert.Equal(HealthStatus.Healthy, result.Status);
         result.MatchSnapshot();
     }
 }

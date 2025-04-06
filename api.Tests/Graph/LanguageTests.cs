@@ -28,8 +28,8 @@ public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 
@@ -54,8 +54,8 @@ public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+        
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 }

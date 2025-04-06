@@ -17,9 +17,9 @@
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
 
-        links.Should().HaveCount(9);
-        primaryLinks.Should().HaveCount(3);
-        secondaryLinks.Should().HaveCount(6);
+        Assert.Equal(9, links.Count);
+        Assert.Equal(3, primaryLinks.Count);
+        Assert.Equal(6, secondaryLinks.Count);
 
         cut.Markup.MatchSnapshot();
     }
@@ -40,9 +40,9 @@
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
         cut.Find("""button[type="button"].nav-menu-expand-collapse""");
 
-        links.Should().HaveCount(9);
-        primaryLinks.Should().HaveCount(3);
-        secondaryLinks.Should().HaveCount(6);
+        Assert.Equal(9, links.Count);
+        Assert.Equal(3, primaryLinks.Count);
+        Assert.Equal(6, secondaryLinks.Count);
 
         cut.Markup.MatchSnapshot();
     }
@@ -66,9 +66,9 @@
         var primaryLinks = cut.FindAll("div.nav-menu-primary-section > a");
         var secondaryLinks = cut.FindAll("div.nav-menu-collapsible-section > a");
 
-        links.Should().HaveCount(9);
-        primaryLinks.Should().HaveCount(3);
-        secondaryLinks.Should().HaveCount(6);
+        Assert.Equal(9, links.Count);
+        Assert.Equal(3, primaryLinks.Count);
+        Assert.Equal(6, secondaryLinks.Count);
 
         cut.Markup.MatchSnapshot();
     }

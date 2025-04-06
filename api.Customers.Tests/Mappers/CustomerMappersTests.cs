@@ -21,7 +21,7 @@ public class CustomerMappersTests
 
         var result = item.Map();
 
-        result.Should().BeOfType<Customer>();
+        Assert.IsType<Customer>(result);
         result.MatchSnapshot();
     }
 

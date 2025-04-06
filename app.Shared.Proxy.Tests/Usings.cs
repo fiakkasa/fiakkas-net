@@ -1,0 +1,9 @@
+global using app.Shared.Proxy.Extensions;
+global using app.Shared.Proxy.Models;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.HttpOverrides;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Options;
+global using NSubstitute;
+global using Xunit;

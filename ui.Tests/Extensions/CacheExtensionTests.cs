@@ -15,6 +15,6 @@ public class CacheExtensionTests
 
         var result = serviceProvider.GetRequiredService<IAppCache>();
 
-        result.Should().NotBeNull();
+        Assert.NotNull(result);
     }
 }

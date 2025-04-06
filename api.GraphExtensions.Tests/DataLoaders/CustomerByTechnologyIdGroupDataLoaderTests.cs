@@ -48,8 +48,8 @@ public class CustomerByTechnologyIdGroupDataLoaderTests
 
         var result = await sut.LoadAsync([new("ca832bf9-b7cb-4c31-bf8d-00f87a276fe3")], CancellationToken.None);
 
-        result.Should().ContainSingle();
-        result[0].Should().ContainSingle();
+        Assert.Single(result);
+        Assert.Single(result[0]!);
         result.MatchSnapshot();
     }
 
@@ -68,8 +68,8 @@ public class CustomerByTechnologyIdGroupDataLoaderTests
 
         var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
-        result.Should().ContainSingle();
-        result[0].Should().BeEmpty();
+        Assert.Single(result);
+        Assert.Empty(result[0]!);
         result.MatchSnapshot();
     }
 }

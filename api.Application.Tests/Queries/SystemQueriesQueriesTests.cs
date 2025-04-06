@@ -12,8 +12,8 @@ public class SystemQueriesQueriesTests
 
         var result = SystemQueries.GetSystemStatus(item);
 
-        result.Version.Should().Be(item.Version);
-        result.StartupTime.Should().Be(item.StartupTime);
-        result.UpTime.Should().BeGreaterThan(TimeSpan.Zero);
+        Assert.Equal(item.Version, result.Version);
+        Assert.Equivalent(item.StartupTime, result.StartupTime, true);
+        Assert.True(result.UpTime > TimeSpan.Zero);
     }
 }

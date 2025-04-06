@@ -24,8 +24,8 @@ public class AchievementQueriesTests
 
         var result = AchievementQueries.GetAchievements(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<Achievement>>();
+        Assert.Single(result); 
+        Assert.IsAssignableFrom<IQueryable<Achievement>>(result); 
         result.MatchSnapshot();
     }
 
@@ -55,8 +55,8 @@ public class AchievementQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<Achievement>();
+        Assert.NotNull(result);
+        Assert.IsType<Achievement>(result);
         result.MatchSnapshot();
     }
 
@@ -77,6 +77,6 @@ public class AchievementQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

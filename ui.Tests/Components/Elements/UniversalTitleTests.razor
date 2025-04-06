@@ -29,9 +29,9 @@
         var result = cut.Markup;
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
-        result.Should().BeEmpty();
-        instance.PageTitle.Should().Be(_config.Title);
+        Assert.NotNull(instance);
+        Assert.Empty(result);
+        Assert.Equal(_config.Title, instance.PageTitle);
     }
 
     [Fact]
@@ -43,9 +43,9 @@
         var result = cut.Markup;
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
-        result.Should().BeEmpty();
-        instance.PageTitle.Should().Be(string.Empty);
+        Assert.NotNull(instance);
+        Assert.Empty(result);
+        Assert.Equal(string.Empty, instance.PageTitle);
     }
 
     [Fact]
@@ -58,9 +58,9 @@
         var result = cut.Markup;
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
-        result.Should().BeEmpty();
-        instance.PageTitle.Should().Be(_config.Title);
+        Assert.NotNull(instance);
+        Assert.Empty(result);
+        Assert.Equal(_config.Title, instance.PageTitle);
     }
 
     [Fact]
@@ -73,7 +73,7 @@
         var result = cut.Find("h1.page-header");
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
+        Assert.NotNull(instance);
         result.MarkupMatches(
             @<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
                 <span>
@@ -81,7 +81,7 @@
                 </span>
             </h1>
         );
-        instance.PageTitle.Should().Be(_config.Title + _config.Separator + "Test");
+        Assert.Equal(_config.Title + _config.Separator + "Test", instance.PageTitle);
     }
 
     [Fact]
@@ -96,7 +96,7 @@
         var result = cut.Find("h1.page-header");
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
+        Assert.NotNull(instance);
         result.MarkupMatches(
             @<h1 class="page-header test">
                 <span>
@@ -104,7 +104,7 @@
                 </span>
             </h1>
         );
-        instance.PageTitle.Should().Be(_config.Title + _config.Separator + "Test");
+        Assert.Equal(_config.Title + _config.Separator + "Test", instance.PageTitle);
     }
 
     [Fact]
@@ -120,7 +120,7 @@
         var result = cut.Find("h1.page-header");
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
+        Assert.NotNull(instance);
         result.MarkupMatches(
             @<h1 class="page-header test">
                 <span>
@@ -129,7 +129,7 @@
                 <a href="">Extra!</a>
             </h1>
         );
-        instance.PageTitle.Should().Be(_config.Title + _config.Separator + "Test");
+        Assert.Equal(_config.Title + _config.Separator + "Test", instance.PageTitle);
     }
 
     [Fact]
@@ -142,13 +142,13 @@
         var result = cut.Find("h1.page-header");
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
+        Assert.NotNull(instance);
         result.MarkupMatches(
             @<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
                 <a href="">Extra!</a>
             </h1>
         );
-        instance.PageTitle.Should().Be(_config.Title);
+        Assert.Equal(_config.Title, instance.PageTitle);
     }
 
     [Fact]
@@ -163,13 +163,13 @@
         var result = cut.Find("h1.page-header");
         var instance = cut.Instance;
 
-        instance.Should().NotBeNull();
+        Assert.NotNull(instance);
         result.MarkupMatches(
             @<h1 class="page-header test">
                 <a href="">Extra!</a>
             </h1>
         );
-        instance.PageTitle.Should().Be(_config.Title);
+        Assert.Equal(_config.Title, instance.PageTitle);
     }
 
 }

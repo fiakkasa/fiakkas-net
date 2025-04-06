@@ -37,8 +37,8 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+        
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 
@@ -63,8 +63,8 @@ public partial class SoftwareDevelopmentCategoriesTests(GraphFixture fixture) : 
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+        
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 }

@@ -13,8 +13,8 @@
 
         var title = cut.FindAll("h1.page-header");
 
-        title.Should().BeEmpty();
-        headContent.Instance.ChildContent.Should().NotBeNull();
+        Assert.Empty(title);
+        Assert.NotNull(headContent.Instance.ChildContent);
         expectedHeadRenderedFragment.MarkupMatches(@<meta name="robots" content="noindex"/>);
         cut.Markup.MatchSnapshot();
     }

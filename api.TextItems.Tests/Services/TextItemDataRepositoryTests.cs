@@ -29,7 +29,7 @@ public class TextItemDataRepositoryTests
 
         var result = sut.Get();
 
-        result.Should().ContainSingle();
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 }

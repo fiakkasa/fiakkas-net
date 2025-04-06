@@ -25,8 +25,8 @@ public class TextItemQueriesTests
 
         var result = TextItemQueries.GetTextItems(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<TextItem>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<TextItem>>(result);
         result.MatchSnapshot();
     }
 
@@ -57,8 +57,8 @@ public class TextItemQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<TextItem>();
+        Assert.NotNull(result);
+        Assert.IsType<TextItem>(result);
         result.MatchSnapshot();
     }
 
@@ -79,6 +79,6 @@ public class TextItemQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

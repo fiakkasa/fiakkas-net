@@ -75,8 +75,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetCategories(dataRepository);
 
-        result.Should().HaveCount(collection.Length);
-        result.Should().BeAssignableTo<IQueryable<IPolymorphicCategory>>();
+        Assert.Equal(collection.Length, result.Count());
+        Assert.IsAssignableFrom<IQueryable<IPolymorphicCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -107,8 +107,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetUnknownCategories(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<UnknownCategory>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<UnknownCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -138,8 +138,8 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<UnknownCategory>();
+        Assert.NotNull(result);
+        Assert.IsType<UnknownCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -160,7 +160,7 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     [Fact]
@@ -190,8 +190,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetPortfolioCategories(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<PortfolioCategory>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<PortfolioCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -221,8 +221,8 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<PortfolioCategory>();
+        Assert.NotNull(result);
+        Assert.IsType<PortfolioCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -239,7 +239,7 @@ public class CategoryQueriesTests
 
         var result = await CategoryQueries.GetPortfolioCategoryById(id, dataLoader, default);
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     [Fact]
@@ -270,8 +270,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetResumeCategories(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<ResumeCategory>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<ResumeCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -298,8 +298,8 @@ public class CategoryQueriesTests
 
         var result = await CategoryQueries.GetResumeCategoryById(id, dataLoader, default);
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<ResumeCategory>();
+        Assert.NotNull(result);
+        Assert.IsType<ResumeCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -320,7 +320,7 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     [Fact]
@@ -351,8 +351,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetSoftwareDevelopmentCategories(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<SoftwareDevelopmentCategory>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<SoftwareDevelopmentCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -383,8 +383,8 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeAssignableTo<SoftwareDevelopmentCategory>();
+        Assert.NotNull(result);
+        Assert.IsType<SoftwareDevelopmentCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -401,7 +401,7 @@ public class CategoryQueriesTests
 
         var result = await CategoryQueries.GetSoftwareDevelopmentCategoryById(id, dataLoader, default);
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     [Fact]
@@ -432,8 +432,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetInformationTechnologyCategories(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<InformationTechnologyCategory>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<InformationTechnologyCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -464,8 +464,8 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<InformationTechnologyCategory>();
+        Assert.NotNull(result);
+        Assert.IsType<InformationTechnologyCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -486,7 +486,7 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     [Fact]
@@ -527,8 +527,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetTechnologyCategories(dataRepository);
 
-        result.Should().HaveCount(2);
-        result.Should().BeAssignableTo<IQueryable<IPolymorphicTechnologyCategory>>();
+        Assert.Equal(2, result.Count());
+        Assert.IsAssignableFrom<IQueryable<IPolymorphicTechnologyCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -559,8 +559,8 @@ public class CategoryQueriesTests
 
         var result = CategoryQueries.GetOtherCategories(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<OtherCategory>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<OtherCategory>>(result);
         result.MatchSnapshot();
     }
 
@@ -590,8 +590,8 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<OtherCategory>();
+        Assert.NotNull(result);
+        Assert.IsType<OtherCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -612,6 +612,6 @@ public class CategoryQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

@@ -1,4 +1,5 @@
 using AngleSharp.Html.Parser;
+using Snapshooter.Xunit;
 using ui.Enums;
 using ui.Extensions;
 using ui.Interfaces;
@@ -48,10 +49,12 @@ public class EmailExtensionsTests
         var smtpServiceResult = serviceProvider.GetService<ISmtpService>();
         var emailServiceResult = serviceProvider.GetService<IEmailService>();
 
-        smtpConfigResult.Value.Should().Be(expectedSmtpConfig);
-        emailConfigResult.Value.Should().Be(expectedEmailConfig);
-        smtpServiceResult.Should().NotBeNull();
-        emailServiceResult.Should().NotBeNull();
+        Assert.Equivalent(expectedSmtpConfig, smtpConfigResult.Value, true);
+        Assert.Equivalent(expectedEmailConfig, emailConfigResult.Value, true);
+        Assert.NotNull(smtpServiceResult);
+        Assert.NotNull(emailServiceResult);
+
+        new { smtpConfigResult, emailConfigResult }.MatchSnapshot();
     }
 
     [Theory]
@@ -62,13 +65,12 @@ public class EmailExtensionsTests
     [InlineData("hello-world", nameof(EmailErrorCodeType.InvalidEmailAddress))]
     public void ValidateEmailAddress_Should_Yield_Results_When_Conditions_Met(
         string? emailAddress,
-        params string[] expectedErrors
+        string? expected = default
     )
     {
         var result = emailAddress.ValidateEmailAddress("member").ToArray();
 
-        result.Should().HaveCount(expectedErrors.Length);
-        expectedErrors.Should().ContainInOrder(result.Select(x => x.ErrorMessage));
+        Assert.Equal(expected, result.FirstOrDefault()?.ErrorMessage);
     }
 
     [Theory]
@@ -82,15 +84,12 @@ public class EmailExtensionsTests
     [InlineData("<html <div  ", nameof(EmailErrorCodeType.UnusableContent))]
     public async Task ValidateEmailContent_Should_Yield_Results_When_Conditions_Met(
         string? content,
-        params string[] expectedErrors
+        string? expected = default
     )
     {
         var result = await content.ValidateEmailContent(_parser, "member");
 
-        result.Should().HaveCount(expectedErrors.Length);
-
-        result.Should().HaveCount(expectedErrors.Length);
-        expectedErrors.Should().ContainInOrder(result.Select(x => x.ErrorMessage));
+        Assert.Equal(expected, result.FirstOrDefault()?.ErrorMessage);
     }
 
     [Theory]
@@ -100,12 +99,12 @@ public class EmailExtensionsTests
         string senderAddress,
         bool useDefaultSenderAddress,
         string defaultSenderAddress,
-        string expectedAddress
+        string expected
     )
     {
         var result = senderAddress.GetSenderMailAddress(useDefaultSenderAddress, defaultSenderAddress);
 
-        result.Address.Should().Be(expectedAddress);
+        Assert.Equal(expected, result.Address);
     }
 
     [Theory]
@@ -115,11 +114,11 @@ public class EmailExtensionsTests
         string subject,
         bool isBehalfOf,
         string senderAddress,
-        string expectedSubject
+        string expected
     )
     {
         var result = subject.GetSubject(isBehalfOf, senderAddress);
 
-        result.Should().Be(expectedSubject);
+        Assert.Equal(expected, result);
     }
 }

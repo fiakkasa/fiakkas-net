@@ -1,3 +1,4 @@
+using Snapshooter.Xunit;
 using ui.Extensions;
 using ui.Models;
 
@@ -29,6 +30,7 @@ public class UiExtensionsTests
 
         var result = serviceProvider.GetRequiredService<IOptionsSnapshot<UiConfig>>();
 
-        result.Value.Should().Be(expected);
+        Assert.Equivalent(expected, result.Value, true);
+        result.Value.MatchSnapshot();
     }
 }

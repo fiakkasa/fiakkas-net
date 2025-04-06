@@ -24,8 +24,8 @@ public class CustomerQueriesTests
 
         var result = CustomerQueries.GetCustomers(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<Customer>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<Customer>>(result);
         result.MatchSnapshot();
     }
 
@@ -55,8 +55,8 @@ public class CustomerQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<Customer>();
+        Assert.NotNull(result);
+        Assert.IsType<Customer>(result);
         result.MatchSnapshot();
     }
 
@@ -77,6 +77,6 @@ public class CustomerQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

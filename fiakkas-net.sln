@@ -66,19 +66,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.Categories.Tests", "api
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.Application.Tests", "api.Application.Tests\api.Application.Tests.csproj", "{EEE5DF7F-6F0D-498E-9B24-F643D7F80A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui", "ui\ui.csproj", "{D5FBB199-D3C4-4C3F-9C34-C52B0585E3C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ui", "ui\ui.csproj", "{D5FBB199-D3C4-4C3F-9C34-C52B0585E3C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui.Tests", "ui.Tests\ui.Tests.csproj", "{A1F6A311-1562-4FEA-9928-5E9878A39202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ui.Tests", "ui.Tests\ui.Tests.csproj", "{A1F6A311-1562-4FEA-9928-5E9878A39202}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.Shared.Logging", "app.Shared.Logging\app.Shared.Logging.csproj", "{964097E2-3200-4C9C-B40C-73825974FEB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Shared.Logging", "app.Shared.Logging\app.Shared.Logging.csproj", "{964097E2-3200-4C9C-B40C-73825974FEB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.Shared.Logging.Tests", "app.Shared.Logging.Tests\app.Shared.Logging.Tests.csproj", "{D1CD1D64-8B59-4C7F-B1B1-F4360BA5DF7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Shared.Logging.Tests", "app.Shared.Logging.Tests\app.Shared.Logging.Tests.csproj", "{D1CD1D64-8B59-4C7F-B1B1-F4360BA5DF7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.Testing.Shared", "app.Testing.Shared\app.Testing.Shared.csproj", "{85465C5A-0045-4603-88EA-42EDF2608A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Testing.Shared", "app.Testing.Shared\app.Testing.Shared.csproj", "{85465C5A-0045-4603-88EA-42EDF2608A23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.Shared.Options", "app.Shared.Options\app.Shared.Options.csproj", "{C33ED1A9-D63E-4D38-B190-AF27E5F2B215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Shared.Options", "app.Shared.Options\app.Shared.Options.csproj", "{C33ED1A9-D63E-4D38-B190-AF27E5F2B215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.Shared.Options.Tests", "app.Shared.Options.Tests\app.Shared.Options.Tests.csproj", "{8A2A9A6F-51E7-4F30-A292-0D6E50F26B84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Shared.Options.Tests", "app.Shared.Options.Tests\app.Shared.Options.Tests.csproj", "{8A2A9A6F-51E7-4F30-A292-0D6E50F26B84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Shared.Proxy", "app.Shared.Proxy\app.Shared.Proxy.csproj", "{B55CF7EE-EC5C-4C1D-817D-6101E1A93406}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Shared.Proxy.Tests", "app.Shared.Proxy.Tests\app.Shared.Proxy.Tests.csproj", "{F11E1107-08E5-477B-B355-1633B76F8EC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -218,6 +222,14 @@ Global
 		{8A2A9A6F-51E7-4F30-A292-0D6E50F26B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A2A9A6F-51E7-4F30-A292-0D6E50F26B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A2A9A6F-51E7-4F30-A292-0D6E50F26B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B55CF7EE-EC5C-4C1D-817D-6101E1A93406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B55CF7EE-EC5C-4C1D-817D-6101E1A93406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B55CF7EE-EC5C-4C1D-817D-6101E1A93406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B55CF7EE-EC5C-4C1D-817D-6101E1A93406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F11E1107-08E5-477B-B355-1633B76F8EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F11E1107-08E5-477B-B355-1633B76F8EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F11E1107-08E5-477B-B355-1633B76F8EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F11E1107-08E5-477B-B355-1633B76F8EC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

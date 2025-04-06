@@ -27,8 +27,8 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 
@@ -52,8 +52,8 @@ public class UnknownCategoriesTests(GraphFixture fixture) : IClassFixture<GraphF
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 }

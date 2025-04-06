@@ -3,25 +3,26 @@
 ## Table of Contents
 
 - [fiakkas-net](#fiakkas-net)
-    - [Table of Contents](#table-of-contents)
-    - [Overview](#overview)
-    - [Spinning up the API or the UI](#spinning-up-the-api-or-the-ui)
-        - [Installation](#installation)
-        - [Trusting the Default ASP.Net Certificate](#trusting-the-default-aspnet-certificate)
-        - [API Data](#api-data)
-        - [Running the API](#running-the-api)
-            - [Try it out!](#try-it-out)
-        - [UI Configuration](#ui-configuration)
-        - [UI to API GraphQL Client](#ui-to-api-graphql-client)
-            - [Init Strawberry Shake](#init-strawberry-shake)
-            - [Update Strawberry Shake](#update-strawberry-shake)
-            - [Define GraphQL Operations](#define-graphql-operations)
-        - [Running the UI](#running-the-ui)
-            - [Try it out!](#try-it-out-1)
-    - [Testing](#testing)
-    - [Logging](#logging)
-    - [Exporting the Schema](#exporting-the-schema)
-    - [References](#references)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Spinning up the API or the UI](#spinning-up-the-api-or-the-ui)
+    - [Installation](#installation)
+    - [Trusting the Default ASP.Net Certificate](#trusting-the-default-aspnet-certificate)
+    - [API Data](#api-data)
+    - [Running the API](#running-the-api)
+      - [Try it out!](#try-it-out)
+    - [UI Configuration](#ui-configuration)
+    - [UI to API GraphQL Client](#ui-to-api-graphql-client)
+      - [Init Strawberry Shake](#init-strawberry-shake)
+      - [Update Strawberry Shake](#update-strawberry-shake)
+      - [Define GraphQL Operations](#define-graphql-operations)
+    - [Running the UI](#running-the-ui)
+      - [Try it out!](#try-it-out-1)
+  - [Testing](#testing)
+  - [Proxy Configuration](#proxy-configuration)
+  - [Logging](#logging)
+  - [Exporting the Schema](#exporting-the-schema)
+  - [References](#references)
 
 ## Overview
 
@@ -213,6 +214,42 @@ generated HotChocolate registrations are skipped._
 📝 _Observe the `/p:ExcludeByAttribute="GeneratedCodeAttribute`, this is added as to ensure that any auto generated code
 is skipped._
 
+## Proxy Configuration
+
+Both the api and ui can be configured to handle requests through a proxy server.
+
+This configuration is typically done in the `appsettings.json` file, where you can specify the necessary settings for
+your application to communicate with a proxy server.
+
+For more information visit: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer
+
+```json
+{
+  "ForwardedHeadersConfig": {
+    "Enable": true,
+    "ForwardedForHeaderName": "X-Forwarded-For",
+    "ForwardedHostHeaderName": "X-Forwarded-Host",
+    "ForwardedProtoHeaderName": "X-Forwarded-Proto",
+    "ForwardedPrefixHeaderName": "X-Forwarded-Prefix",
+    "OriginalForHeaderName": "X-Original-For",
+    "OriginalHostHeaderName": "X-Original-Host",
+    "OriginalProtoHeaderName": "X-Original-Proto",
+    "OriginalPrefixHeaderName": "X-Original-Prefix",
+    "ForwardedHeaders": "XForwardedFor, XForwardedProto",
+    "ForwardLimit": 1,
+    "KnownProxies": ["::1"],
+    "KnownNetworks": [
+      {
+        "Address": "127.0.0.0",
+        "PrefixLength": 8
+      }
+    ],
+    "AllowedHosts": [],
+    "RequireHeaderSymmetry": false
+  }
+}
+```
+
 ## Logging
 
 The solution is configured to use the ILogger abstraction with Serilog and most specifically the Console and File sinks.
@@ -220,8 +257,8 @@ The solution is configured to use the ILogger abstraction with Serilog and most 
 In addition, a number of enrichers are present and enabled by default:
 
 - Serilog.Enrichers.AssemblyName
-- Serilog.Enrichers.ClientInfo
 - Serilog.Enrichers.Environment
+- Serilog.Enrichers.HttpContext
 - Serilog.Enrichers.Process
 - Serilog.Enrichers.Thread
 
@@ -312,6 +349,7 @@ The schema can be exported by running the api with the following command:
 - Coverlet (MSBuild): https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
 - GraphQL: https://graphql.org
 - HotChocolate: https://chillicream.com/docs/hotchocolate
+- Proxy Configuration: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer
 - Report Generator: https://reportgenerator.io
 - Serilog Enrichment: https://github.com/serilog/serilog/wiki/Enrichment
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
@@ -325,6 +363,6 @@ The schema can be exported by running the api with the following command:
 - Serilog.Sinks.Console: https://github.com/serilog/serilog-sinks-console
 - Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
 - StrawberryShake: https://chillicream.com/docs/strawberryshake/v15/get-started/console
-- Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - VS Code: https://code.visualstudio.com
+- Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - XUnit: https://xunit.net

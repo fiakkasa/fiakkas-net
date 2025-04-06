@@ -1,0 +1,20 @@
+﻿{
+  "smtpConfigResult": {
+    "Value": {
+      "Host": "smtp-host",
+      "Port": 25,
+      "Username": "username",
+      "Password": "password",
+      "EnableSsl": false
+    }
+  },
+  "emailConfigResult": {
+    "Value": {
+      "AlwaysUseDefaultSenderAddress": true,
+      "DefaultSenderAddress": "email@user.com",
+      "DefaultRecipientAddress": "email@user.com",
+      "PlainTextSignature": "Hello!",
+      "HtmlSignature": "Hello!"
+    }
+  }
+}

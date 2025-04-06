@@ -53,8 +53,8 @@ public class TechnologyCategoryGroupDataLoaderTests
             CancellationToken.None
         );
 
-        result.Should().HaveCount(2);
-        result.All(x => x is { Length: 1 }).Should().BeTrue();
+        Assert.Equal(2, result.Count);
+        Assert.All(result, x => Assert.True(x is { Length: 1 }));
         result.MatchSnapshot();
     }
 
@@ -74,8 +74,8 @@ public class TechnologyCategoryGroupDataLoaderTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
-        result[0].Should().BeEmpty();
+        Assert.Single(result);
+        Assert.Empty(result[0]!);
         result.MatchSnapshot();
     }
 }

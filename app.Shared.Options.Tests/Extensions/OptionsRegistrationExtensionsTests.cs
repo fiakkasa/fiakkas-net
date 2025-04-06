@@ -24,8 +24,8 @@ public class OptionsRegistrationExtensionsTests
 
         var result = serviceProvider.GetService<IOptions<MockBoundConfig>>();
 
-        result.Should().NotBeNull();
-        result!.Value.Name.Should().Be("Hello");
+        Assert.NotNull(result);
+        Assert.Equal("Hello", result?.Value.Name);
     }
 
     [Fact]
@@ -49,8 +49,8 @@ public class OptionsRegistrationExtensionsTests
 
         var result = serviceProvider.GetService<IOptions<MockBoundConfig>>();
 
-        result.Should().NotBeNull();
-        result!.Value.Name.Should().Be("Hello");
+        Assert.NotNull(result);
+        Assert.Equal("Hello", result?.Value.Name);
     }
 
     [Theory]
@@ -79,8 +79,8 @@ public class OptionsRegistrationExtensionsTests
 
         var result = serviceProvider.GetService<IOptions<MockBoundConfig>>();
 
-        result.Should().NotBeNull();
-        result!.Value.Name.Should().Be("Hello");
+        Assert.NotNull(result);
+        Assert.Equal("Hello", result?.Value.Name);
     }
 
     [Fact]
@@ -117,10 +117,10 @@ public class OptionsRegistrationExtensionsTests
         var results = services.GetServices<IOptionsSnapshot<MockValidatedConfig>>().ToArray();
         var resultsAlt = services.GetServices<IOptionsSnapshot<MockValidatedConfigAlt>>().ToArray();
 
-        results.Should().ContainSingle();
-        resultsAlt.Should().ContainSingle();
-        results.First().Value.Name.Should().Be("Default");
-        resultsAlt.First().Value.Name.Should().Be("Alt");
+        Assert.Single(results);
+        Assert.Single(resultsAlt);
+        Assert.Equal("Default", results.FirstOrDefault()?.Value.Name);
+        Assert.Equal("Alt", resultsAlt.FirstOrDefault()?.Value.Name);
     }
 
     public record MockBoundConfig

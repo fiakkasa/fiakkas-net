@@ -1,4 +1,4 @@
-using FluentAssertions.Extensions;
+using System.Diagnostics;
 using System.Threading;
 using ui.Extensions;
 
@@ -19,9 +19,11 @@ public class DelayExtensionsTests
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
 
-        var func = () => delay.SafeDelay(cts.Token).AsTask();
+        var start = Stopwatch.GetTimestamp();
 
-        await func.Should().CompleteWithinAsync(maxExecutionTime.Milliseconds());
+        await delay.SafeDelay(cts.Token);
+
+        Assert.True(maxExecutionTime > Stopwatch.GetElapsedTime(start).TotalMilliseconds);
     }
 
     [Theory]
@@ -37,8 +39,10 @@ public class DelayExtensionsTests
         using var cts = new CancellationTokenSource();
         cts.CancelAfter(cancelAfter);
 
-        var func = () => TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token).AsTask();
+        var start = Stopwatch.GetTimestamp();
 
-        await func.Should().CompleteWithinAsync(maxExecutionTime.Milliseconds());
+        await TimeSpan.FromMilliseconds(delay).SafeDelay(cts.Token);
+
+        Assert.True(maxExecutionTime > Stopwatch.GetElapsedTime(start).TotalMilliseconds);
     }
 }

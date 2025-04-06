@@ -17,7 +17,7 @@ public class GraphQLExtensionsTests
 
         var schema = requestExecutor.Schema.Print();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
     }
 
@@ -57,17 +57,17 @@ public class GraphQLExtensionsTests
         var queryResponse = await client.SendAsync(queryRequest);
         var queryResult = await queryResponse.Content.ReadFromJsonAsync<JsonDocument>();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
 
         // voyager
-        voyagerResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        Assert.Equal(HttpStatusCode.OK, voyagerResponse.StatusCode);
         // banana cake pop
-        bananaCakePopResponse.StatusCode.Should().NotBe(HttpStatusCode.NotFound);
+        Assert.NotEqual(HttpStatusCode.NotFound, bananaCakePopResponse.StatusCode);
         // query
-        queryResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-        queryResult.Should().NotBeNull();
-        queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
+        Assert.Equal(HttpStatusCode.OK, queryResponse.StatusCode);
+        Assert.NotNull(queryResult);
+        Assert.Equal("Hello", queryResult?.RootElement.GetProperty("data").GetProperty("text").GetString());
     }
 
     [Fact]
@@ -107,18 +107,18 @@ public class GraphQLExtensionsTests
         var queryResponse = await client.SendAsync(queryRequest);
         var queryResult = await queryResponse.Content.ReadFromJsonAsync<JsonDocument>();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
 
         // voyager
-        voyagerResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        Assert.Equal(HttpStatusCode.NotFound, voyagerResponse.StatusCode);
         // banana cake pop
-        bananaCakePopResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        Assert.Equal(HttpStatusCode.NotFound, bananaCakePopResponse.StatusCode);
         // query
-        queryResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-        queryResult.Should().NotBeNull();
-        queryResult!.RootElement.GetProperty("data").GetProperty("text").GetString().Should().Be("Hello");
-        queryResult.RootElement.TryGetProperty("extensions", out _).Should().BeFalse();
+        Assert.Equal(HttpStatusCode.OK, queryResponse.StatusCode);
+        Assert.NotNull(queryResult);
+        Assert.Equal("Hello", queryResult?.RootElement.GetProperty("data").GetProperty("text").GetString());
+        Assert.False(queryResult?.RootElement.TryGetProperty("extensions", out _));
     }
 
     [Node]

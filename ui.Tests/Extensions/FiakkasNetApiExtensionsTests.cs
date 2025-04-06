@@ -1,3 +1,4 @@
+using Snapshooter.Xunit;
 using System.Net.Http;
 using ui.Extensions;
 using ui.GraphQL;
@@ -29,9 +30,11 @@ public class FiakkasNetApiExtensionsTests
         var clientFactory = serviceProvider.GetService<IHttpClientFactory>();
         var client = clientFactory?.CreateClient(FiakkasNetApi.ClientName);
 
-        clientFactory.Should().NotBeNull();
-        client.Should().NotBeNull();
-        client!.BaseAddress.Should().Be(expected.BaseUrl);
-        options.Value.Should().Be(expected);
+        Assert.NotNull(clientFactory);
+        Assert.NotNull(client);
+        Assert.Equivalent(expected.BaseUrl, client.BaseAddress, true);
+        Assert.Equivalent(expected, options.Value, true);
+
+        options.MatchSnapshot();
     }
 }

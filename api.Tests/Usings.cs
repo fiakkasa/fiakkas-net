@@ -1,6 +1,5 @@
 global using api.Testing.Shared.Services;
 global using app.Testing.Shared.Extensions;
-global using FluentAssertions;
 global using HotChocolate;
 global using HotChocolate.Data;
 global using HotChocolate.Types;

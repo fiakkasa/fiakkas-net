@@ -13,6 +13,7 @@ config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
 services.AddHttpContextAccessor();
 
+services.AddValidatedOptions<ForwardedHeadersConfig>();
 services.AddApiAchievements(Consts.DataFileSectionPath);
 services.AddApiApplication(start, typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
 services.AddApiCategories(Consts.DataFileSectionPath);
@@ -32,6 +33,8 @@ services.AddApiHealth();
 services.AddProblemDetails();
 
 var app = builder.Build();
+
+app.UseAppForwardedHeaders();
 
 app.UseExceptionHandler();
 app.UseStatusCodePages();

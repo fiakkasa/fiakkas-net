@@ -14,10 +14,10 @@ public class ProgramTests
         var graphqlResult = await client.GetAsync(Consts.GraphQLEndPoint);
         var graphqlVisualizerResult = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
 
-        indexResult.StatusCode.Should().Be(HttpStatusCode.OK);
-        healthResult.StatusCode.Should().Be(HttpStatusCode.OK);
-        graphqlResult.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        graphqlVisualizerResult.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        Assert.Equal(HttpStatusCode.OK, indexResult.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, healthResult.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, graphqlResult.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, graphqlVisualizerResult.StatusCode);
     }
 
     [Fact]
@@ -32,10 +32,10 @@ public class ProgramTests
         var graphqlResult = await client.GetAsync(Consts.GraphQLEndPoint);
         var graphqlVisualizerResult = await client.GetAsync(Consts.GraphQLSchemaVisualizerEndPoint);
 
-        indexResult.StatusCode.Should().Be(HttpStatusCode.OK);
-        healthResult.StatusCode.Should().Be(HttpStatusCode.OK);
-        graphqlResult.StatusCode.Should().Be(HttpStatusCode.OK);
-        graphqlVisualizerResult.StatusCode.Should().Be(HttpStatusCode.OK);
+        Assert.Equal(HttpStatusCode.OK, indexResult.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, healthResult.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, graphqlResult.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, graphqlVisualizerResult.StatusCode);
     }
 
     private class Waf(string environment) : WebApplicationFactory<Program>

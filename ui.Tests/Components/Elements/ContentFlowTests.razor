@@ -157,7 +157,7 @@
 
         var result = cut.FindAll("div.content");
 
-        result.Should().HaveCount(2);
+        Assert.Equal(2, result.Count);
     }
 
     [Fact]
@@ -167,7 +167,7 @@
 
         var result = cut.Markup;
 
-        result.Should().Be(string.Empty);
+        Assert.Equal(string.Empty, result);
     }
 
     [Fact]

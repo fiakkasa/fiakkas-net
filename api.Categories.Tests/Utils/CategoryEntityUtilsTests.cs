@@ -18,7 +18,7 @@ public class CategoryEntityUtilsTests
 
         var result = CategoryEntityUtils.IsUnknownCategory(item);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -33,7 +33,7 @@ public class CategoryEntityUtilsTests
 
         var result = CategoryEntityUtils.IsPortfolioCategory(item);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -48,7 +48,7 @@ public class CategoryEntityUtilsTests
 
         var result = CategoryEntityUtils.IsResumeCategory(item);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -63,7 +63,7 @@ public class CategoryEntityUtilsTests
 
         var result = CategoryEntityUtils.IsSoftwareDevelopmentCategory(item);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -79,7 +79,7 @@ public class CategoryEntityUtilsTests
 
         var result = CategoryEntityUtils.IsTechnologyCategory(item);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -94,7 +94,7 @@ public class CategoryEntityUtilsTests
 
         var result = CategoryEntityUtils.IsOtherCategory(item);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     private record CategoryMockEntity : ICategory

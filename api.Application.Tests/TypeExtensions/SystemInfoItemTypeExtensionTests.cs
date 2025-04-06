@@ -21,7 +21,7 @@ public class SystemInfoItemTypeExtensionTests
 
         var result = await sut.GetHealth(service, CancellationToken.None);
 
-        result.Status.Should().Be(HealthStatus.Healthy);
+        Assert.Equal(HealthStatus.Healthy, result.Status);
         result.MatchSnapshot();
     }
 }

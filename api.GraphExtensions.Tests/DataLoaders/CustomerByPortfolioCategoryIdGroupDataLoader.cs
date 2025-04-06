@@ -73,8 +73,8 @@ public class CustomerByPortfolioCategoryIdGroupDataLoaderTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
-        result[0].Should().HaveCount(2);
+        Assert.Single(result);
+        Assert.Equal(2, result[0]?.Length);
         result.MatchSnapshot();
     }
 
@@ -96,8 +96,8 @@ public class CustomerByPortfolioCategoryIdGroupDataLoaderTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
-        result[0].Should().BeEmpty();
+        Assert.Single(result);
+        Assert.Empty(result[0]!);
         result.MatchSnapshot();
     }
 }

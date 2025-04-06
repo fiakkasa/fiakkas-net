@@ -49,7 +49,7 @@ public class ICategoryAssociatedCategoryTypesTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().HaveCount(2);
+        Assert.Equal(2, result.Count());
         result.MatchSnapshot();
     }
 }

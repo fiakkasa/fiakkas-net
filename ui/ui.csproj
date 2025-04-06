@@ -33,6 +33,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\app.Shared.Logging\app.Shared.Logging.csproj"/>
+        <ProjectReference Include="..\app.Shared.Proxy\app.Shared.Proxy.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

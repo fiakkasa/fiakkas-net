@@ -16,7 +16,7 @@ public class HealthExtensionsTests
                 .BuildServiceProvider()
                 .GetService<IOptionsMonitor<HealthCheckServiceOptions>>();
 
-        options.Should().NotBeNull();
+        Assert.NotNull(options);
 
         var result =
             options!
@@ -25,8 +25,8 @@ public class HealthExtensionsTests
                 .Select(x => x.Name)
                 .ToArray();
 
-        result.Should().Contain(Consts.ApiHealthName);
-        result.Should().Contain(Consts.GraphQLHealthName);
+        Assert.Contains(result, x => x == Consts.ApiHealthName);
+        Assert.Contains(result, x => x == Consts.GraphQLHealthName);
         result.MatchSnapshot();
     }
 }

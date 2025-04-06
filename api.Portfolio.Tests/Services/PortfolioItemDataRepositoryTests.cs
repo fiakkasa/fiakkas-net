@@ -35,7 +35,7 @@ public class PortfolioItemDataRepositoryTests
 
         var result = sut.Get();
 
-        result.Should().ContainSingle();
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 }
