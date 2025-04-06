@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var isDev = builder.Environment.IsDevelopment();
 
-builder.Host.AddUiLoggingProvider();
+builder.Host.AddAppLoggingProvider();
 
 services.AddUiConfig();
 services.AddUiCache();
@@ -37,7 +37,7 @@ app.MapStaticAssets();
 app.UseAntiforgery();
 
 // note: add serilog after "noisy" middleware
-app.UseUiLoggingProvider();
+app.UseAppLoggingProvider();
 
 app
     .MapRazorComponents<App>()

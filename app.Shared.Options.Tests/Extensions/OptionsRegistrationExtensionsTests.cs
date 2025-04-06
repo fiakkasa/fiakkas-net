@@ -1,12 +1,6 @@
-using api.Shared.Extensions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Hosting;
-using System.ComponentModel.DataAnnotations;
+namespace app.Shared.Options.Tests.Extensions;
 
-namespace api.Shared.Tests.Extensions;
-
-public class OptionsExtensionsTests
+public class OptionsRegistrationExtensionsTests
 {
     [Theory]
     [InlineData("test")]

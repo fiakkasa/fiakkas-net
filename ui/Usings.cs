@@ -1,3 +1,4 @@
+global using app.Shared.Logging.Extensions;
 global using Humanizer;
 global using Microsoft.Extensions.Options;
 global using OneOf;

@@ -1,5 +1,3 @@
-using api.Shared.Types.Interfaces;
-
 namespace api.Shared.Services;
 
 public abstract class AbstractReadOnlyInMemoryDataRepository<TEntity, TConfig>(

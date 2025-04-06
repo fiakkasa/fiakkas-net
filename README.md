@@ -39,6 +39,7 @@ Solution structure:
 - api.NodeProxy: A proxy wrapper in node.js [📝](./api.NodeProxy/README.md)
 - api.Shared: Shared API assets
 - api.Tests: Tests!
+- app.Shared.`<Module>`: Shared assets and common functionality
 - ui: UI
 - ui.NodeProxy: A proxy wrapper in node.js [📝](./ui.NodeProxy/README.md)
 

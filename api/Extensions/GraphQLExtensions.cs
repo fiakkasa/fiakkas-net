@@ -1,14 +1,3 @@
-using api.Achievements.Extensions;
-using api.Application.Extensions;
-using api.Categories.Extensions;
-using api.ContactItems.Extensions;
-using api.Customers.Extensions;
-using api.EducationItems.Extensions;
-using api.GraphExtensions.Extensions;
-using api.Languages.Extensions;
-using api.Portfolio.Extensions;
-using api.TextItems.Extensions;
-
 namespace api.Extensions;
 
 public static class GraphQLExtensions

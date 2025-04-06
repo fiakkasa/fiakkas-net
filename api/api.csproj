@@ -18,16 +18,6 @@
         <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.2.0"/>
         <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.3"/>
         <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="15.1.3"/>
-        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0"/>
-        <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0"/>
-        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1"/>
-        <PackageReference Include="Serilog.Enrichers.HttpContext" Version="8.0.8"/>
-        <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0"/>
-        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0"/>
-        <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0"/>
-        <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -42,6 +32,7 @@
         <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj"/>
         <ProjectReference Include="..\api.Shared\api.Shared.csproj"/>
         <ProjectReference Include="..\api.TextItems\api.TextItems.csproj"/>
+        <ProjectReference Include="..\app.Shared.Logging\app.Shared.Logging.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

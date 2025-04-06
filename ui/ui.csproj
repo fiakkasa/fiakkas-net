@@ -32,6 +32,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\app.Shared.Logging\app.Shared.Logging.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <InternalsVisibleTo Include="ui.Tests"/>
     </ItemGroup>
 

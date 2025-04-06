@@ -1,15 +1,14 @@
 global using api.Shared.DataLoaders;
-global using api.Shared.Extensions;
 global using api.Shared.Services;
 global using api.Shared.Types.Interfaces;
 global using api.Shared.Types.Models;
+global using app.Shared.Options.Extensions;
 global using GreenDonut;
 global using HotChocolate;
 global using HotChocolate.Data;
 global using HotChocolate.Execution.Configuration;
 global using HotChocolate.Types;
 global using HotChocolate.Types.Relay;
-global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;

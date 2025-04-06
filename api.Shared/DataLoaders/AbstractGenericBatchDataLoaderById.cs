@@ -1,5 +1,3 @@
-using api.Shared.Types.Interfaces;
-
 namespace api.Shared.DataLoaders;
 
 public abstract class AbstractGenericBatchDataLoaderById<TEntity, TMapped>(

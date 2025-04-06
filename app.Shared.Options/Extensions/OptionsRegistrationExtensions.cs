@@ -1,6 +1,6 @@
-namespace api.Shared.Extensions;
+namespace app.Shared.Options.Extensions;
 
-public static class OptionsExtensions
+public static class OptionsRegistrationExtensions
 {
     public static OptionsBuilder<TOptions> AddBoundOptions<TOptions>(
         this IServiceCollection services,
