@@ -54,7 +54,11 @@ public class EmailExtensionsTests
         Assert.NotNull(smtpServiceResult);
         Assert.NotNull(emailServiceResult);
 
-        new { smtpConfigResult, emailConfigResult }.MatchSnapshot();
+        new
+        {
+            smtpConfigResult,
+            emailConfigResult
+        }.MatchSnapshot();
     }
 
     [Theory]

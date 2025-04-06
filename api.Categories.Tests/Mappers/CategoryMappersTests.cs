@@ -131,7 +131,8 @@ public class CategoryMappersTests
             }
         };
         var expectedKeys =
-            items.Keys
+            items
+                .Keys
                 .Select(x => x.ToString())
                 .Order()
                 .ToArray();

@@ -21,7 +21,7 @@ public class AchievementTypeExtensionTests
 
         var result = sut.GetYearsSummary(item);
 
-        Assert.Equal("2022, 2023, 2024", result); 
+        Assert.Equal("2022, 2023, 2024", result);
         result.MatchSnapshot();
     }
 }

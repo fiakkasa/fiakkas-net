@@ -82,7 +82,7 @@ public class TechnologyCategoriesTests(GraphFixture fixture) : IClassFixture<Gra
             """);
 
         var fn = result.ExpectOperationResult;
-        
+
         Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }

@@ -24,8 +24,8 @@ public class AchievementQueriesTests
 
         var result = AchievementQueries.GetAchievements(dataRepository);
 
-        Assert.Single(result); 
-        Assert.IsAssignableFrom<IQueryable<Achievement>>(result); 
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<Achievement>>(result);
         result.MatchSnapshot();
     }
 

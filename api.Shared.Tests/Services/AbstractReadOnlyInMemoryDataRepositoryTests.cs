@@ -504,7 +504,7 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
 
         Assert.Null(result);
         Assert.Single(
-             _logger.GetLogsResultsCollection(),
+            _logger.GetLogsResultsCollection(),
             x => x is
             {
                 LogLevel: LogLevel.Error,

@@ -206,7 +206,7 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            
+
             Assert.True(cut.Instance.InitialLoading);
             Assert.True(cut.Instance.PartialLoading);
         });
@@ -274,7 +274,7 @@
             Assert.False(cut.Instance.PartialLoading);
         });
 
-        Assert.True(cut.Instance.Model.Count <= 200);        
+        Assert.True(cut.Instance.Model.Count <= 200);
 
         cut.Markup.MatchSnapshot();
     }
@@ -413,7 +413,7 @@
 
         cut.WaitForAssertion(() =>
         {
-            Assert.NotNull(refreshButton.GetAttribute("disabled")); 
+            Assert.NotNull(refreshButton.GetAttribute("disabled"));
             Assert.True(cut.Instance.InitialLoading);
             Assert.True(cut.Instance.PartialLoading);
         });

@@ -54,7 +54,7 @@ public class LanguageTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             """);
 
         var fn = result.ExpectOperationResult;
-        
+
         Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }

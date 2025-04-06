@@ -1,4 +1,3 @@
-using Snapshooter.Xunit;
 using System.Net.Mail;
 using ui.Extensions;
 using ui.Models;

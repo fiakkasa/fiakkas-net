@@ -37,7 +37,7 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             """);
 
         var fn = result.ExpectOperationResult;
-        
+
         Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
@@ -63,7 +63,7 @@ public class CustomersTests(GraphFixture fixture) : IClassFixture<GraphFixture>
             """);
 
         var fn = result.ExpectOperationResult;
-        
+
         Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }

@@ -44,7 +44,7 @@ public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
             """);
 
         var fn = result.ExpectOperationResult;
-        
+
         Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
@@ -87,7 +87,7 @@ public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
             """);
 
         var fn = result.ExpectOperationResult;
-        
+
         Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }

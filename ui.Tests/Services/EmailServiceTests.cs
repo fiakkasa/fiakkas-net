@@ -143,10 +143,10 @@ public class EmailServiceTests
             body!
         );
         var resultErrorMessages =
-            result.AsT1
+            result
+                .AsT1
                 .Select(x => x.ErrorMessage)
                 .ToArray();
-
 
         Assert.True(result.IsT1);
         Assert.Equal(expectedErrors.Length, result.AsT1.Count);
