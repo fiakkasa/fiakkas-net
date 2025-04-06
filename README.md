@@ -232,6 +232,14 @@ In addition, a number of enrichers are present and enabled by default:
       "FromLogContext",
       "WithClientIp",
       {
+        "Name": "WithCorrelationId",
+        "Args": {
+          "headerName": "x-correlation-id",
+          "addValueIfHeaderAbsence": true
+        }
+      },
+      "WithRequestQuery",
+      {
         "Name": "WithRequestHeader",
         "Args": {
           "headerName": "User-Agent"
@@ -248,13 +256,6 @@ In addition, a number of enrichers are present and enabled by default:
         "Args": {
           "headerName": "Content-Length",
           "propertyName": "RequestLength"
-        }
-      },
-      {
-        "Name": "WithCorrelationId",
-        "Args": {
-          "headerName": "x-correlation-id",
-          "addValueIfHeaderAbsence": true
         }
       },
       "WithMachineName",
@@ -314,8 +315,8 @@ The schema can be exported by running the api with the following command:
 - Serilog Enrichment: https://github.com/serilog/serilog/wiki/Enrichment
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
 - Serilog.Enrichers.AssemblyName: https://github.com/TinyBlueRobots/Serilog.Enrichers.AssemblyName
-- Serilog.Enrichers.ClientInfo: https://github.com/serilog-contrib/serilog-enrichers-clientinfo
 - Serilog.Enrichers.Environment: https://github.com/serilog/serilog-enrichers-environment
+- Serilog.Enrichers.HttpContext: https://github.com/denis-peshkov/Serilog.Enrichers.HttpContext
 - Serilog.Enrichers.Process: https://github.com/serilog/serilog-enrichers-process
 - Serilog.Enrichers.Thread: https://github.com/serilog/serilog-enrichers-thread
 - Serilog.Formatting.Compact: https://github.com/serilog/serilog-formatting-compact

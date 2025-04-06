@@ -22,15 +22,15 @@ config.AddJsonFile(Consts.DataFile, reloadOnChange: true, optional: true);
 
 services.AddHttpContextAccessor();
 
-services.AddApiAchievements(config, Consts.DataFileSectionPath);
+services.AddApiAchievements(Consts.DataFileSectionPath);
 services.AddApiApplication(start, typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>());
-services.AddApiCategories(config, Consts.DataFileSectionPath);
-services.AddApiContactItems(config, Consts.DataFileSectionPath);
-services.AddApiCustomers(config, Consts.DataFileSectionPath);
-services.AddApiEducationItems(config, Consts.DataFileSectionPath);
-services.AddApiLanguages(config, Consts.DataFileSectionPath);
-services.AddApiPortfolio(config, Consts.DataFileSectionPath);
-services.AddApiTextItems(config, Consts.DataFileSectionPath);
+services.AddApiCategories(Consts.DataFileSectionPath);
+services.AddApiContactItems(Consts.DataFileSectionPath);
+services.AddApiCustomers(Consts.DataFileSectionPath);
+services.AddApiEducationItems(Consts.DataFileSectionPath);
+services.AddApiLanguages(Consts.DataFileSectionPath);
+services.AddApiPortfolio(Consts.DataFileSectionPath);
+services.AddApiTextItems(Consts.DataFileSectionPath);
 
 services.AddCors();
 

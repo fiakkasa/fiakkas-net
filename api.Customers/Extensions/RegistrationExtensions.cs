@@ -8,11 +8,10 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiCustomers(
         this IServiceCollection services,
-        IConfiguration config,
         string sectionPath = "data"
     )
     {
-        services.AddBoundOptions<CustomersDataConfig>(config, sectionPath);
+        services.AddValidatedOptions<CustomersDataConfig>(sectionPath);
 
         services.AddScoped<IDataRepository<ICustomer>, CustomerDataRepository>();
 

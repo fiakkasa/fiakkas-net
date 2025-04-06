@@ -10,11 +10,10 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiPortfolio(
         this IServiceCollection services,
-        IConfiguration config,
         string sectionPath = "data"
     )
     {
-        services.AddBoundOptions<PortfolioDataConfig>(config, sectionPath);
+        services.AddValidatedOptions<PortfolioDataConfig>(sectionPath);
 
         services.AddScoped<IDataRepository<IPortfolioItem>, PortfolioItemDataRepository>();
 

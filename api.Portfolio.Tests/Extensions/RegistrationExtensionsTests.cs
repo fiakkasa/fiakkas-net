@@ -17,8 +17,9 @@ public class RegistrationExtensionsTests
         }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
+                .AddSingleton(configuration)
                 .AddLogging()
-                .AddApiPortfolio(configuration)
+                .AddApiPortfolio()
                 .BuildServiceProvider();
 
         var dataRepository = serviceProvider.GetService<IDataRepository<IPortfolioItem>>();
