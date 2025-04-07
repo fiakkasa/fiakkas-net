@@ -7,6 +7,8 @@ var isDev = builder.Environment.IsDevelopment();
 
 builder.Host.AddAppLoggingProvider();
 
+services.AddHttpContextAccessor();
+
 services.AddValidatedOptions<ForwardedHeadersConfig>();
 services.AddUiConfig();
 services.AddUiCache();
