@@ -5,8 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var isDev = builder.Environment.IsDevelopment();
 
-builder.Host.AddUiLoggingProvider();
+builder.Host.AddAppLoggingProvider();
 
+services.AddHttpContextAccessor();
+
+services.AddValidatedOptions<ForwardedHeadersConfig>();
 services.AddUiConfig();
 services.AddUiCache();
 services.AddHtmlParser();
@@ -23,6 +26,8 @@ services.AddResponseCompression();
 
 var app = builder.Build();
 
+app.UseAppForwardedHeaders();
+
 app.UseStatusCodePagesWithRedirects("/404");
 
 app.UseResponseCompression();
@@ -37,7 +42,7 @@ app.MapStaticAssets();
 app.UseAntiforgery();
 
 // note: add serilog after "noisy" middleware
-app.UseUiLoggingProvider();
+app.UseAppLoggingProvider();
 
 app
     .MapRazorComponents<App>()

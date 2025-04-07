@@ -18,8 +18,8 @@ public class RegistrationExtensionsTests
                 .BuildServiceProvider()
                 .GetService<SystemInfoItem>();
 
-        result.Should().NotBeNull();
-        result!.Version.Should().BeEmpty();
+        Assert.NotNull(result);
+        Assert.Empty(result.Version);
     }
 
     [Fact]
@@ -32,8 +32,8 @@ public class RegistrationExtensionsTests
                 .BuildServiceProvider()
                 .GetService<SystemInfoItem>();
 
-        result.Should().NotBeNull();
-        result!.Version.Should().Be(value);
+        Assert.NotNull(result);
+        Assert.Equal(value, result.Version);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class RegistrationExtensionsTests
 
         var schema = result.Print();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
     }
 }

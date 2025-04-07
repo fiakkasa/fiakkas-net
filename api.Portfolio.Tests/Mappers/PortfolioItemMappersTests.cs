@@ -25,7 +25,7 @@ public class PortfolioItemMappersTests
 
         var result = item.Map();
 
-        result.Should().BeOfType<PortfolioItem>();
+        Assert.IsType<PortfolioItem>(result);
         result.MatchSnapshot();
     }
 

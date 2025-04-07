@@ -80,9 +80,17 @@ public class CategoryMappersTests
                 .Values
                 .Select(x => x.MapPolymorphicCategory())
                 .ToArray();
+        var resultTypes =
+            result
+                .Select(x => x.GetType().ToString())
+                .Order()
+                .ToArray();
 
-        result.Should().HaveCount(items.Count);
-        result.Select(x => x.GetType()).Should().BeEquivalentTo(items.Keys);
+        Assert.Equal(items.Count, result.Length);
+        Assert.All(
+            items.Keys.Select(x => x.ToString()).Order().ToArray(),
+            (x, i) => Assert.Equal(x, resultTypes[i])
+        );
         result.MatchSnapshot();
     }
 
@@ -122,15 +130,29 @@ public class CategoryMappersTests
                 Href = new("/test", UriKind.Relative)
             }
         };
+        var expectedKeys =
+            items
+                .Keys
+                .Select(x => x.ToString())
+                .Order()
+                .ToArray();
 
         var result =
             items
                 .Values
                 .Select(x => x.MapPolymorphicTechnologyCategory())
                 .ToArray();
+        var resultKeys =
+            result
+                .Select(x => x.GetType().ToString())
+                .Order()
+                .ToArray();
 
-        result.Should().HaveCount(items.Count);
-        result.Select(x => x.GetType()).Should().BeEquivalentTo(items.Keys);
+        Assert.Equal(items.Count, result.Length);
+        Assert.All(
+            expectedKeys,
+            (x, i) => Assert.Equal(x, resultKeys[i])
+        );
         result.MatchSnapshot();
     }
 
@@ -151,7 +173,7 @@ public class CategoryMappersTests
 
         var result = item.MapUnknownCategory();
 
-        result.Should().BeOfType<UnknownCategory>();
+        Assert.IsType<UnknownCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -170,7 +192,7 @@ public class CategoryMappersTests
 
         var result = item.MapPortfolioCategory();
 
-        result.Should().BeOfType<PortfolioCategory>();
+        Assert.IsType<PortfolioCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -190,7 +212,7 @@ public class CategoryMappersTests
 
         var result = item.MapResumeCategory();
 
-        result.Should().BeOfType<ResumeCategory>();
+        Assert.IsType<ResumeCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -210,7 +232,7 @@ public class CategoryMappersTests
 
         var result = item.MapSoftwareDevelopmentCategory();
 
-        result.Should().BeOfType<SoftwareDevelopmentCategory>();
+        Assert.IsType<SoftwareDevelopmentCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -230,7 +252,7 @@ public class CategoryMappersTests
 
         var result = item.MapInformationTechnologyCategory();
 
-        result.Should().BeOfType<InformationTechnologyCategory>();
+        Assert.IsType<InformationTechnologyCategory>(result);
         result.MatchSnapshot();
     }
 
@@ -249,7 +271,7 @@ public class CategoryMappersTests
 
         var result = item.MapOtherCategory();
 
-        result.Should().BeOfType<OtherCategory>();
+        Assert.IsType<OtherCategory>(result);
         result.MatchSnapshot();
     }
 

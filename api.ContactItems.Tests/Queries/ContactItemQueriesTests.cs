@@ -27,8 +27,8 @@ public class ContactItemQueriesTests
 
         var result = ContactItemQueries.GetContactItems(dataRepository);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<ContactItem>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<ContactItem>>(result);
         result.MatchSnapshot();
     }
 
@@ -61,8 +61,8 @@ public class ContactItemQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeAssignableTo<ContactItem>();
+        Assert.NotNull(result);
+        Assert.IsAssignableFrom<ContactItem>(result);
         result.MatchSnapshot();
     }
 
@@ -83,6 +83,6 @@ public class ContactItemQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

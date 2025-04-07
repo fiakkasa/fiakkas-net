@@ -17,7 +17,7 @@ public class HtmlExtensionsTests
 
         var result = serviceProvider.GetRequiredService<IHtmlParser>();
 
-        result.Should().NotBeNull();
+        Assert.NotNull(result);
     }
 
     [Theory]
@@ -31,7 +31,7 @@ public class HtmlExtensionsTests
     {
         var result = await content.ToParsedPlainText(_parser);
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -47,7 +47,7 @@ public class HtmlExtensionsTests
     {
         var result = await content.ToParsedHtml(_parser);
 
-        result.Html.Should().Be(expectedHtml);
-        result.PlainText.Should().Be(expectedPlainText);
+        Assert.Equal(expectedHtml, result.Html);
+        Assert.Equal(expectedPlainText, result.PlainText);
     }
 }

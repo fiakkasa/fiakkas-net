@@ -116,23 +116,23 @@
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.Loading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.Loading);
         });
 
         refreshButton.Click();
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().NotBeNull();
-            cut.Instance.Loading.Should().BeTrue();
+            Assert.NotNull(refreshButton.GetAttribute("disabled"));
+            Assert.True(cut.Instance.Loading);
         });
 
         refreshButton.RemoveAttribute("disabled");
 
         refreshButton.Click();
 
-        cut.WaitForAssertion(() => cut.Instance.Loading.Should().BeTrue());
+        cut.WaitForAssertion(() => Assert.True(cut.Instance.Loading));
 
         cut.Markup.MatchSnapshot();
 
@@ -154,24 +154,26 @@
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.Loading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.Loading);
         });
 
         refreshButton.Click();
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeEmpty();
-            cut.Instance.Loading.Should().BeTrue();
+            var disabled = refreshButton.GetAttribute("disabled");
+            Assert.NotNull(disabled);
+            Assert.Empty(disabled);
+            Assert.True(cut.Instance.Loading);
         });
 
         taskSourceAfter.SetResult(_apiResult);
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.Loading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.Loading);
         });
 
         cut.Markup.MatchSnapshot();

@@ -40,10 +40,10 @@ public class OptionsExtensionsTests
         var results = services.GetServices<IOptionsSnapshot<MockConfig>>().ToArray();
         var resultsAlt = services.GetServices<IOptionsSnapshot<MockConfigAlt>>().ToArray();
 
-        results.Should().ContainSingle();
-        resultsAlt.Should().ContainSingle();
-        results.First().Value.Name.Should().Be("Default");
-        resultsAlt.First().Value.Name.Should().Be("Alt");
+        Assert.Single(results);
+        Assert.Single(resultsAlt);
+        Assert.Equal("Default", results.FirstOrDefault()?.Value.Name);
+        Assert.Equal("Alt", resultsAlt.FirstOrDefault()?.Value.Name);
     }
 
     public record MockConfig

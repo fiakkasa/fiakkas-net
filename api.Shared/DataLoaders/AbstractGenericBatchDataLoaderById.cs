@@ -1,5 +1,3 @@
-using api.Shared.Types.Interfaces;
-
 namespace api.Shared.DataLoaders;
 
 public abstract class AbstractGenericBatchDataLoaderById<TEntity, TMapped>(
@@ -8,7 +6,7 @@ public abstract class AbstractGenericBatchDataLoaderById<TEntity, TMapped>(
     IBatchScheduler batchScheduler,
     DataLoaderOptions options,
     Func<TEntity, IReadOnlyList<Guid>, bool>? predicate = default
-) : BatchDataLoader<Guid, TMapped>(batchScheduler, options ?? new())
+) : BatchDataLoader<Guid, TMapped>(batchScheduler, options)
     where TEntity : IBaseId
     where TMapped : IBaseId
 {

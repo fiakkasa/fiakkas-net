@@ -28,8 +28,8 @@ public class PortfolioItemQueriesTests
 
         var result = PortfolioItemQueries.GetPortfolioItems(service);
 
-        result.Should().ContainSingle();
-        result.Should().BeAssignableTo<IQueryable<PortfolioItem>>();
+        Assert.Single(result);
+        Assert.IsAssignableFrom<IQueryable<PortfolioItem>>(result);
         result.MatchSnapshot();
     }
 
@@ -63,8 +63,8 @@ public class PortfolioItemQueriesTests
             default
         );
 
-        result.Should().NotBeNull();
-        result.Should().BeOfType<PortfolioItem>();
+        Assert.NotNull(result);
+        Assert.IsType<PortfolioItem>(result);
         result.MatchSnapshot();
     }
 
@@ -85,6 +85,6 @@ public class PortfolioItemQueriesTests
             default
         );
 
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 }

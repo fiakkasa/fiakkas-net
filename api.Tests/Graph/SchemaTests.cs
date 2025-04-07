@@ -9,7 +9,7 @@ public class SchemaTests(GraphFixture fixture) : IClassFixture<GraphFixture>
 
         var result = executor.Schema.Print();
 
-        result.Should().NotBeEmpty();
+        Assert.NotEmpty(result);
         result.MatchSnapshot();
     }
 }

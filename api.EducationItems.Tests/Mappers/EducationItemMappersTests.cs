@@ -31,7 +31,7 @@ public class EducationItemMappersTests
 
         var result = item.Map();
 
-        result.Should().BeOfType<EducationItem>();
+        Assert.IsType<EducationItem>(result);
         result.MatchSnapshot();
     }
 

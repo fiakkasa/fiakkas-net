@@ -44,8 +44,8 @@ public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 
@@ -87,8 +87,8 @@ public class EducationItemsTests(GraphFixture fixture) : IClassFixture<GraphFixt
             """);
 
         var fn = result.ExpectOperationResult;
-        fn.Should().NotThrow();
-        fn().Errors.Should().BeNullOrEmpty();
+
+        Assert.Null(fn().Errors);
         result.ToJson().MatchSnapshot();
     }
 }

@@ -19,6 +19,7 @@
         - [Running the UI](#running-the-ui)
             - [Try it out!](#try-it-out-1)
     - [Testing](#testing)
+    - [Proxy Configuration](#proxy-configuration)
     - [Logging](#logging)
     - [Exporting the Schema](#exporting-the-schema)
     - [References](#references)
@@ -39,6 +40,7 @@ Solution structure:
 - api.NodeProxy: A proxy wrapper in node.js [📝](./api.NodeProxy/README.md)
 - api.Shared: Shared API assets
 - api.Tests: Tests!
+- app.Shared.`<Module>`: Shared assets and common functionality
 - ui: UI
 - ui.NodeProxy: A proxy wrapper in node.js [📝](./ui.NodeProxy/README.md)
 
@@ -212,6 +214,42 @@ generated HotChocolate registrations are skipped._
 📝 _Observe the `/p:ExcludeByAttribute="GeneratedCodeAttribute`, this is added as to ensure that any auto generated code
 is skipped._
 
+## Proxy Configuration
+
+Both the api and ui can be configured to handle requests through a proxy server.
+
+This configuration is typically done in the `appsettings.json` file, where you can specify the necessary settings for
+your application to communicate with a proxy server.
+
+For more information visit: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer
+
+```json
+{
+  "ForwardedHeadersConfig": {
+    "Enable": true,
+    "ForwardedForHeaderName": "X-Forwarded-For",
+    "ForwardedHostHeaderName": "X-Forwarded-Host",
+    "ForwardedProtoHeaderName": "X-Forwarded-Proto",
+    "ForwardedPrefixHeaderName": "X-Forwarded-Prefix",
+    "OriginalForHeaderName": "X-Original-For",
+    "OriginalHostHeaderName": "X-Original-Host",
+    "OriginalProtoHeaderName": "X-Original-Proto",
+    "OriginalPrefixHeaderName": "X-Original-Prefix",
+    "ForwardedHeaders": "XForwardedFor, XForwardedProto",
+    "ForwardLimit": 1,
+    "KnownProxies": ["::1"],
+    "KnownNetworks": [
+      {
+        "Address": "127.0.0.0",
+        "PrefixLength": 8
+      }
+    ],
+    "AllowedHosts": [],
+    "RequireHeaderSymmetry": false
+  }
+}
+```
+
 ## Logging
 
 The solution is configured to use the ILogger abstraction with Serilog and most specifically the Console and File sinks.
@@ -219,8 +257,8 @@ The solution is configured to use the ILogger abstraction with Serilog and most 
 In addition, a number of enrichers are present and enabled by default:
 
 - Serilog.Enrichers.AssemblyName
-- Serilog.Enrichers.ClientInfo
 - Serilog.Enrichers.Environment
+- Serilog.Enrichers.HttpContext
 - Serilog.Enrichers.Process
 - Serilog.Enrichers.Thread
 
@@ -231,6 +269,14 @@ In addition, a number of enrichers are present and enabled by default:
     "Enrich": [
       "FromLogContext",
       "WithClientIp",
+      {
+        "Name": "WithCorrelationId",
+        "Args": {
+          "headerName": "x-correlation-id",
+          "addValueIfHeaderAbsence": true
+        }
+      },
+      "WithRequestQuery",
       {
         "Name": "WithRequestHeader",
         "Args": {
@@ -248,13 +294,6 @@ In addition, a number of enrichers are present and enabled by default:
         "Args": {
           "headerName": "Content-Length",
           "propertyName": "RequestLength"
-        }
-      },
-      {
-        "Name": "WithCorrelationId",
-        "Args": {
-          "headerName": "x-correlation-id",
-          "addValueIfHeaderAbsence": true
         }
       },
       "WithMachineName",
@@ -310,12 +349,13 @@ The schema can be exported by running the api with the following command:
 - Coverlet (MSBuild): https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
 - GraphQL: https://graphql.org
 - HotChocolate: https://chillicream.com/docs/hotchocolate
+- Proxy Configuration: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer
 - Report Generator: https://reportgenerator.io
 - Serilog Enrichment: https://github.com/serilog/serilog/wiki/Enrichment
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
 - Serilog.Enrichers.AssemblyName: https://github.com/TinyBlueRobots/Serilog.Enrichers.AssemblyName
-- Serilog.Enrichers.ClientInfo: https://github.com/serilog-contrib/serilog-enrichers-clientinfo
 - Serilog.Enrichers.Environment: https://github.com/serilog/serilog-enrichers-environment
+- Serilog.Enrichers.HttpContext: https://github.com/denis-peshkov/Serilog.Enrichers.HttpContext
 - Serilog.Enrichers.Process: https://github.com/serilog/serilog-enrichers-process
 - Serilog.Enrichers.Thread: https://github.com/serilog/serilog-enrichers-thread
 - Serilog.Formatting.Compact: https://github.com/serilog/serilog-formatting-compact
@@ -323,6 +363,6 @@ The schema can be exported by running the api with the following command:
 - Serilog.Sinks.Console: https://github.com/serilog/serilog-sinks-console
 - Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
 - StrawberryShake: https://chillicream.com/docs/strawberryshake/v15/get-started/console
-- Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - VS Code: https://code.visualstudio.com
+- Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
 - XUnit: https://xunit.net

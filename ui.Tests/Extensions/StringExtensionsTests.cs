@@ -23,7 +23,7 @@ public class StringExtensionsTests
     {
         var result = message.ToPrettyErrorMessage();
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class StringExtensionsTests
 
         var result = exception.ToPrettyErrorMessage();
 
-        result.Should().Be("Splash");
+        Assert.Equal("Splash", result);
     }
 
     [Fact]
@@ -43,6 +43,6 @@ public class StringExtensionsTests
 
         var result = exception.ToPrettyErrorMessage();
 
-        result.Should().Be("Splash");
+        Assert.Equal("Splash", result);
     }
 }

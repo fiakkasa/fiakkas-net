@@ -206,8 +206,9 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         taskSource.SetResult(apiResultSecond);
@@ -215,15 +216,15 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.WaitForAssertion(() =>
         {
             cut.Find(".year-section");
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.False(cut.Instance.PartialLoading);
         });
 
         cut.Markup.MatchSnapshot();
@@ -255,25 +256,25 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.WaitForAssertion(() =>
         {
             cut.Find(".year-section");
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.False(cut.Instance.PartialLoading);
         });
 
-        cut.Instance.Model.Should().HaveCount(count => count <= 200);
+        Assert.True(cut.Instance.Model.Count <= 200);
 
         cut.Markup.MatchSnapshot();
     }
@@ -308,25 +309,25 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.WaitForAssertion(() =>
         {
             cut.Find(".year-section");
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.False(cut.Instance.PartialLoading);
         });
 
-        cut.Instance.Model.Should().HaveCount(count => count <= 100);
+        Assert.True(cut.Instance.Model.Count <= 100);
 
         cut.Markup.MatchSnapshot();
     }
@@ -342,8 +343,8 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.Markup.MatchSnapshot();
@@ -374,8 +375,8 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         taskSource.SetResult(apiResultSecond);
@@ -383,8 +384,8 @@
         cut.WaitForAssertion(() =>
         {
             cut.FindComponent<Skeleton>();
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.Markup.MatchSnapshot();
@@ -412,25 +413,25 @@
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().NotBeNull();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.NotNull(refreshButton.GetAttribute("disabled"));
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.False(cut.Instance.PartialLoading);
         });
 
         refreshButton.Click();
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().NotBeNull();
-            cut.Instance.InitialLoading.Should().BeTrue();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            Assert.NotNull(refreshButton.GetAttribute("disabled"));
+            Assert.True(cut.Instance.InitialLoading);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         refreshButton.RemoveAttribute("disabled");
@@ -440,9 +441,9 @@
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.InitialLoading.Should().BeFalse();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.InitialLoading);
+            Assert.False(cut.Instance.PartialLoading);
         });
 
         cut.Markup.MatchSnapshot();
@@ -463,24 +464,26 @@
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.PartialLoading);
         });
 
         refreshButton.Click();
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeEmpty();
-            cut.Instance.PartialLoading.Should().BeTrue();
+            var disabled = refreshButton.GetAttribute("disabled");
+            Assert.NotNull(disabled);
+            Assert.Empty(disabled);
+            Assert.True(cut.Instance.PartialLoading);
         });
 
         taskSource.SetResult(_apiResult);
 
         cut.WaitForAssertion(() =>
         {
-            refreshButton.GetAttribute("disabled").Should().BeNull();
-            cut.Instance.PartialLoading.Should().BeFalse();
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+            Assert.False(cut.Instance.PartialLoading);
         });
 
         cut.Markup.MatchSnapshot();

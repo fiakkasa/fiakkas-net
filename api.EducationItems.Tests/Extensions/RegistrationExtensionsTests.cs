@@ -17,15 +17,16 @@ public class RegistrationExtensionsTests
         }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
+                .AddSingleton(configuration)
                 .AddLogging()
-                .AddApiEducationItems(configuration)
+                .AddApiEducationItems()
                 .BuildServiceProvider();
 
         var dataRepository = serviceProvider.GetService<IDataRepository<IEducationItem>>();
         var options = serviceProvider.GetService<IOptionsSnapshot<EducationItemsDataConfig>>();
 
-        dataRepository.Should().NotBeNull();
-        options.Should().NotBeNull();
+        Assert.NotNull(dataRepository);
+        Assert.NotNull(options);
     }
 
     [Fact]
@@ -44,7 +45,7 @@ public class RegistrationExtensionsTests
 
         var schema = result.Print();
 
-        schema.Should().NotBeEmpty();
+        Assert.NotEmpty(schema);
         schema.MatchSnapshot();
     }
 }

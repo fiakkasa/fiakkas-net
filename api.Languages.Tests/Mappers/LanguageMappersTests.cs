@@ -22,7 +22,7 @@ public class LanguageMappersTests
 
         var result = item.Map();
 
-        result.Should().BeOfType<Language>();
+        Assert.IsType<Language>(result);
         result.MatchSnapshot();
     }
 

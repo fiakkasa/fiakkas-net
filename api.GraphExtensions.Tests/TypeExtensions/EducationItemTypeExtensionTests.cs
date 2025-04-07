@@ -40,7 +40,7 @@ public class EducationItemTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeNull();
+        Assert.NotNull(result);
         result.MatchSnapshot();
     }
 }

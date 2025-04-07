@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="HotChocolate" Version="15.1.3"/>
         <PackageReference Include="HotChocolate.Data" Version="15.1.3"/>
         <PackageReference Include="HotChocolate.Types.Analyzers" Version="15.1.3"/>
@@ -18,6 +14,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\api.Shared.Types\api.Shared.Types.csproj"/>
+        <ProjectReference Include="..\app.Shared.Options\app.Shared.Options.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

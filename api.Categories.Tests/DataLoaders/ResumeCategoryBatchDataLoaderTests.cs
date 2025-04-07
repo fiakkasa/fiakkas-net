@@ -35,8 +35,8 @@ public class ResumeCategoryBatchDataLoaderTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
-        result[0].Should().NotBeNull();
+        Assert.Single(result);
+        Assert.NotNull(result[0]);
         result.MatchSnapshot();
     }
 
@@ -65,8 +65,8 @@ public class ResumeCategoryBatchDataLoaderTests
 
         var result = await sut.LoadAsync([Guid.NewGuid()], CancellationToken.None);
 
-        result.Should().ContainSingle();
-        result[0].Should().BeNull();
+        Assert.Single(result);
+        Assert.Null(result[0]);
         result.MatchSnapshot();
     }
 
@@ -86,8 +86,8 @@ public class ResumeCategoryBatchDataLoaderTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
-        result[0].Should().BeNull();
+        Assert.Single(result);
+        Assert.Null(result[0]);
         result.MatchSnapshot();
     }
 }

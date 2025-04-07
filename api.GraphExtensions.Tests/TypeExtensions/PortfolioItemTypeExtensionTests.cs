@@ -43,7 +43,7 @@ public class PortfolioItemTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeNull();
+        Assert.NotNull(result);
         result.MatchSnapshot();
     }
 
@@ -78,7 +78,7 @@ public class PortfolioItemTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeNull();
+        Assert.NotNull(result);
         result.MatchSnapshot();
     }
 
@@ -114,7 +114,7 @@ public class PortfolioItemTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 
@@ -150,7 +150,7 @@ public class PortfolioItemTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().NotBeEmpty();
+        Assert.NotEmpty(result);
         result.MatchSnapshot();
     }
 }

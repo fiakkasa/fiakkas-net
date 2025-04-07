@@ -24,13 +24,13 @@ public class HealthReportSummaryTests
 
         var result = (HealthReportSummary)healthReport;
 
-        result.Status.Should().Be(healthReport.Status);
-        result.TotalDuration.Should().Be(healthReport.TotalDuration);
-        result.Entries.Should().NotBeNull();
-        result.Entries.Should().ContainSingle();
-        result.Entries.Should().ContainKey("Key");
-        result.Entries!["Key"].Status.Should().Be(healthReport.Entries["Key"].Status);
-        result.Entries!["Key"].Duration.Should().Be(healthReport.Entries["Key"].Duration);
+        Assert.Equal(healthReport.Status, result.Status);
+        Assert.Equivalent(healthReport.TotalDuration, result.TotalDuration, true);
+        Assert.NotNull(result.Entries);
+        Assert.Single(result.Entries);
+        Assert.True(result.Entries.ContainsKey("Key"));
+        Assert.Equal(healthReport.Entries["Key"].Status, result.Entries["Key"].Status);
+        Assert.Equivalent(healthReport.Entries["Key"].Duration, result.Entries["Key"].Duration, true);
 
         result.MatchSnapshot();
     }

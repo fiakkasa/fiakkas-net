@@ -47,33 +47,31 @@ public class CorsExtensionsTests
             client.SendAsync(GetRequestMessage(HttpMethod.Put))
         );
 
-        service.Should().NotBeNull();
-        results
-            .Should()
-            .AllSatisfy(x =>
+        Assert.NotNull(service);
+        Assert.All(
+            results,
+            x =>
             {
-                x.StatusCode.Should().Be(HttpStatusCode.NoContent);
-                x
-                    .Headers
-                    .Should()
-                    .ContainSingle(h =>
+                Assert.Equal(HttpStatusCode.NoContent, x.StatusCode);
+                Assert.Single(
+                    x.Headers,
+                    h =>
                         h.Key == "Access-Control-Allow-Origin"
                         && h.Value.First() == "*"
-                    );
-                x
-                    .Headers
-                    .Should()
-                    .ContainSingle(h =>
+                );
+                Assert.Single(
+                    x.Headers,
+                    h =>
                         h.Key == "Access-Control-Allow-Headers"
                         && h.Value.First() == "*"
-                    );
-                x
-                    .Headers
-                    .Should()
-                    .ContainSingle(h =>
+                );
+                Assert.Single(
+                    x.Headers,
+                    h =>
                         h.Key == "Access-Control-Allow-Methods"
                         && h.Value.First() == HttpMethods.Post
-                    );
-            });
+                );
+            }
+        );
     }
 }

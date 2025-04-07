@@ -26,7 +26,7 @@ public class SmtpExtensionsTests
 
         var result = config.UseDefaultCredentials();
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -49,7 +49,7 @@ public class SmtpExtensionsTests
 
         var result = config.GetNetworkCredentials() is not null;
 
-        result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Fact]
@@ -59,6 +59,6 @@ public class SmtpExtensionsTests
 
         var result = config.GetSmtpClient();
 
-        result.Should().BeOfType<SmtpClient>();
+        Assert.IsType<SmtpClient>(result);
     }
 }

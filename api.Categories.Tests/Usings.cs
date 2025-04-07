@@ -1,6 +1,5 @@
-global using api.Testing.Shared.Extensions;
 global using api.Testing.Shared.Services;
-global using FluentAssertions;
+global using app.Testing.Shared.Extensions;
 global using GreenDonut;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;

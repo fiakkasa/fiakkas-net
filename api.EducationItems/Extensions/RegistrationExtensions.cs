@@ -8,11 +8,10 @@ public static class RegistrationExtensions
 {
     public static IServiceCollection AddApiEducationItems(
         this IServiceCollection services,
-        IConfiguration config,
         string sectionPath = "data"
     )
     {
-        services.AddBoundOptions<EducationItemsDataConfig>(config, sectionPath);
+        services.AddValidatedOptions<EducationItemsDataConfig>(sectionPath);
 
         services.AddScoped<IDataRepository<IEducationItem>, EducationItemDataRepository>();
 

@@ -17,12 +17,12 @@
     {
         var cut = Render(@<Contact/>);
 
-        cut.FindAll("alert").Should().BeEmpty();
+        Assert.Empty(cut.FindAll("alert"));
         cut.FindComponent<EditForm>();
         cut.FindComponent<DataAnnotationsValidator>();
-        cut.FindComponents<ValidationMessage<string>>().Should().HaveCount(6);
-        cut.FindComponents<EagerInputText>().Should().HaveCount(3);
-        cut.FindComponents<EagerInputTextArea>().Should().ContainSingle();
+        Assert.Equal(6, cut.FindComponents<ValidationMessage<string>>().Count);
+        Assert.Equal(3, cut.FindComponents<EagerInputText>().Count);
+        Assert.Single(cut.FindComponents<EagerInputTextArea>());
         cut.Find("""button[type="button"]""");
         cut.Find("""button[type="reset"]""");
         cut.Find("""button[type="submit"]""");
@@ -41,16 +41,19 @@
         cut.Find("""input[data-kind="verification"]""").Input(input);
 
         for (var i = 0; i < numberOfClicks; i++)
+        {
             cut.Find("""button[type="button"]""").Click();
+        }
 
         cut.WaitForAssertion(() => cut.Find("""button[type="button"][disabled]"""));
         cut.WaitForAssertion(() =>
-            cut
-                .Find("""button[type="button"]""")
-                .Attributes
-                .Select(x => x.Name)
-                .Should()
-                .NotContain("disabled")
+            Assert.DoesNotContain(
+                cut
+                    .Find("""button[type="button"]""")
+                    .Attributes
+                    .Select(x => x.Name),
+                x => x == "disabled"
+            )
         );
     }
 
@@ -75,9 +78,11 @@
                     .FindAll("div.small.text-warning")
                     .Select(x => x.TextContent)
                     .ToArray();
-
-            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
-            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+            Assert.Equal(expectedErrorMessages.Length, validationMessages.Length);
+            Assert.All(
+                expectedErrorMessages,
+                (x, i) => Assert.Equal(x, validationMessages[i])
+            );
         });
 
         cut.Markup.MatchSnapshot();
@@ -130,8 +135,11 @@
                     .Select(x => x.TextContent)
                     .ToArray();
 
-            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
-            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+            Assert.Equal(expectedErrorMessages.Length, validationMessages.Length);
+            Assert.All(
+                expectedErrorMessages,
+                (x, i) => Assert.Equal(x, validationMessages[i])
+            );
         });
 
         cut.Markup.MatchSnapshot();
@@ -171,9 +179,11 @@
                     .FindAll("div.small.text-danger")
                     .Select(x => x.TextContent)
                     .ToArray();
-
-            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
-            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+            Assert.Equal(expectedErrorMessages.Length, validationMessages.Length);
+            Assert.All(
+                expectedErrorMessages,
+                (x, i) => Assert.Equal(x, validationMessages[i])
+            );
         });
 
         cut.Markup.MatchSnapshot();
@@ -214,8 +224,11 @@
                     .Select(x => x.TextContent)
                     .ToArray();
 
-            validationMessages.Should().HaveCount(expectedErrorMessages.Length);
-            validationMessages.Should().ContainInOrder(expectedErrorMessages);
+            Assert.Equal(expectedErrorMessages.Length, validationMessages.Length);
+            Assert.All(
+                expectedErrorMessages,
+                (x, i) => Assert.Equal(x, validationMessages[i])
+            );
         });
 
         cut.Markup.MatchSnapshot();
@@ -247,10 +260,7 @@
         cut.WaitForAssertion(() => cut.Find("div.alert.alert-success"));
         cut.Markup.MatchSnapshot();
         cut.WaitForAssertion(() =>
-                cut
-                    .FindAll("div.alert")
-                    .Should()
-                    .BeEmpty(),
+                Assert.Empty(cut.FindAll("div.alert")),
             TimeSpan.FromSeconds(20)
         );
     }

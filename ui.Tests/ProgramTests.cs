@@ -14,7 +14,7 @@ public class ProgramTests
 
         var result = await client.GetAsync("/error");
 
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class ProgramTests
 
         var result = await client.GetAsync("/error");
 
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
     }
 
     private class Waf(string environment) : WebApplicationFactory<Program>

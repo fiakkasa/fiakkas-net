@@ -9,7 +9,7 @@ public class SystemInfoItemTests
     {
         var result = new SystemInfoItem("Version", DateTimeOffset.Now.AddSeconds(-1)).UpTime;
 
-        result.Should().BeGreaterThan(TimeSpan.FromMilliseconds(1));
+        Assert.True(result > TimeSpan.FromMilliseconds(1));
     }
 
     [Fact]
@@ -17,6 +17,7 @@ public class SystemInfoItemTests
     {
         var result = new SystemInfoItem("Version", DateTimeOffset.Now.AddMinutes(1)).UpTime;
 
-        result.Should().Be(TimeSpan.Zero);
+        Assert.Equivalent(TimeSpan.Zero, result, true);
+        result.MatchSnapshot();
     }
 }

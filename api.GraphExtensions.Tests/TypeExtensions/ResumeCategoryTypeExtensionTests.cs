@@ -47,7 +47,8 @@ public class ResumeCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
+        Assert.NotNull(result);
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 }

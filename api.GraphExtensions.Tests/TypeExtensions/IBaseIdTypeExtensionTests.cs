@@ -12,7 +12,8 @@ public class IBaseIdTypeExtensionTests
         var sut = new IBaseIdTypeExtension();
 
         var result = sut.GetInternalId(item);
-        result.Should().Be(item.Id);
+
+        Assert.Equivalent(item.Id, result, true);
     }
 
     private record MockItem(Guid Id) : IBaseId;

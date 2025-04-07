@@ -22,7 +22,9 @@ public static class EmailExtensions
     {
         [nameof(EmailErrorCodeType.MarkupIsNotAllowed)] = document =>
             document is { Head.Children.Length: 0, Body.Children.Length: 0 },
-        [nameof(EmailErrorCodeType.UnusableContent)] = document => document.Body!.TextContent.Length > 0
+        // note: the required check precedes it
+        [nameof(EmailErrorCodeType.UnusableContent)] = document =>
+            document.Body!.TextContent.Length > 0
     };
 
     public static IServiceCollection AddEmailService(this IServiceCollection services)

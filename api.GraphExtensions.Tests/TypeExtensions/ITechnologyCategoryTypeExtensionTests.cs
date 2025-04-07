@@ -60,7 +60,8 @@ public class ITechnologyCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
+        Assert.NotNull(result);
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 
@@ -112,7 +113,8 @@ public class ITechnologyCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
+        Assert.NotNull(result);
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 
@@ -151,7 +153,8 @@ public class ITechnologyCategoryTypeExtensionTests
             CancellationToken.None
         );
 
-        result.Should().ContainSingle();
+        Assert.NotNull(result);
+        Assert.Single(result);
         result.MatchSnapshot();
     }
 }

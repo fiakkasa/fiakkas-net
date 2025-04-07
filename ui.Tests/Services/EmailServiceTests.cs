@@ -48,7 +48,7 @@ public class EmailServiceTests
     [InlineData(false, _senderAddress)]
     public async Task Send_Should_Send_Email_With_Sender_Address_Based_On_AlwaysUseDefaultSenderAddress_Value(
         bool alwaysUseDefaultSenderAddress,
-        string expectedSenderAddress
+        string expected
     )
     {
         var service = GetEmailService(_config with
@@ -65,24 +65,24 @@ public class EmailServiceTests
                 ?.OfType<MailMessage>()
                 .FirstOrDefault();
 
-        result.IsT0.Should().BeTrue();
-        sendCall.Should().NotBeNull();
-        sendCall!.From!.Address.Should().Be(expectedSenderAddress);
-        sendCall.To.Count.Should().Be(1);
-        sendCall.To[0].Should().Be(_recipientAddress);
-        sendCall.Subject.Should().EndWith(_subject);
+        Assert.True(result.IsT0);
+        Assert.NotNull(sendCall);
+        Assert.Equal(expected, sendCall.From?.Address);
+        Assert.Equal(1, sendCall.To?.Count);
+        Assert.Equal(_recipientAddress, sendCall.To?[0].Address);
+        Assert.EndsWith(_subject, sendCall.Subject);
 
-        sendCall.AlternateViews.Should().HaveCount(2);
+        Assert.Equal(2, sendCall.AlternateViews.Count);
 
-        sendCall.AlternateViews[0].ContentType.Should().Be("text/html; charset=utf-8");
+        Assert.Equal("text/html; charset=utf-8", sendCall.AlternateViews[0].ContentType.ToString());
         await using var htmlStream = sendCall.AlternateViews[0].ContentStream;
         var htmlString = await new StreamReader(htmlStream).ReadToEndAsync();
-        htmlString.Should().Be(_bodyHtml + _config.HtmlSignature);
+        Assert.Equal(_bodyHtml + _config.HtmlSignature, htmlString);
 
-        sendCall.AlternateViews[1].ContentType.Should().Be("text/plain; charset=utf-8");
+        Assert.Equal("text/plain; charset=utf-8", sendCall.AlternateViews[1].ContentType.ToString());
         await using var plaintTextStream = sendCall.AlternateViews[1].ContentStream;
         var plaintTextString = await new StreamReader(plaintTextStream).ReadToEndAsync();
-        plaintTextString.Should().Be(_body + _config.PlainTextSignature);
+        Assert.Equal(_body + _config.PlainTextSignature, plaintTextString);
     }
 
     [Theory]
@@ -142,10 +142,18 @@ public class EmailServiceTests
             subject!,
             body!
         );
+        var resultErrorMessages =
+            result
+                .AsT1
+                .Select(x => x.ErrorMessage)
+                .ToArray();
 
-        result.IsT1.Should().BeTrue();
-        result.AsT1.Should().HaveCount(expectedErrors.Length);
-        expectedErrors.Should().ContainInOrder(result.AsT1.Select(x => x.ErrorMessage));
+        Assert.True(result.IsT1);
+        Assert.Equal(expectedErrors.Length, result.AsT1.Count);
+        Assert.All(
+            expectedErrors,
+            (x, i) => Assert.Equal(x, resultErrorMessages[i])
+        );
     }
 
     [Fact]
@@ -161,11 +169,11 @@ public class EmailServiceTests
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);
         var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
-        result.IsT2.Should().BeTrue();
-        result.AsT2.Should().BeOfType<InvalidOperationException>();
-        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FailedToSend));
-        errorLogs.Should().ContainSingle();
-        errorLogs[0].ExceptionMessage.Should().Be("Splash!");
+        Assert.True(result.IsT2);
+        Assert.IsType<InvalidOperationException>(result.AsT2);
+        Assert.Equal(nameof(EmailErrorCodeType.FailedToSend), result.AsT2.Message);
+        Assert.Single(errorLogs);
+        Assert.Equal("Splash!", errorLogs[0].ExceptionMessage);
     }
 
     [Fact]
@@ -175,7 +183,7 @@ public class EmailServiceTests
 
         var result = await service.SendFrom(_senderAddress, _subject, _body);
 
-        result.IsT0.Should().BeTrue();
+        Assert.True(result.IsT0);
     }
 
     [Fact]
@@ -187,11 +195,11 @@ public class EmailServiceTests
         var result = await service.SendFrom(_senderAddress, _subject, _body);
         var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
-        result.IsT2.Should().BeTrue();
-        result.AsT2.Should().BeOfType<InvalidOperationException>();
-        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FailedToSend));
-        errorLogs.Should().ContainSingle();
-        errorLogs[0].ExceptionMessage.Should().Be("Splash!");
+        Assert.True(result.IsT2);
+        Assert.IsType<InvalidOperationException>(result.AsT2);
+        Assert.Equal(nameof(EmailErrorCodeType.FailedToSend), result.AsT2.Message);
+        Assert.Single(errorLogs);
+        Assert.Equal("Splash!", errorLogs[0].ExceptionMessage);
     }
 
     [Fact]
@@ -201,7 +209,7 @@ public class EmailServiceTests
 
         var result = await service.SendTo(_recipientAddress, _subject, _body);
 
-        result.IsT0.Should().BeTrue();
+        Assert.True(result.IsT0);
     }
 
     [Fact]
@@ -213,10 +221,10 @@ public class EmailServiceTests
         var result = await service.SendTo(_recipientAddress, _subject, _body);
         var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
-        result.IsT2.Should().BeTrue();
-        result.AsT2.Should().BeOfType<InvalidOperationException>();
-        result.AsT2.Message.Should().Be(nameof(EmailErrorCodeType.FailedToSend));
-        errorLogs.Should().ContainSingle();
-        errorLogs[0].ExceptionMessage.Should().Be("Splash!");
+        Assert.True(result.IsT2);
+        Assert.IsType<InvalidOperationException>(result.AsT2);
+        Assert.Equal(nameof(EmailErrorCodeType.FailedToSend), result.AsT2.Message);
+        Assert.Single(errorLogs);
+        Assert.Equal("Splash!", errorLogs[0].ExceptionMessage);
     }
 }
