@@ -257,8 +257,8 @@ The solution is configured to use the ILogger abstraction with Serilog and most 
 In addition, a number of enrichers are present and enabled by default:
 
 - Serilog.Enrichers.AssemblyName
+- Serilog.Enrichers.ClientInfo
 - Serilog.Enrichers.Environment
-- Serilog.Enrichers.HttpContext
 - Serilog.Enrichers.Process
 - Serilog.Enrichers.Thread
 
@@ -276,7 +276,6 @@ In addition, a number of enrichers are present and enabled by default:
           "addValueIfHeaderAbsence": true
         }
       },
-      "WithRequestQuery",
       {
         "Name": "WithRequestHeader",
         "Args": {
@@ -354,8 +353,8 @@ The schema can be exported by running the api with the following command:
 - Serilog Enrichment: https://github.com/serilog/serilog/wiki/Enrichment
 - Serilog.AspNetCore: https://github.com/serilog/serilog-aspnetcore
 - Serilog.Enrichers.AssemblyName: https://github.com/TinyBlueRobots/Serilog.Enrichers.AssemblyName
+- Serilog.Enrichers.ClientInfo: https://github.com/serilog-contrib/serilog-enrichers-clientinfo
 - Serilog.Enrichers.Environment: https://github.com/serilog/serilog-enrichers-environment
-- Serilog.Enrichers.HttpContext: https://github.com/denis-peshkov/Serilog.Enrichers.HttpContext
 - Serilog.Enrichers.Process: https://github.com/serilog/serilog-enrichers-process
 - Serilog.Enrichers.Thread: https://github.com/serilog/serilog-enrichers-thread
 - Serilog.Formatting.Compact: https://github.com/serilog/serilog-formatting-compact
@@ -363,6 +362,6 @@ The schema can be exported by running the api with the following command:
 - Serilog.Sinks.Console: https://github.com/serilog/serilog-sinks-console
 - Serilog.Sinks.File: https://github.com/serilog/serilog-sinks-file
 - StrawberryShake: https://chillicream.com/docs/strawberryshake/v15/get-started/console
-- VS Code: https://code.visualstudio.com
 - Vertical Slice Architecture: https://github.com/SSWConsulting/SSW.VerticalSliceArchitecture
+- VS Code: https://code.visualstudio.com
 - XUnit: https://xunit.net
