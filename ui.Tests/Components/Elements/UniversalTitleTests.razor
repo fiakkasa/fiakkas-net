@@ -74,8 +74,8 @@
         var instance = cut.Instance;
 
         Assert.NotNull(instance);
-        result.MarkupMatches(
-            @<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+        result.MarkupMatches(@<h1
+                class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
                 <span>
                     Test
                 </span>
@@ -97,8 +97,7 @@
         var instance = cut.Instance;
 
         Assert.NotNull(instance);
-        result.MarkupMatches(
-            @<h1 class="page-header test">
+        result.MarkupMatches(@<h1 class="page-header test">
                 <span>
                     Test
                 </span>
@@ -121,8 +120,7 @@
         var instance = cut.Instance;
 
         Assert.NotNull(instance);
-        result.MarkupMatches(
-            @<h1 class="page-header test">
+        result.MarkupMatches(@<h1 class="page-header test">
                 <span>
                     Test
                 </span>
@@ -143,8 +141,8 @@
         var instance = cut.Instance;
 
         Assert.NotNull(instance);
-        result.MarkupMatches(
-            @<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+        result.MarkupMatches(@<h1
+                class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
                 <a href="">Extra!</a>
             </h1>
         );
@@ -164,8 +162,7 @@
         var instance = cut.Instance;
 
         Assert.NotNull(instance);
-        result.MarkupMatches(
-            @<h1 class="page-header test">
+        result.MarkupMatches(@<h1 class="page-header test">
                 <a href="">Extra!</a>
             </h1>
         );

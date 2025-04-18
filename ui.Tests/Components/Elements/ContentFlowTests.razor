@@ -5,8 +5,7 @@
     [Fact]
     public void Content_Flow_Should_Render_Custom_Loading_When_IsLoading_Is_True_And_CustomLoading_Is_Set()
     {
-        var cut = Render(
-            @<ContentFlow IsLoading="true">
+        var cut = Render(@<ContentFlow IsLoading="true">
                 <CustomLoadingContent>
                     <div class="custom-loading-content"></div>
                 </CustomLoadingContent>
@@ -45,13 +44,15 @@
             @<div class="custom-error-content"></div>
         );
 
-        var cut = Render(
-            @<ContentFlow HasError="true" GenericErrorMessage="Error Message" GenericErrorCssClass="custom-error">
-                <CustomErrorContent>
-                    <div class="custom-error-content"></div>
-                </CustomErrorContent>
-            </ContentFlow>
-        );
+        var cut =
+            Render(@<ContentFlow HasError="true"
+                                 GenericErrorMessage="Error Message"
+                                 GenericErrorCssClass="custom-error">
+                    <CustomErrorContent>
+                        <div class="custom-error-content"></div>
+                    </CustomErrorContent>
+                </ContentFlow>
+            );
 
         cut.Find("div.custom-error-content");
     }
@@ -79,8 +80,7 @@
 
         var result = cut.Find("div.default-error");
 
-        result.MarkupMatches(
-            @<div class="default-error">
+        result.MarkupMatches(@<div class="default-error">
                 Error Message
             </div>
         );
@@ -96,16 +96,14 @@
         );
 
         var cut =
-            Render(
-                @<ContentFlow HasError="true"
-                              GenericErrorMessage="Error Message"
-                              GenericErrorCssClass="custom-error"/>
+            Render(@<ContentFlow HasError="true"
+                                 GenericErrorMessage="Error Message"
+                                 GenericErrorCssClass="custom-error"/>
             );
 
         var result = cut.Find("div.custom-error");
 
-        result.MarkupMatches(
-            @<div class="custom-error">
+        result.MarkupMatches(@<div class="custom-error">
                 Error Message
             </div>
         );
@@ -121,18 +119,19 @@
             </div>
         );
 
-        var cut = Render(
-            @<ContentFlow HasError="true" GenericErrorMessage="Error Message" GenericErrorCssClass="custom-error">
-                <GenericErrorContent>
-                    <a href="">Extra!</a>
-                </GenericErrorContent>
-            </ContentFlow>
-        );
+        var cut =
+            Render(@<ContentFlow HasError="true"
+                                 GenericErrorMessage="Error Message"
+                                 GenericErrorCssClass="custom-error">
+                    <GenericErrorContent>
+                        <a href="">Extra!</a>
+                    </GenericErrorContent>
+                </ContentFlow>
+            );
 
         var result = cut.Find("div.custom-error");
 
-        result.MarkupMatches(
-            @<div class="custom-error">
+        result.MarkupMatches(@<div class="custom-error">
                 Error Message
                 <a href="">Extra!</a>
             </div>
@@ -142,18 +141,18 @@
     [Fact]
     public void Content_Flow_Should_Render_Content_When_HasData_Is_True_And_Content_Is_Set()
     {
-        var cut = Render(
-            @<text>
-                 <ContentFlow HasData="true">
-                     <div class="content"></div>
-                 </ContentFlow>
-                 <ContentFlow HasData="true">
-                     <ChildContent>
-                         <div class="content"></div>
-                     </ChildContent>
-                 </ContentFlow>
-             </text>
-        );
+        var cut =
+            Render(@<text>
+                        <ContentFlow HasData="true">
+                            <div class="content"></div>
+                        </ContentFlow>
+                        <ContentFlow HasData="true">
+                            <ChildContent>
+                                <div class="content"></div>
+                            </ChildContent>
+                        </ContentFlow>
+                    </text>
+            );
 
         var result = cut.FindAll("div.content");
 
@@ -173,13 +172,13 @@
     [Fact]
     public void Content_Flow_Should_Render_CustomNoDataContent_When_All_Flags_Are_False_And_CustomNoDataContent_Is_Set()
     {
-        var cut = Render(
-            @<ContentFlow>
-                <CustomNoDataContent>
-                    <div class="no-data"></div>
-                </CustomNoDataContent>
-            </ContentFlow>
-        );
+        var cut =
+            Render(@<ContentFlow>
+                    <CustomNoDataContent>
+                        <div class="no-data"></div>
+                    </CustomNoDataContent>
+                </ContentFlow>
+            );
 
         cut.Find("div.no-data");
     }
@@ -207,8 +206,7 @@
 
         var result = cut.Find("div.default-no-data");
 
-        result.MarkupMatches(
-            @<div class="default-no-data">
+        result.MarkupMatches(@<div class="default-no-data">
                 No Data
             </div>
         );
@@ -227,8 +225,7 @@
 
         var result = cut.Find("div.custom-no-data");
 
-        result.MarkupMatches(
-            @<div class="custom-no-data">
+        result.MarkupMatches(@<div class="custom-no-data">
                 No Data
             </div>
         );
@@ -244,18 +241,18 @@
             </div>
         );
 
-        var cut = Render(
-            @<ContentFlow GenericNoDataMessage="No Data" GenericNoDataCssClass="custom-no-data">
-                <GenericNoDataContent>
-                    <a href="">Extra!</a>
-                </GenericNoDataContent>
-            </ContentFlow>
-        );
+        var cut =
+            Render(@<ContentFlow GenericNoDataMessage="No Data"
+                                 GenericNoDataCssClass="custom-no-data">
+                    <GenericNoDataContent>
+                        <a href="">Extra!</a>
+                    </GenericNoDataContent>
+                </ContentFlow>
+            );
 
         var result = cut.Find("div.custom-no-data");
 
-        result.MarkupMatches(
-            @<div class="custom-no-data">
+        result.MarkupMatches(@<div class="custom-no-data">
                 No Data
                 <a href="">Extra!</a>
             </div>

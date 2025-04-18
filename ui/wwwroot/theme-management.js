@@ -1,20 +1,42 @@
-const _darkModePreferenceQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const _darkModePreferenceQuery = '(prefers-color-scheme: dark)';
+const _darkModePreferenceQueryList = window.matchMedia(_darkModePreferenceQuery);
 let _fullScreenLoaderTimeout;
+const _supportedThemes = {
+    dark: 'dark',
+    light: 'light'
+};
 
-const setColorModePreference = e => {
+const prefersDarkMode = () => window.matchMedia(_darkModePreferenceQuery)?.matches === true;
+
+const setTheme = (theme) => {
     try {
-        let mode = !!e?.matches ? 'dark' : 'light';
+        const resolvedTheme = _supportedThemes[theme];
 
-        if (document.body.getAttribute('data-bs-theme') === mode) {
+        if (!resolvedTheme) {
             return;
         }
 
-        document.body.setAttribute('data-bs-theme', mode);
+        if (document.body.getAttribute('data-bs-theme') === resolvedTheme) {
+            return;
+        }
+
+        document.body.setAttribute('data-bs-theme', resolvedTheme);
     } catch {
     }
 };
 
-window.autoSetColorModePreference = () => setColorModePreference(_darkModePreferenceQuery);
+const resolveThemePreference = () => {
+    const darkMode = 'dark';
+    const lightMode = 'light';
+
+    try {
+        return prefersDarkMode() ? darkMode : lightMode;
+    } catch {
+        return darkMode;
+    }
+};
+
+window.autoSetTheme = () => setTheme(resolveThemePreference());
 
 window.addEventListener('load', () => {
     const transitionFullScreenLoader = () =>
@@ -36,13 +58,13 @@ window.addEventListener('load', () => {
         } catch {
         }
     }
-    setColorModePreference(_darkModePreferenceQuery);
-    _darkModePreferenceQuery.addEventListener('change', setColorModePreference);
+    setTheme(resolveThemePreference());
+    _darkModePreferenceQueryList.addEventListener('change', window.autoSetTheme);
     transitionFullScreenLoader().finally(removeFullScreenLoader);
 });
 window.addEventListener('unload', () => {
     try {
-        _darkModePreferenceQuery?.removeEventListener('change', setColorModePreference);
+        _darkModePreferenceQueryList?.removeEventListener('change', window.autoSetTheme);
     } catch {
     }
     try {

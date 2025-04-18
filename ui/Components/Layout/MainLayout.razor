@@ -13,6 +13,7 @@
         <ChildContent>
             <main class="order-2 z-1 px-3 flex-fill position-relative overflow-auto">
                 <div class="main-inner-container w-100 m-auto py-2">
+                    <div class="main-scroll-anchor"></div>
                     @Body
                 </div>
             </main>
@@ -20,6 +21,7 @@
         <ErrorContent>
             <main class="order-2 px-3 flex-fill position-relative overflow-auto">
                 <div class="main-inner-container w-100 m-auto py-2">
+                    <div class="main-scroll-anchor"></div>
                     <UniversalTitle Title="Error"/>
                     <GenericError>
                         <a href="@NavigationManager.Uri" class="btn btn-outline-primary btn-sm rounded-circle p-0 px-1"
@@ -48,12 +50,26 @@
     {
         try
         {
-            await JsRuntime.InvokeVoidAsync("autoSetColorModePreference");
+            await JsRuntime.InvokeVoidAsync("scrollMainToTop");
         }
         catch
         {
             // Ignore
         }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("autoSetTheme");
+        }
+        catch
+        {
+            // Ignore
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public void Dispose() => NavigationManager.LocationChanged -= LocationChanged;
