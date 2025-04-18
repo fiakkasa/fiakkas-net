@@ -129,7 +129,7 @@
     private const int _pageSize = 50;
     internal bool InitialLoading { get; private set; } = true;
     internal bool PartialLoading { get; private set; } = true;
-    internal bool HasError { get; private set; }
+    private bool HasError { get; set; }
     internal HashSet<IGetPortfolioItems_PortfolioItems_Nodes> Model { get; private set; } = [];
 
     private async Task Refresh()

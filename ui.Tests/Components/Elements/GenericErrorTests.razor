@@ -9,8 +9,7 @@
 
         var result = cut.Find("div.generic-error");
 
-        result.MarkupMatches(
-            @<div class="generic-error py-2 lead">
+        result.MarkupMatches(@<div class="generic-error py-2 lead">
                 <i class="bi bi-exclamation-triangle text-warning"></i>
                 <span>
                     Whoops, something went wrong...
@@ -26,8 +25,7 @@
 
         var result = cut.Find("div.generic-error");
 
-        result.MarkupMatches(
-            @<div class="generic-error py-2 lead">
+        result.MarkupMatches(@<div class="generic-error py-2 lead">
                 <span>
                     Whoops, something went wrong...
                 </span>
@@ -42,8 +40,7 @@
 
         var result = cut.Find("div.generic-error");
 
-        result.MarkupMatches(
-            @<div class="generic-error py-2 lead">
+        result.MarkupMatches(@<div class="generic-error py-2 lead">
                 <i class="bi bi-exclamation-triangle text-warning"></i>
                 <span>
                     Error Message
@@ -59,8 +56,7 @@
 
         var result = cut.Find("div.generic-error");
 
-        result.MarkupMatches(
-            @<div class="generic-error test">
+        result.MarkupMatches(@<div class="generic-error test">
                 <i class="bi bi-exclamation-triangle text-warning"></i>
                 <span>
                     Error Message
@@ -72,16 +68,16 @@
     [Fact]
     public void GenericError_Should_Render_With_Message_Css_Class_And_ChildContent_When_ChildContent_Is_Set()
     {
-        var cut = Render(
-            @<GenericError CssClass="test" Message="Error Message">
-                <a href="">Extra!</a>
-            </GenericError>
-        );
+        var cut =
+            Render(@<GenericError CssClass="test"
+                                  Message="Error Message">
+                    <a href="">Extra!</a>
+                </GenericError>
+            );
 
         var result = cut.Find("div.generic-error");
 
-        result.MarkupMatches(
-            @<div class="generic-error test">
+        result.MarkupMatches(@<div class="generic-error test">
                 <i class="bi bi-exclamation-triangle text-warning"></i>
                 <span>
                     Error Message

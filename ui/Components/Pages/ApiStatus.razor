@@ -60,8 +60,8 @@
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     internal bool Loading { get; private set; } = true;
-    internal bool HasError { get; private set; }
-    internal IGetSystemStatusResult? Model { get; private set; }
+    private bool HasError { get; set; }
+    private IGetSystemStatusResult? Model { get; set; }
 
     private async Task Refresh()
     {

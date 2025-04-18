@@ -9,8 +9,7 @@
 
         var result = cut.Find("div.generic-no-data");
 
-        result.MarkupMatches(
-            @<div class="generic-no-data py-2 lead">
+        result.MarkupMatches(@<div class="generic-no-data py-2 lead">
                 <span>
                     No matter how how hard the server tried, no data was retrieved... Please try again later!
                 </span>
@@ -25,8 +24,7 @@
 
         var result = cut.Find("div.generic-no-data");
 
-        result.MarkupMatches(
-            @<div class="generic-no-data py-2 lead">
+        result.MarkupMatches(@<div class="generic-no-data py-2 lead">
                 <span>
                     No Data Message
                 </span>
@@ -41,8 +39,7 @@
 
         var result = cut.Find("div.generic-no-data");
 
-        result.MarkupMatches(
-            @<div class="generic-no-data test">
+        result.MarkupMatches(@<div class="generic-no-data test">
                 <span>
                     No Data Message
                 </span>
@@ -53,16 +50,16 @@
     [Fact]
     public void GenericNoData_Should_Render_With_Message_Css_Class_And_ChildContent_When_ChildContent_Is_Set()
     {
-        var cut = Render(
-            @<GenericNoData CssClass="test" Message="No Data Message">
-                <a href="">Extra!</a>
-            </GenericNoData>
-        );
+        var cut =
+            Render(@<GenericNoData CssClass="test"
+                                   Message="No Data Message">
+                    <a href="">Extra!</a>
+                </GenericNoData>
+            );
 
         var result = cut.Find("div.generic-no-data");
 
-        result.MarkupMatches(
-            @<div class="generic-no-data test">
+        result.MarkupMatches(@<div class="generic-no-data test">
                 <span>
                     No Data Message
                 </span>
