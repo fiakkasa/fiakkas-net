@@ -18,11 +18,12 @@
     <meta name="description" content="@_uiConfig.Description"/>
     <meta name="keywords" content="@_uiConfig.Keywords"/>
     <meta name="author" content="@_uiConfig.Author"/>
-    <script src="@Assets["theme-auto-switcher.js"]"></script>
+    <script src="@Assets["theme-management.js"]"></script>
+    <script src="@Assets["utils.js"]"></script>
     <HeadOutlet @rendermode="InteractiveServer"/>
 </head>
 
-<body>
+<body data-bs-theme="">
 <div class="full-screen-loader" data-message="@_uiConfig.Title"></div>
 <Routes @rendermode="InteractiveServer"/>
 <script src="_framework/blazor.web.js"></script>
@@ -32,7 +33,6 @@
 
 @code {
     private UiConfig _uiConfig = new();
-    private readonly long _timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
     protected override void OnInitialized()
     {
