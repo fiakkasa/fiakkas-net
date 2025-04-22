@@ -18,7 +18,7 @@
   background: var(--full-screen-loader-background);
   background-color: var(--full-screen-loader-background-color);
   background-size: var(--full-screen-loader-size);
-  background-image: url('favicon.png');
+  background-image: url('logo.png');
   overflow: hidden;
 }
 
