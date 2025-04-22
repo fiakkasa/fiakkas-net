@@ -18,13 +18,13 @@ Example: `dotnet publish --self-contained --os linux --arch x64`
 
 ## Configuration
 
-| Environmental Variable     | Description                                                      |
-|----------------------------|------------------------------------------------------------------|
-| PORT                       | The node port; defaults to 3000                                  |
-| DOTNET_PROTOCOL            | The communication protocol for the .NET API; defaults to http    |
-| DOTNET_PORT                | The .NET API port; defaults to 5001                              |
-| DOTNET_ASSETS_PATH         | The path where the publish folder resides; defaults to ./publish |
-| DOTNET_EXECUTABLE_NAME     | The .NET api executable name; defaults to api                    |
+| Environmental Variable | Description                                                      |
+|------------------------|------------------------------------------------------------------|
+| PORT                   | The node port; defaults to 3000                                  |
+| DOTNET_PROTOCOL        | The communication protocol for the .NET API; defaults to http    |
+| DOTNET_PORT            | The .NET API port; defaults to 5001                              |
+| DOTNET_ASSETS_PATH     | The path where the publish folder resides; defaults to ./publish |
+| DOTNET_EXECUTABLE_NAME | The .NET api executable name; defaults to api                    |
 
 ## Starting the Node Proxy and the .NET API
 
