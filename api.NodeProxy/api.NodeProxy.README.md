@@ -5,7 +5,7 @@
 The main goal is to be able to run the .NET API through a Node proxy using an in process instantiation in environment
 where only Node is supported with limited access to the underlying infra.
 
-The solution was tested using Node v20.12.2 and .NET 9.
+The solution was tested using Node v20.15.1 and .NET 9.
 
 ## Publishing
 
@@ -22,9 +22,9 @@ Example: `dotnet publish --self-contained --os linux --arch x64`
 |----------------------------|------------------------------------------------------------------|
 | PORT                       | The node port; defaults to 3000                                  |
 | DOTNET_PROTOCOL            | The communication protocol for the .NET API; defaults to http    |
-| DOTNET_PORT                | The .NET API port; defaults to 5000                              |
-| DOTNET_API_FOLDER_PATH     | The path where the publish folder resides; defaults to ./publish |
-| DOTNET_API_EXECUTABLE_NAME | The .NET api executable name; defaults to api                    |
+| DOTNET_PORT                | The .NET API port; defaults to 5001                              |
+| DOTNET_ASSETS_PATH         | The path where the publish folder resides; defaults to ./publish |
+| DOTNET_EXECUTABLE_NAME     | The .NET api executable name; defaults to api                    |
 
 ## Starting the Node Proxy and the .NET API
 
