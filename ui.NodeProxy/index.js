@@ -5,100 +5,131 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const ip = require('ip');
 const { checkPort } = require('get-port-please');
 
-(async () => {
-  const app = express();
+const proxyAppPort = process.env.PORT || 3001;
+const proxyAppEnableWebsocket = true;
 
-  const port = process.env.PORT || 3000;
+const dotnetAppName = 'ui';
+const dotnetAppExecutableName = 'ui';
+const dotnetAppProtocol = process.env.DOTNET_PROTOCOL || 'http';
+const dotnetAppHost = ip.address();
+const dotnetAppPort = process.env.DOTNET_PORT || 5002;
+const dotnetAppUrl = `${dotnetAppProtocol}://${dotnetAppHost}:${dotnetAppPort}`;
+const dotnetAppFolderPath = process.env.DOTNET_ASSETS_PATH || './publish';
+const dotnetAppContentRootPath = path.resolve(__dirname, dotnetAppFolderPath);
+const dotnetAppExecutablePath = path.resolve(
+    __dirname,
+    `${dotnetAppFolderPath}/${process.env.DOTNET_EXECUTABLE_NAME || dotnetAppExecutableName}`
+);
+const dotnetAppProxyUrl = '/ui';
+const dotnetAppProxyRedirectUrl = '/ui/';
+const dotnetAppProxyPathRewriteConfig = { '^/ui': '/' };
 
-  const dotnetProtocol = process.env.DOTNET_PROTOCOL || 'http';
-  const dotnetHost = ip.address();
-  const dotnetPort = process.env.DOTNET_PORT || 5000;
-  const dotnetUrl = `${dotnetProtocol}://${dotnetHost}:${dotnetPort}`;
+let dotnetAppProcess = null;
 
-  const dotnetUiFolderPath = process.env.DOTNET_UI_FOLDER_PATH || './publish';
-  const contentRootPath = path.resolve(__dirname, dotnetUiFolderPath);
-  const uiExecutablePath = path.resolve(__dirname, `${dotnetUiFolderPath}/${process.env.DOTNET_UI_EXECUTABLE_NAME || 'ui'}`);
+const startDotnetApp = () => new Promise((resolve, _) => {
+    let dotnetAppProcessStarted = false;
 
-  const dotnetPortIsAvailable = !!(await checkPort(dotnetPort, dotnetHost));
+    console.log(`Starting app '${dotnetAppName}'...`);
 
-  let startDotnet = new Promise((resolve, _) => {
-    if (!dotnetPortIsAvailable) {
-      console.log('The port requested by the .NET UI is already in use');
-      resolve(true);
-      return;
+    try {
+        dotnetAppProcess = execFile(
+            dotnetAppExecutablePath,
+            ['--urls', dotnetAppUrl, '--contentroot', dotnetAppContentRootPath], //
+            (dotnetAppProcessError, _, __) => {
+                if (!dotnetAppProcessError) return;
+
+                throw dotnetAppProcessError;
+            }
+        );
+        dotnetAppProcess.on('spawn', () =>
+            console.log(`Process for app '${dotnetAppName}' spawned...`)
+        );
+        dotnetAppProcess.on('close', (dotnetAppProcessCode) =>
+            console.log(`Process for app '${dotnetAppName}' exited with code: ${dotnetAppProcessCode}`)
+        );
+        dotnetAppProcess.stdout.on('data', (dotnetAppProcessStdout) => {
+            console.log(dotnetAppProcessStdout);
+
+            if (dotnetAppProcessStarted || !(dotnetAppProcessStdout + '').includes('Now listening on:')) {
+                return;
+            }
+
+            dotnetAppProcessStarted = true;
+            resolve(true);
+        });
+        dotnetAppProcess.stderr.on('data', (dotnetAppProcessError) =>
+            console.error(dotnetAppProcessError)
+        );
+    } catch (error) {
+        console.error(`Error starting process for app '${dotnetAppName}' with message: ${error?.message}`);
+
+        return resolve(false);
+    }
+});
+const stopDotnetApp = () => {
+    if (!dotnetAppProcess) {
+        console.log(`The process for app '${dotnetAppName}' is not initialized...`);
+        return;
     }
 
-    console.log('Starting the .NET UI..');
-    let dotnetInit = false;
+    console.log(`Sending termination signal to process of app '${dotnetAppName}'...`);
 
-    const uiProcess = execFile(
-      uiExecutablePath,
-      ['--urls', dotnetUrl, '--contentroot', contentRootPath], //
-      (err, stdout, stderr) => {
-        if (err) {
-          console.error(`Error starting .NET UI with message: ${err?.message}`);
-          return;
+    try {
+        dotnetAppProcess.kill();
+        console.log(`Process of app '${dotnetAppName}' received termination signal successfully`);
+    } catch (error) {
+        console.error(
+            `An error occurred while sending termination signal to process of app '${dotnetAppName}' with message: ${error?.message}`
+        );
+    }
+};
+
+(async () => {
+    const proxyApp = express();
+
+    const isProxyAppRequestedPortAvailable = !!(await checkPort(proxyAppPort));
+
+    if (!isProxyAppRequestedPortAvailable) {
+        console.error(`Port ${proxyAppPort} requested by proxy app for app '${dotnetAppName}' is already in use...`);
+        return;
+    }
+
+    const isDotnetAppRequestedPortAvailable = !!(await checkPort(dotnetAppPort, dotnetAppHost));
+    if (!isDotnetAppRequestedPortAvailable) {
+        console.error(`Port ${dotnetAppPort} requested by app '${dotnetAppName}' is already in use...`);
+        return;
+    }
+
+    if (!(await startDotnetApp())) {
+        console.error(`Error starting app '${dotnetAppName}'`);
+        return;
+    }
+
+    console.log(`App '${dotnetAppName}' is ready!`);
+
+    const proxyMiddleware = createProxyMiddleware({
+        target: dotnetAppUrl,
+        changeOrigin: true,
+        ws: proxyAppEnableWebsocket,
+        logger: console,
+        pathRewrite: dotnetAppProxyPathRewriteConfig,
+    });
+
+    proxyApp.set('strict routing', true);
+    proxyApp.get(dotnetAppProxyUrl, (_, response) => response.redirect(301, dotnetAppProxyRedirectUrl));
+    proxyApp.use(proxyMiddleware);
+
+    console.log(`Starting the proxy app for app '${dotnetAppName}'...`);
+
+    proxyApp.listen(proxyAppPort, (proxyAppError) => {
+        if (proxyAppError) {
+            console.error(`Error starting proxy app on port: ${proxyAppPort} with message: ${proxyAppError?.message}`);
+
+            stopDotnetApp();
+
+            return;
         }
 
-        console.log(`.NET UI started: ${stdout}`);
-      }
-    );
-
-    uiProcess.on('close', (code) => {
-      console.log(`.NET UI exited with code: ${code}`);
-
-      if (dotnetInit) return;
-
-      resolve(false);
-      dotnetInit = true;
+        console.log(`Proxy app started on port: ${proxyAppPort}`);
     });
-    uiProcess.stdout.on('data', (text) => {
-      console.log(text);
-
-      if (dotnetInit || !(text + '').includes('Application started.')) return;
-
-      resolve(true);
-      dotnetInit = true;
-    });
-    uiProcess.stderr.on('data', (text) => {
-      console.error(text);
-
-      if (dotnetInit) return;
-
-      resolve(false);
-      dotnetInit = true;
-    });
-  });
-
-  if (!(await startDotnet)) {
-    console.error('Error starting the .NET UI');
-    return;
-  }
-
-  console.log('The .NET UI is ready');
-
-  const uiProxy = createProxyMiddleware({
-    target: dotnetUrl,
-    changeOrigin: true,
-    ws: true,
-    logger: console,
-    pathRewrite: {
-      '^/ui': '/'
-    },
-  });
-
-  app.set('strict routing', true);
-  app.get('/ui', (req, res) => res.redirect(301, '/ui/'));
-  app.use(uiProxy);
-
-  console.log('Starting the Proxy server..');
-
-  app.listen(port, (err) => {
-    if (err) {
-      console.error(`Error starting proxy server on port: ${port} with message: ${err}`);
-      return;
-    }
-
-    console.log(`Proxy server started on port: ${port}`);
-  });
 })();

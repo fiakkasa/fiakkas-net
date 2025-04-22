@@ -208,10 +208,10 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Coverle
 dotnet reportgenerator -reports:./coverage.cobertura.xml -targetdir:./TestResults -reporttypes:Html
 ```
 
-📝 _Observe the `/p:Exclude="[*]*GraphRequestExecutorBuilderExtensions`, this is added as to ensure that the auto
-generated HotChocolate registrations are skipped._
+📝 _Observe the `/p:Exclude="[*]*GraphRequestExecutorBuilderExtensions`, this is added as to ensure that the
+auto-generated HotChocolate registrations are skipped._
 
-📝 _Observe the `/p:ExcludeByAttribute="GeneratedCodeAttribute`, this is added as to ensure that any auto generated code
+📝 _Observe the `/p:ExcludeByAttribute="GeneratedCodeAttribute`, this is added as to ensure that any auto-generated code
 is skipped._
 
 ## Proxy Configuration
