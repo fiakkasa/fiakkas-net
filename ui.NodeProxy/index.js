@@ -90,14 +90,14 @@ const stopDotnetApp = () => {
     const isProxyAppRequestedPortAvailable = !!(await checkPort(proxyAppPort));
 
     if (!isProxyAppRequestedPortAvailable) {
-        console.warn(`Port ${proxyAppPort} requested by proxy app for app '${dotnetAppName}' is already in use...`);
+        console.error(`Port ${proxyAppPort} requested by proxy app is already in use...`);
         return;
     }
 
     const isDotnetAppRequestedPortAvailable = !!(await checkPort(dotnetAppPort, dotnetAppHost));
 
     if (!isDotnetAppRequestedPortAvailable) {
-        console.warn(
+        console.log(
             `Port ${dotnetAppPort} requested by app '${dotnetAppName}' is already in use, this might indicate that app '${dotnetAppName}' is already started...`
         );
     } else {
