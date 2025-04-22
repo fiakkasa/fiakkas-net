@@ -29,7 +29,7 @@ let dotnetAppProcess = null;
 const startDotnetApp = () => new Promise((resolve, _) => {
     let dotnetAppProcessStarted = false;
 
-    console.log(`Starting app '${dotnetAppName}'...`);
+    console.log(`Starting app '${dotnetAppName}' on port ${dotnetAppPort}...`);
 
     try {
         dotnetAppProcess = execFile(
@@ -61,7 +61,7 @@ const startDotnetApp = () => new Promise((resolve, _) => {
             console.error(dotnetAppProcessError)
         );
     } catch (error) {
-        console.error(`Error starting process for app '${dotnetAppName}' with message: ${error?.message}`);
+        console.error(`Error starting process for app '${dotnetAppName}' on port ${dotnetAppPort} with message: ${error?.message}`);
 
         return resolve(false);
     }
@@ -90,22 +90,25 @@ const stopDotnetApp = () => {
     const isProxyAppRequestedPortAvailable = !!(await checkPort(proxyAppPort));
 
     if (!isProxyAppRequestedPortAvailable) {
-        console.error(`Port ${proxyAppPort} requested by proxy app for app '${dotnetAppName}' is already in use...`);
+        console.warn(`Port ${proxyAppPort} requested by proxy app for app '${dotnetAppName}' is already in use...`);
         return;
     }
 
     const isDotnetAppRequestedPortAvailable = !!(await checkPort(dotnetAppPort, dotnetAppHost));
+
     if (!isDotnetAppRequestedPortAvailable) {
-        console.error(`Port ${dotnetAppPort} requested by app '${dotnetAppName}' is already in use...`);
-        return;
-    }
+        console.warn(
+            `Port ${dotnetAppPort} requested by app '${dotnetAppName}' is already in use, this might indicate that app '${dotnetAppName}' is already started...`
+        );
+    } else {
+        const initDotnetApp = await startDotnetApp();
 
-    if (!(await startDotnetApp())) {
-        console.error(`Error starting app '${dotnetAppName}'`);
-        return;
+        if (!initDotnetApp) {
+            console.error(`Error starting app '${dotnetAppName}' on port ${dotnetAppPort}`);
+        } else {
+            console.log(`App '${dotnetAppName}' on port ${dotnetAppPort} is ready!`);
+        }
     }
-
-    console.log(`App '${dotnetAppName}' is ready!`);
 
     const proxyMiddleware = createProxyMiddleware({
         target: dotnetAppUrl,
