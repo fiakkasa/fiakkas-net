@@ -1,0 +1,44 @@
+@using ui.Models
+@inherits TestContext
+
+@code {
+
+    private readonly IOptionsSnapshot<UiConfig> _mockOptions = Substitute.For<IOptionsSnapshot<UiConfig>>();
+    private readonly ILogger<FullScreenLoader> _logger = Substitute.For<ILogger<FullScreenLoader>>();
+
+    public FullScreenLoaderTests()
+    {
+        Services.AddSingleton(_logger);
+        Services.AddSingleton(_mockOptions);
+    }
+
+    [Fact]
+    public void FullScreenLoader_Should_Render_With_Defined_Title()
+    {
+        _mockOptions.Value.Returns(
+            new UiConfig
+            {
+                Title = "Title"
+            }
+        );
+        var expectedRenderFragment = Render(@<div class="full-screen-loader" data-message="Title"></div>);
+        var cut = Render(@<FullScreenLoader/>);
+
+        var result = cut.Find("div.full-screen-loader");
+
+        expectedRenderFragment.MarkupMatches(result.ToMarkupElementOnly());
+    }
+
+    [Fact]
+    public void FullScreenLoader_Should_Render_With_Default_Title_When_Error_Occurs()
+    {
+        _mockOptions.Value.Throws(new Exception("Splash!"));
+        var expectedRenderFragment = Render(@<div class="full-screen-loader" data-message=""></div>);
+        var cut = Render(@<FullScreenLoader/>);
+
+        var result = cut.Find("div.full-screen-loader");
+
+        expectedRenderFragment.MarkupMatches(result.ToMarkupElementOnly());
+    }
+
+}

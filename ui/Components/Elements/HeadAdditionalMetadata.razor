@@ -1,0 +1,30 @@
+@inject ILogger<HeadAdditionalMetadata> Logger
+@inject IOptionsSnapshot<UiConfig> Options
+
+<meta name="description" content="@_description"/>
+<meta name="keywords" content="@_keywords"/>
+<meta name="author" content="@_author"/>
+
+@code {
+    private string _description = string.Empty;
+    private string _keywords = string.Empty;
+    private string _author = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            var uiConfig = Options.Value;
+            _description = uiConfig.Description;
+            _keywords = uiConfig.Keywords;
+            _author = uiConfig.Author;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to acquire options with message: {Message}", ex.Message);
+        }
+
+        base.OnInitialized();
+    }
+
+}
