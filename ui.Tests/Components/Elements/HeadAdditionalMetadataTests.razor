@@ -1,0 +1,79 @@
+@using ui.Models
+@inherits TestContext
+
+@code {
+
+    private readonly IOptionsSnapshot<UiConfig> _mockOptions = Substitute.For<IOptionsSnapshot<UiConfig>>();
+    private readonly ILogger<HeadAdditionalMetadata> _logger = Substitute.For<ILogger<HeadAdditionalMetadata>>();
+
+    public HeadAdditionalMetadataTests()
+    {
+        Services.AddSingleton(_logger);
+        Services.AddSingleton(_mockOptions);
+    }
+
+    [Fact]
+    public void HeadAdditionalMetadata_Should_Render_With_Defined_Properties()
+    {
+        _mockOptions.Value.Returns(
+            new UiConfig
+            {
+                Description = "Description",
+                Keywords = "Keywords",
+                Author = "Author"
+            }
+        );
+        var expectedRenderFragment =
+            Render(@<text>
+                        <meta name="description" content="Description"/>
+                        <meta name="keywords" content="Keywords"/>
+                        <meta name="author" content="Author"/>
+                    </text>
+            );
+        var cut = Render(@<HeadAdditionalMetadata/>);
+
+        var result = cut.FindAll("meta");
+
+        Assert.Equal(3, result.Count);
+        expectedRenderFragment.MarkupMatches(cut.Markup);
+    }
+
+    [Fact]
+    public void HeadAdditionalMetadata_Should_Render_With_Default_Properties()
+    {
+        _mockOptions.Value.Returns(new UiConfig());
+        var expectedRenderFragment =
+            Render(@<text>
+                        <meta name="description" content=""/>
+                        <meta name="keywords" content=""/>
+                        <meta name="author" content=""/>
+                    </text>
+            );
+        var cut = Render(@<HeadAdditionalMetadata/>);
+
+        var result = cut.FindAll("meta");
+
+        Assert.Equal(3, result.Count);
+        expectedRenderFragment.MarkupMatches(cut.Markup);
+    }
+
+    [Fact]
+    public void HeadAdditionalMetadata_Should_Render_With_Default_Title_When_Error_Occurs()
+    {
+        _mockOptions.Value.Throws(new Exception("Splash!"));
+        var expectedRenderFragment =
+            Render(@<text>
+                        <meta name="description" content=""/>
+                        <meta name="keywords" content=""/>
+                        <meta name="author" content=""/>
+                    </text>
+            );
+        var cut = Render(@<HeadAdditionalMetadata/>);
+
+        var result = cut.FindAll("meta");
+
+        Assert.Equal(3, result.Count);
+        expectedRenderFragment.MarkupMatches(cut.Markup);
+    }
+
+}

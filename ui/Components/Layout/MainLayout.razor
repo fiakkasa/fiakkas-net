@@ -1,6 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@inject ILogger<MainLayout> Logger
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
+@inject IOptionsSnapshot<UiConfig> Options
 @implements IDisposable
 @attribute [ExcludeFromCodeCoverage]
 
@@ -37,12 +39,26 @@
 
 @code {
     private ErrorBoundary? _errorBoundary;
+    private int _fullScreenLoaderTransitionDelay = 334;
+    private int _fullScreenLoaderTransitionDuration = 1000;
 
     protected override void OnParametersSet() => _errorBoundary?.Recover();
 
     protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += LocationChanged;
+
+        try
+        {
+            var uiConfig = Options.Value;
+            _fullScreenLoaderTransitionDelay = uiConfig.FullScreenLoaderTransitionDelay;
+            _fullScreenLoaderTransitionDuration = uiConfig.FullScreenLoaderTransitionDuration;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to acquire options with message: {Message}", ex.Message);
+        }
+
         base.OnInitialized();
     }
 
@@ -70,6 +86,22 @@
         }
 
         await base.OnAfterRenderAsync(firstRender);
+
+        try
+        {
+            if (firstRender)
+            {
+                await JsRuntime.InvokeVoidAsync(
+                    "clearFullScreenLoader",
+                    _fullScreenLoaderTransitionDelay,
+                    _fullScreenLoaderTransitionDuration
+                );
+            }
+        }
+        catch
+        {
+            // Ignore
+        }
     }
 
     public void Dispose() => NavigationManager.LocationChanged -= LocationChanged;

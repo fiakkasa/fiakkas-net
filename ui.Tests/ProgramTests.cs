@@ -45,7 +45,9 @@ public class ProgramTests
                         "Separator": " - ",
                         "Description": "Description",
                         "Keywords": "Keywords",
-                        "Author": "Author"
+                        "Author": "Author",
+                        "FullScreenLoaderTransitionDelay": 334,
+                        "FullScreenLoaderTransitionDuration": 667
                       },
                       "FiakkasNetApiConfig": {
                         "BaseUrl": "https://test.com"

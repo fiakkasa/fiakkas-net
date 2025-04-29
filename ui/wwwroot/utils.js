@@ -1,6 +1,8 @@
-window.scrollMainToTop = () => {
+const _mainScrollAnchorQuerySelector = '.main-scroll-anchor';
+
+function scrollMainToTop() {
     try {
-        document.querySelector('.main-scroll-anchor').scrollIntoView(true);
+        document.querySelector(_mainScrollAnchorQuerySelector).scrollIntoView(true);
     } catch {
     }
-};
+}

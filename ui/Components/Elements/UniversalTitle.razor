@@ -1,5 +1,5 @@
 @inject ILogger<UniversalTitle> Logger
-@inject IOptionsSnapshot<UiConfig> OptionsSnapshot
+@inject IOptionsSnapshot<UiConfig> Options
 
 <PageTitle>@PageTitle</PageTitle>
 
@@ -40,8 +40,8 @@ else if (ChildContent is not null)
         {
             PageTitle = Title switch
             {
-                { Length: > 0 } => $"{OptionsSnapshot.Value.Title}{OptionsSnapshot.Value.Separator}{Title}",
-                _ => OptionsSnapshot.Value.Title
+                { Length: > 0 } => $"{Options.Value.Title}{Options.Value.Separator}{Title}",
+                _ => Options.Value.Title
             };
         }
         catch (Exception ex)

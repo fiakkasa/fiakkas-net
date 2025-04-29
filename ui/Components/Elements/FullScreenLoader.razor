@@ -1,0 +1,23 @@
+@inject ILogger<FullScreenLoader> Logger
+@inject IOptionsSnapshot<UiConfig> Options
+
+<div class="full-screen-loader" data-message="@_title"></div>
+
+@code {
+    private string _title = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            _title = Options.Value.Title;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to acquire options with message: {Message}", ex.Message);
+        }
+
+        base.OnInitialized();
+    }
+
+}
