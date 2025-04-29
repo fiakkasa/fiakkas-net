@@ -1,12 +1,15 @@
 const _darkModePreferenceQuery = '(prefers-color-scheme: dark)';
 const _darkModePreferenceQueryList = window.matchMedia(_darkModePreferenceQuery);
-let _fullScreenLoaderTimeout;
+const _themeAttribute = 'data-bs-theme';
+const _darkTheme = 'dark';
+const _lightTheme = 'light';
 const _supportedThemes = {
-    dark: 'dark',
-    light: 'light'
+    dark: _darkTheme,
+    light: _lightTheme
 };
-
-const prefersDarkMode = () => window.matchMedia(_darkModePreferenceQuery)?.matches === true;
+const _fullScreenLoaderQuerySelector = '.full-screen-loader';
+const _fullScreenLoaderTransitionOutClass = 'transition-out';
+const _fullScreenLoaderDoneClass = 'done';
 
 const setTheme = (theme) => {
     try {
@@ -16,59 +19,51 @@ const setTheme = (theme) => {
             return;
         }
 
-        if (document.body.getAttribute('data-bs-theme') === resolvedTheme) {
+        if (document.body.getAttribute(_themeAttribute) === resolvedTheme) {
             return;
         }
 
-        document.body.setAttribute('data-bs-theme', resolvedTheme);
+        document.body.setAttribute(_themeAttribute, resolvedTheme);
     } catch {
     }
 };
 
 const resolveThemePreference = () => {
-    const darkMode = 'dark';
-    const lightMode = 'light';
-
     try {
-        return prefersDarkMode() ? darkMode : lightMode;
+        const prefersDarkMode = window.matchMedia(_darkModePreferenceQuery)?.matches === true;
+
+        return prefersDarkMode ? _darkTheme : _lightTheme;
     } catch {
-        return darkMode;
+        return _darkTheme;
     }
 };
 
-window.autoSetTheme = () => setTheme(resolveThemePreference());
-
-window.addEventListener('load', () => {
-    const transitionFullScreenLoader = () =>
-        new Promise((resolve, _) => {
-            const delay = 1000;
-            try {
-                const fullScreenLoaderElement = document.querySelector('.full-screen-loader');
-                fullScreenLoaderElement.style.transitionDuration = `${delay}ms`;
-                fullScreenLoaderElement.style.transitionDelay = `${~~Math.round(delay * .334)}ms`;
-                fullScreenLoaderElement.classList.add('done');
-            } catch {
-            }
-
-            _fullScreenLoaderTimeout = setTimeout(() => resolve(true), delay - 1);
-        });
-    const removeFullScreenLoader = async () => {
-        try {
-            document.querySelector('.full-screen-loader').remove();
-        } catch {
-        }
-    }
+function autoSetTheme() {
     setTheme(resolveThemePreference());
-    _darkModePreferenceQueryList.addEventListener('change', window.autoSetTheme);
-    transitionFullScreenLoader().finally(removeFullScreenLoader);
-});
-window.addEventListener('unload', () => {
-    try {
-        _darkModePreferenceQueryList?.removeEventListener('change', window.autoSetTheme);
-    } catch {
-    }
-    try {
-        _fullScreenLoaderTimeout && clearTimeout(_fullScreenLoaderTimeout);
-    } catch {
-    }
-});
+}
+
+function clearFullScreenLoader(delay, duration) {
+    const fullScreenLoaderElement = document.querySelector(_fullScreenLoaderQuerySelector);
+
+    delay = ~~delay;
+    duration = ~~duration;
+
+    return !fullScreenLoaderElement
+        ? new Promise((resolve, _) => resolve(true))
+        : new Promise((resolve, _) => {
+            fullScreenLoaderElement.style.transitionDelay = `${delay}ms`;
+            fullScreenLoaderElement.style.transitionDuration = `${duration}ms`;
+            fullScreenLoaderElement.classList.add(_fullScreenLoaderTransitionOutClass);
+            setTimeout(() => resolve(true), delay + duration);
+        }).finally(() => {
+            fullScreenLoaderElement.classList.add(_fullScreenLoaderDoneClass);
+            fullScreenLoaderElement.classList.remove(_fullScreenLoaderTransitionOutClass);
+            fullScreenLoaderElement.style.transitionDelay = null;
+            fullScreenLoaderElement.style.transitionDuration = null;
+        });
+}
+
+_darkModePreferenceQueryList.addEventListener('change', autoSetTheme);
+window.addEventListener('unload', () =>
+    _darkModePreferenceQueryList?.removeEventListener('change', autoSetTheme)
+);

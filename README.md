@@ -83,7 +83,9 @@ Consider using the `data.sample.json` file as a starting point.
     "Separator": " - ",
     "Description": "Description",
     "Keywords": "Keywords",
-    "Author": "Author"
+    "Author": "Author",
+    "FullScreenLoaderTransitionDelay": 334,
+    "FullScreenLoaderTransitionDuration": 667
   },
   "FiakkasNetApiConfig": {
     "BaseUrl": null
