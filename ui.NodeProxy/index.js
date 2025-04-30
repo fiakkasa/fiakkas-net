@@ -1,3 +1,4 @@
+// version: 1.4.0
 const path = require('path');
 const { execFile } = require('child_process');
 const express = require('express');
@@ -26,10 +27,13 @@ const dotnetAppProxyPathRewriteConfig = { '^/ui': '/' };
 
 let dotnetAppProcess = null;
 
+const logTimeStamp = () => new Date().toJSON();
+const log = (message) => console.log(`[${logTimeStamp()}] ${message}`);
+const logError = (message) => console.logError(`[${logTimeStamp()} ERR] ${message}`);
 const startDotnetApp = () => new Promise((resolve, _) => {
     let dotnetAppProcessStarted = false;
 
-    console.log(`Starting app '${dotnetAppName}' on port ${dotnetAppPort}...`);
+    log(`Starting app '${dotnetAppName}' on port ${dotnetAppPort}...`);
 
     try {
         dotnetAppProcess = execFile(
@@ -42,13 +46,13 @@ const startDotnetApp = () => new Promise((resolve, _) => {
             }
         );
         dotnetAppProcess.on('spawn', () =>
-            console.log(`Process for app '${dotnetAppName}' spawned...`)
+            log(`Process for app '${dotnetAppName}' spawned...`)
         );
         dotnetAppProcess.on('close', (dotnetAppProcessCode) =>
-            console.log(`Process for app '${dotnetAppName}' exited with code: ${dotnetAppProcessCode}`)
+            log(`Process for app '${dotnetAppName}' exited with code: ${dotnetAppProcessCode}`)
         );
         dotnetAppProcess.stdout.on('data', (dotnetAppProcessStdout) => {
-            console.log(dotnetAppProcessStdout);
+            log(dotnetAppProcessStdout);
 
             if (dotnetAppProcessStarted || !(dotnetAppProcessStdout + '').includes('Now listening on:')) {
                 return;
@@ -58,27 +62,27 @@ const startDotnetApp = () => new Promise((resolve, _) => {
             resolve(true);
         });
         dotnetAppProcess.stderr.on('data', (dotnetAppProcessError) =>
-            console.error(dotnetAppProcessError)
+            logError(dotnetAppProcessError)
         );
     } catch (error) {
-        console.error(`Error starting process for app '${dotnetAppName}' on port ${dotnetAppPort} with message: ${error?.message}`);
+        logError(`Error starting process for app '${dotnetAppName}' on port ${dotnetAppPort} with message: ${error?.message}`);
 
         return resolve(false);
     }
 });
 const stopDotnetApp = () => {
     if (!dotnetAppProcess) {
-        console.log(`The process for app '${dotnetAppName}' is not initialized...`);
+        log(`The process for app '${dotnetAppName}' is not initialized...`);
         return;
     }
 
-    console.log(`Sending termination signal to process of app '${dotnetAppName}'...`);
+    log(`Sending termination signal to process of app '${dotnetAppName}'...`);
 
     try {
         dotnetAppProcess.kill();
-        console.log(`Process of app '${dotnetAppName}' received termination signal successfully`);
+        log(`Process of app '${dotnetAppName}' received termination signal successfully`);
     } catch (error) {
-        console.error(
+        logError(
             `An error occurred while sending termination signal to process of app '${dotnetAppName}' with message: ${error?.message}`
         );
     }
@@ -90,23 +94,23 @@ const stopDotnetApp = () => {
     const isProxyAppRequestedPortAvailable = !!(await checkPort(proxyAppPort));
 
     if (!isProxyAppRequestedPortAvailable) {
-        console.error(`Port ${proxyAppPort} requested by proxy app is already in use...`);
+        logError(`Port ${proxyAppPort} requested by proxy app is already in use...`);
         return;
     }
 
     const isDotnetAppRequestedPortAvailable = !!(await checkPort(dotnetAppPort, dotnetAppHost));
 
     if (!isDotnetAppRequestedPortAvailable) {
-        console.log(
+        log(
             `Port ${dotnetAppPort} requested by app '${dotnetAppName}' is already in use, this might indicate that app '${dotnetAppName}' is already started...`
         );
     } else {
         const initDotnetApp = await startDotnetApp();
 
         if (!initDotnetApp) {
-            console.error(`Error starting app '${dotnetAppName}' on port ${dotnetAppPort}`);
+            logError(`Error starting app '${dotnetAppName}' on port ${dotnetAppPort}`);
         } else {
-            console.log(`App '${dotnetAppName}' on port ${dotnetAppPort} is ready!`);
+            log(`App '${dotnetAppName}' on port ${dotnetAppPort} is ready!`);
         }
     }
 
@@ -122,17 +126,17 @@ const stopDotnetApp = () => {
     proxyApp.get(dotnetAppProxyUrl, (_, response) => response.redirect(301, dotnetAppProxyRedirectUrl));
     proxyApp.use(proxyMiddleware);
 
-    console.log(`Starting the proxy app for app '${dotnetAppName}'...`);
+    log(`Starting the proxy app for app '${dotnetAppName}'...`);
 
     proxyApp.listen(proxyAppPort, (proxyAppError) => {
         if (proxyAppError) {
-            console.error(`Error starting proxy app on port: ${proxyAppPort} with message: ${proxyAppError?.message}`);
+            logError(`Error starting proxy app on port: ${proxyAppPort} with message: ${proxyAppError?.message}`);
 
             stopDotnetApp();
 
             return;
         }
 
-        console.log(`Proxy app started on port: ${proxyAppPort}`);
+        log(`Proxy app started on port: ${proxyAppPort}`);
     });
 })();
