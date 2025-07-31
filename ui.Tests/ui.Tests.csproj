@@ -8,13 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="bunit" Version="1.39.5"/>
-        <PackageReference Include="System.Linq.Async" Version="6.0.1"/>
+        <PackageReference Include="bunit" Version="1.40.0"/>
+        <PackageReference Include="System.Linq.Async" Version="6.0.3"/>
         <PackageReference Include="coverlet.msbuild" Version="6.0.4">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
     </ItemGroup>
 
     <ItemGroup>
