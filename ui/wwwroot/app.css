@@ -16,6 +16,16 @@ nav,
   border-color: transparent !important;
 }
 
+.btn.rounded-circle {
+  height: 26px;
+  width: 26px;
+}
+
+.btn.menu-button.rounded-circle {
+  height: 40px;
+  width: 40px;
+}
+
 .bi-nuget > svg,
 .bi-npm > svg {
   height: 20px;
