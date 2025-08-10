@@ -3,26 +3,26 @@
 ## Table of Contents
 
 - [fiakkas-net](#fiakkas-net)
-    - [Table of Contents](#table-of-contents)
-    - [Overview](#overview)
-    - [Spinning up the API or the UI](#spinning-up-the-api-or-the-ui)
-        - [Installation](#installation)
-        - [Trusting the Default ASP.Net Certificate](#trusting-the-default-aspnet-certificate)
-        - [API Data](#api-data)
-        - [Running the API](#running-the-api)
-            - [Try it out!](#try-it-out)
-        - [UI Configuration](#ui-configuration)
-        - [UI to API GraphQL Client](#ui-to-api-graphql-client)
-            - [Init Strawberry Shake](#init-strawberry-shake)
-            - [Update Strawberry Shake](#update-strawberry-shake)
-            - [Define GraphQL Operations](#define-graphql-operations)
-        - [Running the UI](#running-the-ui)
-            - [Try it out!](#try-it-out-1)
-    - [Testing](#testing)
-    - [Proxy Configuration](#proxy-configuration)
-    - [Logging](#logging)
-    - [Exporting the Schema](#exporting-the-schema)
-    - [References](#references)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Spinning up the API or the UI](#spinning-up-the-api-or-the-ui)
+    - [Installation](#installation)
+    - [Trusting the Default ASP.Net Certificate](#trusting-the-default-aspnet-certificate)
+    - [API Data](#api-data)
+    - [Running the API](#running-the-api)
+      - [Try it out!](#try-it-out)
+    - [UI Configuration](#ui-configuration)
+    - [UI to API GraphQL Client](#ui-to-api-graphql-client)
+      - [Init Strawberry Shake](#init-strawberry-shake)
+      - [Update Strawberry Shake](#update-strawberry-shake)
+      - [Define GraphQL Operations](#define-graphql-operations)
+    - [Running the UI](#running-the-ui)
+      - [Try it out!](#try-it-out-1)
+  - [Testing](#testing)
+  - [Proxy Configuration](#proxy-configuration)
+  - [Logging](#logging)
+  - [Exporting the Schema](#exporting-the-schema)
+  - [References](#references)
 
 ## Overview
 
@@ -85,10 +85,16 @@ Consider using the `data.sample.json` file as a starting point.
     "Keywords": "Keywords",
     "Author": "Author",
     "FullScreenLoaderTransitionDelay": 334,
-    "FullScreenLoaderTransitionDuration": 667
+    "FullScreenLoaderTransitionDuration": 667,
+    "UseCompatibilityTransport": false
   },
   "FiakkasNetApiConfig": {
-    "BaseUrl": null
+    "BaseUrl": null,
+    // Exponential, Linear, Constant
+    "DelayBackoffType": "Exponential",
+    "UseJitter": true,
+    "MaxRetryAttempts": 3,
+    "Delay": "00:00:00.200"
   },
   "SmtpConfig": {
     "Host": null,

@@ -1,4 +1,5 @@
 ﻿@page "/api-status"
+@using Polly
 @attribute [StreamRendering]
 @inject IFiakkasNetApi Api
 @inject ILogger<ApiStatus> Logger
@@ -59,6 +60,8 @@
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+    [Inject(Key = nameof(FiakkasNetApi))]
+    public ResiliencePipeline ResiliencePipeline { get; set; } = default!;
     internal bool Loading { get; private set; } = true;
     private bool HasError { get; set; }
     private IGetSystemStatusResult? Model { get; set; }
@@ -80,11 +83,19 @@
 
             StateHasChanged();
 
-            var result = await Api.GetSystemStatus.ExecuteAsync(_cancellationTokenSource.Token);
-
-            result.EnsureNoErrors();
-
-            Model = result.Data;
+            var data = await ResiliencePipeline.ExecuteAsync(
+                async ct =>
+                {
+                    var result = await Api.GetSystemStatus.ExecuteAsync(ct);
+                    
+                    result.EnsureNoErrors();
+                    
+                    return result.Data;
+                },
+                _cancellationTokenSource.Token
+            );
+            
+            Model = data;
         }
         catch (Exception ex)
         {

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http.Connections
+@inject IOptionsMonitor<UiConfig> UiConfigOptions
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -28,7 +30,26 @@
 <body data-bs-theme="">
 <FullScreenLoader/>
 <Routes @rendermode="InteractiveServer"/>
-<script src="_framework/blazor.web.js"></script>
+@if (UiConfigOptions.CurrentValue.UseCompatibilityTransport)
+{
+        <script src="_framework/blazor.web.js" autostart="false"></script>
+        <script>
+            Blazor.start({
+                circuit: {
+                    configureSignalR: builder => {
+                        builder.withUrl(
+                            '_blazor',
+                            @((int)HttpTransportType.LongPolling)
+                        );
+                    }
+                }
+            });
+        </script>
+}
+else
+{
+    <script src="_framework/blazor.web.js"></script>
+}
 </body>
 
 </html>
