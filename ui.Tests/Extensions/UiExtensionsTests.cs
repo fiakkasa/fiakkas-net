@@ -17,7 +17,8 @@ public class UiExtensionsTests
             Keywords = "Keywords",
             Author = "Author",
             FullScreenLoaderTransitionDelay = 334,
-            FullScreenLoaderTransitionDuration = 667
+            FullScreenLoaderTransitionDuration = 667,
+            UseCompatibilityTransport = false
         };
         var serviceProvider =
             new ServiceCollection()

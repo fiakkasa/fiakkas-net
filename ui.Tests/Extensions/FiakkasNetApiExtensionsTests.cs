@@ -1,3 +1,4 @@
+using Polly;
 using Snapshooter.Xunit;
 using System.Net.Http;
 using ui.Extensions;
@@ -13,24 +14,31 @@ public class FiakkasNetApiExtensionsTests
     {
         var expected = new FiakkasNetApiConfig
         {
-            BaseUrl = new("https://test.com")
+            BaseUrl = new("https://test.com"),
+            DelayBackoffType = DelayBackoffType.Exponential,
+            UseJitter = true,
+            MaxRetryAttempts = 3,
+            Delay = TimeSpan.FromMilliseconds(200)
         };
+        var configuration = new Dictionary<string, object>
+        {
+            [nameof(FiakkasNetApiConfig)] = expected
+        }.ToConfiguration();
         var serviceProvider =
             new ServiceCollection()
-                .AddSingleton(
-                    new Dictionary<string, object>
-                    {
-                        [nameof(FiakkasNetApiConfig)] = expected
-                    }.ToConfiguration()
-                )
-                .AddFiakkasNetApiClient()
+                .AddSingleton(configuration)
+                .AddFiakkasNetApiClient(configuration)
                 .BuildServiceProvider();
 
         var options = serviceProvider.GetRequiredService<IOptionsSnapshot<FiakkasNetApiConfig>>();
         var clientFactory = serviceProvider.GetService<IHttpClientFactory>();
         var client = clientFactory?.CreateClient(FiakkasNetApi.ClientName);
+        var resiliencePipeline = serviceProvider.GetKeyedService<ResiliencePipeline>(
+            FiakkasNetApi.ClientName
+        );
 
         Assert.NotNull(clientFactory);
+        Assert.NotNull(resiliencePipeline);
         Assert.NotNull(client);
         Assert.Equivalent(expected.BaseUrl, client.BaseAddress, true);
         Assert.Equivalent(expected, options.Value, true);

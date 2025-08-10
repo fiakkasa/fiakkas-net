@@ -2,6 +2,7 @@
 @attribute [StreamRendering]
 @inject IFiakkasNetApi Api
 @inject ILogger<ApiStatus> Logger
+@using Polly
 @implements IDisposable
 
 <UniversalTitle Title="API Status">
@@ -59,6 +60,10 @@
 
 @code {
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+    [Inject(Key = nameof(FiakkasNetApi))]
+    public ResiliencePipeline ResiliencePipeline { get; set; } = default!;
+
     internal bool Loading { get; private set; } = true;
     private bool HasError { get; set; }
     private IGetSystemStatusResult? Model { get; set; }
@@ -80,11 +85,19 @@
 
             StateHasChanged();
 
-            var result = await Api.GetSystemStatus.ExecuteAsync(_cancellationTokenSource.Token);
+            var data = await ResiliencePipeline.ExecuteAsync(
+                async ct =>
+                {
+                    var result = await Api.GetSystemStatus.ExecuteAsync(ct);
 
-            result.EnsureNoErrors();
+                    result.EnsureNoErrors();
 
-            Model = result.Data;
+                    return result.Data;
+                },
+                _cancellationTokenSource.Token
+            );
+
+            Model = data;
         }
         catch (Exception ex)
         {

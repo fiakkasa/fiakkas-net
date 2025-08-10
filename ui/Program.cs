@@ -2,6 +2,7 @@ using ui.Components;
 using ui.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 var services = builder.Services;
 var isDev = builder.Environment.IsDevelopment();
 
@@ -19,7 +20,7 @@ services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
 
-services.AddFiakkasNetApiClient();
+services.AddFiakkasNetApiClient(config);
 services.AddEmailService();
 
 services.AddResponseCompression();
@@ -30,11 +31,10 @@ app.UseAppForwardedHeaders();
 
 app.UseStatusCodePagesWithRedirects("/404");
 
-app.UseResponseCompression();
-
 // Configure the HTTP request pipeline.
 if (!isDev)
 {
+    app.UseResponseCompression();
     app.UseExceptionHandler("/Error", true);
 }
 

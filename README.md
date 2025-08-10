@@ -85,10 +85,16 @@ Consider using the `data.sample.json` file as a starting point.
     "Keywords": "Keywords",
     "Author": "Author",
     "FullScreenLoaderTransitionDelay": 334,
-    "FullScreenLoaderTransitionDuration": 667
+    "FullScreenLoaderTransitionDuration": 667,
+    "UseCompatibilityTransport": false
   },
   "FiakkasNetApiConfig": {
-    "BaseUrl": null
+    "BaseUrl": null,
+    // Exponential, Linear, Constant
+    "DelayBackoffType": "Exponential",
+    "UseJitter": true,
+    "MaxRetryAttempts": 3,
+    "Delay": "00:00:00.200"
   },
   "SmtpConfig": {
     "Host": null,

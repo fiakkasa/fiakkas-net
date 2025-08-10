@@ -10,11 +10,11 @@
         var result = cut.Find("div.generic-error");
 
         result.MarkupMatches(@<div class="generic-error py-2 lead">
-                <i class="bi bi-exclamation-triangle text-warning"></i>
-                <span>
-                    Whoops, something went wrong...
-                </span>
-            </div>
+                                 <i class="bi bi-exclamation-triangle text-warning"></i>
+                                 <span>
+                                    Whoops, something went wrong...
+                                </span>
+                             </div>
         );
     }
 
@@ -26,10 +26,10 @@
         var result = cut.Find("div.generic-error");
 
         result.MarkupMatches(@<div class="generic-error py-2 lead">
-                <span>
-                    Whoops, something went wrong...
-                </span>
-            </div>
+                                <span>
+                                    Whoops, something went wrong...
+                                </span>
+                             </div>
         );
     }
 
@@ -41,11 +41,11 @@
         var result = cut.Find("div.generic-error");
 
         result.MarkupMatches(@<div class="generic-error py-2 lead">
-                <i class="bi bi-exclamation-triangle text-warning"></i>
-                <span>
-                    Error Message
-                </span>
-            </div>
+                                 <i class="bi bi-exclamation-triangle text-warning"></i>
+                                 <span>
+                                    Error Message
+                                </span>
+                             </div>
         );
     }
 
@@ -57,11 +57,11 @@
         var result = cut.Find("div.generic-error");
 
         result.MarkupMatches(@<div class="generic-error test">
-                <i class="bi bi-exclamation-triangle text-warning"></i>
-                <span>
-                    Error Message
-                </span>
-            </div>
+                                 <i class="bi bi-exclamation-triangle text-warning"></i>
+                                 <span>
+                                    Error Message
+                                </span>
+                             </div>
         );
     }
 
@@ -71,19 +71,19 @@
         var cut =
             Render(@<GenericError CssClass="test"
                                   Message="Error Message">
-                    <a href="">Extra!</a>
-                </GenericError>
+                       <a href="">Extra!</a>
+                   </GenericError>
             );
 
         var result = cut.Find("div.generic-error");
 
         result.MarkupMatches(@<div class="generic-error test">
-                <i class="bi bi-exclamation-triangle text-warning"></i>
-                <span>
-                    Error Message
-                </span>
-                <a href="">Extra!</a>
-            </div>
+                                 <i class="bi bi-exclamation-triangle text-warning"></i>
+                                 <span>
+                                    Error Message
+                                </span>
+                                 <a href="">Extra!</a>
+                             </div>
         );
     }
 

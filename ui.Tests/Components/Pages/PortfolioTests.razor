@@ -1,3 +1,6 @@
+@using Polly
+@using Polly.Retry
+@using ui.Models
 @inherits TestContext
 
 @code {
@@ -6,6 +9,16 @@
     private readonly IOperationResult<IGetPortfolioItemsResult> _apiResult = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
     private readonly IAppCache _cache = Substitute.For<IAppCache>();
     private readonly ILogger<Portfolio> _logger = Substitute.For<ILogger<Portfolio>>();
+    private static readonly FiakkasNetApiConfig _fiakkasNetApiConfig = new();
+
+    private static readonly RetryStrategyOptions _waitAndRetryOptionsPolicy = new()
+    {
+        ShouldHandle = new PredicateBuilder().Handle<Exception>(),
+        BackoffType = _fiakkasNetApiConfig.DelayBackoffType,
+        UseJitter = _fiakkasNetApiConfig.UseJitter,
+        MaxRetryAttempts = _fiakkasNetApiConfig.MaxRetryAttempts,
+        Delay = _fiakkasNetApiConfig.Delay
+    };
 
     public PortfolioTests()
     {
@@ -13,6 +26,10 @@
         Services.AddSingleton(_api);
         Services.AddSingleton(_cache);
         Services.AddSingleton(_logger);
+        Services.AddResiliencePipeline(
+            nameof(FiakkasNetApi),
+            builder => builder.AddRetry(_waitAndRetryOptionsPolicy)
+        );
     }
 
     private Task<IOperationResult<IGetPortfolioItemsResult>> GetMethodCall() =>

@@ -5,7 +5,7 @@
 The main goal is to be able to run the .NET API through a Node proxy using an in process instantiation in environment
 where only Node is supported with limited access to the underlying infra.
 
-The solution was tested using Node v20.15.1 and .NET 9.
+The solution was tested using Node v18.20.8 and .NET 9.
 
 ## Publishing
 

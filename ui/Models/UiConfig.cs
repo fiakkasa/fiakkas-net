@@ -29,4 +29,6 @@ public record UiConfig
     [Required]
     [Range(0, 60_000)]
     public int FullScreenLoaderTransitionDuration { get; init; }
+
+    public bool UseCompatibilityTransport { get; init; }
 }

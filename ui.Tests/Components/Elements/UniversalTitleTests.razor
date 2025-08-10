@@ -75,11 +75,11 @@
 
         Assert.NotNull(instance);
         result.MarkupMatches(@<h1
-                class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
-                <span>
-                    Test
-                </span>
-            </h1>
+                                 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+                                <span>
+                                    Test
+                                </span>
+                             </h1>
         );
         Assert.Equal(_config.Title + _config.Separator + "Test", instance.PageTitle);
     }
@@ -98,10 +98,10 @@
 
         Assert.NotNull(instance);
         result.MarkupMatches(@<h1 class="page-header test">
-                <span>
-                    Test
-                </span>
-            </h1>
+                                <span>
+                                    Test
+                                </span>
+                             </h1>
         );
         Assert.Equal(_config.Title + _config.Separator + "Test", instance.PageTitle);
     }
@@ -121,11 +121,11 @@
 
         Assert.NotNull(instance);
         result.MarkupMatches(@<h1 class="page-header test">
-                <span>
-                    Test
-                </span>
-                <a href="">Extra!</a>
-            </h1>
+                                <span>
+                                    Test
+                                </span>
+                                 <a href="">Extra!</a>
+                             </h1>
         );
         Assert.Equal(_config.Title + _config.Separator + "Test", instance.PageTitle);
     }
@@ -142,9 +142,9 @@
 
         Assert.NotNull(instance);
         result.MarkupMatches(@<h1
-                class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
-                <a href="">Extra!</a>
-            </h1>
+                                 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body">
+                                 <a href="">Extra!</a>
+                             </h1>
         );
         Assert.Equal(_config.Title, instance.PageTitle);
     }
@@ -163,8 +163,8 @@
 
         Assert.NotNull(instance);
         result.MarkupMatches(@<h1 class="page-header test">
-                <a href="">Extra!</a>
-            </h1>
+                                 <a href="">Extra!</a>
+                             </h1>
         );
         Assert.Equal(_config.Title, instance.PageTitle);
     }

@@ -10,10 +10,10 @@
         var result = cut.Find("div.generic-no-data");
 
         result.MarkupMatches(@<div class="generic-no-data py-2 lead">
-                <span>
-                    No matter how how hard the server tried, no data was retrieved... Please try again later!
-                </span>
-            </div>
+                                <span>
+                                    No matter how how hard the server tried, no data was retrieved... Please try again later!
+                                </span>
+                             </div>
         );
     }
 
@@ -25,10 +25,10 @@
         var result = cut.Find("div.generic-no-data");
 
         result.MarkupMatches(@<div class="generic-no-data py-2 lead">
-                <span>
-                    No Data Message
-                </span>
-            </div>
+                                <span>
+                                    No Data Message
+                                </span>
+                             </div>
         );
     }
 
@@ -40,10 +40,10 @@
         var result = cut.Find("div.generic-no-data");
 
         result.MarkupMatches(@<div class="generic-no-data test">
-                <span>
-                    No Data Message
-                </span>
-            </div>
+                                <span>
+                                    No Data Message
+                                </span>
+                             </div>
         );
     }
 
@@ -53,18 +53,18 @@
         var cut =
             Render(@<GenericNoData CssClass="test"
                                    Message="No Data Message">
-                    <a href="">Extra!</a>
-                </GenericNoData>
+                       <a href="">Extra!</a>
+                   </GenericNoData>
             );
 
         var result = cut.Find("div.generic-no-data");
 
         result.MarkupMatches(@<div class="generic-no-data test">
-                <span>
-                    No Data Message
-                </span>
-                <a href="">Extra!</a>
-            </div>
+                                <span>
+                                    No Data Message
+                                </span>
+                                 <a href="">Extra!</a>
+                             </div>
         );
     }
 

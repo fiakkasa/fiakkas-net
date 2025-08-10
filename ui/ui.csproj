@@ -8,8 +8,8 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <ContainerRepository>fiakkas-net-ui</ContainerRepository>
-        <Version>3.8.0</Version>
-        <ContainerImageTags>3.8.0;latest</ContainerImageTags>
+        <Version>3.9.0</Version>
+        <ContainerImageTags>3.9.0;latest</ContainerImageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,11 +18,14 @@
         <PackageReference Include="Humanizer" Version="2.14.1"/>
         <PackageReference Include="LazyCache.AspNetCore" Version="2.4.0"/>
         <PackageReference Include="OneOf" Version="3.0.271"/>
+        <PackageReference Include="Polly" Version="8.6.2"/>
+        <PackageReference Include="Polly.Extensions" Version="8.6.2"/>
         <PackageReference Include="StrawberryShake.Blazor" Version="15.1.8"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\app.Shared.Logging\app.Shared.Logging.csproj"/>
+        <ProjectReference Include="..\app.Shared.Options\app.Shared.Options.csproj"/>
         <ProjectReference Include="..\app.Shared.Proxy\app.Shared.Proxy.csproj"/>
     </ItemGroup>
 
