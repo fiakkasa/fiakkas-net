@@ -28,7 +28,8 @@ public static class IConfigurationExtensions
                 {
                     var memberNames = string.Join(_validationMemberNamesSeparator, x.MemberNames);
 
-                    return $"Validation failed for type '{typeName}', at section '{normalizedSection}', and member(s) '{memberNames}' with message: '{x.ErrorMessage}'";
+                    return
+                        $"Validation failed for type '{typeName}', at section '{normalizedSection}', and member(s) '{memberNames}' with message: '{x.ErrorMessage}'";
                 })
             )
         );

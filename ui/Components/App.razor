@@ -32,19 +32,19 @@
 <Routes @rendermode="InteractiveServer"/>
 @if (UiConfigOptions.CurrentValue.UseCompatibilityTransport)
 {
-        <script src="_framework/blazor.web.js" autostart="false"></script>
-        <script>
-            Blazor.start({
-                circuit: {
-                    configureSignalR: builder => {
-                        builder.withUrl(
-                            '_blazor',
-                            @((int)HttpTransportType.LongPolling)
-                        );
-                    }
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    <script>
+        Blazor.start({
+            circuit: {
+                configureSignalR: builder => {
+                    builder.withUrl(
+                        '_blazor',
+                        @((int)HttpTransportType.LongPolling)
+                    );
                 }
-            });
-        </script>
+            }
+        });
+    </script>
 }
 else
 {

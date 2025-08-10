@@ -1,9 +1,9 @@
 @page "/portfolio"
-@using Polly
 @attribute [StreamRendering]
 @inject IFiakkasNetApi Api
 @inject IAppCache Cache
 @inject ILogger<Portfolio> Logger
+@using Polly
 @implements IDisposable
 
 <UniversalTitle Title="Portfolio">
@@ -131,6 +131,7 @@
 
     [Inject(Key = nameof(FiakkasNetApi))]
     public ResiliencePipeline ResiliencePipeline { get; set; } = default!;
+
     internal bool InitialLoading { get; private set; } = true;
     internal bool PartialLoading { get; private set; } = true;
     private bool HasError { get; set; }
@@ -146,9 +147,9 @@
         await SetData(false);
     }
 
-    private async Task<IGetPortfolioItems_PortfolioItems?> GetDataChunk(string? after = default) => 
+    private async Task<IGetPortfolioItems_PortfolioItems?> GetDataChunk(string? after = default) =>
         await ResiliencePipeline.ExecuteAsync(
-            async ct => 
+            async ct =>
             {
                 var result = await Api.GetPortfolioItems.ExecuteAsync(
                     null,

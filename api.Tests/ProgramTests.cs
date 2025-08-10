@@ -2,8 +2,7 @@ namespace api.Tests;
 
 public class ProgramTests
 {
-    private const string _configurationDefinition =
-"""
+    private const string _configurationDefinition = """
 {
   "Serilog": {
     "Using": [

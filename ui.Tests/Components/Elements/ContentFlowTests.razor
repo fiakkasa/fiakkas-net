@@ -6,10 +6,10 @@
     public void Content_Flow_Should_Render_Custom_Loading_When_IsLoading_Is_True_And_CustomLoading_Is_Set()
     {
         var cut = Render(@<ContentFlow IsLoading="true">
-                <CustomLoadingContent>
-                    <div class="custom-loading-content"></div>
-                </CustomLoadingContent>
-            </ContentFlow>
+                             <CustomLoadingContent>
+                                 <div class="custom-loading-content"></div>
+                             </CustomLoadingContent>
+                         </ContentFlow>
         );
 
         cut.Find("div.custom-loading-content");
@@ -48,10 +48,10 @@
             Render(@<ContentFlow HasError="true"
                                  GenericErrorMessage="Error Message"
                                  GenericErrorCssClass="custom-error">
-                    <CustomErrorContent>
-                        <div class="custom-error-content"></div>
-                    </CustomErrorContent>
-                </ContentFlow>
+                       <CustomErrorContent>
+                           <div class="custom-error-content"></div>
+                       </CustomErrorContent>
+                   </ContentFlow>
             );
 
         cut.Find("div.custom-error-content");
@@ -81,8 +81,8 @@
         var result = cut.Find("div.default-error");
 
         result.MarkupMatches(@<div class="default-error">
-                Error Message
-            </div>
+                                 Error Message
+                             </div>
         );
     }
 
@@ -104,8 +104,8 @@
         var result = cut.Find("div.custom-error");
 
         result.MarkupMatches(@<div class="custom-error">
-                Error Message
-            </div>
+                                 Error Message
+                             </div>
         );
     }
 
@@ -123,18 +123,18 @@
             Render(@<ContentFlow HasError="true"
                                  GenericErrorMessage="Error Message"
                                  GenericErrorCssClass="custom-error">
-                    <GenericErrorContent>
-                        <a href="">Extra!</a>
-                    </GenericErrorContent>
-                </ContentFlow>
+                       <GenericErrorContent>
+                           <a href="">Extra!</a>
+                       </GenericErrorContent>
+                   </ContentFlow>
             );
 
         var result = cut.Find("div.custom-error");
 
         result.MarkupMatches(@<div class="custom-error">
-                Error Message
-                <a href="">Extra!</a>
-            </div>
+                                 Error Message
+                                 <a href="">Extra!</a>
+                             </div>
         );
     }
 
@@ -174,10 +174,10 @@
     {
         var cut =
             Render(@<ContentFlow>
-                    <CustomNoDataContent>
-                        <div class="no-data"></div>
-                    </CustomNoDataContent>
-                </ContentFlow>
+                       <CustomNoDataContent>
+                           <div class="no-data"></div>
+                       </CustomNoDataContent>
+                   </ContentFlow>
             );
 
         cut.Find("div.no-data");
@@ -207,8 +207,8 @@
         var result = cut.Find("div.default-no-data");
 
         result.MarkupMatches(@<div class="default-no-data">
-                No Data
-            </div>
+                                 No Data
+                             </div>
         );
     }
 
@@ -226,8 +226,8 @@
         var result = cut.Find("div.custom-no-data");
 
         result.MarkupMatches(@<div class="custom-no-data">
-                No Data
-            </div>
+                                 No Data
+                             </div>
         );
     }
 
@@ -244,18 +244,18 @@
         var cut =
             Render(@<ContentFlow GenericNoDataMessage="No Data"
                                  GenericNoDataCssClass="custom-no-data">
-                    <GenericNoDataContent>
-                        <a href="">Extra!</a>
-                    </GenericNoDataContent>
-                </ContentFlow>
+                       <GenericNoDataContent>
+                           <a href="">Extra!</a>
+                       </GenericNoDataContent>
+                   </ContentFlow>
             );
 
         var result = cut.Find("div.custom-no-data");
 
         result.MarkupMatches(@<div class="custom-no-data">
-                No Data
-                <a href="">Extra!</a>
-            </div>
+                                 No Data
+                                 <a href="">Extra!</a>
+                             </div>
         );
     }
 

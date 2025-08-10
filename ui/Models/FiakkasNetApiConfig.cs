@@ -19,7 +19,7 @@ public record FiakkasNetApiConfig : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if(Delay is not { TotalMilliseconds: >= 100 and <= 2_000 })
+        if (Delay is not { TotalMilliseconds: >= 100 and <= 2_000 })
         {
             yield return new ValidationResult(
                 "Delay must be between 100 milliseconds and 2 seconds inclusive.",

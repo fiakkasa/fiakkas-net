@@ -9,8 +9,9 @@
     private readonly IOperationResult<IGetPortfolioItemsResult> _apiResult = Substitute.For<IOperationResult<IGetPortfolioItemsResult>>();
     private readonly IAppCache _cache = Substitute.For<IAppCache>();
     private readonly ILogger<Portfolio> _logger = Substitute.For<ILogger<Portfolio>>();
-    private static FiakkasNetApiConfig _fiakkasNetApiConfig = new FiakkasNetApiConfig();
-    private static RetryStrategyOptions _waitAndRetryOptionsPolicy = new RetryStrategyOptions
+    private static readonly FiakkasNetApiConfig _fiakkasNetApiConfig = new();
+
+    private static readonly RetryStrategyOptions _waitAndRetryOptionsPolicy = new()
     {
         ShouldHandle = new PredicateBuilder().Handle<Exception>(),
         BackoffType = _fiakkasNetApiConfig.DelayBackoffType,

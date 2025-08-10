@@ -7,7 +7,10 @@ namespace ui.Extensions;
 
 public static class FiakkasNetApiExtensions
 {
-    public static IServiceCollection AddFiakkasNetApiClient(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddFiakkasNetApiClient(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddValidatedOptions<FiakkasNetApiConfig>();
 
@@ -30,10 +33,12 @@ public static class FiakkasNetApiExtensions
         );
         services
             .AddFiakkasNetApi()
-            .ConfigureHttpClient(
-                (serviceProvider, client) =>
+            .ConfigureHttpClient((serviceProvider, client) =>
                 {
-                    var config = serviceProvider.GetRequiredService<IOptionsMonitor<FiakkasNetApiConfig>>().CurrentValue;
+                    var config =
+                        serviceProvider
+                            .GetRequiredService<IOptionsMonitor<FiakkasNetApiConfig>>()
+                            .CurrentValue;
                     client.BaseAddress = config.BaseUrl;
                 }
             );

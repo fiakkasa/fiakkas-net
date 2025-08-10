@@ -5,8 +5,7 @@ namespace ui.Tests;
 
 public class ProgramTests
 {
-    private const string _configurationDefinition =
-"""
+    private const string _configurationDefinition = """
 {
   // https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer
   "ForwardedHeadersConfig": {
