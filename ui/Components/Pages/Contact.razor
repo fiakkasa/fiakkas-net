@@ -93,57 +93,37 @@
                 </div>
 
                 <div>
-                    <div class="input-group">
+                    <div class="input-group d-flex flex-wrap justify-content-end">
                         <EagerInputText type="text"
                                         class="form-control"
                                         tabindex="4"
                                         placeholder="Verification Code"
-                                        maxlength="5"
+                                        maxlength="@_maxCaptchaLength"
                                         data-kind="verification"
                                         @bind-Value="Model.VerificationCodeEntered"/>
-                        @if (!RefreshingCaptcha)
-                        {
-                            <DntInputCaptcha @bind-Value="Model.VerificationCode"
-                                             Min="1000"
-                                             Max="99999"
-                                             Language="@NumberToWordLanguage.English"
-                                             DisplayMode="@DisplayMode.ShowDigits"
-                                             AllowThousandsSeparators="false"
-                                             AbsoluteExpiration="@TimeSpan.FromMinutes(2)"
-                                             ShowRefreshButton="false"
-                                             FontSize="21"
-                                             FontName="Times New Roman"
-                                             FontColor="#603F83FF"
-                                             BackgroundColor="#FCF6F5FF"
-                                             RandomLinesCount="2"
-                                             RandomCirclesCount="6"
-                                             BorderWidth="0.3"
-                                             BorderColor="grey"
-                                             NoisePointsCount="25"
-                                             Padding="11"
-                                             ShadowBlur="7"
-                                             ShadowColor="navy"
-                                             ShadowOffsetX="-3"
-                                             ShadowOffsetY="-3"
-                                             TimerInterval="@TimeSpan.FromMilliseconds(2500)"
-                                             CaptchaCanvasClass=""
-                                             CaptchaDivClass="input-group-text d-flex justify-content-center align-self-center p-0"/>
-                        }
-                        <button type="button"
-                                class="input-group-text btn btn-primary rounded-0"
-                                tabindex="7"
-                                disabled="@RefreshingCaptcha"
-                                @onclick="RefreshCaptcha">
-                            <i class="bi bi-arrow-repeat"></i>
-                        </button>
-                        <span class="input-group-text">
-                            <i class="bi-shield-lock"></i>
-                        </span>
+
+                        <div
+                            class="input-group-text d-flex flex-wrap justify-content-center align-self-center p-0 px-1">
+                            <VerificationCodeDigits VerificationCode="Model.VerificationCode"/>
+                        </div>
+
+                        <div class="flex-shrink-0 d-flex flex-wrap">
+                            <button type="button"
+                                    class="input-group-text btn btn-primary rounded-0"
+                                    tabindex="7"
+                                    disabled="@RefreshingCaptcha"
+                                    @onclick="RefreshCaptcha">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </button>
+                            <span class="input-group-text">
+                                <i class="bi-shield-lock"></i>
+                            </span>
+                        </div>
                     </div>
                     <ValidationMessage class="small text-warning" For="@(() => Model.VerificationCodeEntered)"/>
                 </div>
 
-                <div class="d-flex justify-content-end me-2 gap-2">
+                <div class="d-flex justify-content-end gap-2 flex-wrap form-actions">
                     <button type="reset"
                             class="btn btn-secondary px-3"
                             tabindex="6"
@@ -151,7 +131,7 @@
                         Reset
                     </button>
                     <button type="submit"
-                            class="btn btn-primary px-3 me-4"
+                            class="btn btn-primary px-3"
                             tabindex="5">
                         <span class="px-3">Submit</span>
                     </button>
@@ -167,8 +147,12 @@
     private ValidationMessageStore? _validationMessageStore;
     private readonly string _recipientAddressErrorMessagePlaceholder = "recipient-address-message-placeholder";
     private readonly string _errorMessagePlaceholder = "error-message-placeholder";
+    private const int _maxCaptchaLength = 6;
 
-    internal ContactFormModel Model { get; private set; } = new();
+    internal ContactFormModel Model { get; private set; } = new()
+    {
+        VerificationCode = GenerateCaptcha()
+    };
 
     internal EditContext EditContext
     {
@@ -244,6 +228,8 @@
 
         await Delay();
 
+        Model.VerificationCode = GenerateCaptcha();
+
         RefreshingCaptcha = false;
         StateHasChanged();
 
@@ -254,6 +240,12 @@
         EditContext.NotifyFieldChanged(EditContext.Field(nameof(Model.VerificationCode)));
         EditContext.NotifyFieldChanged(EditContext.Field(nameof(Model.VerificationCodeEntered)));
     }
+
+    private static int[] GenerateCaptcha() =>
+        Enumerable
+            .Range(0, Random.Shared.Next(4, _maxCaptchaLength + 1))
+            .Select(_ => Random.Shared.Next(0, 10))
+            .ToArray();
 
     private async Task ResetForm()
     {
@@ -266,7 +258,10 @@
         DetachEditContextEvents();
         _validationMessageStore = default;
         _editContext = default;
-        Model = new();
+        Model = new()
+        {
+            VerificationCode = GenerateCaptcha()
+        };
         Loading = false;
 
         StateHasChanged();

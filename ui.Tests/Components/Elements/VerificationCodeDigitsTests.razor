@@ -1,0 +1,42 @@
+@using System.Globalization
+@inherits TestContext
+
+@code {
+
+    public VerificationCodeDigitsTests()
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+    }
+
+    [Theory]
+    [InlineData(0, true, 0)]
+    [InlineData(1, true, 1)]
+    [InlineData(6, true, 6)]
+    [InlineData(11, true, 9)]
+    [InlineData(123, true, 9)]
+    [InlineData(1, false, 1)]
+    [InlineData(6, false, 6)]
+    [InlineData(11, false, 9)]
+    [InlineData(123, false, 9)]
+    public void VerificationCodeDigits_Should_Render_Normalized_Digits(
+        int endOfRange,
+        bool positiveFactor,
+        int expectedCount
+    )
+    {
+        var factor = positiveFactor ? 1 : -1;
+        var items =
+            Enumerable
+                .Range(0, endOfRange)
+                .Select((_, index) => index * factor)
+                .Reverse()
+                .ToArray();
+        var cut = Render(@<VerificationCodeDigits VerificationCode="items"/>);
+
+        var result = cut.FindAll(".verification-digit");
+
+        Assert.Equal(expectedCount, result.Count);
+    }
+
+}
