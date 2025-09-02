@@ -17,15 +17,15 @@ public class ForwardedHeadersRegistrationExtensionsTests
 
         mockApp.UseAppForwardedHeaders();
 
-        var appReceivedCalls = mockApp.ReceivedCalls().ToArray();
-
         Assert.Single(mockOptions.ReceivedCalls());
-        Assert.DoesNotContain(
-            appReceivedCalls,
-            x =>
-                x.GetArguments() is [Func<RequestDelegate, RequestDelegate> { Target: { } target }]
-                && $"{target}".EndsWith(nameof(ForwardedHeadersMiddleware))
-        );
+        mockApp
+            .DidNotReceive()
+            .Use(
+                Arg.Is<Func<RequestDelegate, RequestDelegate>>(x =>
+                    x.Target != null
+                    && x.Target.ToString() == typeof(ForwardedHeadersMiddleware).FullName
+                )
+            );
     }
 
     [Fact]
@@ -43,14 +43,14 @@ public class ForwardedHeadersRegistrationExtensionsTests
 
         mockApp.UseAppForwardedHeaders();
 
-        var appReceivedCalls = mockApp.ReceivedCalls().ToArray();
-
         Assert.Single(mockOptions.ReceivedCalls());
-        Assert.Single(
-            appReceivedCalls,
-            x =>
-                x.GetArguments() is [Func<RequestDelegate, RequestDelegate> { Target: { } target }]
-                && $"{target}".EndsWith(nameof(ForwardedHeadersMiddleware))
-        );
+        mockApp
+            .Received(1)
+            .Use(
+                Arg.Is<Func<RequestDelegate, RequestDelegate>>(x =>
+                    x.Target != null
+                    && x.Target.ToString() == typeof(ForwardedHeadersMiddleware).FullName
+                )
+            );
     }
 }

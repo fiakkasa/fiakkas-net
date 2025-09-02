@@ -1,3 +1,5 @@
+global using app.Testing.Shared.Extensions;
+global using app.Testing.Shared.Utils;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;
@@ -6,9 +8,7 @@ global using NSubstitute;
 global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel.DataAnnotations;
-global using System.IO;
 global using System.Linq;
 global using System.Threading.Tasks;
 global using ui.Tests.TestingExtensions;
-global using app.Testing.Shared.Extensions;
 global using Xunit;

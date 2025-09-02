@@ -13,11 +13,11 @@
 
 @code {
 
-    private int _modulus = Random.Shared.Next(2, 7);
-    
+    private readonly int _modulus = Random.Shared.Next(2, 7);
+
     [Parameter]
     public int[] VerificationCode { get; set; } = [];
-    
+
     private static IEnumerable<int> FlattenVerificationCode(int[] numbers)
     {
         foreach (var item in numbers)

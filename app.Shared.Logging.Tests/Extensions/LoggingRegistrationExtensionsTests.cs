@@ -7,15 +7,10 @@ public class LoggingRegistrationExtensionsTests
     {
         var mockHost = Substitute.For<IHostBuilder>();
 
-        mockHost.AddAppLoggingProvider();
+        var result = mockHost.AddAppLoggingProvider();
 
-        Assert.Single(
-            mockHost
-                .ReceivedCalls()
-                .Select(x => x.GetOriginalArguments())
-                .SelectMany(x => x)
-                .OfType<Action<HostBuilderContext, IServiceCollection>>()
-        );
+        Assert.Same(mockHost, result);
+        mockHost.Received(1).ConfigureServices(Arg.Any<Action<HostBuilderContext, IServiceCollection>>());
     }
 
     [Fact]
@@ -25,12 +20,8 @@ public class LoggingRegistrationExtensionsTests
 
         mockApp.UseAppLoggingProvider();
 
-        Assert.Single(
-            mockApp
-                .ReceivedCalls()
-                .Select(x => x.GetOriginalArguments())
-                .SelectMany(x => x)
-                .OfType<Func<RequestDelegate, RequestDelegate>>()
-        );
+        Assert.Same(mockApp, mockApp);
+        mockApp.ApplicationServices.Received(1).GetService<IOptions<RequestLoggingOptions>>();
+        mockApp.Received(1).Use(Arg.Any<Func<RequestDelegate, RequestDelegate>>());
     }
 }
