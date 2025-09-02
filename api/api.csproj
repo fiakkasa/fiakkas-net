@@ -13,31 +13,31 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="9.0.0" />
-        <PackageReference Include="GraphHealthChecks" Version="4.0.1" />
-        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.3.0" />
-        <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.10" />
-        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="15.1.10" />
+        <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="9.0.0"/>
+        <PackageReference Include="GraphHealthChecks" Version="4.0.1"/>
+        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.3.0"/>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.10"/>
+        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="15.1.10"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\api.Achievements\api.Achievements.csproj" />
-        <ProjectReference Include="..\api.Application\api.Application.csproj" />
-        <ProjectReference Include="..\api.Categories\api.Categories.csproj" />
-        <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj" />
-        <ProjectReference Include="..\api.Customers\api.Customers.csproj" />
-        <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj" />
-        <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj" />
-        <ProjectReference Include="..\api.Languages\api.Languages.csproj" />
-        <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj" />
-        <ProjectReference Include="..\api.Shared\api.Shared.csproj" />
-        <ProjectReference Include="..\api.TextItems\api.TextItems.csproj" />
-        <ProjectReference Include="..\app.Shared.Logging\app.Shared.Logging.csproj" />
-        <ProjectReference Include="..\app.Shared.Proxy\app.Shared.Proxy.csproj" />
+        <ProjectReference Include="..\api.Achievements\api.Achievements.csproj"/>
+        <ProjectReference Include="..\api.Application\api.Application.csproj"/>
+        <ProjectReference Include="..\api.Categories\api.Categories.csproj"/>
+        <ProjectReference Include="..\api.ContactItems\api.ContactItems.csproj"/>
+        <ProjectReference Include="..\api.Customers\api.Customers.csproj"/>
+        <ProjectReference Include="..\api.EducationItems\api.EducationItems.csproj"/>
+        <ProjectReference Include="..\api.GraphExtensions\api.GraphExtensions.csproj"/>
+        <ProjectReference Include="..\api.Languages\api.Languages.csproj"/>
+        <ProjectReference Include="..\api.Portfolio\api.Portfolio.csproj"/>
+        <ProjectReference Include="..\api.Shared\api.Shared.csproj"/>
+        <ProjectReference Include="..\api.TextItems\api.TextItems.csproj"/>
+        <ProjectReference Include="..\app.Shared.Logging\app.Shared.Logging.csproj"/>
+        <ProjectReference Include="..\app.Shared.Proxy\app.Shared.Proxy.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="api.Tests" />
+        <InternalsVisibleTo Include="api.Tests"/>
     </ItemGroup>
 
 </Project>
