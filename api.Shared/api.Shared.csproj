@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="HotChocolate" Version="15.1.8"/>
-        <PackageReference Include="HotChocolate.Data" Version="15.1.8"/>
-        <PackageReference Include="HotChocolate.Types.Analyzers" Version="15.1.8"/>
+        <PackageReference Include="HotChocolate" Version="15.1.10"/>
+        <PackageReference Include="HotChocolate.Data" Version="15.1.10"/>
+        <PackageReference Include="HotChocolate.Types.Analyzers" Version="15.1.10"/>
     </ItemGroup>
 
     <ItemGroup>

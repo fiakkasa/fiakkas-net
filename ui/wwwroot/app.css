@@ -55,3 +55,17 @@ textarea {
 .striped-container > .striped-item:nth-child(odd) {
   background-color: var(--bs-tertiary-bg);
 }
+
+.form-actions {
+  padding-right: 34px;
+}
+
+@media screen and (max-width: 540px) {
+  input[data-kind="verification"] {
+    width: 100% !important;
+  }
+
+  .form-actions {
+    padding-right: 0;
+  }
+}

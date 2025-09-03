@@ -1,0 +1,71 @@
+@using System.Text
+@foreach (
+    var (digit, index) in
+    FlattenVerificationCode(VerificationCode)
+        .Take(9)
+        .Select((digit, index) => (digit, index))
+)
+{
+    <small class="p-1 py-2 verification-digit">
+        @VerificationCodeDigit(digit, index, _modulus)
+    </small>
+}
+
+@code {
+
+    private readonly int _modulus = Random.Shared.Next(2, 7);
+
+    [Parameter]
+    public int[] VerificationCode { get; set; } = [];
+
+    private static IEnumerable<int> FlattenVerificationCode(int[] numbers)
+    {
+        foreach (var item in numbers)
+        {
+            var positiveNumber = Math.Abs(item);
+
+            if (positiveNumber < 10)
+            {
+                yield return positiveNumber;
+
+                continue;
+            }
+
+            var divisor = (int)Math.Pow(10, (int)Math.Floor(Math.Log10(positiveNumber)));
+
+            while (divisor > 0)
+            {
+                yield return positiveNumber / divisor % 10;
+                divisor /= 10;
+            }
+        }
+    }
+
+    private static string ToMixedCase(int value)
+    {
+        var input = value.ToWords();
+        var builder = new StringBuilder(input.Length);
+
+        for (var i = 0; i < input.Length; i++)
+        {
+            builder.Append(
+                i % 2 == 0
+                    ? char.ToUpper(input[i])
+                    : input[i]
+            );
+        }
+
+        return builder.ToString();
+    }
+
+    private static string VerificationCodeDigit(int digit, int index, int modulus) =>
+        (index % modulus) switch
+        {
+            0 => digit.ToWords(),
+            1 when digit is > 0 and <= 10 => digit.ToRoman(),
+            2 => digit.ToWords().ToUpper(),
+            3 => digit.ToString(),
+            _ => ToMixedCase(digit)
+        };
+
+}

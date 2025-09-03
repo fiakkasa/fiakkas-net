@@ -3,8 +3,7 @@ namespace api.Shared.Services;
 public abstract class AbstractReadOnlyInMemoryDataRepository<TEntity, TConfig>(
     ILogger logger,
     IOptionsSnapshot<TConfig> dataSnapshot
-)
-    : IDataRepository<TEntity>
+) : IDataRepository<TEntity>
     where TEntity : IBaseId
     where TConfig : class
 {

@@ -1,5 +1,6 @@
 @using Polly
 @using Polly.Retry
+@using System.Globalization
 @using ui.Models
 @inherits TestContext
 
@@ -8,7 +9,14 @@
     private readonly IFiakkasNetApi _api = Substitute.For<IFiakkasNetApi>();
     private readonly IOperationResult<IGetSystemStatusResult> _apiResult = Substitute.For<IOperationResult<IGetSystemStatusResult>>();
     private readonly ILogger<ApiStatus> _logger = Substitute.For<ILogger<ApiStatus>>();
-    private static readonly FiakkasNetApiConfig _fiakkasNetApiConfig = new();
+
+    private static readonly FiakkasNetApiConfig _fiakkasNetApiConfig = new()
+    {
+        Delay = TimeSpan.FromMilliseconds(1),
+        DelayBackoffType = DelayBackoffType.Linear,
+        UseJitter = false,
+        MaxRetryAttempts = 1
+    };
 
     private static readonly RetryStrategyOptions _waitAndRetryOptionsPolicy = new()
     {
@@ -21,6 +29,9 @@
 
     public ApiStatusTests()
     {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
         ComponentFactories.AddStub<PageTitle>();
         _apiResult.Data.Returns(default(IGetSystemStatusResult?));
         Services.AddSingleton(_api);

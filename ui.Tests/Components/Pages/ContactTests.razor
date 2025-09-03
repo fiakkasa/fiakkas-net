@@ -8,7 +8,7 @@
 
     public ContactTests()
     {
-        ComponentFactories.AddStub<DntInputCaptcha>(@<span>12345</span>);
+        ComponentFactories.AddStub<VerificationCodeDigits>(@<span>12345</span>);
         Services.AddSingleton(_emailService);
     }
 
@@ -121,7 +121,7 @@
         cut.Find("""input[data-kind="subject"]""").Input("Subject <meta />");
         cut.Find("""textarea[data-kind="message"]""").Input("<html <head");
         cut.Find("""input[data-kind="verification"]""").Input("12345");
-        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = [1, 2, 3, 4, 5];
 
         cut.Find("""button[type="submit"]""").Click();
 
@@ -167,7 +167,7 @@
         cut.Find("""input[data-kind="subject"]""").Input("Subject");
         cut.Find("""textarea[data-kind="message"]""").Input("Message");
         cut.Find("""input[data-kind="verification"]""").Input("12345");
-        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = [1, 2, 3, 4, 5];
 
         cut.Find("""button[type="submit"]""").Click();
 
@@ -211,7 +211,7 @@
         cut.Find("""input[data-kind="subject"]""").Input("Subject");
         cut.Find("""textarea[data-kind="message"]""").Input("Message");
         cut.Find("""input[data-kind="verification"]""").Input("12345");
-        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = [1, 2, 3, 4, 5];
 
         cut.Find("""button[type="submit"]""").Click();
 
@@ -252,7 +252,7 @@
         cut.Find("""input[data-kind="subject"]""").Input("Subject");
         cut.Find("""textarea[data-kind="message"]""").Input("Message");
         cut.Find("""input[data-kind="verification"]""").Input("12345");
-        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = "12345";
+        cut.FindComponent<EditForm>().Instance.GetFormModel<ContactFormModel>()!.VerificationCode = [1, 2, 3, 4, 5];
 
         cut.Find("""button[type="submit"]""").Click();
 

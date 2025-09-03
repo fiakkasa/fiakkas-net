@@ -57,32 +57,28 @@ public class EmailServiceTests
         });
 
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);
-        var sendCall =
-            _smtpService
-                .ReceivedCalls()
-                .Select(x => x.GetOriginalArguments())
-                .FirstOrDefault()
-                ?.OfType<MailMessage>()
-                .FirstOrDefault();
 
         Assert.True(result.IsT0);
-        Assert.NotNull(sendCall);
-        Assert.Equal(expected, sendCall.From?.Address);
-        Assert.Equal(1, sendCall.To?.Count);
-        Assert.Equal(_recipientAddress, sendCall.To?[0].Address);
-        Assert.EndsWith(_subject, sendCall.Subject);
 
-        Assert.Equal(2, sendCall.AlternateViews.Count);
-
-        Assert.Equal("text/html; charset=utf-8", sendCall.AlternateViews[0].ContentType.ToString());
-        await using var htmlStream = sendCall.AlternateViews[0].ContentStream;
-        var htmlString = await new StreamReader(htmlStream).ReadToEndAsync();
-        Assert.Equal(_bodyHtml + _config.HtmlSignature, htmlString);
-
-        Assert.Equal("text/plain; charset=utf-8", sendCall.AlternateViews[1].ContentType.ToString());
-        await using var plaintTextStream = sendCall.AlternateViews[1].ContentStream;
-        var plaintTextString = await new StreamReader(plaintTextStream).ReadToEndAsync();
-        Assert.Equal(_body + _config.PlainTextSignature, plaintTextString);
+        await _smtpService
+            .Received(1)
+            .Send(
+                Arg.Is<MailMessage>(x =>
+                    x.From != null
+                    && x.From.Address == expected
+                    && x.To.Count == 1
+                    && x.To[0].Address == _recipientAddress
+                    && x.Subject.EndsWith(_subject)
+                    && x.AlternateViews.Count == 2
+                    && x.AlternateViews[0].ContentType.ToString() == "text/html; charset=utf-8"
+                    && x.AlternateViews[1].ContentType.ToString() == "text/plain; charset=utf-8"
+                    && StreamUtils.StreamToString(x.AlternateViews[0].ContentStream) ==
+                    _bodyHtml + _config.HtmlSignature
+                    && StreamUtils.StreamToString(x.AlternateViews[1].ContentStream) ==
+                    _body + _config.PlainTextSignature
+                ),
+                Arg.Any<CancellationToken>()
+            );
     }
 
     [Theory]

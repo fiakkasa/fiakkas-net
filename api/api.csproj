@@ -16,8 +16,8 @@
         <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="9.0.0"/>
         <PackageReference Include="GraphHealthChecks" Version="4.0.1"/>
         <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.3.0"/>
-        <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.8"/>
-        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="15.1.8"/>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.10"/>
+        <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="15.1.10"/>
     </ItemGroup>
 
     <ItemGroup>
