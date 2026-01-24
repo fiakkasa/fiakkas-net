@@ -28,13 +28,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sutWrongType.Get().ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -47,13 +46,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sut.Get().ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -66,13 +64,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sut.Get().ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get data for type {Type}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get data for type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -102,13 +99,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sutWrongType.Get(x => x.Id).ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -121,13 +117,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sut.Get(x => x.Id).ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -140,13 +135,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sut.Get(x => x.Id).ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get data for type ITestEntity and mapped type Guid"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -176,13 +170,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sutWrongType.Get(_ => true, x => x.Id).ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -195,13 +188,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sut.Get(_ => true, x => x.Id).ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -214,13 +206,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = _sut.Get(_ => true, x => x.Id).ToArray();
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get data for type ITestEntity and mapped type Guid"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -251,13 +242,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.Find(Guid.NewGuid(), CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -269,13 +259,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.Find(Guid.NewGuid(), CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -284,16 +273,16 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.Find(Guid.NewGuid(), CancellationToken.None);
+        var id = Guid.NewGuid();
+        var result = await _sut.Find(id, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get item with id {Id} for type {Type}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == $"Failed to get item with id {id} for type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -323,13 +312,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.Find(_ => true, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -341,13 +329,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.Find(_ => true, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -359,13 +346,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.Find(_ => true, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get item for type {Type}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get item for type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -395,13 +381,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.Find(Guid.NewGuid(), x => x, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -413,13 +398,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.Find(Guid.NewGuid(), x => x, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -428,16 +412,16 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
     {
         _optionsSnapshot.Value.Returns(_ => throw new("Splash!"));
 
-        var result = await _sut.Find(Guid.NewGuid(), x => x, CancellationToken.None);
+        var id = Guid.NewGuid();
+        var result = await _sut.Find(id, x => x, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get item with id {Id} for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == $"Failed to get item with id {id} for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -467,13 +451,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.Find(_ => true, x => x, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -485,13 +468,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.Find(_ => true, x => x, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -503,13 +485,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.Find(_ => true, x => x, CancellationToken.None);
 
         Assert.Null(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get item for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get item for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
     }
 
@@ -539,13 +520,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.GetBatch([], x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -558,13 +538,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetBatch([], x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -577,13 +556,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetBatch([], x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get batch data for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -614,13 +592,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.GetBatch(_ => true, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -633,13 +610,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetBatch(_ => true, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -652,13 +628,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetBatch(_ => true, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get batch data for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -689,13 +664,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.GetBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -708,13 +682,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -727,13 +700,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get batch data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get batch data for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -764,13 +736,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -783,13 +754,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -802,13 +772,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetGroupedBatch([], x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get grouped batch data for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -839,13 +808,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sutWrongType.GetGroupedBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _loggerWrongType.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Type {Type} is not supported"
-            }
+        _loggerWrongType.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Type TestEntity is not supported"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -858,13 +826,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetGroupedBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Warning,
-                OriginalMessage: "Resolver for type {Type} could not materialize collection"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Warning,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Resolver for type ITestEntity could not materialize collection"),
+            null,
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }
@@ -877,13 +844,12 @@ public class AbstractReadOnlyInMemoryDataRepositoryTests
         var result = await _sut.GetGroupedBatch(_ => true, x => x.Id, x => x, CancellationToken.None);
 
         Assert.Empty(result);
-        Assert.Single(
-            _logger.GetLogsResultsCollection(),
-            x => x is
-            {
-                LogLevel: LogLevel.Error,
-                OriginalMessage: "Failed to get grouped batch data for type {Type} and mapped type {MappedType}"
-            }
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Is<object>(x => x.ToString() == "Failed to get grouped batch data for type ITestEntity and mapped type ITestEntity"),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
         );
         result.MatchSnapshot();
     }

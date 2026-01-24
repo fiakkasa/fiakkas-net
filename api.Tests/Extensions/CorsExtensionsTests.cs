@@ -22,22 +22,27 @@ public class CorsExtensionsTests
     [Fact]
     public async Task UseApiCors_Should_Register_And_Enable_Cors()
     {
-        var builder = new WebHostBuilder()
-            .ConfigureServices(services =>
-                services
-                    .AddRouting()
-                    .AddCors()
+        using var host = await new HostBuilder()
+            .ConfigureWebHost(webBuilder =>
+                webBuilder
+                    .UseTestServer()
+                    .ConfigureServices((_, services) =>
+                        services
+                            .AddRouting()
+                            .AddCors()
+                    )
+                    .Configure(app =>
+                    {
+                        app.UseRouting();
+                        app.UseApiCors();
+                        app.UseEndpoints(endpoints =>
+                            endpoints.Map("/hello", () => "Hello!").RequireCors()
+                        );
+                    })
             )
-            .Configure(app =>
-            {
-                app.UseRouting();
-                app.UseApiCors();
-                app.UseEndpoints(endpoints =>
-                    endpoints.Map("/hello", () => "Hello!").RequireCors()
-                );
-            });
+            .StartAsync();
 
-        using var server = new TestServer(builder);
+        var server = host.GetTestServer();
         var client = server.CreateClient();
         var service = server.Services.GetService<ICorsService>();
 

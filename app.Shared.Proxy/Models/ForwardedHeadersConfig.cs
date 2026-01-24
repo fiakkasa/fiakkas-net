@@ -1,4 +1,4 @@
-using IPNetwork = Microsoft.AspNetCore.HttpOverrides.IPNetwork;
+using IPNetwork = System.Net.IPNetwork;
 
 namespace app.Shared.Proxy.Models;
 
@@ -68,7 +68,7 @@ public record ForwardedHeadersConfig
     /// <summary>
     ///     Limits the number of entries in the headers that will be processed. The default value is 1.
     ///     Set to null to disable the limit, but this should only be done if
-    ///     KnownProxies or KnownNetworks are configured.
+    ///     KnownProxies or KnownIPNetworks are configured.
     /// </summary>
     public int? ForwardLimit { get; set; } = 1;
 
@@ -80,7 +80,7 @@ public record ForwardedHeadersConfig
     /// <summary>
     ///     Address ranges of known proxies to accept forwarded headers from.
     /// </summary>
-    public IList<IPNetwork> KnownNetworks { get; } = [new(IPAddress.Loopback, 8)];
+    public IList<IPNetwork> KnownIPNetworks { get; } = [new(IPAddress.Loopback, 8)];
 
     /// <summary>
     ///     The allowed values from x-forwarded-host. If the list is empty then all hosts are allowed.

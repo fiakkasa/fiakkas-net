@@ -1,5 +1,5 @@
 @using ui.Models
-@inherits TestContext
+@inherits BunitContext
 
 @code {
 
@@ -26,7 +26,7 @@
 
         var result = cut.Find("div.full-screen-loader");
 
-        expectedRenderFragment.MarkupMatches(result.ToMarkupElementOnly());
+        expectedRenderFragment.MarkupMatches(result.OuterHtml);
     }
 
     [Fact]
@@ -38,7 +38,7 @@
 
         var result = cut.Find("div.full-screen-loader");
 
-        expectedRenderFragment.MarkupMatches(result.ToMarkupElementOnly());
+        expectedRenderFragment.MarkupMatches(result.OuterHtml);
     }
 
 }

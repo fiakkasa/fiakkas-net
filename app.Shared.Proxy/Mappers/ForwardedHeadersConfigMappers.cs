@@ -28,10 +28,10 @@ public static class ForwardedHeadersConfigMappers
             model.KnownProxies.Add(item);
         }
 
-        model.KnownNetworks.Clear();
-        foreach (var item in config.KnownNetworks)
+        model.KnownIPNetworks.Clear();
+        foreach (var item in config.KnownIPNetworks)
         {
-            model.KnownNetworks.Add(item);
+            model.KnownIPNetworks.Add(item);
         }
 
         return model;

@@ -1,6 +1,6 @@
 ﻿<h1 class="page-header sticky-top d-flex gap-2 justify-content-start align-items-center bg-body"><span>Portfolio</span>
 
-        <button type="button" class="btn btn-outline-primary rounded-circle p-0 px-1" title="Refresh" disabled blazor:onclick="2"><i class="bi bi-arrow-clockwise"></i></button></h1>
+        <button type="button" class="btn btn-outline-primary rounded-circle p-0 px-1" title="Refresh" blazor:onclick="2"><i class="bi bi-arrow-clockwise"></i></button></h1>
 
 <div class="d-flex flex-column gap-2"><div class="year-section card"><div class="card-body"><h3 class="year-title card-title">2024</h3>
                     <div class="items-of-year row gap-2"><div class="category-section col-12 col-xl"><h4 class="category-title card-title">Category-Title-0</h4>
@@ -97,8 +97,4 @@
                                 <div class="items-of-category striped-container d-flex flex-column gap-1"><div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1"><div><a href="/portfolio-item-47" target="_blank" class="text-decoration-none">Portfolio-Item-Title-47</a></div><div class="small d-flex gap-2"><i class="bi bi-person-rolodex flex-shrink-0"></i><a href="/customer-47" target="_blank" class="text-decoration-none">Customer-Title-47</a></div><div class="small d-flex gap-2 fst-italic fw-light"><i class="bi bi-tools flex-shrink-0"></i>
                                                     <span>Information-Technology-Category-Title-47, Software-Development-Category-Title-47, Unknown-Technology-Category-Title-47</span></div></div></div></div><div class="category-section col-12 col-xl"><h4 class="category-title card-title">Category-Title-1</h4>
                                 <div class="items-of-category striped-container d-flex flex-column gap-1"><div class="category-item striped-item p-2 px-3 d-flex flex-column gap-1"><div><a href="/portfolio-item-49" target="_blank" class="text-decoration-none">Portfolio-Item-Title-49</a></div><div class="small d-flex gap-2"><i class="bi bi-person-rolodex flex-shrink-0"></i><a href="/customer-49" target="_blank" class="text-decoration-none">Customer-Title-49</a></div><div class="small d-flex gap-2 fst-italic fw-light"><i class="bi bi-tools flex-shrink-0"></i>
-                                                    <span>Information-Technology-Category-Title-49, Software-Development-Category-Title-49, Unknown-Technology-Category-Title-49</span></div></div></div></div></div></div></div><div class="card"><div class="card-body"><div class="skeleton-loader placeholder-glow py-2 lead"><span class="placeholder col-7"></span>
-    <span class="placeholder col-4"></span>
-    <span class="placeholder col-4"></span>
-    <span class="placeholder col-6"></span>
-    <span class="placeholder col-8"></span></div></div></div></div>
+                                                    <span>Information-Technology-Category-Title-49, Software-Development-Category-Title-49, Unknown-Technology-Category-Title-49</span></div></div></div></div></div></div></div></div>

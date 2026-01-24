@@ -246,7 +246,7 @@ For more information visit: https://learn.microsoft.com/en-us/aspnet/core/host-a
     "ForwardedHeaders": "XForwardedFor, XForwardedProto",
     "ForwardLimit": 1,
     "KnownProxies": ["::1"],
-    "KnownNetworks": [
+    "KnownIPNetworks": [
       {
         "Address": "127.0.0.0",
         "PrefixLength": 8

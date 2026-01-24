@@ -25,20 +25,25 @@ public class GraphQLExtensionsTests
     public async Task AddApiGraphQLServer_And_MapApiGraphQL_In_Dev_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
         const bool isDev = true;
-        var builder = new WebHostBuilder()
-            .ConfigureServices(services =>
-                services
-                    .AddRouting()
-                    .AddApiGraphQLServer(isDev)
-                    .AddTypeExtension(typeof(TestQueries))
+        using var host = await new HostBuilder()
+            .ConfigureWebHost(webBuilder =>
+                webBuilder
+                    .UseTestServer()
+                    .ConfigureServices((_, services) =>
+                        services
+                            .AddRouting()
+                            .AddApiGraphQLServer(isDev)
+                            .AddTypeExtension(typeof(TestQueries))
+                    )
+                    .Configure(app =>
+                        app
+                            .UseRouting()
+                            .UseEndpoints(endpoints => endpoints.MapApiGraphQL(isDev))
+                    )
             )
-            .Configure(app =>
-                app
-                    .UseRouting()
-                    .UseEndpoints(endpoints => endpoints.MapApiGraphQL(isDev))
-            );
+            .StartAsync();
 
-        using var server = new TestServer(builder);
+        var server = host.GetTestServer();
         var graph = await server.Services.GetRequestExecutorAsync();
         var client = server.CreateClient();
 
@@ -75,20 +80,25 @@ public class GraphQLExtensionsTests
         AddApiGraphQLServer_And_MapApiGraphQL_In_Release_Mode_Should_Add_GraphQL_Server_And_Map_Endpoints()
     {
         const bool isDev = false;
-        var builder = new WebHostBuilder()
-            .ConfigureServices(services =>
-                services
-                    .AddRouting()
-                    .AddApiGraphQLServer(isDev)
-                    .AddTypeExtension(typeof(TestQueries))
+        using var host = await new HostBuilder()
+            .ConfigureWebHost(webBuilder =>
+                webBuilder
+                    .UseTestServer()
+                    .ConfigureServices((_, services) =>
+                        services
+                            .AddRouting()
+                            .AddApiGraphQLServer(isDev)
+                            .AddTypeExtension(typeof(TestQueries))
+                    )
+                    .Configure(app =>
+                        app
+                            .UseRouting()
+                            .UseEndpoints(endpoints => endpoints.MapApiGraphQL(isDev))
+                    )
             )
-            .Configure(app =>
-                app
-                    .UseRouting()
-                    .UseEndpoints(endpoints => endpoints.MapApiGraphQL(isDev))
-            );
+            .StartAsync();
 
-        using var server = new TestServer(builder);
+        var server = host.GetTestServer();
         var graph = await server.Services.GetRequestExecutorAsync();
         var client = server.CreateClient();
 

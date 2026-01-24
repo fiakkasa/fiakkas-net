@@ -1,7 +1,7 @@
 @using Polly
 @using Polly.Retry
 @using ui.Models
-@inherits TestContext
+@inherits BunitContext
 
 @code {
     private static readonly DateTimeOffset _date = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
@@ -182,7 +182,7 @@
 
         GetMethodCall().Returns(Task.FromResult(_apiResult));
 
-        var firstRenderCut = RenderComponent<Portfolio>();
+        var firstRenderCut = Render<Portfolio>();
         var firstRenderModel = firstRenderCut.Instance.Model;
 
         _cache
@@ -198,9 +198,14 @@
 
         _apiResult.Data.ReturnsNull();
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
+        var refreshButton = cut.Find("button");
 
-        cut.WaitForAssertion(() => cut.Find(".year-section"));
+        cut.WaitForAssertion(() => 
+        {
+            Assert.NotEmpty(cut.FindAll(".year-section.card"));
+            Assert.Null(refreshButton.GetAttribute("disabled"));
+        });
 
         cut.Markup.MatchSnapshot();
 
@@ -225,7 +230,8 @@
                 taskSource.Task
             );
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
+        var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
         {
@@ -246,9 +252,10 @@
 
         cut.WaitForAssertion(() =>
         {
-            cut.Find(".year-section");
+            Assert.NotEmpty(cut.FindAll(".year-section.card"));
             Assert.False(cut.Instance.InitialLoading);
             Assert.False(cut.Instance.PartialLoading);
+            Assert.Null(refreshButton.GetAttribute("disabled"));
         });
 
         cut.Markup.MatchSnapshot();
@@ -275,7 +282,8 @@
                 operations.Skip(1).ToArray()
             );
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
+        var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
         {
@@ -293,9 +301,10 @@
 
         cut.WaitForAssertion(() =>
         {
-            cut.Find(".year-section");
+            Assert.NotEmpty(cut.FindAll(".year-section.card"));
             Assert.False(cut.Instance.InitialLoading);
             Assert.False(cut.Instance.PartialLoading);
+            Assert.Null(refreshButton.GetAttribute("disabled"));
         });
 
         Assert.True(cut.Instance.Model.Count <= 200);
@@ -328,7 +337,8 @@
                 operations.Skip(1).ToArray()
             );
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
+        var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
         {
@@ -346,9 +356,10 @@
 
         cut.WaitForAssertion(() =>
         {
-            cut.Find(".year-section");
+            Assert.NotEmpty(cut.FindAll(".year-section.card"));
             Assert.False(cut.Instance.InitialLoading);
             Assert.False(cut.Instance.PartialLoading);
+            Assert.Null(refreshButton.GetAttribute("disabled"));
         });
 
         Assert.True(cut.Instance.Model.Count <= 100);
@@ -362,7 +373,7 @@
         var taskSource = new TaskCompletionSource<IOperationResult<IGetPortfolioItemsResult>>();
         GetMethodCall().Returns(taskSource.Task);
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
 
         cut.WaitForAssertion(() =>
         {
@@ -394,7 +405,7 @@
                 taskSource.Task
             );
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
 
         cut.WaitForAssertion(() =>
         {
@@ -402,6 +413,8 @@
             Assert.True(cut.Instance.InitialLoading);
             Assert.True(cut.Instance.PartialLoading);
         });
+
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll(".year-section.card")));
 
         taskSource.SetResult(apiResultSecond);
 
@@ -432,7 +445,7 @@
                 taskSource.Task
             );
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
         var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
@@ -483,7 +496,7 @@
                 taskSource.Task
             );
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
         var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
@@ -518,7 +531,7 @@
     {
         GetMethodCall().Returns(Task.FromResult(_apiResult));
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
 
         cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
 
@@ -531,7 +544,7 @@
         _apiResult.Data.Returns(new GetPortfolioItemsResult(null));
         GetMethodCall().Returns(Task.FromResult(_apiResult));
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
 
         cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
 
@@ -552,7 +565,7 @@
         );
         GetMethodCall().Returns(Task.FromResult(_apiResult));
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
 
         cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
 
@@ -564,7 +577,7 @@
     {
         GetMethodCall().ThrowsAsync(new Exception("Splash!"));
 
-        var cut = RenderComponent<Portfolio>();
+        var cut = Render<Portfolio>();
 
         cut.WaitForAssertion(() => cut.FindComponent<GenericError>());
 
