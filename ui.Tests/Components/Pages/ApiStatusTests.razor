@@ -2,7 +2,7 @@
 @using Polly.Retry
 @using System.Globalization
 @using ui.Models
-@inherits TestContext
+@inherits BunitContext
 
 @code {
     private static readonly DateTimeOffset _date = new(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
@@ -84,7 +84,7 @@
         _apiResult.Data.Returns(data);
         GetMethodCall().Returns(taskSource.Task);
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
 
@@ -103,7 +103,7 @@
         _apiResult.Data.Returns(data);
         GetMethodCall().Returns(taskSource.Task);
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
 
@@ -120,7 +120,7 @@
         var taskSource = new TaskCompletionSource<IOperationResult<IGetSystemStatusResult>>();
         GetMethodCall().Returns(taskSource.Task);
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<Skeleton>());
 
@@ -139,7 +139,7 @@
                 taskSource.Task
             );
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
         var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
@@ -177,7 +177,7 @@
                 taskSourceAfter.Task
             );
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
         var refreshButton = cut.Find("button");
 
         cut.WaitForAssertion(() =>
@@ -212,7 +212,7 @@
     {
         GetMethodCall().Returns(Task.FromResult(_apiResult));
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<GenericNoData>());
 
@@ -224,7 +224,7 @@
     {
         GetMethodCall().ThrowsAsync(new Exception("Splash!"));
 
-        var cut = RenderComponent<ApiStatus>();
+        var cut = Render<ApiStatus>();
 
         cut.WaitForAssertion(() => cut.FindComponent<GenericError>());
 

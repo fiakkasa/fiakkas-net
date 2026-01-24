@@ -163,13 +163,17 @@ public class EmailServiceTests
         var service = GetEmailService(_config);
 
         var result = await service.Send(_senderAddress, _recipientAddress, _subject, _body);
-        var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
         Assert.True(result.IsT2);
         Assert.IsType<InvalidOperationException>(result.AsT2);
         Assert.Equal(nameof(EmailErrorCodeType.FailedToSend), result.AsT2.Message);
-        Assert.Single(errorLogs);
-        Assert.Equal("Splash!", errorLogs[0].ExceptionMessage);
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Any<object>(),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
+        );
     }
 
     [Fact]
@@ -189,13 +193,17 @@ public class EmailServiceTests
         _optionsSnapshot.Value.Throws(new Exception("Splash!"));
 
         var result = await service.SendFrom(_senderAddress, _subject, _body);
-        var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
         Assert.True(result.IsT2);
         Assert.IsType<InvalidOperationException>(result.AsT2);
         Assert.Equal(nameof(EmailErrorCodeType.FailedToSend), result.AsT2.Message);
-        Assert.Single(errorLogs);
-        Assert.Equal("Splash!", errorLogs[0].ExceptionMessage);
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Any<object>(),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
+        );
     }
 
     [Fact]
@@ -215,12 +223,16 @@ public class EmailServiceTests
         _optionsSnapshot.Value.Throws(new Exception("Splash!"));
 
         var result = await service.SendTo(_recipientAddress, _subject, _body);
-        var errorLogs = _logger.GetLogsResults(LogLevel.Error);
 
         Assert.True(result.IsT2);
         Assert.IsType<InvalidOperationException>(result.AsT2);
         Assert.Equal(nameof(EmailErrorCodeType.FailedToSend), result.AsT2.Message);
-        Assert.Single(errorLogs);
-        Assert.Equal("Splash!", errorLogs[0].ExceptionMessage);
+        _logger.Received(1).Log(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Any<object>(),
+            Arg.Is<Exception>(x => x.Message == "Splash!"),
+            Arg.Any<Func<object, Exception?, string>>()
+        );
     }
 }

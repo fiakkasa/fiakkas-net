@@ -23,7 +23,7 @@ public class ProgramTests
     "KnownProxies": [
       "::1"
     ],
-    "KnownNetworks": [
+    "KnownIPNetworks": [
       {
         "Address": "127.0.0.0",
         "PrefixLength": 8

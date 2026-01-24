@@ -1,7 +1,7 @@
 @using ui.Consts
 @using ui.Enums
 @using ui.Models
-@inherits TestContext
+@inherits BunitContext
 
 @code {
     private readonly IEmailService _emailService = Substitute.For<IEmailService>();
@@ -36,7 +36,7 @@
     [InlineData("12345", 3)]
     public void Contact_Should_Refresh_Captcha(string input, int numberOfClicks)
     {
-        var cut = RenderComponent<Contact>();
+        var cut = Render<Contact>();
 
         cut.Find("""input[data-kind="verification"]""").Input(input);
 
@@ -67,7 +67,7 @@
             "How about adding a few words!?",
             "How about adding the verification code!?"
         ];
-        var cut = RenderComponent<Contact>();
+        var cut = Render<Contact>();
 
         cut.Find("""button[type="submit"]""").Click();
 
@@ -115,7 +115,7 @@
             "Unusable content",
             "Error"
         ];
-        var cut = RenderComponent<Contact>();
+        var cut = Render<Contact>();
 
         cut.Find("""input[data-kind="email"]""").Input("user@email.com");
         cut.Find("""input[data-kind="subject"]""").Input("Subject <meta />");
@@ -161,7 +161,7 @@
         [
             "Failed to send"
         ];
-        var cut = RenderComponent<Contact>();
+        var cut = Render<Contact>();
 
         cut.Find("""input[data-kind="email"]""").Input("user@email.com");
         cut.Find("""input[data-kind="subject"]""").Input("Subject");
@@ -205,7 +205,7 @@
         [
             "Whoops, something went wrong..."
         ];
-        var cut = RenderComponent<Contact>();
+        var cut = Render<Contact>();
 
         cut.Find("""input[data-kind="email"]""").Input("user@email.com");
         cut.Find("""input[data-kind="subject"]""").Input("Subject");
@@ -246,7 +246,7 @@
             )
             .Returns(true);
 
-        var cut = RenderComponent<Contact>();
+        var cut = Render<Contact>();
 
         cut.Find("""input[data-kind="email"]""").Input("user@email.com");
         cut.Find("""input[data-kind="subject"]""").Input("Subject");
