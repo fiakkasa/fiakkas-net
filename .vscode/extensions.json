@@ -5,7 +5,7 @@
         "ms-dotnettools.vscodeintellicode-csharp",
         "josefpihrt-vscode.roslynator",
         "sonarsource.sonarlint-vscode",
-        "pflannery.vscode-versionlens",
+        "legalfina.npm-version-lens",
         "eamodio.gitlens",
         "GraphQL.vscode-graphql",
         "humao.rest-client"
